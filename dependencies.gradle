@@ -1,0 +1,91 @@
+ext{
+    // kotlin_version have to be declared in root build.gradle
+
+    // Android
+    minSdkVersion               = 21
+    targetSdkVersion            = 29
+    compileSdkVersion           = 29
+    buildToolsVersion           = "29.0.0"
+
+    jvm_target                  = "1.8"
+
+    /**  Class path  **/
+    classPathKotlin             = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+    /**  Guava conflict  **/
+    guavaConflict               = 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+
+    /**  Kotlin  **/
+    kotlin                      = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    /**  KotlinX co-routine  **/
+    kotlinCoroutineAndroid      = 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
+    kotlinCoroutineCore         = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5'
+
+    /**  Android Material  */
+    material                    = 'com.google.android.material:material:1.2.0-alpha06'
+    /**  Android navigation  **/
+    androidNavFragment          = "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    androidNavUI                = "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    /**  AndroidX  **/
+    androidAppCompat            = 'androidx.appcompat:appcompat:1.1.0'
+    androidCore                 = 'androidx.core:core-ktx:1.2.0'
+    androidAnnotation           = 'androidx.annotation:annotation:1.1.0'
+    androidConstraintLayout     = 'androidx.constraintlayout:constraintlayout:1.1.3'
+    androidLifecycleExtension   = 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    androidLifecycleViewModel   = 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    androidLegacy               = 'androidx.legacy:legacy-support-v4:1.0.0'
+    androidCamera               = "androidx.camera:camera-camera2:$camerax_version"
+    androidCameraLifecycle      = "androidx.camera:camera-lifecycle:$camerax_version"
+    androidCameraView           = "androidx.camera:camera-view:1.0.0-alpha10"
+    androidDynamicAnimation     = "androidx.dynamicanimation:dynamicanimation:1.0.0"
+
+    /**  Play services  **/
+    playServicesPlaces          = 'com.google.android.gms:play-services-places:17.0.0'
+    playServicesVision          = 'com.google.android.gms:play-services-vision:20.0.0'
+
+    /**  Glide  **/
+    glide                       = 'com.github.bumptech.glide:glide:4.11.0'
+    glideOkhttp                 = 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
+    glideKapt                   = 'com.github.bumptech.glide:compiler:4.11.0'
+
+    /**  Gson parser  **/
+    gson                        = "com.google.code.gson:gson:2.8.6"
+
+    /**  Swipe layout  **/
+    swipeLayout                 = 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+
+    /**  Firebase  **/
+    firebaseAuthent             = 'com.google.firebase:firebase-auth:19.3.0'
+    firebaseFirestore           = 'com.google.firebase:firebase-firestore:21.4.2'
+    firebaseStorage             = 'com.google.firebase:firebase-storage:19.1.1'
+    firebaseMessaging           = 'com.google.firebase:firebase-messaging:20.1.5'
+    firebaseConfig              = 'com.google.firebase:firebase-config:19.1.3'
+    firebaseAnalytics           = 'com.google.firebase:firebase-analytics:17.2.2'
+
+    /**  ReactiveX  **/
+    rxAndroid                   = 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    rxKotlin                    = 'io.reactivex.rxjava2:rxkotlin:2.4.0'
+    rxNetwork                   = 'com.github.pwittchen:reactivenetwork-rx2:3.0.8'
+
+    /**  Dependency injection  **/
+    koin                        = "org.koin:koin-android-viewmodel:1.0.1"
+
+    /**  carousel view  **/
+    carousel                    = "com.synnapps:carouselview:0.1.4"
+
+    /**
+     * Network & Parser
+     *
+     * Moshi converter use moshi-kotlin-codegen with kapt. Check version match of moshi in
+     * retrofit's pom.xml ( https://github.com/square/retrofit/blob/master/pom.xml)
+     */
+
+    retrofit                    = "com.squareup.retrofit2:retrofit:2.8.1"
+    retrofitMoshiConverter      = "com.squareup.retrofit2:converter-moshi:2.8.1"
+    retrofitRxAdapter           = "com.squareup.retrofit2:adapter-rxjava2:2.8.1"
+    retrofitOkhttp              = "com.squareup.okhttp3:okhttp:4.5.0"
+    retrofitLoggingInterceptors = "com.squareup.okhttp3:logging-interceptor:4.5.0"
+
+}

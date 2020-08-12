@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- start xml_defaults -->
+<defaultsMap>
+    <entry>
+        <key>privacyPolicy</key>
+        <value>gs://legal-zipline-prod-269909/Privacy_Policy.pdf</value>
+    </entry>
+    <entry>
+        <key>termsAndConditions</key>
+        <value>gs://legal-zipline-prod-269909/Terms_And_Conditions.pdf</value>
+    </entry>
+</defaultsMap>

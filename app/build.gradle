@@ -1,0 +1,136 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        multiDexEnabled true
+        applicationId "com.glass.mouher"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode versCode as Integer
+        versionName versName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "MOBILE_GATEWAY_URL", '"https://mobile.zipline-dev.geodis.us"'
+            minifyEnabled false
+            shrinkResources false
+            debuggable true
+        }
+        release {
+            buildConfigField "String", "MOBILE_GATEWAY_URL", '"https://mobile.zipline-dev.geodis.us"'
+            minifyEnabled false
+            shrinkResources false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    kotlinOptions {
+        jvmTarget = rootProject.ext.jvm_target
+    }
+
+    lintOptions {
+        abortOnError true
+        ignoreWarnings false
+        warningsAsErrors true
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+    compileOptions {
+        sourceCompatibility = rootProject.ext.java_version
+        targetCompatibility = rootProject.ext.java_version
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Kotlin
+    implementation rootProject.ext.kotlin
+
+    implementation material
+    implementation guavaConflict
+
+    // AndroidX
+    implementation androidAppCompat
+    implementation androidCore
+    implementation androidAnnotation
+    implementation androidConstraintLayout
+    implementation androidLifecycleExtension
+    implementation androidLifecycleViewModel
+    implementation androidLegacy
+    implementation androidCamera
+    implementation androidCameraLifecycle
+    implementation androidCameraView
+    implementation androidDynamicAnimation
+
+    // Android navigation
+    implementation androidNavFragment
+    implementation androidNavUI
+
+    implementation kotlinCoroutineCore
+
+    // Glide: Image downloader + cache
+    implementation glide
+    implementation glideOkhttp
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
+    kapt glideKapt
+
+    // Google Play Servies
+    implementation playServicesPlaces
+    implementation playServicesVision
+
+    // Swipe Layout
+    implementation swipeLayout
+
+    // ReactiveX
+    implementation rxAndroid
+    implementation rxKotlin
+    implementation rxNetwork
+
+    // Dependency injection
+    implementation koin
+
+    implementation carousel
+
+    // Retrofit
+    implementation retrofit
+    implementation retrofitRxAdapter
+    implementation retrofitOkhttp
+    implementation retrofitLoggingInterceptors
+
+    // Moshi
+    //implementation moshi
+    implementation retrofitMoshiConverter
+
+    // Firebase
+    implementation firebaseAuthent
+    implementation firebaseFirestore
+    implementation firebaseStorage
+    implementation firebaseMessaging
+    implementation firebaseConfig
+    implementation firebaseAnalytics
+
+    implementation project(':data')
+    implementation project(':domain')
+
+}
