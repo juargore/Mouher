@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.home.stores.StoreListItemViewModel" />
+            type="com.glass.mouher.ui.mall.home.stores.StoreListItemViewModel" />
     </data>
     <androidx.cardview.widget.CardView android:id="@+id/cardHomeZones"
         android:layout_width="match_parent"

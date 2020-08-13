@@ -1,15 +1,22 @@
 package com.glass.mouher.ui.mall.home.stores
 
 import android.content.Context
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
+import com.glass.mouher.ui.common.binder.ClickHandler
+import com.glass.mouher.ui.menu.AMenuViewModel
+import com.glass.mouher.ui.menu.MenuItemViewModel
 
 class StoresViewModel(
     private val context: Context
-): BaseViewModel() {
+): BaseViewModel(), ClickHandler<AStoresViewModel> {
+
+    @Bindable
+    var openStore: Unit? = null
 
     @Bindable
     var zoneName: String? = null
@@ -51,5 +58,11 @@ class StoresViewModel(
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
         onCleared()
+    }
+
+    override fun onClick(viewModel: AStoresViewModel) {
+        if(viewModel is StoreListItemViewModel){
+            notifyPropertyChanged(BR.openStore)
+        }
     }
 }

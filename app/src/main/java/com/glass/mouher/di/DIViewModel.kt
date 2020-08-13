@@ -7,6 +7,8 @@ import com.glass.mouher.ui.history.HistoryViewModel
 import com.glass.mouher.ui.mall.home.stores.StoresViewModel
 import com.glass.mouher.ui.menu.MenuViewModel
 import com.glass.mouher.ui.profile.UserProfileViewModel
+import com.glass.mouher.ui.store.MainViewModelStore
+import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -15,6 +17,13 @@ val DIViewModel = module{
 
     viewModel {
         MainViewModel(
+            tabBarUseCase = get(UseCases.TAB_BAR.name),
+            context = androidContext()
+        )
+    }
+
+    viewModel {
+        MainViewModelStore(
             tabBarUseCase = get(UseCases.TAB_BAR.name),
             context = androidContext()
         )
@@ -41,6 +50,10 @@ val DIViewModel = module{
     viewModel { HistoryViewModel(
         context = androidContext(),
         orderUseCase = get(UseCases.ORDERS.name))
+    }
+
+    viewModel { HomeStoreViewModel(
+        context = androidContext())
     }
 }
 

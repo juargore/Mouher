@@ -13,8 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.cart.CartActivity"></activity>
-        <activity android:name=".ui.store.MainActivityStore" />
+
+        <activity android:name=".ui.registration.signup.SignUpActivity"></activity>
+        <activity android:name=".ui.registration.signin.SignInActivity" />
+        <activity android:name=".ui.registration.forgot.ForgotPasswordActivity" />
+        <activity android:name=".ui.cart.CartActivity" />
+
+        <activity android:name=".ui.store.MainActivityStore" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.mall.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,9 +61,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCpV2qT4FUhJewpuM1ryi8GgAge3I_H0ow" />
     </application>
 
 </manifest>

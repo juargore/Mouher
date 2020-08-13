@@ -13,8 +13,9 @@ interface IUITabBarUseCase {
     enum class Tabs {
         PROFILE,
         HISTORY,
-        CATEGORIES,
-        USER_LIST
+        HOME,
+        HOME_STORE,
+        MENU
     }
 
     /**

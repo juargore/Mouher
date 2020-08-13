@@ -18,21 +18,20 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private var navHostFragmentsIds: Map<Tabs, Int> = mapOf(
         Tabs.PROFILE to R.id.profileSection,
         Tabs.HISTORY to R.id.historySection,
-        Tabs.CATEGORIES to R.id.categoriesSection,
-        Tabs.USER_LIST to R.id.userListSection
+        Tabs.HOME to R.id.categoriesSection,
+        Tabs.MENU to R.id.menuSection
     )
 
     private val menuItemIdToTabs = mapOf(
         R.id.mainMenuProfile to Tabs.PROFILE,
         R.id.mainMenuHistory to Tabs.HISTORY,
-        R.id.mainMenuHome to Tabs.CATEGORIES,
-        R.id.mainMenuMenu to Tabs.USER_LIST
+        R.id.mainMenuHome to Tabs.HOME,
+        R.id.mainMenuMenu to Tabs.MENU
     )
 
     /**
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
      * @return the corresponding Tabs value.
      */
     private fun menuItemIdToTab(menuItemId: Int)
-            = menuItemIdToTabs[menuItemId] ?: Tabs.CATEGORIES
+            = menuItemIdToTabs[menuItemId] ?: Tabs.HOME
 
     /**
      * Get the menuItemId corresponding to Tabs value provided.
@@ -83,7 +82,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         binding.mainActivityBottomNavigation.setOnNavigationItemSelectedListener(this)
         viewModel.onResume(onPropertyChangedCallback)
-        viewModel.onTabSelected(Tabs.CATEGORIES)
+        viewModel.onTabSelected(Tabs.HOME)
     }
 
     override fun onResume() {

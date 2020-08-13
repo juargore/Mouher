@@ -1,5 +1,6 @@
 package com.glass.mouher.ui.mall.home.stores
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.glass.mouher.databinding.FragmentStoresBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.store.MainActivityStore
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class StoresFragment : Fragment() {
@@ -26,7 +28,9 @@ class StoresFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-
+                BR.openStore -> {
+                    startActivity(Intent(requireActivity(), MainActivityStore::class.java))
+                }
             }
         }
 

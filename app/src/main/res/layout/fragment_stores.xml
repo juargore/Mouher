@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.home.stores.StoresFragment" />
+            type="com.glass.mouher.ui.mall.home.stores.StoresFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.home.stores.StoresViewModel" />
+            type="com.glass.mouher.ui.mall.home.stores.StoresViewModel" />
     </data>
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,11 +25,13 @@
             android:text="@{ viewModel.zoneName }"
             tools:text="TextView" />
 
-        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvStores"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvStores"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="3dp"
             app:items="@{viewModel.items}"
+            app:clickHandler="@{ viewModel }"
             app:itemViewBinder="@{view.itemViewBinder}" />
     </LinearLayout>
 </layout>

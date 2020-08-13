@@ -19,7 +19,7 @@ class MainViewModel(
      * @property currentTab The currently selected section (tab)
      */
     @Bindable
-    var currentTab: Tabs = Tabs.CATEGORIES
+    var currentTab: Tabs = Tabs.HOME
         private set
 
 

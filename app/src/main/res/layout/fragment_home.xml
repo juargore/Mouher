@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.home.HomeFragment" />
+            type="com.glass.mouher.ui.mall.home.HomeFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.home.HomeViewModel" />
+            type="com.glass.mouher.ui.mall.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
