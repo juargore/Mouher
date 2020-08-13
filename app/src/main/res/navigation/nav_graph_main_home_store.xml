@@ -11,19 +11,22 @@
         android:name="com.glass.mouher.ui.store.home.HomeStoreFragment"
         android:label="MainMenuHomeStoreFragment"
         tools:layout="@layout/fragment_home_store">
-        <!--<action
-            android:id="@+id/action_home_to_zones"
-            app:destination="@id/productsListFragment" />-->
+        <action
+            android:id="@+id/action_store_to_products"
+            app:destination="@id/productsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
         android:name="com.glass.mouher.ui.store.home.products.ProductsListFragment"
         android:label="ProductsListFragment"
         tools:layout="@layout/fragment_products_list" >
-        <!--<argument
-            android:name="zoneId"
+        <argument
+            android:name="categoryId"
             app:argType="string"
-            android:defaultValue="none" />-->
+            android:defaultValue="none" />
+        <action
+            android:id="@+id/action_list_to_detail"
+            app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"

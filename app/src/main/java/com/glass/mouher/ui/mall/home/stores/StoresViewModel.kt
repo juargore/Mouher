@@ -56,6 +56,7 @@ class StoresViewModel(
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
+        items = listOf()
         removeOnPropertyChangedCallback(callback)
         onCleared()
     }

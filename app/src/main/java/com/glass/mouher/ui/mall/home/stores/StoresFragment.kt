@@ -29,7 +29,10 @@ class StoresFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.openStore -> {
-                    startActivity(Intent(requireActivity(), MainActivityStore::class.java))
+                    val intent = Intent(requireActivity(), MainActivityStore::class.java)
+                    activity?.overridePendingTransition(0,0)
+                    intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(intent)
                 }
             }
         }
@@ -43,8 +46,6 @@ class StoresFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
-        viewModel.initialize(args.zoneId)
-
         activity?.findViewById<ImageView>(R.id.icBackHome).apply {
             this?.visibility = View.VISIBLE
             this?.setOnClickListener {
@@ -52,12 +53,15 @@ class StoresFragment : Fragment() {
             }
         }
 
+        viewModel.initialize(args.zoneId)
         binding.rvStores.layoutManager = GridLayoutManager(requireContext(), 2)
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
+
         viewModel.onResume(onPropertyChangedCallback)
     }
 
