@@ -6,9 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.library.baseAdapters.BR
+import androidx.recyclerview.widget.GridLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentUserProfileBinding
+import com.glass.mouher.ui.common.binder.CompositeItemBinder
+import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.menu.AMenuViewModel
+import com.glass.mouher.ui.menu.MenuItemBinder
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserProfileFragment : Fragment() {
@@ -32,6 +38,8 @@ class UserProfileFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
+        binding.rvProfile.layoutManager = GridLayoutManager(context, 2)
+
         return binding.root
     }
 
@@ -43,5 +51,9 @@ class UserProfileFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
+    }
+
+    fun itemViewBinder(): ItemBinder<AUserProfileViewModel> {
+        return CompositeItemBinder(UserProfileItemBinder(BR.viewModel, R.layout.recycler_item_profile))
     }
 }

@@ -45,6 +45,7 @@ val DIViewModel = module{
     }
 
     viewModel { UserProfileViewModel(
+        context = androidContext(),
         userProfileUseCase = get(UseCases.USER_PROFILE.name))
     }
 
