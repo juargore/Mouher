@@ -13,7 +13,7 @@ class HomeStoreViewModel(
 ): BaseViewModel(), ClickHandler<AStoreCategoryViewModel> {
 
     @Bindable
-    val urlTop = "https://mockuptree.com/wp-content/uploads/edd/2019/07/free-shopping-center-banner-mockups.jpg"
+    val urlTop = "https://static.zara.net/photos//mkt/spots/ss20-north-welcome-back/subhome-xmedia-24//landscape_0.jpg?ts=1591378024003&imwidth=1366"
 
     @Bindable
     var onClick: Unit? = null
@@ -29,10 +29,10 @@ class HomeStoreViewModel(
         addOnPropertyChangedCallback(callback)
 
         val categoriesList = mutableListOf<Item>()
-        categoriesList.add(Item(name = "Burger King", imageUrl = "https://live.mrf.io/statics/i/ps/www.muycomputer.com/wp-content/uploads/2018/01/Burger-King.jpg?width=1200&enable=upscale"))
-        categoriesList.add(Item(name = "P.F. Chang's", imageUrl = "https://cdn.forbes.co/2020/07/PF-Chang-1280x720-1.jpg"))
-        categoriesList.add(Item(name = "Italiannis", imageUrl = "https://www.elsiglodetorreon.com.mx/m/i/2011/06/299801.jpeg"))
-        categoriesList.add(Item(name = "McDonalds", imageUrl = "https://d500.epimg.net/cincodias/imagenes/2015/01/30/franquicias/1422630557_593175_1422630724_noticia_normal.jpg"))
+        categoriesList.add(Item(name = "Zapatos", imageUrl = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"))
+        categoriesList.add(Item(name = "Ropa", imageUrl = "https://static.pullandbear.net/2/static2/itxwebstandard/images/home/2020-07/31/1400/Newin_Woman.jpg?ver=20200813112500"))
+        categoriesList.add(Item(name = "Bolsos", imageUrl = "https://static.zara.net/photos///2020/I/1/1/p/6660/510/040/3/w/1337/6660510040_9_1_1.jpg?ts=1597259304529"))
+        categoriesList.add(Item(name = "Accesorios", imageUrl = "https://static.zara.net/photos///rw-center/2020/I/0/1/p/1856/209/881/2/w/1337/1856209881_2_11_1.jpg?ts=1597061763237"))
 
         val viewModels = mutableListOf<AStoreCategoryViewModel>()
 

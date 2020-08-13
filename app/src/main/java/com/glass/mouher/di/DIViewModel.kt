@@ -9,6 +9,7 @@ import com.glass.mouher.ui.menu.MenuViewModel
 import com.glass.mouher.ui.profile.UserProfileViewModel
 import com.glass.mouher.ui.store.MainViewModelStore
 import com.glass.mouher.ui.store.home.HomeStoreViewModel
+import com.glass.mouher.ui.store.home.products.ProductsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -53,6 +54,10 @@ val DIViewModel = module{
     }
 
     viewModel { HomeStoreViewModel(
+        context = androidContext())
+    }
+
+    viewModel { ProductsViewModel(
         context = androidContext())
     }
 }

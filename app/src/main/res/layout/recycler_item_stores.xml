@@ -7,11 +7,11 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.mall.home.stores.StoreListItemViewModel" />
+            type="com.glass.mouher.ui.mall.home.stores.StoreItemViewModel" />
     </data>
     <androidx.cardview.widget.CardView android:id="@+id/cardHomeZones"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="177dp"
         android:layout_margin="4dp"
         app:cardCornerRadius="3dp"
         app:cardElevation="2dp">

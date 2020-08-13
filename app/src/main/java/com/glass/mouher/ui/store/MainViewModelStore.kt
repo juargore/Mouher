@@ -22,6 +22,9 @@ class MainViewModelStore(
         private set
 
 
+    @Bindable
+    var storeLogo = "https://logodownload.org/wp-content/uploads/2014/05/zara-logo-1.png"
+
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 

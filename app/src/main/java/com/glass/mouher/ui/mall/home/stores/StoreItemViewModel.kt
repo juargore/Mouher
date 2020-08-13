@@ -3,7 +3,7 @@ package com.glass.mouher.ui.mall.home.stores
 import android.content.Context
 import com.glass.domain.entities.Item
 
-class StoreListItemViewModel(
+class StoreItemViewModel(
     private val context: Context,
     private val menu: Item
 ): AStoresViewModel() {

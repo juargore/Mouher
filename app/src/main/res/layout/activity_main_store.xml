@@ -32,10 +32,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/errorRed">
+                android:background="#2D3D49">
 
                 <ImageView android:id="@+id/icBackHome"
                     android:layout_width="44dp"
@@ -48,25 +47,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_arrow_back" />
+
                 <ImageView android:id="@+id/imageView8"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
+                    android:tint="@color/white"
+                    app:fromUrl="@{ viewModel.storeLogo }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/imageView2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logo_mouher1" />
+                    tools:srcCompat="@drawable/logo_mouher1" />
+
                 <ImageView android:id="@+id/imageView2"
-                    android:layout_width="48dp"
+                    android:layout_width="45dp"
                     android:layout_height="0dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:paddingStart="8dp"
                     android:paddingEnd="12dp"
-                    android:tint="@color/colorAccent"
+                    android:tint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -155,8 +158,8 @@
                 android:background="@color/white"
                 android:elevation="10dp"
                 app:itemIconSize="24dp"
-                app:itemIconTint="@drawable/bottom_navigation_colors"
-                app:itemTextColor="@drawable/bottom_navigation_colors"
+                app:itemIconTint="@drawable/bottom_navigation_colors_store"
+                app:itemTextColor="@drawable/bottom_navigation_colors_store"
                 app:labelVisibilityMode="labeled"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:menu="@menu/main_menu_bottom"
