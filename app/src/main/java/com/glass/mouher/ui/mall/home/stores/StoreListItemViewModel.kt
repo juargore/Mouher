@@ -1,4 +1,4 @@
-package com.glass.mouher.ui.home.stores
+package com.glass.mouher.ui.mall.home.stores
 
 import android.content.Context
 import com.glass.domain.entities.Item

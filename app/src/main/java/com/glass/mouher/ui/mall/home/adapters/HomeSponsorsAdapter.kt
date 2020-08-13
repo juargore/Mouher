@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.glass.mouher.ui.home.adapters
+package com.glass.mouher.ui.mall.home.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

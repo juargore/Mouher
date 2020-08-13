@@ -1,4 +1,4 @@
-package com.glass.mouher.ui.home.stores
+package com.glass.mouher.ui.mall.home.stores
 
 import com.glass.mouher.ui.common.binder.ConditionalDataBinder
 

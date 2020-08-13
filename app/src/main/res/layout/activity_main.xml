@@ -7,16 +7,16 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.MainActivity" />
+            type="com.glass.mouher.ui.mall.MainActivity" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.MainViewModel" />
+            type="com.glass.mouher.ui.mall.MainViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MainActivity"
+        tools:context=".ui.mall.MainActivity"
         android:background="@color/white">
 
         <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
@@ -35,6 +35,17 @@
                 android:layout_height="match_parent"
                 android:background="@color/bgGrey">
 
+                <ImageView android:id="@+id/icBackHome"
+                    android:layout_width="44dp"
+                    android:layout_height="0dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:tint="@color/colorAccent"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_arrow_back" />
                 <ImageView android:id="@+id/imageView8"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
@@ -46,13 +57,14 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/logo_mouher1" />
                 <ImageView android:id="@+id/imageView2"
-                    android:layout_width="25dp"
+                    android:layout_width="48dp"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="@dimen/margin_12dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/colorPrimaryDark"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="12dp"
+                    android:tint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

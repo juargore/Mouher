@@ -1,4 +1,4 @@
-package com.glass.mouher.ui
+package com.glass.mouher.ui.mall
 
 import android.content.Context
 import android.util.Log

@@ -1,4 +1,4 @@
-package com.glass.mouher.ui
+package com.glass.mouher.ui.mall
 
 import android.os.Bundle
 import android.view.MenuItem

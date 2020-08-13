@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainMenuCategoriesFragment"
-        android:name="com.glass.mouher.ui.home.HomeFragment"
+        android:name="com.glass.mouher.ui.mall.home.HomeFragment"
         android:label="MainMenuCategoriesFragment"
         tools:layout="@layout/fragment_home">
     <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/storesFragment"
-        android:name="com.glass.mouher.ui.home.stores.StoresFragment"
+        android:name="com.glass.mouher.ui.mall.home.stores.StoresFragment"
         android:label="StoresFragment"
         tools:layout="@layout/fragment_stores" >
         <argument

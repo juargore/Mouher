@@ -1,9 +1,10 @@
-package com.glass.mouher.ui.home
+package com.glass.mouher.ui.mall.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
@@ -15,8 +16,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeBinding
 import com.glass.mouher.ui.common.propertyChangedCallback
-import com.glass.mouher.ui.home.adapters.HomeSponsorsAdapter
-import com.glass.mouher.ui.home.adapters.HomeZonesAdapter
+import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
+import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -41,6 +42,8 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.viewModel = viewModel
         binding.view = this
+
+        activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.GONE
 
         return binding.root
     }

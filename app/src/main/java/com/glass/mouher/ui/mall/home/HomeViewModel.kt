@@ -1,14 +1,12 @@
-package com.glass.mouher.ui.home
+package com.glass.mouher.ui.mall.home
 
 import android.content.Context
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
-import androidx.navigation.NavDirections
 import com.glass.domain.entities.Item
 import com.glass.domain.usecases.categories.ICategoriesUseCase
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
-import com.glass.mouher.ui.common.binder.ClickHandler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
