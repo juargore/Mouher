@@ -7,6 +7,7 @@ import com.glass.mouher.ui.history.HistoryViewModel
 import com.glass.mouher.ui.mall.home.stores.StoresViewModel
 import com.glass.mouher.ui.menu.MenuViewModel
 import com.glass.mouher.ui.profile.UserProfileViewModel
+import com.glass.mouher.ui.registration.signin.SignInViewModel
 import com.glass.mouher.ui.store.MainViewModelStore
 import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import com.glass.mouher.ui.store.home.products.ProductsViewModel
@@ -59,6 +60,10 @@ val DIViewModel = module{
     }
 
     viewModel { ProductsViewModel(
+        context = androidContext())
+    }
+
+    viewModel { SignInViewModel(
         context = androidContext())
     }
 }
