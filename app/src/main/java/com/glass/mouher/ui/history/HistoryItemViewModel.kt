@@ -3,7 +3,7 @@ package com.glass.mouher.ui.history
 import android.content.Context
 import com.glass.domain.entities.Item
 
-class HistoryListItemViewModel(
+class HistoryItemViewModel(
     private val context: Context,
     private val menu: Item
 ): AHistoryListViewModel() {

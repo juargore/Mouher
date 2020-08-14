@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.databinding.library.baseAdapters.BR
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHistoryBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
@@ -36,6 +37,7 @@ class HistoryFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
+        binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         viewModel.onResume(onPropertyChangedCallback)
         return binding.root
     }
@@ -50,7 +52,6 @@ class HistoryFragment : Fragment() {
         viewModel.onPause(onPropertyChangedCallback)
     }
 
-    /** Declares layout and tag to observe of the list item. */
     fun itemViewBinder(): ItemBinder<AHistoryListViewModel> {
         return CompositeItemBinder(HistoryItemBinder(BR.viewModel, R.layout.recycler_item_history))
     }

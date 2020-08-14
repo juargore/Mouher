@@ -7,18 +7,15 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.history.HistoryListItemViewModel" />
+            type="com.glass.mouher.ui.history.HistoryItemViewModel" />
     </data>
 
-    <com.chauthai.swipereveallayout.SwipeRevealLayout
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_marginBottom="1dp"
+    <com.chauthai.swipereveallayout.SwipeRevealLayout android:layout_width="match_parent"
+        android:layout_height="112dp"
         app:dragEdge="right"
         app:mode="same_level">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <LinearLayout android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
@@ -27,28 +24,24 @@
             android:paddingEnd="4dp"
             android:paddingBottom="3dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/errorRed"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="2dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageView5"
+                    <ImageView android:id="@+id/imageView5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="7dp"
                         android:tint="@color/white"
                         app:srcCompat="@drawable/ic_delete" />
 
-                    <TextView
-                        android:id="@+id/textView23"
+                    <TextView android:id="@+id/textView23"
                         style="@style/TextView.TitlesH6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -63,84 +56,69 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <LinearLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:elevation="5dp"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="2dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <LinearLayout android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:weightSum="2">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <LinearLayout android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.5"
                             android:orientation="vertical"
                             android:padding="8dp">
 
-                            <TextView
-                                android:id="@+id/textView21"
+                            <TextView android:id="@+id/textView21"
                                 style="@style/TextView.TitlesH6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/medium"
                                 android:includeFontPadding="true"
                                 android:text="@{ viewModel.name }"
-                                android:textColor="@color/colorPrimary"
                                 tools:text="Username" />
 
-                            <TextView
-                                android:id="@+id/textView20"
+                            <TextView android:id="@+id/textView20"
                                 style="@style/TextView.TitlesH7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/regular"
+                                android:fontFamily="@font/medium"
                                 android:includeFontPadding="true"
-                                android:textColor="@color/grey"
+                                android:text="@{ viewModel.description }"
+                                android:textColor="@color/lightGrey"
                                 tools:text="Address" />
 
-                            <TextView
-                                android:id="@+id/textView19"
-                                style="@style/TextView.TitlesH7"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:includeFontPadding="false"
-                                android:textColor="@color/lightGrey"
-                                tools:text="date" />
                         </LinearLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="0dp"
+                        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight=".5">
 
-                            <TextView
-                                android:id="@+id/textView22"
+                            <TextView android:id="@+id/textView22"
                                 style="@style/TextView.TitlesH6"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="6dp"
-                                android:background="@color/lightGreen"
+                                android:background="@color/colorPrimary"
                                 android:gravity="center_horizontal"
                                 android:includeFontPadding="false"
                                 android:paddingTop="8dp"
                                 android:paddingBottom="7dp"
+                                android:text="$ 123.00"
                                 android:textColor="@color/white"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -151,14 +129,12 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:id="@+id/view"
+                    <View android:id="@+id/view"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#E6E6E6" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <LinearLayout android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/bgGrey"
                         android:gravity="center_horizontal"
@@ -166,16 +142,16 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp">
 
-                        <TextView
-                            android:id="@+id/textView18"
+                        <TextView android:id="@+id/textView18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Estatus: " />
 
-                        <TextView
-                            android:id="@+id/textView15"
+                        <TextView android:id="@+id/textView15"
+                            style="@style/TextView.TitlesH6"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:text="Entregado" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
