@@ -16,6 +16,22 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <LinearLayout android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <View android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#E6E6E6" />
+            <View android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgWhite" />
+        </LinearLayout>
         <ProgressBar android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
@@ -28,9 +44,9 @@
 
         <LinearLayout android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -75,11 +91,39 @@
                         android:textColor="@color/white" />
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:layout_marginEnd="@dimen/margin_12dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etSearchProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_grey_search"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="Buscar productos..."
+                    android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingStart="8dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp" />
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvMenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/margin_12dp"
-                android:layout_marginTop="@dimen/margin_12dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="@dimen/margin_12dp"
                 app:items="@{viewModel.items}"
                 android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}"

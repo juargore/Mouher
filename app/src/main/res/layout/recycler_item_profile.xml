@@ -11,10 +11,10 @@
     </data>
     <androidx.cardview.widget.CardView android:id="@+id/cardHomeZones"
         android:layout_width="match_parent"
-        android:layout_height="177dp"
+        android:layout_height="160dp"
         android:layout_margin="8dp"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="8dp">
+        app:cardCornerRadius="4dp"
+        app:cardElevation="6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -22,7 +22,7 @@
             <ImageView android:id="@+id/imageView10"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:padding="25dp"
+                android:padding="45dp"
                 android:scaleType="fitCenter"
                 android:tint="@color/colorPrimary"
                 app:fromUrl="@{ viewModel.imageUrl }"
@@ -47,8 +47,8 @@
                 <TextView style="@style/TextView.TitlesH6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:gravity="center_horizontal"
                     android:includeFontPadding="false"
                     android:text="@{ viewModel.name }"

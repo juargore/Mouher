@@ -42,10 +42,10 @@ class UserProfileViewModel(
     private fun onResponse(user: Item){
 
         val mList = mutableListOf<Item>()
-        mList.add(Item( name = "Mi cuenta", imageUrl = "https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png"))
-        mList.add(Item( name = "Ofertas del", imageUrl = "https://icon-library.com/images/statistic-icon/statistic-icon-0.jpg"))
-        mList.add(Item( name = "Mi cuenta", imageUrl = "https://image.flaticon.com/icons/png/512/130/130304.png"))
-        mList.add(Item( name = "Ofertas del", imageUrl = "https://cdn.onlinewebfonts.com/svg/img_556420.png"))
+        mList.add(Item( name = "Administrar mi perfil de usuario", imageUrl = "https://image.flaticon.com/icons/png/512/130/130304.png"))
+        mList.add(Item( name = "Dirección de entrega", imageUrl = "https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png"))
+        mList.add(Item( name = "Información bancaria", imageUrl = "https://icon-library.com/images/statistic-icon/statistic-icon-0.jpg"))
+        mList.add(Item( name = "Mis compras realizadas", imageUrl = "https://cdn.onlinewebfonts.com/svg/img_556420.png"))
 
         val viewModels = mutableListOf<AUserProfileViewModel>()
 

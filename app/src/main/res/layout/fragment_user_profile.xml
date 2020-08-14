@@ -36,12 +36,17 @@
             <LinearLayout android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@drawable/background_profile"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.65"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/background_profile" />
+            </LinearLayout>
 
             <ImageView android:id="@+id/imageView9"
                 android:layout_width="0dp"
@@ -65,7 +70,8 @@
             <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvProfile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/margin_12dp"
+                android:layout_marginTop="22dp"
+                android:padding="20dp"
                 app:items="@{viewModel.items}"
                 app:itemViewBinder="@{view.itemViewBinder}"
                 app:layout_constraintBottom_toBottomOf="parent"

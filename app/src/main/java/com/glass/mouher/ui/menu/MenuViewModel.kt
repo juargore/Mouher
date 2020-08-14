@@ -48,12 +48,11 @@ class MenuViewModel(
 
     private fun onResponse(list: List<Item>){
         val mList = list.toMutableList()
-        mList.add(Item( name = "Mi cuenta", icon = R.drawable.ic_add))
-        mList.add(Item( name = "Ofertas del día", icon = R.drawable.ic_delete))
-        mList.add(Item( name = "Búsqueda de productos", icon = R.drawable.ic_filter))
-        mList.add(Item( name = "Nuevas llegadas", icon = R.drawable.ic_home))
-        mList.add(Item( name = "Enlaces patrocinados", icon = R.drawable.ic_check))
-        mList.add(Item( name = "Acerca de", icon = R.drawable.ic_list))
+        mList.add(Item( name = "Promociones", icon = R.drawable.ic_new_releases))
+        mList.add(Item( name = "Enlaces patrocinados", icon = R.drawable.ic_accessibility))
+        mList.add(Item( name = "Nuevas llegadas", icon = R.drawable.ic_gift))
+        mList.add(Item( name = "Afíliate con nosotros", icon = R.drawable.ic_work))
+        mList.add(Item( name = "Acerca de", icon = R.drawable.ic_info))
 
         emptyList = mList.isEmpty()
 

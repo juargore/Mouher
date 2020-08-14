@@ -52,8 +52,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_add"
-                tools:srcCompat="@drawable/ic_add" />
+                app:srcCompat="@drawable/ic_menu"
+                tools:srcCompat="@drawable/ic_menu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View android:id="@+id/view6"
