@@ -24,7 +24,8 @@
             app:layout_constraintTop_toTopOf="parent"
             android:fillViewport="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
                 android:orientation="vertical">
@@ -46,7 +47,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+                    app:layout_constraintTop_toTopOf="parent"/>
+
                 <LinearLayout android:id="@+id/linearLayout6"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -81,7 +83,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="64dp"
                 android:src="@drawable/logo_mouher1"
                 android:visibility="visible" />
@@ -97,35 +99,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <LinearLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="24dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView style="@style/TextView.TitlesH6"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/medium"
                         android:text="Inicio de Sesión"
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/signinError"
+                <TextView android:id="@+id/signinError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/regular"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:visibility="gone"
-                    app:fontFamily="@font/regular" />
+                    android:visibility="gone" />
 
                 <com.google.android.material.textfield.TextInputLayout android:id="@+id/signinEmailInput"
                     style="@style/TextInputLayoutAppearanceBlack"
@@ -138,7 +137,8 @@
                     <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
                         android:layout_width="match_parent"
                         android:focusedByDefault="true"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        tools:targetApi="o" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout android:id="@+id/signinPasswordInput"
@@ -147,21 +147,24 @@
                     android:layout_height="wrap_content"
                     android:hint="Contraseña"
                     android:theme="@style/TextInputLayoutAppearanceBlack"
-                    app:passwordToggleDrawable="@drawable/ic_menu"
+                    app:passwordToggleDrawable="@drawable/toggle_password"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/white">
+                    app:passwordToggleTint="@color/onyxBlack">
 
-                    <com.google.android.material.textfield.TextInputEditText style="@style/EditTextWhite"
+                    <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
                         android:layout_width="match_parent"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView style="@style/TextView.TitlesH5"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="15dp"
+                    android:drawableEnd="@drawable/ic_right_arrow"
                     android:fontFamily="@font/medium"
-                    android:gravity="right|center_vertical"
+                    android:gravity="end|center_vertical"
+                    android:includeFontPadding="false"
                     android:text="Recuperar contraseña"
                     android:textColor="@color/grey" />
 
@@ -169,23 +172,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="15dp"
+                    android:drawableEnd="@drawable/ic_right_arrow"
                     android:fontFamily="@font/medium"
-                    android:gravity="right|center_vertical"
+                    android:gravity="end|center_vertical"
+                    android:includeFontPadding="false"
                     android:text="Nuevo registro" />
 
-                <View
-                    android:layout_width="match_parent"
+                <View android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/signinButton"
+                <androidx.appcompat.widget.AppCompatButton android:id="@+id/signinButton"
                     android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:background="@color/onyxBlack"
-                    android:text="Registro"
-                    android:textColor="@color/white"
+                    android:layout_height="58dp"
+                    android:layout_marginBottom="@dimen/margin_12dp"
+                    android:background="@drawable/background_button_rounded"
+                    android:backgroundTint="@color/colorPrimary"
                     android:drawableEnd="@drawable/ic_right_arrow"
+                    android:paddingStart="@dimen/margin_18dp"
+                    android:paddingEnd="@dimen/margin_18dp"
+                    android:text="Iniciar sesión"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="21sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

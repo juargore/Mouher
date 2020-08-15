@@ -57,15 +57,21 @@
         <item name="boxCornerRadiusBottomStart">10dp</item>
         <item name="boxCornerRadiusBottomEnd">10dp</item>
         <item name="android:textColor">@color/onyxBlack</item>
-        <item name="android:textColorHint">@color/onyxBlack</item>
-        <item name="boxStrokeColor">@color/onyxBlack</item>
-        <item name="hintTextAppearance">@color/onyxBlack</item>
-        <item name="hintTextColor">@color/onyxBlack</item>
+        <item name="android:textColorHint">@color/textinputlayout_black</item>
+        <item name="boxStrokeColor">@color/textinputlayout_black</item>
+        <item name="hintTextAppearance">@style/HintTextWhite</item>
+        <item name="hintTextColor">@color/textinputlayout_black</item>
         <item name="colorControlNormal">@color/onyxBlack</item>
         <item name="colorControlActivated">@color/onyxBlack</item>
         <item name="colorControlHighlight">@color/onyxBlack</item>
     </style>
 
+
+    <style name="HintTextWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textinputlayout_black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/medium</item>
+    </style>
 
     <!--  TextInputEditText  -->
     <style name="EditTextBlack" parent="Widget.AppCompat.EditText">
