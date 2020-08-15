@@ -128,11 +128,12 @@
 
                 <com.google.android.material.textfield.TextInputLayout android:id="@+id/signinEmailInput"
                     style="@style/TextInputLayoutAppearanceBlack"
+                    android:theme="@style/TextInputLayoutAppearanceBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:hint="Nombre de usuario"
-                    android:theme="@style/TextInputLayoutAppearanceBlack">
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
                         android:layout_width="match_parent"
