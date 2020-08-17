@@ -1,6 +1,7 @@
 package com.glass.mouher.di
 
 import com.glass.mouher.di.DIConstants.UseCases
+import com.glass.mouher.ui.cart.CartViewModel
 import com.glass.mouher.ui.mall.MainViewModel
 import com.glass.mouher.ui.mall.home.HomeViewModel
 import com.glass.mouher.ui.history.HistoryViewModel
@@ -64,6 +65,10 @@ val DIViewModel = module{
     }
 
     viewModel { SignInViewModel(
+        context = androidContext())
+    }
+
+    viewModel { CartViewModel(
         context = androidContext())
     }
 }
