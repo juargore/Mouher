@@ -26,9 +26,7 @@ class ProductsFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.openProduct ->{
-                    findNavController().navigate(ProductsFragmentDirections.actionListToDetail(""))
-                }
+                BR.detailScreen ->{}
             }
         }
 
@@ -49,7 +47,6 @@ class ProductsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         viewModel.onResume(onPropertyChangedCallback)
     }
 

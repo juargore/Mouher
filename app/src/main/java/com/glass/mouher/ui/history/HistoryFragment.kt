@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,12 +39,14 @@ class HistoryFragment : Fragment() {
         binding.view = this
 
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
+
         viewModel.onResume(onPropertyChangedCallback)
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
+        activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.GONE
         viewModel.onResume(onPropertyChangedCallback)
     }
 

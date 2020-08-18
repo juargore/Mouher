@@ -2,6 +2,7 @@ package com.glass.mouher.ui.store
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
@@ -20,6 +21,12 @@ class MainViewModelStore(
     @Bindable
     var currentTab: IUITabBarUseCase.Tabs = IUITabBarUseCase.Tabs.HOME_STORE
         private set
+
+    @Bindable
+    var cartScreen: Unit? = null
+
+    @Bindable
+    var backPressed: Unit? = null
 
 
     @Bindable
@@ -40,8 +47,12 @@ class MainViewModelStore(
         notifyPropertyChanged(BR.currentTab)
     }
 
-    fun onBackPressed() {
-        //loaderUseCase.hideAll()
+    fun onBackPressed(@Suppress("UNUSED_PARAMETER") v: View) {
+        notifyPropertyChanged(BR.backPressed)
+    }
+
+    fun onCartPressed(@Suppress("UNUSED_PARAMETER") v: View) {
+        notifyPropertyChanged(BR.cartScreen)
     }
 
     fun onTabSelected(tab: IUITabBarUseCase.Tabs) {

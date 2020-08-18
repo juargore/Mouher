@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
@@ -167,6 +166,7 @@
                     android:gravity="end|center_vertical"
                     android:includeFontPadding="false"
                     android:text="Recuperar contraseña"
+                    android:onClick="@{ viewModel::onPasswordClicked }"
                     android:textColor="@color/grey" />
 
                 <TextView style="@style/TextView.TitlesH5"
@@ -177,7 +177,8 @@
                     android:fontFamily="@font/medium"
                     android:gravity="end|center_vertical"
                     android:includeFontPadding="false"
-                    android:text="Nuevo registro" />
+                    android:text="Nuevo registro"
+                    android:onClick="@{ viewModel::onSignupClicked }"/>
 
                 <View android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -193,6 +194,7 @@
                     android:paddingStart="@dimen/margin_18dp"
                     android:paddingEnd="@dimen/margin_18dp"
                     android:text="Iniciar sesión"
+                    android:onClick="@{ viewModel::onSignInButtonClicked }"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="21sp"

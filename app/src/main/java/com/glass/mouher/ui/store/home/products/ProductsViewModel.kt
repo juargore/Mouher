@@ -15,7 +15,10 @@ class ProductsViewModel(
 ): BaseViewModel(), ClickHandler<AProductsViewModel> {
 
     @Bindable
-    var openProduct: Unit? = null
+    var productId: String? = null
+
+    @Bindable
+    var detailScreen: Unit? = null
 
     @Bindable
     var categoryName = "Zapatos"
@@ -28,6 +31,8 @@ class ProductsViewModel(
         }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
+        addOnPropertyChangedCallback(callback)
+
         val storesList = mutableListOf<Item>()
         storesList.add(Item(name = "Botín suela track", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1059/640/040/1059640040_4_1_8.jpg?t=1594808755920&imwidth=375"))
         storesList.add(Item(name = "Sandalia tacón tiras", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1608/640/040/1608640040_4_1_8.jpg?t=1593175295433&imwidth=375"))
@@ -60,7 +65,8 @@ class ProductsViewModel(
 
     override fun onClick(viewModel: AProductsViewModel) {
         if(viewModel is ProductsItemViewModel){
-            notifyPropertyChanged(BR.openProduct)
+            productId = viewModel.name
+            notifyPropertyChanged(BR.detailScreen)
         }
     }
 }

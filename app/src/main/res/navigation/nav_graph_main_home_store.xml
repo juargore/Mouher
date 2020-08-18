@@ -24,18 +24,5 @@
             android:name="categoryId"
             app:argType="string"
             android:defaultValue="none" />
-        <action
-            android:id="@+id/action_list_to_detail"
-            app:destination="@id/productDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/productDetailFragment"
-        android:name="com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment"
-        android:label="ProductDetailFragment"
-        tools:layout="@layout/fragment_product_detail" >
-        <argument
-            android:name="productId"
-            app:argType="string"
-            android:defaultValue="none" />
     </fragment>
 </navigation>

@@ -2,6 +2,7 @@ package com.glass.mouher.ui.mall
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
@@ -22,6 +23,11 @@ class MainViewModel(
     var currentTab: Tabs = Tabs.HOME
         private set
 
+    @Bindable
+    var cartScreen: Unit? = null
+
+    @Bindable
+    var backPressed: Unit? = null
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
@@ -38,8 +44,12 @@ class MainViewModel(
         notifyPropertyChanged(BR.currentTab)
     }
 
-    fun onBackPressed() {
-        //loaderUseCase.hideAll()
+    fun onBackPressed(@Suppress("UNUSED_PARAMETER") v: View) {
+        notifyPropertyChanged(BR.backPressed)
+    }
+
+    fun onCartPressed(@Suppress("UNUSED_PARAMETER") v: View) {
+        notifyPropertyChanged(BR.cartScreen)
     }
 
     fun onTabSelected(tab: Tabs) {

@@ -65,6 +65,7 @@ class MainActivityStore : AppCompatActivity(), BottomNavigationView.OnNavigation
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.currentTab -> onTabChanged()
+                BR.backPressed -> onBackClicked()
             }
         }
 
@@ -120,13 +121,19 @@ class MainActivityStore : AppCompatActivity(), BottomNavigationView.OnNavigation
     }
 
     override fun onBackPressed() {
+        onBackClicked()
+    }
+
+    private fun onBackClicked(){
         currentController?.let {
             if (it.popBackStack()) {
-                viewModel.onBackPressed()
+                it.navigateUp()
             } else {
                 finish()
             }
-        }.or { finish() }
+        }.or {
+            finish()
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

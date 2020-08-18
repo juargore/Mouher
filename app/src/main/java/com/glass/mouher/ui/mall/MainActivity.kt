@@ -1,5 +1,6 @@
 package com.glass.mouher.ui.mall
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -14,6 +15,7 @@ import com.glass.domain.common.or
 import com.glass.domain.usecases.IUITabBarUseCase.Tabs
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityMainBinding
+import com.glass.mouher.ui.cart.CartActivity
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -66,6 +68,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.currentTab -> onTabChanged()
+                BR.backPressed -> onBackClicked()
+                BR.cartScreen -> startActivity(Intent(this, CartActivity::class.java))
             }
         }
 
@@ -122,13 +126,19 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onBackPressed() {
+        onBackClicked()
+    }
+
+    private fun onBackClicked(){
         currentController?.let {
             if (it.popBackStack()) {
-                viewModel.onBackPressed()
+                it.navigateUp()
             } else {
-                finish()
+                //finish()
             }
-        }.or { finish() }
+        }.or {
+            //finish()
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

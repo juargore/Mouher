@@ -46,13 +46,6 @@ class StoresFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
-        activity?.findViewById<ImageView>(R.id.icBackHome).apply {
-            this?.visibility = View.VISIBLE
-            this?.setOnClickListener {
-
-            }
-        }
-
         viewModel.initialize(args.zoneId)
         binding.rvStores.layoutManager = GridLayoutManager(requireContext(), 2)
 
@@ -61,7 +54,7 @@ class StoresFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
+        activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.VISIBLE
         viewModel.onResume(onPropertyChangedCallback)
     }
 

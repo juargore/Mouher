@@ -1,26 +1,25 @@
-package com.glass.mouher.ui.registration.signup
+package com.glass.mouher.ui.registration.splash
 
 import android.content.Context
-import android.view.View
+import android.os.Handler
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.mouher.ui.base.BaseViewModel
 import androidx.databinding.library.baseAdapters.BR
 
-class SignUpViewModel(
+class SplashViewModel(
     private val context: Context
 ): BaseViewModel() {
 
     @Bindable
-    var backClicked: Unit? = null
-
+    var nextScreen: Unit? = null
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
-    }
 
-    fun onBackClicked(@Suppress("UNUSED_PARAMETER") v: View){
-        notifyPropertyChanged(BR.backClicked)
+        Handler().postDelayed({
+            notifyPropertyChanged(BR.nextScreen)
+        }, 2000)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

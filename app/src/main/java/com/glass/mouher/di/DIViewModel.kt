@@ -8,7 +8,10 @@ import com.glass.mouher.ui.history.HistoryViewModel
 import com.glass.mouher.ui.mall.home.stores.StoresViewModel
 import com.glass.mouher.ui.menu.MenuViewModel
 import com.glass.mouher.ui.profile.UserProfileViewModel
+import com.glass.mouher.ui.registration.forgot.ForgotPasswordViewModel
 import com.glass.mouher.ui.registration.signin.SignInViewModel
+import com.glass.mouher.ui.registration.signup.SignUpViewModel
+import com.glass.mouher.ui.registration.splash.SplashViewModel
 import com.glass.mouher.ui.store.MainViewModelStore
 import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import com.glass.mouher.ui.store.home.products.ProductsViewModel
@@ -17,6 +20,22 @@ import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 val DIViewModel = module{
+
+    viewModel { SplashViewModel(
+        context = androidContext())
+    }
+
+    viewModel { SignInViewModel(
+        context = androidContext())
+    }
+
+    viewModel { SignUpViewModel(
+        context = androidContext())
+    }
+
+    viewModel { ForgotPasswordViewModel(
+        context = androidContext())
+    }
 
     viewModel {
         MainViewModel(
@@ -61,10 +80,6 @@ val DIViewModel = module{
     }
 
     viewModel { ProductsViewModel(
-        context = androidContext())
-    }
-
-    viewModel { SignInViewModel(
         context = androidContext())
     }
 

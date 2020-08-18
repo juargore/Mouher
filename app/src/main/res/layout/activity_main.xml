@@ -42,10 +42,12 @@
                     android:paddingEnd="8dp"
                     android:tint="@color/colorAccent"
                     android:visibility="gone"
+                    android:onClick="@{ viewModel::onBackPressed }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_arrow_back" />
+
                 <ImageView android:id="@+id/imageView8"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
@@ -56,12 +58,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/logo_mouher1" />
+
                 <ImageView android:id="@+id/imageView2"
                     android:layout_width="48dp"
                     android:layout_height="0dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{ viewModel::onCartPressed }"
                     android:paddingStart="8dp"
                     android:paddingEnd="12dp"
                     android:tint="@color/colorAccent"
