@@ -26,7 +26,7 @@ class StoresViewModel(
         }
 
 
-    fun initialize(zoneName: String){
+    fun initialize(zoneName: String?){
         this.zoneName = zoneName
         notifyPropertyChanged(BR.zoneName)
     }

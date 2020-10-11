@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.mall.MainActivityMall"></activity>
         <activity android:name=".ui.registration.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.mall.MainActivity">
+        <activity android:name=".ui.store.MainActivityStore">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,13 +50,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.cart.CartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.store.MainActivityStore">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

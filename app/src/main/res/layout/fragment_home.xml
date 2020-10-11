@@ -17,56 +17,101 @@
         android:layout_height="match_parent"
         android:background="@color/bgWhite">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <ProgressBar android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/nestedScrollView"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <androidx.core.widget.NestedScrollView android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:fillViewport="true">
 
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselView"
+            <LinearLayout android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:fillColor="#FFFFFFFF"
-                app:pageColor="#00000000"
-                app:radius="6dp"
-                app:slideInterval="5500"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp" />
-            <LinearLayout android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="3dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHomeSponsors"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="5dp">
-                <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHomeZones"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+
+                    <com.synnapps.carouselview.CarouselView android:id="@+id/carouselView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:fillColor="#FFFFFFFF"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:pageColor="#00000000"
+                        app:radius="6dp"
+                        app:slideInterval="5500"
+                        app:strokeColor="#FF777777"
+                        app:strokeWidth="1dp" />
+
+                    <TextView android:id="@+id/carouselTitle"
+                        style="@style/TextView.TitlesH5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/regular"
+                        android:includeFontPadding="false"
+                        android:text="TextView"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toTopOf="@+id/carouselSubtitle"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView android:id="@+id/carouselSubtitle"
+                        style="@style/TextView.TitlesH4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:includeFontPadding="false"
+                        android:text="TextView"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/carouselView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/iguana" />
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHomeSponsors"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHomeZones"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

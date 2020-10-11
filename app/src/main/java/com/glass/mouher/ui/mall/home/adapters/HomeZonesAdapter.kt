@@ -44,7 +44,7 @@ class HomeZonesAdapter (private val context: Context,
 
             itemView.title.text = item.name
             itemView.subtitle.text = item.description
-            itemView.cardHomeZones.layoutParams.height = getRandomIntInRange(850, 450)
+            //itemView.cardHomeZones.layoutParams.height = getRandomIntInRange(850, 450)
 
             Glide.with(context)
                 .load(item.imageUrl)

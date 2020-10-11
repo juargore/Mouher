@@ -9,6 +9,8 @@
     <string name="menu_menu">Menu</string>
     <string name="menu_about">Contacto</string>
 
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 
     <!-- Profile -->
     <string name="title_profile">Datos del usuario</string>

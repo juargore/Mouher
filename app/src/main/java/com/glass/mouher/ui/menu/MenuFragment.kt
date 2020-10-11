@@ -45,7 +45,6 @@ class MenuFragment: Fragment() {
 
     override fun onResume() {
         super.onResume()
-        activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.GONE
         viewModel.onResume(onPropertyChangedCallback)
     }
 

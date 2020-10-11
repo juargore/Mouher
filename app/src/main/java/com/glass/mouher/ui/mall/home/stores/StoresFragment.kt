@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
 import com.glass.mouher.R
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,7 +19,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class StoresFragment : Fragment() {
 
-    private val args: StoresFragmentArgs by navArgs()
     private val viewModel: StoresViewModel by viewModel()
     private lateinit var binding: FragmentStoresBinding
 
@@ -46,15 +43,14 @@ class StoresFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
-        viewModel.initialize(args.zoneId)
-        binding.rvStores.layoutManager = GridLayoutManager(requireContext(), 2)
+        viewModel.initialize(arguments?.getString("zoneName"))
+        binding.rvStores.layoutManager = GridLayoutManager(requireContext(), 1)
 
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.VISIBLE
         viewModel.onResume(onPropertyChangedCallback)
     }
 

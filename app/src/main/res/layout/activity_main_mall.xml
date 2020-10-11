@@ -2,7 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/drawer_layout_mall"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,7 +27,7 @@
             </LinearLayout>
 
             <FrameLayout
-                android:id="@+id/container_body"
+                android:id="@+id/container_body_mall"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/container_toolbar"
@@ -39,8 +39,8 @@
     </LinearLayout>
 
     <fragment
-        android:id="@+id/fragment_navigation_drawer"
-        android:name="com.glass.mouher.ui.store.MainFragmentSideStore"
+        android:id="@+id/fragment_navigation_drawer_mall"
+        android:name="com.glass.mouher.ui.mall.MainFragmentSideMall"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

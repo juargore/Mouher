@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentProductsListBinding
@@ -19,7 +17,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductsFragment : Fragment() {
 
-    private val args: ProductsFragmentArgs by navArgs()
     private val viewModel: ProductsViewModel by viewModel()
     private lateinit var binding: FragmentProductsListBinding
 

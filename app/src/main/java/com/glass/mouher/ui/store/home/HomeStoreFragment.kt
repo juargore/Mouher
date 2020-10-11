@@ -1,27 +1,19 @@
 package com.glass.mouher.ui.store.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
-import com.glass.mouher.databinding.FragmentHomeBinding
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
-import com.glass.mouher.ui.mall.home.HomeFragmentDirections
-import com.glass.mouher.ui.mall.home.HomeViewModel
-import com.glass.mouher.ui.mall.home.stores.StoresItemBinder
-import com.glass.mouher.ui.menu.AMenuViewModel
-import com.glass.mouher.ui.menu.MenuItemBinder
+import com.glass.mouher.ui.store.home.products.ProductsFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeStoreFragment : Fragment() {
@@ -33,7 +25,12 @@ class HomeStoreFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.onClick ->{
-                    findNavController().navigate(HomeStoreFragmentDirections.actionStoreToProducts(""))
+                    //TODO: Replace fragment
+                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.container_body, ProductsFragment())
+                    transaction.addToBackStack("Products")
+                    transaction.commit()
+                    //findNavController().navigate(HomeStoreFragmentDirections.actionStoreToProducts(""))
                 }
             }
         }

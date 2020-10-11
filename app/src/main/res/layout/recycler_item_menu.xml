@@ -26,7 +26,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_right_arrow" />
 
-            <TextView android:id="@+id/textView"
+            <TextView android:id="@+id/txtNameDrawer"
                 style="@style/TextView.TitlesH6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -37,11 +37,11 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView6"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/ivIconDrawer"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="TextView" />
 
-            <ImageView android:id="@+id/imageView"
+            <ImageView android:id="@+id/ivIconDrawer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

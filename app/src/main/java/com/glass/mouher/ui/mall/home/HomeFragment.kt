@@ -4,20 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeBinding
+import com.glass.mouher.extensions.startFadeInAnimation
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
+import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -43,8 +43,6 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
-        activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.GONE
-
         return binding.root
     }
 
@@ -69,11 +67,23 @@ class HomeFragment : Fragment() {
         val adapter = HomeZonesAdapter(requireContext(), viewModel.zonesList,
         object: HomeZonesAdapter.InterfaceOnClick{
             override fun onItemClick(pos: Int) {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToZones(viewModel.zonesList[pos].name!!))
+
+                val args = Bundle().apply {
+                    putString("zoneName", viewModel.zonesList[pos].name)
+                }
+
+                requireActivity().supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container_body_mall, StoresFragment().apply {
+                        arguments = args
+                    })
+                    addToBackStack("Stores")
+                    commit()
+                }
             }
         })
 
-        binding.rvHomeZones.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        //binding.rvHomeZones.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.rvHomeZones.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHomeZones.adapter = adapter
     }
 
@@ -85,6 +95,21 @@ class HomeFragment : Fragment() {
     private fun setImagesInBanner(){
         binding.carouselView.setImageListener(imageListener)
         binding.carouselView.pageCount = viewModel.bannerList.size
+
+        binding.carouselView.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
+                binding.carouselTitle.apply {
+                    this.startFadeInAnimation()
+                    this.text = viewModel.bannerList[pos].name
+                }
+                binding.carouselSubtitle.apply {
+                    this.startFadeInAnimation()
+                    this.text = viewModel.bannerList[pos].description
+                }
+            }
+            override fun onPageSelected(position: Int) {}
+        })
     }
 
     private var imageListener: ImageListener = ImageListener { position, imageView ->

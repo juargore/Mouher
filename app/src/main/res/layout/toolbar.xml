@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    local:contentInsetLeft="0dp"
+    local:contentInsetStart="0dp"
+    local:contentInsetStartWithNavigation="0dp"
+    android:background="@color/onyxBlack">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <RelativeLayout android:id="@+id/layoutCart"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            local:layout_constraintBottom_toBottomOf="parent"
+            local:layout_constraintEnd_toEndOf="parent"
+            local:layout_constraintTop_toTopOf="parent">
+
+            <ImageView android:id="@+id/imageView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:tint="@color/bgWhite"
+                local:srcCompat="@drawable/ic_shopping_cart" />
+        </RelativeLayout>
+        <ImageView android:id="@+id/imageView6"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:paddingTop="10dp"
+            local:layout_constraintBottom_toBottomOf="parent"
+            local:layout_constraintEnd_toStartOf="@+id/layoutCart"
+            local:layout_constraintStart_toStartOf="parent"
+            local:layout_constraintTop_toTopOf="@+id/layoutCart"
+            local:srcCompat="@drawable/logo_mouher1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.Toolbar>
+
+    <!--android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        local:contentInsetLeft="0dp"
+        local:contentInsetStart="0dp"
+        local:contentInsetStartWithNavigation="0dp"
+        local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
