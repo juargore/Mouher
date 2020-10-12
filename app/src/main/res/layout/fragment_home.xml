@@ -41,8 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                     android:layout_height="150dp">
 
                     <com.synnapps.carouselview.CarouselView android:id="@+id/carouselView"
@@ -59,6 +58,11 @@
                         app:strokeColor="#FF777777"
                         app:strokeWidth="1dp" />
 
+                    <View android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/background_banner_gradient">
+
+                    </View>
                     <TextView android:id="@+id/carouselTitle"
                         style="@style/TextView.TitlesH5"
                         android:layout_width="wrap_content"

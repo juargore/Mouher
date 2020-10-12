@@ -13,9 +13,8 @@
     <androidx.cardview.widget.CardView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:backgroundTint="#E3E3E3"
-        app:cardCornerRadius="1dp"
-        app:cardElevation="5dp">
+        app:cardCornerRadius="3dp"
+        app:cardElevation="3dp">
 
         <TextView android:id="@+id/textView26"
             style="@style/TextView.TitlesH7"
@@ -40,50 +39,63 @@
             android:orientation="vertical">
 
             <ImageView android:id="@+id/imageView7"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginBottom="5dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
                 android:paddingStart="5dp"
+                android:paddingTop="5dp"
                 android:paddingEnd="5dp"
                 android:scaleType="fitCenter"
                 app:fromUrl="@{viewModel.imageUrl}"
                 tools:srcCompat="@drawable/ic_delete" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp">
+
+                <RatingBar android:id="@+id/ratingBar"
+                    style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:numStars="5"
+                    android:rating="3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <TextView android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Men's Originals"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView android:id="@+id/textView25"
-                style="@style/TextView.TitlesH6"
+                style="@style/TextView.TitlesH5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="2dp"
                 android:ellipsize="end"
-                android:fontFamily="@font/regular"
-                android:gravity="center_horizontal|center_vertical"
+                android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:lines="2"
-                android:maxLines="2"
+                android:paddingStart="1dp"
                 android:text="@{ viewModel.name }"
                 tools:text="Manzana verde" />
 
-            <RatingBar android:id="@+id/ratingBar"
-                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:numStars="5"
-                android:rating="3" />
-
             <TextView android:id="@+id/textView24"
-                style="@style/TextView.TitlesH7"
-                android:layout_width="match_parent"
+                style="@style/TextView.TitlesH6"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
-                android:background="@drawable/background_green_rounded"
-                android:backgroundTint="#A87949"
                 android:elevation="5dp"
-                android:fontFamily="@font/regular"
                 android:gravity="center_horizontal|center_vertical"
                 android:includeFontPadding="false"
                 android:paddingStart="5dp"
@@ -91,8 +103,7 @@
                 android:paddingEnd="5dp"
                 android:paddingBottom="3dp"
                 android:text="$ 250 / pza"
-                android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textColor="@color/errorRed"
                 tools:text="$20.00 / kg" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

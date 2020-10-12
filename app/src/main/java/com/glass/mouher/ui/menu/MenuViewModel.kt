@@ -18,6 +18,8 @@ class MenuViewModel(
     private val menuUseCase: IMenuUseCase
 ): BaseViewModel(), ClickHandler<AMenuViewModel> {
 
+    private var source: String? = null
+
     @Bindable
     val userPhoto = R.drawable.face
 
@@ -29,11 +31,23 @@ class MenuViewModel(
         }
 
     @Bindable
+    var searchProductVisibility: Boolean = false
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.searchProductVisibility)
+        }
+
+    @Bindable
     var items: List<AMenuViewModel> = listOf()
         set(value){
             field = value
             notifyPropertyChanged(BR.items)
         }
+
+    fun initialize(source: String){
+        this.source = source
+        searchProductVisibility = source != "MALL"
+    }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
@@ -48,11 +62,11 @@ class MenuViewModel(
 
     private fun onResponse(list: List<Item>){
         val mList = list.toMutableList()
-        mList.add(Item( name = "Promociones", icon = R.drawable.ic_new_releases))
+        mList.add(Item( name = "Mi Perfil", icon = R.drawable.ic_person))
+        mList.add(Item( name = "Mis compras", icon = R.drawable.ic_gift))
         mList.add(Item( name = "Enlaces patrocinados", icon = R.drawable.ic_accessibility))
-        mList.add(Item( name = "Nuevas llegadas", icon = R.drawable.ic_gift))
-        mList.add(Item( name = "Afíliate con nosotros", icon = R.drawable.ic_work))
         mList.add(Item( name = "Acerca de", icon = R.drawable.ic_info))
+        mList.add(Item( name = "Contáctanos", icon = R.drawable.ic_work))
 
         emptyList = mList.isEmpty()
 

@@ -25,10 +25,11 @@
             android:text="@{ viewModel.categoryName }"
             tools:text="TextView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvProducts"
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvProducts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:padding="3dp"
             app:items="@{viewModel.items}"
             app:clickHandler="@{ viewModel }"

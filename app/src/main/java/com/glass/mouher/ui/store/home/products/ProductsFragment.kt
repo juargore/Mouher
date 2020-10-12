@@ -37,7 +37,7 @@ class ProductsFragment : Fragment() {
         binding.view = this
 
         //viewModel.initialize(args.zoneId)
-        binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 1)
 
         return binding.root
     }

@@ -30,7 +30,6 @@ class HomeStoreFragment : Fragment() {
                     transaction.replace(R.id.container_body, ProductsFragment())
                     transaction.addToBackStack("Products")
                     transaction.commit()
-                    //findNavController().navigate(HomeStoreFragmentDirections.actionStoreToProducts(""))
                 }
             }
         }
