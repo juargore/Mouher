@@ -52,10 +52,10 @@
     <!--  TextInputLayout  -->
     <style name="TextInputLayoutAppearanceBlack" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!-- reference our hint & error styles -->
-        <item name="boxCornerRadiusTopStart">10dp</item>
-        <item name="boxCornerRadiusTopEnd">10dp</item>
-        <item name="boxCornerRadiusBottomStart">10dp</item>
-        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">2dp</item>
+        <item name="boxCornerRadiusTopEnd">2dp</item>
+        <item name="boxCornerRadiusBottomStart">2dp</item>
+        <item name="boxCornerRadiusBottomEnd">2dp</item>
         <item name="android:textColor">@color/onyxBlack</item>
         <item name="android:textColorHint">@color/textinputlayout_black</item>
         <item name="boxStrokeColor">@color/textinputlayout_black</item>
