@@ -13,6 +13,7 @@ import com.glass.mouher.databinding.FragmentProductsListBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductsFragment : Fragment() {
@@ -23,7 +24,13 @@ class ProductsFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.detailScreen ->{}
+                BR.detailScreen ->{
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_body, ProductDetailFragment())
+                        addToBackStack("Detail")
+                        commit()
+                    }
+                }
             }
         }
 

@@ -25,6 +25,13 @@ class HomeStoreViewModel(
             notifyPropertyChanged(BR.items)
         }
 
+    @Bindable
+    var itemsNewProducts = mutableListOf<Item>()
+
+    @Bindable
+    var urlVideo = ""
+
+
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
@@ -44,6 +51,18 @@ class HomeStoreViewModel(
         }
 
         items = viewModels
+
+        val newProductsList = mutableListOf<Item>()
+        newProductsList.add(Item(name = "Botín suela track", imageUrl = "https://www.freepngimg.com/thumb/shoes/28084-5-sneaker-transparent-image-thumb.png"))
+        newProductsList.add(Item(name = "Sandalia tacón tiras", imageUrl = "https://i.pinimg.com/originals/1d/49/ba/1d49bad547fd40681dbbd58e827675dd.jpg"))
+        newProductsList.add(Item(name = "Tenis picado blanco", imageUrl = "https://purepng.com/public/uploads/large/sandals-bxq.png"))
+        newProductsList.add(Item(name = "Pala dorada trenzada", imageUrl = "https://5.imimg.com/data5/XX/CQ/MY-14472477/balujas-men-formal-1100-cherry-shoe-500x500.png"))
+
+        itemsNewProducts = newProductsList
+        notifyPropertyChanged(BR.itemsNewProducts)
+
+        urlVideo = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
+        notifyPropertyChanged(BR.urlVideo)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

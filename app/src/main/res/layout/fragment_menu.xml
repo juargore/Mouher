@@ -58,7 +58,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <ImageView android:id="@+id/imageView7"
+                <ImageView android:id="@+id/productImage"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginStart="@dimen/margin_12dp"
@@ -94,25 +94,28 @@
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/margin_18dp"
+                android:background="@drawable/background_stroke_gray"
+                android:gravity="center_horizontal|center_vertical">
 
-                <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvSocialMedia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12dp"
+                    android:layout_marginEnd="@dimen/margin_12dp"
                     android:orientation="horizontal" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
-                android:layout_marginTop="@dimen/margin_12dp"
                 android:layout_marginEnd="@dimen/margin_12dp"
                 android:layout_marginBottom="2dp"
-                android:visibility="@{viewModel.searchProductVisibility ? View.VISIBLE : View.GONE}"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="@{viewModel.searchProductVisibility ? View.VISIBLE : View.GONE}">
 
-                <EditText
-                    android:id="@+id/etSearchProduct"
+                <EditText android:id="@+id/etSearchProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_grey_search"
@@ -120,13 +123,13 @@
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="Buscar productos..."
-                    android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:paddingStart="8dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvMenu"

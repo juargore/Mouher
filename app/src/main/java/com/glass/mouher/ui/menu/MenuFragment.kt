@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -14,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.glass.domain.entities.Item
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentMenuBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
@@ -36,7 +37,7 @@ class MenuFragment: Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-
+                BR.itemsSocial -> setUpSocialMediaItems(viewModel.itemsSocial)
             }
         }
 
@@ -50,12 +51,25 @@ class MenuFragment: Fragment() {
         binding.view = this
 
         binding.rvMenu.layoutManager = LinearLayoutManager(context)
+        binding.rvSocialMedia.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    private fun setUpSocialMediaItems(itemsSocial: MutableList<Item>) {
+        val adapter = MenuItemSocialMediaAdapter(requireContext(), itemsSocial,
+            object : MenuItemSocialMediaAdapter.InterfaceOnClick{
+                override fun onItemClick(pos: Int) {
+
+                }
+            })
+
+        binding.rvSocialMedia.adapter = adapter
     }
 
     private fun openFragment(position: Int) {

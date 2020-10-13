@@ -38,6 +38,9 @@ class MenuViewModel(
         }
 
     @Bindable
+    var itemsSocial = mutableListOf<Item>()
+
+    @Bindable
     var items: List<AMenuViewModel> = listOf()
         set(value){
             field = value
@@ -52,15 +55,22 @@ class MenuViewModel(
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        val disposable = menuUseCase.getMenuItems()
+        addDisposable(menuUseCase
+            .getMenuItems()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponse, this::onError)
+            .subscribe(this::onResponseMenuItems, this::onError)
+        )
 
-        addDisposable(disposable)
+        addDisposable(menuUseCase
+            .getMenuSocialMediaItems()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::onResponseMenuSocialMediaItems, this::onError)
+        )
     }
 
-    private fun onResponse(list: List<Item>){
+    private fun onResponseMenuItems(list: List<Item>){
         val mList = list.toMutableList()
         mList.add(Item( name = "Mi Perfil", icon = R.drawable.ic_person))
         mList.add(Item( name = "Mis compras", icon = R.drawable.ic_gift))
@@ -78,6 +88,19 @@ class MenuViewModel(
         }
 
         items = viewModels
+    }
+
+    private fun onResponseMenuSocialMediaItems(list: List<Item>){
+        //itemsSocial = list.toMutableList()
+
+        val items = mutableListOf<Item>()
+        items.add(Item(imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"))
+        items.add(Item(imageUrl = "https://images.vexels.com/media/users/3/137380/isolated/preview/1b2ca367caa7eff8b45c09ec09b44c16-icono-de-instagram-logo-by-vexels.png"))
+        items.add(Item(imageUrl = "https://www.pngkey.com/png/full/2-27646_twitter-logo-png-transparent-background-logo-twitter-png.png"))
+        items.add(Item(imageUrl = "https://musicodiy.cdbaby.com/wp-content/uploads/2017/08/2d2700cbc33a006fc7be45736cb80b07-snapchat-icon-logo-by-vexels.png"))
+
+        itemsSocial = items
+        notifyPropertyChanged(BR.itemsSocial)
     }
 
     private fun onError(t: Throwable?){

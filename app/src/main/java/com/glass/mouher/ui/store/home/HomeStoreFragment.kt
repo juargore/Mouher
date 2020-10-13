@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.glass.domain.entities.Item
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
@@ -24,12 +26,14 @@ class HomeStoreFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
+                BR.itemsNewProducts -> setNewProducts(viewModel.itemsNewProducts)
+                BR.urlVideo -> setUpVideo(viewModel.urlVideo)
                 BR.onClick ->{
-                    //TODO: Replace fragment
-                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container_body, ProductsFragment())
-                    transaction.addToBackStack("Products")
-                    transaction.commit()
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_body, ProductsFragment())
+                        addToBackStack("Products")
+                        commit()
+                    }
                 }
             }
         }
@@ -43,8 +47,33 @@ class HomeStoreFragment : Fragment() {
         binding.view = this
 
         binding.rvCategories.layoutManager = GridLayoutManager(context, 2)
+        binding.rvNewProducts.layoutManager = LinearLayoutManager(context)
 
         return binding.root
+    }
+
+    private fun setNewProducts(itemsNewProducts: MutableList<Item>) {
+        val adapter = HomeStoreNewProductsAdapter(requireContext(), itemsNewProducts, object : HomeStoreNewProductsAdapter.InterfaceOnClick{
+            override fun onItemClick(pos: Int) {
+                //TODO: Open detailed product
+            }
+        })
+
+        binding.rvNewProducts.adapter = adapter
+    }
+
+    private fun setUpVideo(urlVideo: String) {
+        with(binding.videoStore){
+            setVideoPath(urlVideo)
+
+            setOnClickListener {
+                if(isPlaying){
+                    stopPlayback(); resume()
+                } else{
+                    start()
+                }
+            }
+        }
     }
 
     override fun onResume() {

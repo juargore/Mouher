@@ -9,4 +9,6 @@ class MenuUseCase(
 ): IMenuUseCase {
 
     override fun getMenuItems(): Observable<List<Item>> = userListRepository.getMenuItems()
+
+    override fun getMenuSocialMediaItems(): Observable<List<Item>> = userListRepository.getMenuSocialMediaItems()
 }

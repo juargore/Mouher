@@ -75,6 +75,9 @@ ext{
     /**  carousel view  **/
     carousel                    = "com.synnapps:carouselview:0.1.4"
 
+    /**  carousel view  **/
+    photoView                   = "com.github.chrisbanes:PhotoView:2.0.0"
+
     /**
      * Network & Parser
      *

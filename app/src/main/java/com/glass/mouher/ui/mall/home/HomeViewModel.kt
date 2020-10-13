@@ -54,8 +54,11 @@ class HomeViewModel(
         zonesList.add(Item(name = "Zona 1", imageUrl = "https://image.freepik.com/free-photo/shopping-concept-close-up-portrait-young-beautiful-attractive-redhair-girl-smiling-looking-camera-with-shopping-bag-blue-pastel-background-copy-space_1258-856.jpg", description = "Descripción zona"))
         zonesList.add(Item(name = "Zona 2", imageUrl = "https://image.shutterstock.com/image-photo/portrait-young-happy-smiling-woman-260nw-392415220.jpg", description = "Descripción zona"))
         zonesList.add(Item(name = "Zona 3", imageUrl = "https://img.freepik.com/free-photo/portrait-pretty-woman-dress-holding-mobile-phone_171337-6983.jpg?size=626&ext=jpg&ga=GA1.2.186962824.1594857600", description = "Descripción zona"))
-        zonesList.add(Item(name = "Zona A", imageUrl = "https://previews.123rf.com/images/siraphol/siraphol2005/siraphol200501702/147316500-portrait-beautiful-young-asian-woman-shopping-grocery-from-supermarket-and-cart-on-yellow-isolated-b.jpg", description = "Descripción zona"))
-        zonesList.add(Item(name = "Zona B", imageUrl = "https://image.shutterstock.com/image-photo/portrait-african-american-woman-carrying-260nw-547684396.jpg", description = "Descripción zona"))
+
+        //zonesList.add(Item(name = "Zona A", imageUrl = "https://previews.123rf.com/images/siraphol/siraphol2005/siraphol200501702/147316500-portrait-beautiful-young-asian-woman-shopping-grocery-from-supermarket-and-cart-on-yellow-isolated-b.jpg", description = "Descripción zona"))
+        //zonesList.add(Item(name = "Zona B", imageUrl = "https://image.shutterstock.com/image-photo/portrait-african-american-woman-carrying-260nw-547684396.jpg", description = "Descripción zona"))
+        zonesList.add(Item(name = "Zona A", description = "Descripción zona"))
+        zonesList.add(Item(name = "Zona B", description = "Descripción zona"))
         notifyPropertyChanged(BR.zonesList)
     }
 

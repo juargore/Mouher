@@ -110,7 +110,11 @@ dependencies {
     // Dependency injection
     implementation koin
 
+    // Carousel View
     implementation carousel
+
+    // Photo View
+    implementation photoView
 
     // Retrofit
     implementation retrofit

@@ -6,4 +6,6 @@ import io.reactivex.Observable
 interface IMenuRepository {
 
     fun getMenuItems(): Observable<List<Item>>
+
+    fun getMenuSocialMediaItems(): Observable<List<Item>>
 }

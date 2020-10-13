@@ -13,6 +13,7 @@ import com.glass.mouher.ui.registration.signup.SignUpViewModel
 import com.glass.mouher.ui.registration.splash.SplashViewModel
 import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import com.glass.mouher.ui.store.home.products.ProductsViewModel
+import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -64,6 +65,10 @@ val DIViewModel = module{
     }
 
     viewModel { ProductsViewModel(
+        context = androidContext())
+    }
+
+    viewModel { ProductDetailViewModel(
         context = androidContext())
     }
 

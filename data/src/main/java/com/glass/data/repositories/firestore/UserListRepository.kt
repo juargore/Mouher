@@ -11,4 +11,8 @@ class UserListRepository(
     override fun getMenuItems(): Observable<List<Item>> {
         return Observable.just(emptyList())
     }
+
+    override fun getMenuSocialMediaItems(): Observable<List<Item>> {
+        return Observable.just(emptyList())
+    }
 }
