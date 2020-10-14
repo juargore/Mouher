@@ -21,7 +21,7 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.history.HistoryFragment
-import com.glass.mouher.ui.mall.home.HomeFragment
+import com.glass.mouher.ui.mall.home.HomeMallFragment
 import com.glass.mouher.ui.profile.UserProfileFragment
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -99,7 +99,7 @@ class MenuFragment: Fragment() {
     private fun openFirstFragment(position: Int) {
         if(source == "MALL"){
             when (position) {
-                0 -> removeAllFragment(HomeFragment())
+                0 -> removeAllFragment(HomeMallFragment())
             }
         } else{
             when (position) {

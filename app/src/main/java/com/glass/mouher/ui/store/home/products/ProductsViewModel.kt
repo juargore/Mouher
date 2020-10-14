@@ -1,6 +1,7 @@
 package com.glass.mouher.ui.store.home.products
 
 import android.content.Context
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
@@ -55,6 +56,10 @@ class ProductsViewModel(
         }
 
         items = viewModels
+    }
+
+    fun onBackClicked(view: View){
+
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
-import com.glass.mouher.databinding.FragmentHomeBinding
+import com.glass.mouher.databinding.FragmentHomeMallBinding
 import com.glass.mouher.extensions.startFadeInAnimation
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.home.adapters.HomeLobbyAdapter
@@ -22,10 +22,10 @@ import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment() {
+class HomeMallFragment : Fragment() {
 
-    private val viewModel: HomeViewModel by viewModel()
-    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeMallViewModel by viewModel()
+    private lateinit var binding: FragmentHomeMallBinding
 
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_mall, container, false)
         binding.viewModel = viewModel
         binding.view = this
 

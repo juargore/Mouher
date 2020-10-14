@@ -2,7 +2,7 @@ package com.glass.mouher.di
 
 import com.glass.mouher.di.DIConstants.UseCases
 import com.glass.mouher.ui.cart.CartViewModel
-import com.glass.mouher.ui.mall.home.HomeViewModel
+import com.glass.mouher.ui.mall.home.HomeMallViewModel
 import com.glass.mouher.ui.history.HistoryViewModel
 import com.glass.mouher.ui.mall.home.stores.StoresViewModel
 import com.glass.mouher.ui.menu.MenuViewModel
@@ -37,7 +37,7 @@ val DIViewModel = module{
         context = androidContext())
     }
 
-    viewModel { HomeViewModel(
+    viewModel { HomeMallViewModel(
         context = androidContext(),
         categoriesUseCase = get(UseCases.CATEGORIES.name))
     }
