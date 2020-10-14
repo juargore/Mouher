@@ -1,17 +1,22 @@
 package com.glass.mouher.ui.cart
 
 import android.content.Context
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
 import com.glass.mouher.ui.base.BaseViewModel
-import com.glass.mouher.ui.history.AHistoryListViewModel
-import com.glass.mouher.ui.history.HistoryItemViewModel
 
 class CartViewModel(
     private val context: Context
 ): BaseViewModel() {
+
+    @Bindable
+    var onPopClicked: Unit? = null
+
+    @Bindable
+    var onBackClicked: Unit? = null
 
     @Bindable
     var items: List<ACartListViewModel> = listOf()
@@ -39,6 +44,14 @@ class CartViewModel(
         }
 
         items = viewModels
+    }
+
+    fun onPopClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        notifyPropertyChanged(BR.onPopClicked)
+    }
+
+    fun onBackClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        notifyPropertyChanged(BR.onBackClicked)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

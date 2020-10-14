@@ -20,7 +20,9 @@ import com.glass.mouher.databinding.FragmentMenuBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.history.HistoryFragment
 import com.glass.mouher.ui.mall.home.HomeFragment
+import com.glass.mouher.ui.profile.UserProfileFragment
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -38,6 +40,28 @@ class MenuFragment: Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.itemsSocial -> setUpSocialMediaItems(viewModel.itemsSocial)
+                BR.openProfileScreen -> {
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_body_mall, UserProfileFragment())
+                        addToBackStack("Profile")
+                        commit()
+                    }
+
+                    view?.let{
+                        mDrawerLayout?.closeDrawer(it)
+                    }
+                }
+                BR.openHistoryScreen -> {
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_body_mall, HistoryFragment())
+                        addToBackStack("History")
+                        commit()
+                    }
+
+                    view?.let{
+                        mDrawerLayout?.closeDrawer(it)
+                    }
+                }
             }
         }
 
@@ -72,7 +96,7 @@ class MenuFragment: Fragment() {
         binding.rvSocialMedia.adapter = adapter
     }
 
-    private fun openFragment(position: Int) {
+    private fun openFirstFragment(position: Int) {
         if(source == "MALL"){
             when (position) {
                 0 -> removeAllFragment(HomeFragment())
@@ -144,7 +168,7 @@ class MenuFragment: Fragment() {
             it.setHomeAsUpIndicator(R.drawable.ic_menu)
         }
 
-        openFragment(0)
+        openFirstFragment(0)
     }
 
     override fun onPause() {

@@ -11,6 +11,7 @@ import com.glass.mouher.ui.registration.forgot.ForgotPasswordViewModel
 import com.glass.mouher.ui.registration.signin.SignInViewModel
 import com.glass.mouher.ui.registration.signup.SignUpViewModel
 import com.glass.mouher.ui.registration.splash.SplashViewModel
+import com.glass.mouher.ui.store.MainStoreViewModel
 import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import com.glass.mouher.ui.store.home.products.ProductsViewModel
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel
@@ -39,6 +40,10 @@ val DIViewModel = module{
     viewModel { HomeViewModel(
         context = androidContext(),
         categoriesUseCase = get(UseCases.CATEGORIES.name))
+    }
+
+    viewModel { MainStoreViewModel(
+        context = androidContext())
     }
 
     viewModel { StoresViewModel(

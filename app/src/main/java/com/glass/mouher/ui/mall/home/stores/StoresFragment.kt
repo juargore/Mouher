@@ -14,7 +14,7 @@ import com.glass.mouher.databinding.FragmentStoresBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
-import com.glass.mouher.ui.store.MainActivityStore
+import com.glass.mouher.ui.store.MainStoreActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class StoresFragment : Fragment() {
@@ -26,7 +26,7 @@ class StoresFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.openStore -> {
-                    val intent = Intent(requireActivity(), MainActivityStore::class.java)
+                    val intent = Intent(requireActivity(), MainStoreActivity::class.java)
                     activity?.overridePendingTransition(0,0)
                     intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
                     startActivity(intent)

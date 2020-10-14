@@ -11,28 +11,63 @@
             name="viewModel"
             type="com.glass.mouher.ui.store.home.products.ProductsViewModel" />
     </data>
-    <LinearLayout android:layout_width="match_parent"
+
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgWhite"
-        android:orientation="vertical">
-
-        <TextView android:id="@+id/textView4"
-            style="@style/TextView.TitlesH4"
-            android:layout_width="match_parent"
+        android:fillViewport="true">
+        <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_12dp"
-            android:paddingTop="@dimen/margin_12dp"
-            android:text="@{ viewModel.categoryName }"
-            tools:text="TextView" />
+            android:background="@color/bgWhite"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvProducts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:padding="3dp"
-            app:items="@{viewModel.items}"
-            app:clickHandler="@{ viewModel }"
-            app:itemViewBinder="@{view.itemViewBinder}" />
-    </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+                <ImageView android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/iguana" />
+                <TextView android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toTopOf="@+id/textView27"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <TextView android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView android:id="@+id/textView4"
+                style="@style/TextView.TitlesH4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/margin_12dp"
+                android:paddingTop="@dimen/margin_12dp"
+                android:text="@{ viewModel.categoryName }"
+                tools:text="TextView" />
+
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="3dp"
+                app:items="@{viewModel.items}"
+                app:clickHandler="@{ viewModel }"
+                app:itemViewBinder="@{view.itemViewBinder}" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>

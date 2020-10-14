@@ -1,6 +1,10 @@
 package com.glass.mouher.ui.cart
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
@@ -10,7 +14,6 @@ import com.glass.mouher.databinding.ActivityCartBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
-import com.google.android.gms.vision.text.Line
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CartActivity : AppCompatActivity() {
@@ -21,7 +24,8 @@ class CartActivity : AppCompatActivity() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-
+                BR.onBackClicked -> finish()
+                BR.onPopClicked -> showPopUpNotes()
             }
         }
 
@@ -39,8 +43,16 @@ class CartActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    private fun showPopUpNotes(){
+        Dialog(this, R.style.FullDialogTheme).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(R.layout.pop_add_notes)
+            show()
+        }
     }
 
     override fun onPause() {

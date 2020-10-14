@@ -21,6 +21,12 @@ class MenuViewModel(
     private var source: String? = null
 
     @Bindable
+    var openProfileScreen: Unit? = null
+
+    @Bindable
+    var openHistoryScreen: Unit? = null
+
+    @Bindable
     val userPhoto = R.drawable.face
 
     @Bindable
@@ -91,8 +97,6 @@ class MenuViewModel(
     }
 
     private fun onResponseMenuSocialMediaItems(list: List<Item>){
-        //itemsSocial = list.toMutableList()
-
         val items = mutableListOf<Item>()
         items.add(Item(imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"))
         items.add(Item(imageUrl = "https://images.vexels.com/media/users/3/137380/isolated/preview/1b2ca367caa7eff8b45c09ec09b44c16-icono-de-instagram-logo-by-vexels.png"))
@@ -104,7 +108,8 @@ class MenuViewModel(
     }
 
     private fun onError(t: Throwable?){
-
+        @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+        Log.e("ERROR", t?.localizedMessage)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
@@ -115,6 +120,11 @@ class MenuViewModel(
     override fun onClick(viewModel: AMenuViewModel) {
         if(viewModel is MenuItemViewModel){
             Log.e("--", "${viewModel.name}")
+
+            when(viewModel.name){
+                "Mi Perfil"-> notifyPropertyChanged(BR.openProfileScreen)
+                "Mis compras"-> notifyPropertyChanged(BR.openHistoryScreen)
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeBinding
 import com.glass.mouher.extensions.startFadeInAnimation
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.mall.home.adapters.HomeLobbyAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
@@ -31,6 +32,7 @@ class HomeFragment : Fragment() {
             when (propertyId) {
                 BR.bannerList -> setImagesInBanner()
                 BR.sponsorsList -> setUpSponsorsRecycler()
+                BR.lobbyList -> setUpLobbyRecycler()
                 BR.zonesList -> setUpZonesRecycler()
             }
         }
@@ -82,9 +84,20 @@ class HomeFragment : Fragment() {
             }
         })
 
-        //binding.rvHomeZones.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         binding.rvHomeZones.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHomeZones.adapter = adapter
+    }
+
+    private fun setUpLobbyRecycler() {
+        val adapter = HomeLobbyAdapter(requireContext(), viewModel.lobbyList,
+            object: HomeLobbyAdapter.InterfaceOnClick{
+                override fun onItemClick(pos: Int) {
+
+                }
+            })
+
+        binding.rvHomeLobby.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHomeLobby.adapter = adapter
     }
 
     override fun onPause() {
