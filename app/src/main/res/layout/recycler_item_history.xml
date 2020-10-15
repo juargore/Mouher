@@ -96,10 +96,9 @@
                                 style="@style/TextView.TitlesH7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/medium"
+                                android:fontFamily="@font/regular"
                                 android:includeFontPadding="true"
                                 android:text="@{ viewModel.description }"
-                                android:textColor="@color/lightGrey"
                                 tools:text="Address" />
 
                         </LinearLayout>
