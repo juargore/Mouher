@@ -116,6 +116,9 @@ dependencies {
     // Photo View
     implementation photoView
 
+    // Anko
+    implementation anko
+
     // Retrofit
     implementation retrofit
     implementation retrofitRxAdapter

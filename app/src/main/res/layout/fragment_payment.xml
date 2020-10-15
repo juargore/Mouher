@@ -1,13 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.checkout.payment.PaymentFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.glass.mouher.ui.checkout.payment.PaymentViewModel" />
+        <variable
+            name="view"
+            type="com.glass.mouher.ui.checkout.payment.PaymentFragment" />
+    </data>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_18dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout android:id="@+id/textView44"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/margin_12dp"
+                        android:paddingBottom="6dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageButton android:id="@+id/back"
+                            android:layout_width="36dp"
+                            android:layout_height="match_parent"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:paddingTop="20dp"
+                            android:paddingEnd="20dp"
+                            android:paddingBottom="20dp"
+                            android:src="@drawable/ic_arrow_back"
+                            android:tint="@color/onyxBlack"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView android:id="@+id/textView4"
+                            style="@style/TextView.TitlesH4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:paddingTop="3dp"
+                            android:text="Datos de tarjeta" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/button6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView44">
+
+                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressAddressInput"
+                            style="@style/TextInputLayoutAppearanceBlack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_12dp"
+                            android:hint="Nombre en la tarjeta"
+                            android:theme="@style/TextInputLayoutAppearanceBlack">
+
+                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                android:layout_width="match_parent"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPostalCodeInput"
+                            style="@style/TextInputLayoutAppearanceBlack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_12dp"
+                            android:hint="Número de tarjeta"
+                            android:theme="@style/TextInputLayoutAppearanceBlack">
+
+                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                android:layout_width="match_parent"
+                                android:inputType="number" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView style="@style/TextView.TitlesH6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha de vencimiento" />
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressInternalNumberInput"
+                                style="@style/TextInputLayoutAppearanceBlack"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="@dimen/margin_12dp"
+                                android:layout_weight="1"
+                                android:hint="Mes"
+                                android:theme="@style/TextInputLayoutAppearanceBlack">
+
+                                <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                    android:layout_width="match_parent"
+                                    android:inputType="number" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressExternalNumberInput"
+                                style="@style/TextInputLayoutAppearanceBlack"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginBottom="@dimen/margin_12dp"
+                                android:layout_weight="1"
+                                android:hint="Año"
+                                android:theme="@style/TextInputLayoutAppearanceBlack">
+
+                                <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                    android:layout_width="match_parent"
+                                    android:inputType="number" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPhoneInput"
+                            style="@style/TextInputLayoutAppearanceBlack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:hint="Número de teléfono"
+                            android:theme="@style/TextInputLayoutAppearanceBlack">
+
+                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                android:layout_width="match_parent"
+                                android:layout_marginBottom="@dimen/margin_18dp"
+                                android:inputType="phone" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView android:id="@+id/textView42"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lorem_ipsum" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton android:id="@+id/button6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_button_rounded"
+                        android:backgroundTint="@color/onyxBlack"
+                        android:paddingStart="@dimen/margin_18dp"
+                        android:paddingEnd="@dimen/margin_18dp"
+                        android:text="Guardar"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="19sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

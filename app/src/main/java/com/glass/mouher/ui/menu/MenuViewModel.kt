@@ -127,6 +127,8 @@ class MenuViewModel(
             screen = when(viewModel.name){
                 "Mi Perfil"-> MENU.PROFILE
                 "Mis compras"-> MENU.HISTORY
+                "Enlaces patrocinados" -> MENU.SPONSORS
+                "Acerca de" -> MENU.ABOUT
                 else -> MENU.CONTACT
             }
 

@@ -1,6 +1,7 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail
 
 import android.content.Context
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
@@ -17,7 +18,13 @@ class ProductDetailViewModel(
     var urlTop = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"
 
     @Bindable
+    var showPopRating: Unit? = null
+
+    @Bindable
     var miniSelected: String? = null
+
+    @Bindable
+    var itemsRelatedProducts = mutableListOf<Item>()
 
     @Bindable
     var items: List<AProductDetailViewModel> = listOf()
@@ -48,6 +55,20 @@ class ProductDetailViewModel(
             miniSelected = storesList[0].imageUrl
             notifyPropertyChanged(BR.miniSelected)
         }
+
+        val newRelatedProductsList = mutableListOf<Item>()
+        newRelatedProductsList.add(Item(name = "Jogging", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1316/540/050/1316540050_4_1_8.jpg?t=1582651694009&imwidth=375"))
+        newRelatedProductsList.add(Item(name = "Botín", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1059/640/040/1059640040_4_1_8.jpg?t=1594808755920&imwidth=375"))
+        newRelatedProductsList.add(Item(name = "Sandalia", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1608/640/040/1608640040_4_1_8.jpg?t=1593175295433&imwidth=375"))
+        newRelatedProductsList.add(Item(name = "Tenis blanco", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1224/540/001/1224540001_4_1_8.jpg?t=1585572071607&imwidth=375"))
+        newRelatedProductsList.add(Item(name = "Pala trenzada", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1562/540/091/1562540091_4_1_8.jpg?t=1583955278482&imwidth=375"))
+
+        itemsRelatedProducts = newRelatedProductsList
+        notifyPropertyChanged(BR.itemsRelatedProducts)
+    }
+
+    fun onAddRatingClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        notifyPropertyChanged(BR.showPopRating)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

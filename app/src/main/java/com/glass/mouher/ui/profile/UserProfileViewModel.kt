@@ -26,6 +26,9 @@ class UserProfileViewModel(
     val openPayment: String? = null
 
     @Bindable
+    var onDiscard: String? = null
+
+    @Bindable
     val userPhoto = R.drawable.face
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
@@ -45,6 +48,16 @@ class UserProfileViewModel(
 
     fun onEditPaymentClicked(@Suppress("UNUSED_PARAMETER") view: View){
         notifyPropertyChanged(BR.openPayment)
+    }
+
+    fun onDiscardPaymentClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        onDiscard = "PAYMENT"
+        notifyPropertyChanged(BR.onDiscard)
+    }
+
+    fun onDiscardAddressClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        onDiscard = "ADDRESS"
+        notifyPropertyChanged(BR.onDiscard)
     }
 
     private fun onResponse(user: Item){

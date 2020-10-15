@@ -75,8 +75,11 @@ ext{
     /**  carousel view  **/
     carousel                    = "com.synnapps:carouselview:0.1.4"
 
-    /**  carousel view  **/
+    /**  photo view  **/
     photoView                   = "com.github.chrisbanes:PhotoView:2.0.0"
+
+    /**  photo view  **/
+    anko                        = "org.jetbrains.anko:anko:0.10.8"
 
     /**
      * Network & Parser

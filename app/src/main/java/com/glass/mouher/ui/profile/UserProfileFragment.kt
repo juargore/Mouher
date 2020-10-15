@@ -19,6 +19,8 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.menu.AMenuViewModel
 import com.glass.mouher.ui.menu.MenuItemBinder
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserProfileFragment : Fragment() {
@@ -43,6 +45,7 @@ class UserProfileFragment : Fragment() {
                         commit()
                     }
                 }
+                BR.onDiscard -> showPopConfirmation()
             }
         }
 
@@ -56,6 +59,14 @@ class UserProfileFragment : Fragment() {
         binding.view = this
 
         return binding.root
+    }
+
+    private fun showPopConfirmation(){
+        alert(title = "", message = "¿Está seguro que desea descartar este elemento?"){
+            yesButton {
+
+            }
+        }.show()
     }
 
     override fun onResume() {

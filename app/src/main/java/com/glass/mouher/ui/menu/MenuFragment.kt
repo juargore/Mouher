@@ -1,9 +1,15 @@
 package com.glass.mouher.ui.menu
 
+import android.app.Dialog
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -17,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.glass.domain.entities.Item
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentMenuBinding
+import com.glass.mouher.ui.about.AboutFragment
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
@@ -76,27 +83,45 @@ class MenuFragment: Fragment() {
     }
 
     private fun openFromMenuSubscreen(from: MENU?){
-        //PROFILE,
-        //    HISTORY,
-        //    SPONSORS,
-        //    ABOUT,
-        //    CONTACT
-        val fragment = when(from){
+        if(from == MENU.SPONSORS){
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")))
+            return
+        }
+
+        if(from == MENU.CONTACT){
+            showPopUpContact()
+            return
+        }
+
+        val fragment: Fragment? = when(from){
             MENU.PROFILE -> UserProfileFragment()
             MENU.HISTORY -> HistoryFragment()
-            else -> HistoryFragment()
+            MENU.ABOUT -> AboutFragment()
+            else -> null
         }
 
-        val container = if(source == "MALL") R.id.container_body_mall else R.id.container_body
+        fragment?.let{
+            val container = if(source == "MALL") R.id.container_body_mall else R.id.container_body
 
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(container, fragment)
-            addToBackStack(from?.name)
-            commit()
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                replace(container, it)
+                addToBackStack(from?.name)
+                commit()
+            }
+
+            view?.let{
+                mDrawerLayout?.closeDrawer(it)
+            }
         }
 
-        view?.let{
-            mDrawerLayout?.closeDrawer(it)
+    }
+
+    private fun showPopUpContact(){
+        Dialog(requireContext(), R.style.FullDialogTheme).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(R.layout.pop_contact)
+            show()
         }
     }
 

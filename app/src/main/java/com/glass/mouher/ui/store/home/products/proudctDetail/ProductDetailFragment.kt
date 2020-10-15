@@ -1,20 +1,27 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.glass.domain.entities.Item
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentProductDetailBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.store.home.HomeStoreLinkedStoresAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductDetailFragment : Fragment() {
@@ -26,6 +33,8 @@ class ProductDetailFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.miniSelected -> loadMiniImage(viewModel.miniSelected)
+                BR.itemsRelatedProducts -> setRelatedProducts(viewModel.itemsRelatedProducts)
+                BR.showPopRating -> showPopUpRating()
             }
         }
 
@@ -39,8 +48,19 @@ class ProductDetailFragment : Fragment() {
         binding.view = this
 
         binding.rvMiniList.layoutManager = LinearLayoutManager(context)
+        binding.rvRelatedProducts.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         return binding.root
+    }
+
+    private fun setRelatedProducts(itemsRelatedProducts: MutableList<Item>) {
+        val adapter = ProductDetailRelatedProductsAdapter(requireContext(), itemsRelatedProducts, object : ProductDetailRelatedProductsAdapter.InterfaceOnClick{
+            override fun onItemClick(pos: Int) {
+
+            }
+        })
+
+        binding.rvRelatedProducts.adapter = adapter
     }
 
     private fun loadMiniImage(imageUrl: String?){
@@ -49,6 +69,15 @@ class ProductDetailFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_blur)
             .into(binding.photoView)
+    }
+
+    private fun showPopUpRating(){
+        Dialog(requireContext(), R.style.FullDialogTheme).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(R.layout.pop_add_rating)
+            show()
+        }
     }
 
     override fun onResume() {
