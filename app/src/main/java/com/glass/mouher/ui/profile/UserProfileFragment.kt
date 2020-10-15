@@ -39,8 +39,6 @@ class UserProfileFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
-        binding.rvProfile.layoutManager = GridLayoutManager(context, 2)
-
         return binding.root
     }
 
@@ -52,9 +50,5 @@ class UserProfileFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
-    }
-
-    fun itemViewBinder(): ItemBinder<AUserProfileViewModel> {
-        return CompositeItemBinder(UserProfileItemBinder(BR.viewModel, R.layout.recycler_item_profile))
     }
 }

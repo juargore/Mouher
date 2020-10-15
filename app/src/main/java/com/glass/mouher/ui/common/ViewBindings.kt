@@ -161,8 +161,22 @@ fun setImageBytes(imageView: ImageView, bytes: ByteArray?) {
 @BindingAdapter("fromUrl")
 fun setImageFromUrl(imageView: ImageView, url: String?) {
     if (url != null) {
-        Glide.with(imageView.context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL)
+        Glide.with(imageView.context)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_blur)
+            .into(imageView)
+    }
+}
+
+@BindingAdapter("fromUrlExtended")
+fun setImageFromUrlExtended(imageView: ImageView, url: String?) {
+    if (url != null) {
+        Glide.with(imageView.context)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.ic_blur)
+            .centerCrop()
             .into(imageView)
     }
 }

@@ -16,14 +16,33 @@
         android:background="@color/bgWhite"
         android:orientation="vertical">
 
-        <TextView android:id="@+id/textView4"
-            style="@style/TextView.TitlesH4"
-            android:layout_width="match_parent"
+        <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_12dp"
+            android:orientation="horizontal"
             android:paddingTop="@dimen/margin_12dp"
-            android:text="@{ viewModel.zoneName }"
-            tools:text="TextView" />
+            android:paddingBottom="6dp">
+
+            <ImageButton android:id="@+id/back"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="20dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/onyxBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView android:id="@+id/textView4"
+                style="@style/TextView.TitlesH4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:paddingTop="3dp"
+                android:text="@{ viewModel.zoneName }"
+                tools:text="TextView" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvStores"

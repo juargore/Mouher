@@ -40,28 +40,7 @@ class MenuFragment: Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.itemsSocial -> setUpSocialMediaItems(viewModel.itemsSocial)
-                BR.openProfileScreen -> {
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body_mall, UserProfileFragment())
-                        addToBackStack("Profile")
-                        commit()
-                    }
-
-                    view?.let{
-                        mDrawerLayout?.closeDrawer(it)
-                    }
-                }
-                BR.openHistoryScreen -> {
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body_mall, HistoryFragment())
-                        addToBackStack("History")
-                        commit()
-                    }
-
-                    view?.let{
-                        mDrawerLayout?.closeDrawer(it)
-                    }
-                }
+                BR.screen -> openFromMenuSubscreen(viewModel.screen)
             }
         }
 
@@ -96,16 +75,34 @@ class MenuFragment: Fragment() {
         binding.rvSocialMedia.adapter = adapter
     }
 
-    private fun openFirstFragment(position: Int) {
-        if(source == "MALL"){
-            when (position) {
-                0 -> removeAllFragment(HomeMallFragment())
-            }
-        } else{
-            when (position) {
-                0 -> removeAllFragment(HomeStoreFragment())
-            }
+    private fun openFromMenuSubscreen(from: MENU?){
+        //PROFILE,
+        //    HISTORY,
+        //    SPONSORS,
+        //    ABOUT,
+        //    CONTACT
+        val fragment = when(from){
+            MENU.PROFILE -> UserProfileFragment()
+            MENU.HISTORY -> HistoryFragment()
+            else -> HistoryFragment()
         }
+
+        val container = if(source == "MALL") R.id.container_body_mall else R.id.container_body
+
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(container, fragment)
+            addToBackStack(from?.name)
+            commit()
+        }
+
+        view?.let{
+            mDrawerLayout?.closeDrawer(it)
+        }
+    }
+
+    private fun openMallorStoreScreen() {
+        val fragment = if(source == "MALL") HomeMallFragment() else HomeStoreFragment()
+        removeAllFragment(fragment)
     }
 
     private fun removeAllFragment(replaceFragment: Fragment) {
@@ -168,7 +165,7 @@ class MenuFragment: Fragment() {
             it.setHomeAsUpIndicator(R.drawable.ic_menu)
         }
 
-        openFirstFragment(0)
+        openMallorStoreScreen()
     }
 
     override fun onPause() {

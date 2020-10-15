@@ -56,9 +56,9 @@ class HomeMallViewModel(
         notifyPropertyChanged(BR.sponsorsList)
 
         lobbyList.clear()
-        lobbyList.add(Item(imageUrl = "https://d500.epimg.net/cincodias/imagenes/2020/05/23/companias/1590247574_823229_1590247687_noticia_normal.jpg", name = "Bienvenido", description = "Mouher Market"))
-        lobbyList.add(Item(imageUrl = "https://www.modaes.com/files/000_2016/mexico/Mexico%20centro%20comercial%20Santa%20Fe%20728.png", name = "Habilita tu \ne-commerce", description = "Cuanto antes"))
-        lobbyList.add(Item(imageUrl = "https://s03.s3c.es/imag/_v0/770x420/7/c/b/centro-comercial-770.jpg", name = "Titulo", description = "Descripcion"))
+        lobbyList.add(Item(imageUrl = "https://d500.epimg.net/cincodias/imagenes/2020/05/23/companias/1590247574_823229_1590247687_noticia_normal.jpg", name = "Pescadores (1980)", description = "Arte naíf."))
+        lobbyList.add(Item(imageUrl = "https://www.modaes.com/files/000_2016/mexico/Mexico%20centro%20comercial%20Santa%20Fe%20728.png", name = "Cielo rosa / Pinky sky", description = "Óleo sobre lienzo / oil on canvas, 80x80 cms. (1979)"))
+        lobbyList.add(Item(imageUrl = "https://s03.s3c.es/imag/_v0/770x420/7/c/b/centro-comercial-770.jpg", name = "Niños y Ángeles (1980)", description = "Detalle. Arte naíf."))
         notifyPropertyChanged(BR.lobbyList)
 
         zonesList.clear()

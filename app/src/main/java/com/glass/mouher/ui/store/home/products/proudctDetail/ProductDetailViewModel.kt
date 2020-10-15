@@ -14,6 +14,9 @@ class ProductDetailViewModel(
 ): BaseViewModel(), ClickHandler<AProductDetailViewModel> {
 
     @Bindable
+    var urlTop = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"
+
+    @Bindable
     var miniSelected: String? = null
 
     @Bindable

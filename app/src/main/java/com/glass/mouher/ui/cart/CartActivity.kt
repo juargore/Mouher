@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,9 @@ class CartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // change satus bar color only for Cart screen
+        window?.statusBarColor = ContextCompat.getColor(this, R.color.onyxBlack)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_cart)
         binding.viewModel = viewModel

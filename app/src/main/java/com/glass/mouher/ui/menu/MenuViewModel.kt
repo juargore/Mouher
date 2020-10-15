@@ -21,6 +21,9 @@ class MenuViewModel(
     private var source: String? = null
 
     @Bindable
+    var screen: MENU? = null
+
+    @Bindable
     var openProfileScreen: Unit? = null
 
     @Bindable
@@ -121,10 +124,21 @@ class MenuViewModel(
         if(viewModel is MenuItemViewModel){
             Log.e("--", "${viewModel.name}")
 
-            when(viewModel.name){
-                "Mi Perfil"-> notifyPropertyChanged(BR.openProfileScreen)
-                "Mis compras"-> notifyPropertyChanged(BR.openHistoryScreen)
+            screen = when(viewModel.name){
+                "Mi Perfil"-> MENU.PROFILE
+                "Mis compras"-> MENU.HISTORY
+                else -> MENU.CONTACT
             }
+
+            notifyPropertyChanged(BR.screen)
         }
     }
+}
+
+enum class MENU{
+    PROFILE,
+    HISTORY,
+    SPONSORS,
+    ABOUT,
+    CONTACT
 }

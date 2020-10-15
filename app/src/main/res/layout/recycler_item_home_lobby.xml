@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardHomeZones"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="170dp"
     android:layout_margin="2dp"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp">
@@ -34,7 +34,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
-            
+
             <TextView android:id="@+id/titleLobby"
                 style="@style/TextView.TitlesH6"
                 android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
                 android:layout_marginEnd="5dp"
                 android:gravity="center_horizontal"
                 android:text="Text" />
-            
+
             <TextView android:id="@+id/subtitleLobby"
                 style="@style/TextView.TitlesH7"
                 android:layout_width="wrap_content"

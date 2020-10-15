@@ -10,10 +10,12 @@
             type="com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailItemMiniViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/bgGrey"
+        android:padding="1dp">
 
         <ImageView android:id="@+id/imageView14"
             android:layout_width="wrap_content"
