@@ -11,9 +11,12 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.GridLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentUserProfileBinding
+import com.glass.mouher.ui.checkout.address.AddressFragment
+import com.glass.mouher.ui.checkout.payment.PaymentFragment
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.menu.AMenuViewModel
 import com.glass.mouher.ui.menu.MenuItemBinder
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -26,7 +29,20 @@ class UserProfileFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-
+                BR.openPayment -> {
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_body_mall, PaymentFragment())
+                        addToBackStack("Payment")
+                        commit()
+                    }
+                }
+                BR.openAddress -> {
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_body_mall, AddressFragment())
+                        addToBackStack("Address")
+                        commit()
+                    }
+                }
             }
         }
 

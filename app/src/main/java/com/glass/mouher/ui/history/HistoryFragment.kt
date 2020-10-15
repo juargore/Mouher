@@ -34,19 +34,17 @@ class HistoryFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false)
-
         binding.viewModel = viewModel
         binding.view = this
 
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.onResume(onPropertyChangedCallback)
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.GONE
+        //activity?.findViewById<ImageView>(R.id.icBackHome)?.visibility = View.GONE
         viewModel.onResume(onPropertyChangedCallback)
     }
 

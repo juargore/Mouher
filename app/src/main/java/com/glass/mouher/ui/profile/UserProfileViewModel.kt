@@ -1,6 +1,7 @@
 package com.glass.mouher.ui.profile
 
 import android.content.Context
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
@@ -19,6 +20,12 @@ class UserProfileViewModel(
 ): BaseViewModel() {
 
     @Bindable
+    val openAddress: String? = null
+
+    @Bindable
+    val openPayment: String? = null
+
+    @Bindable
     val userPhoto = R.drawable.face
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
@@ -30,6 +37,14 @@ class UserProfileViewModel(
             .subscribe(this::onResponse, this::onError)
 
         addDisposable(disposable)
+    }
+
+    fun onEditAddressClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        notifyPropertyChanged(BR.openAddress)
+    }
+
+    fun onEditPaymentClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        notifyPropertyChanged(BR.openPayment)
     }
 
     private fun onResponse(user: Item){

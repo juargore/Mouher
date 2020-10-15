@@ -128,6 +128,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:orientation="horizontal">
+
                                 <Button android:id="@+id/button3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="45dp"
@@ -135,7 +136,9 @@
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/grey"
+                                    android:onClick="@{ viewModel::onEditPaymentClicked }"
                                     android:text="Editar" />
+
                                 <Button android:id="@+id/button2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="45dp"
@@ -234,6 +237,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:orientation="horizontal">
+
                                 <Button android:id="@+id/button5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="45dp"
@@ -241,7 +245,9 @@
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/grey"
+                                    android:onClick="@{ viewModel::onEditAddressClicked }"
                                     android:text="Editar" />
+
                                 <Button android:id="@+id/button4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="45dp"
