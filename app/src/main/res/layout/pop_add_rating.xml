@@ -31,23 +31,64 @@
                 style="@style/TextView.TitlesH6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar reseña"
+                android:text="Agregar una Reseña"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <RatingBar android:id="@+id/ratingBar3"
-            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_12dp"
-            android:numStars="5"
-            android:stepSize="0.5" />
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText android:id="@+id/editTextTextPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:background="@drawable/background_grey_subscribe"
+                android:ems="10"
+                android:hint="Nombre*"
+                android:inputType="textPersonName"
+                android:paddingStart="@dimen/margin_12dp"
+                android:paddingEnd="@dimen/margin_12dp"
+                android:textSize="15sp" />
+
+            <EditText android:id="@+id/editTextTextPersonEmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="@dimen/margin_12dp"
+                android:background="@drawable/background_grey_subscribe"
+                android:ems="10"
+                android:hint="Correo*"
+                android:inputType="textPersonName"
+                android:paddingStart="@dimen/margin_12dp"
+                android:paddingEnd="@dimen/margin_12dp"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_12dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal">
+            <TextView android:id="@+id/textView74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_12dp"
+                android:text="Tu Calificación:"
+                android:textColor="@color/onyxBlack" />
+            <RatingBar android:id="@+id/ratingBar3"
+                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/background_stroke_gray_no_filled"
+            android:background="@drawable/background_grey_subscribe"
             android:orientation="vertical"
             android:padding="7dp">
 
@@ -71,6 +112,6 @@
             android:gravity="right"
             android:includeFontPadding="true"
             android:paddingEnd="10dp"
-            android:text="Guardar reseña" />
+            android:text="Guardar Reseña" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

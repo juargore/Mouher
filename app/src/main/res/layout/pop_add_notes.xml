@@ -29,7 +29,7 @@
                 style="@style/TextView.TitlesH6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar notas"
+                android:text="Observaciones"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -60,6 +60,6 @@
             android:gravity="right"
             android:includeFontPadding="true"
             android:paddingEnd="10dp"
-            android:text="Guardar nota" />
+            android:text="Aceptar" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

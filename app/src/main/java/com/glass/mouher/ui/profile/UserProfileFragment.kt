@@ -62,7 +62,7 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun showPopConfirmation(){
-        alert(title = "", message = "¿Está seguro que desea descartar este elemento?"){
+        alert(title = "", message = "¿Está seguro que desea eliminar este registro?"){
             yesButton {
 
             }

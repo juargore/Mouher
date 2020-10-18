@@ -166,7 +166,8 @@
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/grey"
                                     android:onClick="@{ viewModel::onEditPaymentClicked }"
-                                    android:text="Editar" />
+                                    android:text="Editar"
+                                    android:textAllCaps="false" />
 
                                 <Button android:id="@+id/button2"
                                     android:layout_width="wrap_content"
@@ -176,7 +177,8 @@
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/errorRed"
                                     android:onClick="@{ viewModel::onDiscardPaymentClicked }"
-                                    android:text="Descartar" />
+                                    android:text="Eliminar"
+                                    android:textAllCaps="false" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -277,7 +279,8 @@
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/grey"
                                     android:onClick="@{ viewModel::onEditAddressClicked }"
-                                    android:text="Editar" />
+                                    android:text="Editar"
+                                    android:textAllCaps="false" />
 
                                 <Button android:id="@+id/button4"
                                     android:layout_width="wrap_content"
@@ -287,7 +290,8 @@
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/errorRed"
                                     android:onClick="@{ viewModel::onDiscardAddressClicked }"
-                                    android:text="Descartar" />
+                                    android:text="Eliminar"
+                                    android:textAllCaps="false" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>

@@ -83,12 +83,18 @@ class MenuFragment: Fragment() {
     }
 
     private fun openFromMenuSubscreen(from: MENU?){
-        if(from == MENU.SPONSORS){
+
+        if(from == MENU.CONTACT){
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")))
             return
         }
 
-        if(from == MENU.CONTACT){
+        if(from == MENU.EXTRA_SERVICES){
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")))
+            return
+        }
+
+        if(from == MENU.MORE_INFO){
             showPopUpContact()
             return
         }

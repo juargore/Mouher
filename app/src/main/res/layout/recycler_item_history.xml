@@ -49,7 +49,7 @@
                         android:includeFontPadding="false"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:text="Delete"
+                        android:text="Eliminar"
                         android:textColor="@color/white" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

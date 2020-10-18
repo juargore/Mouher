@@ -16,6 +16,14 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <TextView android:id="@+id/textView73"
+            style="@style/TextView.TitlesH7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_12dp"
+            android:text="v2.1.0"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent" />
         <LinearLayout android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -94,7 +102,7 @@
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="42dp"
                 android:layout_margin="@dimen/margin_18dp"
                 android:background="@drawable/background_stroke_gray_no_filled"
                 android:gravity="center_horizontal|center_vertical">
@@ -102,6 +110,7 @@
                 <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvSocialMedia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_marginStart="@dimen/margin_12dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
                     android:orientation="horizontal" />
@@ -111,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
                 android:layout_marginEnd="@dimen/margin_12dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="@dimen/margin_12dp"
                 android:orientation="vertical"
                 android:visibility="@{viewModel.searchProductVisibility ? View.VISIBLE : View.GONE}">
 
@@ -119,29 +128,157 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_grey_search"
-                    android:drawableStart="@drawable/ic_search"
+                    android:drawableEnd="@drawable/ic_search"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="Buscar productos..."
                     android:imeOptions="actionSearch"
                     android:inputType="text"
-                    android:paddingStart="8dp"
+                    android:paddingStart="@dimen/margin_12dp"
                     android:paddingTop="5dp"
-                    android:paddingEnd="5dp"
+                    android:paddingEnd="@dimen/margin_12dp"
                     android:paddingBottom="5dp"
                     android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvMenu"
-                android:layout_width="match_parent"
+            <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/margin_12dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="@dimen/margin_12dp"
-                app:items="@{viewModel.items}"
-                android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}"
-                app:clickHandler="@{ viewModel }"
-                app:itemViewBinder="@{view.itemViewBinder}" />
+                android:fillViewport="true">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="20sp"
+                    android:paddingTop="@dimen/margin_12dp"
+                    android:paddingEnd="@dimen/margin_18dp">
+
+                    <TextView android:id="@+id/textView72"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:fontFamily="@font/regular"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="Mi Perfil"
+                        android:onClick="@{ viewModel::onProfileClick }"
+                        android:textSize="15sp" />
+                    <TextView android:id="@+id/textView70"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="Mis Compras"
+                        android:onClick="@{ viewModel::onHistoryClick }"
+                        android:textSize="15sp" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_12dp"
+                        android:layout_marginBottom="@dimen/margin_12dp"
+                        android:orientation="horizontal">
+                        <TextView android:id="@+id/textView63"
+                            style="@style/TextView.TitlesH5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="Zonas Comerciales"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <ImageView android:id="@+id/imageView23"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:rotation="90"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_right_arrow" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:items="@{viewModel.items}"
+                        app:clickHandler="@{ viewModel }"
+                        app:itemViewBinder="@{view.itemViewBinder}" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_12dp"
+                        android:orientation="horizontal">
+                        <TextView android:id="@+id/textView64"
+                            style="@style/TextView.TitlesH5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="Mouher Market"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <ImageView android:id="@+id/imageView24"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:rotation="90"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_right_arrow" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView android:id="@+id/textView66"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/regular"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="Acerca de"
+                        android:onClick="@{ viewModel::onAboutClick }"
+                        android:textSize="15sp" />
+
+                    <TextView android:id="@+id/textView67"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/regular"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="Contáctanos"
+                        android:onClick="@{ viewModel::onContactUsClick }"
+                        android:textSize="15sp" />
+                    <TextView android:id="@+id/textView68"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/regular"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="Servicios Adicionales"
+                        android:onClick="@{ viewModel::onExtraServicesClick }"
+                        android:textSize="15sp" />
+                    <TextView android:id="@+id/textView69"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/regular"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="Más Información..."
+                        android:onClick="@{ viewModel::onMoreInfoClick }"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+            <TextView android:id="@+id/textView71"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

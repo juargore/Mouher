@@ -31,10 +31,9 @@ class CartViewModel(
         val mList = mutableListOf<Item>()
         mList.add(Item(name = "Botín suela track", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1059/640/040/1059640040_4_1_8.jpg?t=1594808755920&imwidth=375", description = "100"))
         mList.add(Item(name = "Sandalia tacón tiras", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1608/640/040/1608640040_4_1_8.jpg?t=1593175295433&imwidth=375", description = "150"))
-        mList.add(Item(name = "Tenis picado blanco", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1224/540/001/1224540001_4_1_8.jpg?t=1585572071607&imwidth=375", description = "200"))
+        mList.add(Item(name = "Tenis picado blanco y es otro ejemplo con más palabras", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1224/540/001/1224540001_4_1_8.jpg?t=1585572071607&imwidth=375", description = "200"))
         mList.add(Item(name = "Pala dorada trenzada", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1562/540/091/1562540091_4_1_8.jpg?t=1583955278482&imwidth=375", description = "170"))
-        mList.add(Item(name = "Sandala plataforma yute", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1506/540/040/1506540040_4_1_8.jpg?t=1583336479068&imwidth=375", description = "220"))
-        //mList.add(Item(name = "Tenis combinado pieza", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1309/640/009/1309640009_2_2_8.jpg?t=1591956118609&imwidth=375", description = "320"))
+        mList.add(Item(name = "Sandala plataforma yute con texto largo", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1506/540/040/1506540040_4_1_8.jpg?t=1583336479068&imwidth=375", description = "220"))
 
         val viewModels = mutableListOf<ACartListViewModel>()
 

@@ -2,6 +2,7 @@ package com.glass.mouher.ui.menu
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
@@ -81,11 +82,10 @@ class MenuViewModel(
 
     private fun onResponseMenuItems(list: List<Item>){
         val mList = list.toMutableList()
-        mList.add(Item( name = "Mi Perfil", icon = R.drawable.ic_person))
-        mList.add(Item( name = "Mis compras", icon = R.drawable.ic_gift))
-        mList.add(Item( name = "Enlaces patrocinados", icon = R.drawable.ic_accessibility))
-        mList.add(Item( name = "Acerca de", icon = R.drawable.ic_info))
-        mList.add(Item( name = "Contáctanos", icon = R.drawable.ic_work))
+        mList.add(Item( name = "Zona 1"))
+        mList.add(Item( name = "Zona 2"))
+        mList.add(Item( name = "Zona 3"))
+        mList.add(Item( name = "Zona AB"))
 
         emptyList = mList.isEmpty()
 
@@ -110,6 +110,36 @@ class MenuViewModel(
         notifyPropertyChanged(BR.itemsSocial)
     }
 
+    fun onProfileClick(@Suppress("UNUSED_PARAMETER") view: View){
+        screen = MENU.PROFILE
+        notifyPropertyChanged(BR.screen)
+    }
+
+    fun onHistoryClick(@Suppress("UNUSED_PARAMETER") view: View){
+        screen = MENU.HISTORY
+        notifyPropertyChanged(BR.screen)
+    }
+
+    fun onAboutClick(@Suppress("UNUSED_PARAMETER") view: View){
+        screen = MENU.ABOUT
+        notifyPropertyChanged(BR.screen)
+    }
+
+    fun onContactUsClick(@Suppress("UNUSED_PARAMETER") view: View){
+        screen = MENU.CONTACT
+        notifyPropertyChanged(BR.screen)
+    }
+
+    fun onExtraServicesClick(@Suppress("UNUSED_PARAMETER") view: View){
+        screen = MENU.EXTRA_SERVICES
+        notifyPropertyChanged(BR.screen)
+    }
+
+    fun onMoreInfoClick(@Suppress("UNUSED_PARAMETER") view: View){
+        screen = MENU.MORE_INFO
+        notifyPropertyChanged(BR.screen)
+    }
+
     private fun onError(t: Throwable?){
         @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         Log.e("ERROR", t?.localizedMessage)
@@ -124,15 +154,14 @@ class MenuViewModel(
         if(viewModel is MenuItemViewModel){
             Log.e("--", "${viewModel.name}")
 
-            screen = when(viewModel.name){
+            /*screen = when(viewModel.name){
                 "Mi Perfil"-> MENU.PROFILE
                 "Mis compras"-> MENU.HISTORY
-                "Enlaces patrocinados" -> MENU.SPONSORS
                 "Acerca de" -> MENU.ABOUT
-                else -> MENU.CONTACT
+                else -> MENU.MORE_INFO
             }
 
-            notifyPropertyChanged(BR.screen)
+            notifyPropertyChanged(BR.screen)*/
         }
     }
 }
@@ -140,7 +169,8 @@ class MenuViewModel(
 enum class MENU{
     PROFILE,
     HISTORY,
-    SPONSORS,
     ABOUT,
-    CONTACT
+    CONTACT,
+    EXTRA_SERVICES,
+    MORE_INFO
 }

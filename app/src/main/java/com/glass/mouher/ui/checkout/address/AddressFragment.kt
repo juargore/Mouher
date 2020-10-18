@@ -33,7 +33,6 @@ class AddressFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address, container, false)
-
         binding.viewModel = viewModel
         binding.view = this
 

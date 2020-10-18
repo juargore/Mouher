@@ -65,6 +65,7 @@
 
                     <LinearLayout android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/margin_12dp"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toTopOf="@+id/button6"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +98,20 @@
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPhoneInput"
+                            style="@style/TextInputLayoutAppearanceBlack"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_12dp"
+                            android:hint="CVC"
+                            android:theme="@style/TextInputLayoutAppearanceBlack">
+
+                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                android:layout_width="match_parent"
+                                android:layout_marginBottom="@dimen/margin_18dp"
+                                android:inputType="phone" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
                         <TextView style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -104,6 +119,7 @@
 
                         <LinearLayout android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_18dp"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
@@ -138,20 +154,6 @@
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPhoneInput"
-                            style="@style/TextInputLayoutAppearanceBlack"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp"
-                            android:hint="Número de teléfono"
-                            android:theme="@style/TextInputLayoutAppearanceBlack">
-
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
-                                android:layout_width="match_parent"
-                                android:layout_marginBottom="@dimen/margin_18dp"
-                                android:inputType="phone" />
-                        </com.google.android.material.textfield.TextInputLayout>
 
                         <TextView android:id="@+id/textView42"
                             android:layout_width="match_parent"
