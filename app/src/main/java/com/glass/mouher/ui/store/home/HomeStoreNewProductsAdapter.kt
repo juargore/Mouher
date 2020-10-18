@@ -3,6 +3,7 @@
 package com.glass.mouher.ui.store.home
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,14 @@ class HomeStoreNewProductsAdapter (private val context: Context,
     @Suppress("DEPRECATION")
     inner class ItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
         fun setData(pos: Int, item: Item, eventItemClick: InterfaceOnClick){
+
+            itemView.productName.text = item.name
+
+            // middle line on the old price
+            itemView.txtOldPrice.let{
+                it.paintFlags = it.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
+            //itemView.txtOldPrice.paintFlags = itemView.txtOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             Glide.with(context)
                 .load(item.imageUrl)

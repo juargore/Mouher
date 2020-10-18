@@ -32,9 +32,6 @@ class HomeStoreViewModel(
     var itemsLinkedStores = mutableListOf<Item>()
 
     @Bindable
-    var sponsorsList = mutableListOf<Item>()
-
-    @Bindable
     var urlVideo = ""
 
 
@@ -45,17 +42,8 @@ class HomeStoreViewModel(
         bannerList.add(Item(imageUrl = "https://d500.epimg.net/cincodias/imagenes/2020/05/23/companias/1590247574_823229_1590247687_noticia_normal.jpg", name = "Bienvenido", description = "Mouher Market"))
         bannerList.add(Item(imageUrl = "https://www.modaes.com/files/000_2016/mexico/Mexico%20centro%20comercial%20Santa%20Fe%20728.png", name = "Habilita tu \ne-commerce", description = "Cuanto antes"))
         bannerList.add(Item(imageUrl = "https://s03.s3c.es/imag/_v0/770x420/7/c/b/centro-comercial-770.jpg", name = "Titulo", description = "Descripcion"))
-        bannerList.add(Item(imageUrl = "https://cdn.cnn.com/cnnnext/dam/assets/190723081122-01-mall-of-america-minneapolis-interior-stock-exlarge-169.jpg", name = "Otro titulo", description = "Otra descripcion"))
         notifyPropertyChanged(com.glass.mouher.BR.bannerList)
 
-        val sponsorsList = mutableListOf<Item>()
-        sponsorsList.add(Item(imageUrl = "https://i.pinimg.com/originals/75/b7/59/75b759a40bb58ac5afbdaea57455831d.jpg"))
-        sponsorsList.add(Item(imageUrl = "https://bcassetcdn.com/public/blog/wp-content/uploads/2019/07/18094726/artisan-oz.jpg"))
-        sponsorsList.add(Item(imageUrl = "https://i.etsystatic.com/10773810/r/il/5bda90/1718025006/il_570xN.1718025006_3wes.jpg"))
-        sponsorsList.add(Item(imageUrl = "https://mir-s3-cdn-cf.behance.net/project_modules/1400/6cbf3568556191.5b611f672d5e3.jpg"))
-
-        this.sponsorsList = sponsorsList
-        notifyPropertyChanged(BR.sponsorsList)
 
         val categoriesList = mutableListOf<Item>()
         categoriesList.add(Item(name = "Accesorios", description = "Complementa tu estilo", imageUrl = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"))

@@ -30,7 +30,8 @@
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    android:layout_height="200dp"
+                    android:layout_margin="1dp">
 
                     <com.synnapps.carouselview.CarouselView android:id="@+id/carouselView"
                         android:layout_width="match_parent"
@@ -48,7 +49,11 @@
 
                     <View android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/background_banner_gradient">
+                        android:background="@drawable/background_banner_gradient"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                     </View>
                     <TextView android:id="@+id/carouselTitle"
@@ -73,26 +78,19 @@
                         android:text="TextView"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/carouselView"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="3dp"
-                    android:orientation="horizontal">
-                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvSponsorsStore"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-
-                <TextView style="@style/TextView.TitlesH5"
+                <TextView style="@style/TextView.TitlesH4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:layout_marginTop="@dimen/margin_18dp"
+                    android:gravity="center_horizontal"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="Categorías" />
+                    android:text="Nuestros Productos"
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvCategories"
                     android:layout_width="match_parent"
@@ -101,19 +99,21 @@
                     app:clickHandler="@{ viewModel }"
                     app:itemViewBinder="@{view.itemViewBinder}" />
 
-                <TextView style="@style/TextView.TitlesH5"
+                <TextView style="@style/TextView.TitlesH4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:layout_marginTop="22dp"
+                    android:gravity="center_horizontal"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="Nuevas llegadas" />
+                    android:text="Nuevas Llegadas"
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvNewProducts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/margin_12dp"
-                    android:paddingEnd="@dimen/margin_12dp" />
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
 
                 <VideoView android:id="@+id/videoStore"
                     android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="Suscríbete" />
+                        android:text="Suscríbete a nuestro Newsletter" />
                     <TextView android:id="@+id/textView38"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -140,11 +140,27 @@
                         android:paddingStart="@dimen/margin_18dp"
                         android:paddingEnd="@dimen/margin_18dp"
                         android:text="Ingresa tu dirección de correo electrónico para recibir nuestras últimas novedades" />
+
                     <EditText android:id="@+id/editTextTextPersonName"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginStart="@dimen/margin_18dp"
                         android:layout_marginTop="@dimen/margin_12dp"
+                        android:layout_marginEnd="@dimen/margin_18dp"
+                        android:background="@drawable/background_grey_subscribe"
+                        android:drawableEnd="@drawable/ic_person"
+                        android:ems="10"
+                        android:hint="Nombre"
+                        android:inputType="textPersonName"
+                        android:paddingStart="@dimen/margin_12dp"
+                        android:paddingEnd="@dimen/margin_12dp"
+                        android:textSize="15sp" />
+
+                    <EditText android:id="@+id/editTextTextPersonEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="@dimen/margin_18dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="@dimen/margin_18dp"
                         android:background="@drawable/background_grey_subscribe"
                         android:drawableEnd="@drawable/ic_envelope"
@@ -158,6 +174,7 @@
 
                 <LinearLayout android:layout_width="match_parent"
                     android:layout_height="120dp"
+                    android:layout_marginTop="@dimen/margin_12dp"
                     android:background="@color/white">
 
                     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvLinkedStores"

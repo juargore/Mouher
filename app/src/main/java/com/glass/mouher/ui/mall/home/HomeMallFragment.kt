@@ -113,12 +113,12 @@ class HomeMallFragment : Fragment() {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
                 binding.carouselTitle.apply {
-                    this.startFadeInAnimation()
                     this.text = viewModel.bannerList[pos].name
+                    this.startFadeInAnimation()
                 }
                 binding.carouselSubtitle.apply {
-                    this.startFadeInAnimation()
                     this.text = viewModel.bannerList[pos].description
+                    this.startFadeInAnimation()
                 }
             }
             override fun onPageSelected(position: Int) {}

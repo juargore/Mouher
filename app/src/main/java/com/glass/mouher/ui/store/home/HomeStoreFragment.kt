@@ -37,7 +37,6 @@ class HomeStoreFragment : Fragment() {
                 BR.bannerList -> setImagesInBanner()
                 BR.itemsNewProducts -> setNewProducts(viewModel.itemsNewProducts)
                 BR.itemsLinkedStores -> setLinkedStores(viewModel.itemsLinkedStores)
-                BR.sponsorsList -> setUpSponsorsRecycler()
                 BR.urlVideo -> setUpVideo(viewModel.urlVideo)
                 BR.onClick ->{
                     requireActivity().supportFragmentManager.beginTransaction().apply {
@@ -60,7 +59,6 @@ class HomeStoreFragment : Fragment() {
         binding.rvCategories.layoutManager = GridLayoutManager(context, 2)
         binding.rvNewProducts.layoutManager = LinearLayoutManager(context)
         binding.rvLinkedStores.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        binding.rvSponsorsStore.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         return binding.root
     }
@@ -91,17 +89,6 @@ class HomeStoreFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_blur)
             .into(imageView)
-    }
-
-    private fun setUpSponsorsRecycler(){
-        val adapter = HomeSponsorsAdapter(requireContext(), viewModel.sponsorsList,
-            object: HomeSponsorsAdapter.InterfaceOnClick{
-                override fun onItemClick(pos: Int) {
-
-                }
-            })
-
-        binding.rvSponsorsStore.adapter = adapter
     }
 
     private fun setNewProducts(itemsNewProducts: MutableList<Item>) {

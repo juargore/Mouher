@@ -52,7 +52,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="3dp">
 
                 <RatingBar android:id="@+id/ratingBar"
                     style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
@@ -75,37 +76,43 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView android:id="@+id/textView25"
+            <TextView android:id="@+id/productName"
                 style="@style/TextView.TitlesH5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="2dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/medium"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 android:paddingStart="1dp"
                 android:text="@{ viewModel.name }"
                 tools:text="Manzana verde" />
 
-            <TextView android:id="@+id/textView24"
-                style="@style/TextView.TitlesH6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:elevation="5dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:includeFontPadding="false"
-                android:paddingStart="5dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="3dp"
-                android:text="$ 250 / pza"
-                android:textColor="@color/errorRed"
-                tools:text="$20.00 / kg" />
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="4dp">
+                <TextView android:id="@+id/textView24"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:elevation="5dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:includeFontPadding="true"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="$250"
+                    android:textColor="@color/errorRed" />
+                <TextView android:id="@+id/txtOldPrice"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$320" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

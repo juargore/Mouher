@@ -45,7 +45,6 @@ class HomeMallViewModel(
         bannerList.add(Item(imageUrl = "https://d500.epimg.net/cincodias/imagenes/2020/05/23/companias/1590247574_823229_1590247687_noticia_normal.jpg", name = "Bienvenido", description = "Mouher Market"))
         bannerList.add(Item(imageUrl = "https://www.modaes.com/files/000_2016/mexico/Mexico%20centro%20comercial%20Santa%20Fe%20728.png", name = "Habilita tu \ne-commerce", description = "Cuanto antes"))
         bannerList.add(Item(imageUrl = "https://s03.s3c.es/imag/_v0/770x420/7/c/b/centro-comercial-770.jpg", name = "Titulo", description = "Descripcion"))
-        bannerList.add(Item(imageUrl = "https://cdn.cnn.com/cnnnext/dam/assets/190723081122-01-mall-of-america-minneapolis-interior-stock-exlarge-169.jpg", name = "Otro titulo", description = "Otra descripcion"))
         notifyPropertyChanged(BR.bannerList)
 
         sponsorsList.clear()
