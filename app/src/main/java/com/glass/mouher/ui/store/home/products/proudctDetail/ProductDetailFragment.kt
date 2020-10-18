@@ -48,17 +48,18 @@ class ProductDetailFragment : Fragment() {
         binding.view = this
 
         binding.rvMiniList.layoutManager = LinearLayoutManager(context)
-        binding.rvRelatedProducts.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        binding.rvRelatedProducts.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }
 
     private fun setRelatedProducts(itemsRelatedProducts: MutableList<Item>) {
-        val adapter = ProductDetailRelatedProductsAdapter(requireContext(), itemsRelatedProducts, object : ProductDetailRelatedProductsAdapter.InterfaceOnClick{
-            override fun onItemClick(pos: Int) {
+        val adapter = ProductDetailRelatedProductsAdapter(requireContext(), itemsRelatedProducts,
+            object : ProductDetailRelatedProductsAdapter.InterfaceOnClick{
+                override fun onItemClick(pos: Int) {
 
-            }
-        })
+                }
+            })
 
         binding.rvRelatedProducts.adapter = adapter
     }

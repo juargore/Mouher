@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.Item
 import com.glass.mouher.R
-import kotlinx.android.synthetic.main.recycler_item_linked_stores.view.*
+import kotlinx.android.synthetic.main.recycler_item_products.view.*
 
 
 class ProductDetailRelatedProductsAdapter (private val context: Context,
@@ -23,7 +23,7 @@ class ProductDetailRelatedProductsAdapter (private val context: Context,
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.recycler_item_linked_stores, p0, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.recycler_item_products, p0, false)
         return ItemViewHolder(view)
     }
 
@@ -39,13 +39,13 @@ class ProductDetailRelatedProductsAdapter (private val context: Context,
     inner class ItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
         fun setData(pos: Int, item: Item, eventItemClick: InterfaceOnClick){
 
-            itemView.text.text = item.name
+            itemView.productName.text = item.name
 
             Glide.with(context)
                 .load(item.imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_blur)
-                .into(itemView.image)
+                .into(itemView.productImage)
 
             itemView.setOnClickListener {
                 eventItemClick.onItemClick(pos)
