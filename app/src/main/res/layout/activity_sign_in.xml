@@ -135,12 +135,11 @@
 
                 <com.google.android.material.textfield.TextInputLayout android:id="@+id/signinEmailInput"
                     style="@style/TextInputLayoutAppearanceBlack"
-                    android:theme="@style/TextInputLayoutAppearanceBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:hint="Nombre de usuario"
-                    >
+                    android:hint="Correo"
+                    android:theme="@style/TextInputLayoutAppearanceBlack">
 
                     <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
                         android:layout_width="match_parent"
@@ -174,19 +173,19 @@
                     android:gravity="end|center_vertical"
                     android:includeFontPadding="false"
                     android:onClick="@{ viewModel::onPasswordClicked }"
-                    android:text="Recuperar contraseña"
+                    android:text="Recuperar Contraseña"
                     android:textColor="@color/grey" />
 
                 <TextView style="@style/TextView.TitlesH5"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:drawableEnd="@drawable/ic_right_arrow"
                     android:fontFamily="@font/medium"
                     android:gravity="end|center_vertical"
                     android:includeFontPadding="false"
-                    android:text="Nuevo registro"
-                    android:onClick="@{ viewModel::onSignupClicked }"/>
+                    android:onClick="@{ viewModel::onSignupClicked }"
+                    android:text="Nuevo Registro" />
 
                 <View android:layout_width="match_parent"
                     android:layout_height="0dp"
