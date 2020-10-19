@@ -21,6 +21,9 @@ class ProductDetailViewModel(
     var showPopRating: Unit? = null
 
     @Bindable
+    var openScreenReviews: Unit? = null
+
+    @Bindable
     var miniSelected: String? = null
 
     @Bindable
@@ -67,6 +70,10 @@ class ProductDetailViewModel(
 
     fun onAddRatingClicked(@Suppress("UNUSED_PARAMETER") view: View){
         notifyPropertyChanged(BR.showPopRating)
+    }
+
+    fun onReviewsClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        notifyPropertyChanged(BR.openScreenReviews)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

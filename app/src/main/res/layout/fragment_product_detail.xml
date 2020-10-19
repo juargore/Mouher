@@ -367,6 +367,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
+                        android:onClick="@{ viewModel::onReviewsClicked }"
                         android:text="Ver opiniones de los usuarios"
                         android:textColor="@color/colorPrimaryDark" />
                 </LinearLayout>

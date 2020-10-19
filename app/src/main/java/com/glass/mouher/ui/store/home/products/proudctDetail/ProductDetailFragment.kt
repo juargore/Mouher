@@ -22,6 +22,7 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.store.home.HomeStoreLinkedStoresAdapter
+import com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductDetailFragment : Fragment() {
@@ -35,6 +36,13 @@ class ProductDetailFragment : Fragment() {
                 BR.miniSelected -> loadMiniImage(viewModel.miniSelected)
                 BR.itemsRelatedProducts -> setRelatedProducts(viewModel.itemsRelatedProducts)
                 BR.showPopRating -> showPopUpRating()
+                BR.openScreenReviews -> {
+                    requireActivity().supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.container_body, ProductReviewsFragment())
+                        addToBackStack("Reviews")
+                        commit()
+                    }
+                }
             }
         }
 

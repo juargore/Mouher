@@ -17,6 +17,7 @@ import com.glass.mouher.ui.store.MainStoreViewModel
 import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import com.glass.mouher.ui.store.home.products.ProductsViewModel
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel
+import com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -76,6 +77,10 @@ val DIViewModel = module{
     }
 
     viewModel { ProductDetailViewModel(
+        context = androidContext())
+    }
+
+    viewModel { ProductReviewsViewModel(
         context = androidContext())
     }
 
