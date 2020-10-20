@@ -29,23 +29,40 @@
                 app:layout_constraintStart_toEndOf="@+id/ivIconDrawer"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView android:id="@+id/txtNameDrawer"
-                style="@style/TextView.TitlesH6"
-                android:layout_width="0dp"
+            <LinearLayout android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12dp"
-                android:layout_marginEnd="@dimen/margin_18dp"
-                android:ellipsize="end"
-                android:includeFontPadding="false"
-                android:inputType="textMultiLine"
-                android:text="@{ viewModel.name }"
-                android:textColor="@color/grey"
-                android:textSize="15sp"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView6"
                 app:layout_constraintStart_toEndOf="@id/textView75"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Vestido de noche negro" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView android:id="@+id/textView79"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12dp"
+                    android:layout_marginEnd="@dimen/margin_18dp"
+                    android:layout_marginBottom="2dp"
+                    android:includeFontPadding="false"
+                    android:text="Vestido de noche negro"
+                    android:textSize="15sp" />
+
+                <TextView android:id="@+id/txtNameDrawer"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12dp"
+                    android:layout_marginEnd="@dimen/margin_18dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/regular"
+                    android:includeFontPadding="false"
+                    android:inputType="textMultiLine"
+                    android:text="@{ viewModel.name }"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    tools:text="Descripción" />
+            </LinearLayout>
 
             <TextView android:id="@+id/textView6"
                 style="@style/TextView.TitlesH6"
