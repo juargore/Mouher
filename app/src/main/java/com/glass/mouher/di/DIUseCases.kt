@@ -6,8 +6,6 @@ import com.glass.domain.usecases.categories.CategoriesUsecase
 import com.glass.domain.usecases.categories.ICategoriesUseCase
 import com.glass.domain.usecases.history.IHistoryUseCase
 import com.glass.domain.usecases.history.HistoryUseCase
-import com.glass.domain.usecases.history.detail.HistoryDetailUseCase
-import com.glass.domain.usecases.history.detail.IHistoryDetailUseCase
 import com.glass.domain.usecases.productDetail.IProductDetailUseCase
 import com.glass.domain.usecases.productDetail.ProductDetailUseCase
 import com.glass.domain.usecases.products.IProductsUseCase
@@ -56,10 +54,6 @@ val DIUseCases = module {
     single(DIConstants.UseCases.ORDERS.name) { HistoryUseCase(
         ordersRepository = get()
     ) as IHistoryUseCase }
-
-    single(DIConstants.UseCases.ORDERS.name) { HistoryDetailUseCase(
-        ordersRepository = get()
-    ) as IHistoryDetailUseCase }
 
     single(DIConstants.UseCases.TAB_BAR.name) { UITabBarUseCase(
 

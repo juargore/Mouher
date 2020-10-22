@@ -16,7 +16,16 @@ class OrdersRepository(
     }
 
     override fun getAllOrdersByUser(): Observable<List<Item>> {
-        return Observable.just(emptyList())
+
+        val mList = mutableListOf<Item>()
+        mList.add(Item( name = "Carlos Esparza C.", description = "Av. Acueducto 1100 Col. Aviación"))
+        mList.add(Item( name = "María Pérez Díaz", description = "Av. Acueducto 1100 Col. Aviación"))
+        mList.add(Item( name = "Carlos Esparza C.", description = "Av. Acueducto 1100 Col. Aviación"))
+        mList.add(Item( name = "Carlos Esparza C.", description = "Av. Acueducto 1100 Col. Aviación"))
+        mList.add(Item( name = "María Pérez Díaz", description = "Av. Acueducto 1100 Col. Aviación"))
+        mList.add(Item( name = "María Pérez Díaz", description = "Av. Acueducto 1100 Col. Aviación"))
+
+        return Observable.just(mList)
     }
 
     override fun getAllProductsByOrder(): Observable<List<Item>> {

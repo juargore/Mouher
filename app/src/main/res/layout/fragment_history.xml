@@ -25,6 +25,7 @@
             <ImageView android:id="@+id/imageView25"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -65,7 +66,7 @@
                 android:layout_height="match_parent"
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp"
-                app:items="@{viewModel.items}"
+                app:items="@{viewModel.historyItems}"
                 app:itemViewBinder="@{view.itemViewBinder}" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
