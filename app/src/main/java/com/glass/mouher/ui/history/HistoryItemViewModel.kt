@@ -26,6 +26,7 @@ class HistoryItemViewModel(
 
     fun onDeleteClicked(v: View){
         (v.parent as? SwipeRevealLayout)?.close(true)
+
         notifyPropertyChanged(BR.deleteClicked)
     }
 

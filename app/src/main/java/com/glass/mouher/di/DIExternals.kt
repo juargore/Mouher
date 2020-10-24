@@ -10,7 +10,7 @@ val DIExternals = module {
     single(DIConstants.Externals.FIREBASE_STORAGE.name) { createStorage() }
     single(DIConstants.Externals.RETROFIT.name) { createNetworkClient(
         context = androidContext(),
-        baseUrl = BuildConfig.MOBILE_GATEWAY_URL
+        baseUrl = BuildConfig.URL_PARENT
     )}
 
     single(DIConstants.Externals.LOGGER.name) { Logger.instance as ILogger }

@@ -27,16 +27,18 @@ class HistoryViewModel(
             notifyPropertyChanged(BR.historyItems)
         }
 
-    val itemPropertyChangeCallback =
+    /**
+    * @property itemPropertyChangedCallback listener to item actions
+    */
+    val itemPropertyChangedCallback =
         propertyChangedCallback { sender: Observable?, propertyId: Int ->
             if(sender is HistoryItemViewModel){
                 when(propertyId){
-                    BR.deleteClicked -> sender.deleteClicked?.let{
-                        notifyPropertyChanged(BR.deleteItem)
-                    }
+                    BR.deleteClicked -> notifyPropertyChanged(BR.deleteItem)
                 }
             }
         }
+
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)

@@ -92,7 +92,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="@dimen/margin_18dp"
                 android:layout_marginEnd="20dp"
-                android:background="@color/grey" />
+                android:background="@color/mainGrey" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -174,7 +174,7 @@
                     android:includeFontPadding="false"
                     android:onClick="@{ viewModel::onPasswordClicked }"
                     android:text="Recuperar Contraseña"
-                    android:textColor="@color/grey" />
+                    android:textColor="@color/mainGrey" />
 
                 <TextView style="@style/TextView.TitlesH5"
                     android:layout_width="match_parent"
@@ -195,8 +195,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="58dp"
                     android:layout_marginBottom="@dimen/margin_12dp"
-                    android:background="@drawable/background_button_rounded"
-                    android:backgroundTint="@color/onyxBlack"
+                    android:background="@drawable/button_ripple"
                     android:onClick="@{ viewModel::onSignInButtonClicked }"
                     android:paddingStart="@dimen/margin_18dp"
                     android:paddingEnd="@dimen/margin_18dp"

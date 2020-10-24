@@ -30,10 +30,10 @@ class HomeMallFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.bannerList -> setImagesInBanner()
-                BR.sponsorsList -> setUpSponsorsRecycler()
+                BR.topBannerList -> setImagesInTopBanner()
                 BR.lobbyList -> setUpLobbyRecycler()
                 BR.zonesList -> setUpZonesRecycler()
+                BR.sponsorStoresList -> setUpSponsorStoresRecycler()
             }
         }
 
@@ -53,48 +53,41 @@ class HomeMallFragment : Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun setUpSponsorsRecycler(){
-        val adapter = HomeSponsorsAdapter(requireContext(), viewModel.sponsorsList,
-            object: HomeSponsorsAdapter.InterfaceOnClick{
-                override fun onItemClick(pos: Int) {
+    private fun setUpSponsorStoresRecycler(){
+        val adapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
 
-                }
-            })
+        binding.rvHomeSponsors.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false)
 
-        binding.rvHomeSponsors.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvHomeSponsors.adapter = adapter
     }
 
     private fun setUpZonesRecycler() {
-        val adapter = HomeZonesAdapter(requireContext(), viewModel.zonesList,
-        object: HomeZonesAdapter.InterfaceOnClick{
-            override fun onItemClick(pos: Int) {
-
-                val args = Bundle().apply {
-                    putString("zoneName", viewModel.zonesList[pos].name)
-                }
-
-                requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.container_body_mall, StoresFragment().apply {
-                        arguments = args
-                    })
-                    addToBackStack("Stores")
-                    commit()
-                }
-            }
-        })
+        val adapter = HomeZonesAdapter(viewModel.zonesList)
 
         binding.rvHomeZones.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHomeZones.adapter = adapter
+
+        adapter.onItemClicked = { item->
+            val args = Bundle().apply {
+                putString("zoneName", item.name)
+            }
+
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                replace(R.id.container_body_mall, StoresFragment().apply {
+                    arguments = args
+                })
+
+                addToBackStack("Stores")
+                commit()
+            }
+        }
     }
 
     private fun setUpLobbyRecycler() {
-        val adapter = HomeLobbyAdapter(requireContext(), viewModel.lobbyList,
-            object: HomeLobbyAdapter.InterfaceOnClick{
-                override fun onItemClick(pos: Int) {
-
-                }
-            })
+        val adapter = HomeLobbyAdapter(viewModel.lobbyList)
 
         binding.rvHomeLobby.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHomeLobby.adapter = adapter
@@ -105,29 +98,33 @@ class HomeMallFragment : Fragment() {
         viewModel.onPause(onPropertyChangedCallback)
     }
 
-    private fun setImagesInBanner(){
-        binding.carouselView.setImageListener(imageListener)
-        binding.carouselView.pageCount = viewModel.bannerList.size
+    private fun setImagesInTopBanner(){
+        with(binding.carouselView){
+            setImageListener(imageListener)
+            pageCount = viewModel.topBannerList.size
 
-        binding.carouselView.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
-                binding.carouselTitle.apply {
-                    this.text = viewModel.bannerList[pos].name
-                    this.startFadeInAnimation()
+            addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+
+                override fun onPageSelected(position: Int) {}
+                override fun onPageScrollStateChanged(state: Int) {}
+
+                override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
+                    binding.carouselTitle.apply {
+                        text = viewModel.topBannerList[pos].title
+                        startFadeInAnimation()
+                    }
+                    binding.carouselSubtitle.apply {
+                        text = viewModel.topBannerList[pos].subtitle
+                        startFadeInAnimation()
+                    }
                 }
-                binding.carouselSubtitle.apply {
-                    this.text = viewModel.bannerList[pos].description
-                    this.startFadeInAnimation()
-                }
-            }
-            override fun onPageSelected(position: Int) {}
-        })
+            })
+        }
     }
 
     private var imageListener: ImageListener = ImageListener { position, imageView ->
         Glide.with(requireContext())
-            .load(viewModel.bannerList[position].imageUrl)
+            .load(viewModel.topBannerList[position].imageUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_blur)
             .into(imageView)

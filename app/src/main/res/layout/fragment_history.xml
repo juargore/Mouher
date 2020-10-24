@@ -67,6 +67,7 @@
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp"
                 app:items="@{viewModel.historyItems}"
+                app:itemPropertyChangeCallback="@{ viewModel.itemPropertyChangedCallback }"
                 app:itemViewBinder="@{view.itemViewBinder}" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

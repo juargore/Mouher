@@ -164,7 +164,7 @@
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/grey"
+                                    android:backgroundTint="@color/mainGrey"
                                     android:onClick="@{ viewModel::onEditPaymentClicked }"
                                     android:text="Editar"
                                     android:textAllCaps="false" />
@@ -175,7 +175,7 @@
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/errorRed"
+                                    android:backgroundTint="@color/mainRed"
                                     android:onClick="@{ viewModel::onDiscardPaymentClicked }"
                                     android:text="Eliminar"
                                     android:textAllCaps="false" />
@@ -199,12 +199,12 @@
                             android:layout_marginEnd="@dimen/margin_18dp"
                             android:gravity="center_horizontal"
                             android:text="Aún no has agregado un método de pago preestablecido. Agrégalo ahora."
-                            android:textColor="@color/infoBlue" />
+                            android:textColor="@color/mainBlue" />
                         <ImageView android:id="@+id/imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:tint="@color/errorRed"
+                            android:tint="@color/mainRed"
                             app:srcCompat="@drawable/ic_note_add" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -277,7 +277,7 @@
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/grey"
+                                    android:backgroundTint="@color/mainGrey"
                                     android:onClick="@{ viewModel::onEditAddressClicked }"
                                     android:text="Editar"
                                     android:textAllCaps="false" />
@@ -288,7 +288,7 @@
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/errorRed"
+                                    android:backgroundTint="@color/mainRed"
                                     android:onClick="@{ viewModel::onDiscardAddressClicked }"
                                     android:text="Eliminar"
                                     android:textAllCaps="false" />
@@ -313,12 +313,12 @@
                             android:layout_marginEnd="@dimen/margin_18dp"
                             android:gravity="center_horizontal"
                             android:text="Aún no has agregado una dirección de entrega preestablecida. Agrégala ahora."
-                            android:textColor="@color/infoBlue" />
+                            android:textColor="@color/mainBlue" />
                         <ImageView android:id="@+id/imageView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:tint="@color/errorRed"
+                            android:tint="@color/mainRed"
                             app:srcCompat="@drawable/ic_note_add" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>

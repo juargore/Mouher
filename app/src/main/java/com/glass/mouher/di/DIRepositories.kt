@@ -7,6 +7,10 @@ import org.koin.dsl.module.module
 @Suppress("USELESS_CAST")
 val DIRepositories = module {
 
+    single{ MallRepository(
+        api = get(DIConstants.APIs.MALL.name)
+    ) as IMallRepository }
+
     single{ CategoriesRepository(
 
     ) as ICategoriesRepository }

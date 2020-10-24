@@ -22,16 +22,21 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "MOBILE_GATEWAY_URL", '"https://mobile.zipline-dev.geodis.us"'
+            buildConfigField "String", "URL_PARENT", '"http://desarrollo01.mouhermarket.com/admin/"'
+            buildConfigField "String", "IMAGE_URL_MALL", '"http://desarrollo01.mouhermarket.com/admin/uploads/tienda0/"'
+            buildConfigField "String", "IMAGE_URL_STORE", '"http://desarrollo01.mouhermarket.com/admin/uploads/"'
             minifyEnabled false
             shrinkResources false
             debuggable true
         }
         release {
-            buildConfigField "String", "MOBILE_GATEWAY_URL", '"https://mobile.zipline-dev.geodis.us"'
+            buildConfigField "String", "URL_PARENT", '"http://mouhermarket.com/admin/"'
+            buildConfigField "String", "IMAGE_URL_MALL", '"http://mouhermarket.com/admin/uploads/tienda0/"'
+            buildConfigField "String", "IMAGE_URL_STORE", '"http://mouhermarket.com/admin/uploads/"'
             minifyEnabled false
             shrinkResources false
             debuggable true
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

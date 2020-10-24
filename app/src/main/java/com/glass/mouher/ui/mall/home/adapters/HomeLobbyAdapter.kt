@@ -1,64 +1,47 @@
-@file:Suppress("DEPRECATION")
-
 package com.glass.mouher.ui.mall.home.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.Item
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_home_lobby.view.*
 import kotlinx.android.synthetic.main.recycler_item_home_lobby.view.image
-import java.util.*
 
+class HomeLobbyAdapter (
+    private var lobbyItemsList : MutableList<Item>
+) : RecyclerView.Adapter<HomeLobbyAdapter.ItemViewHolder>(){
 
-class HomeLobbyAdapter (private val context: Context,
-                        private var lobbyItemsList : MutableList<Item>,
-                        private val eventClick: InterfaceOnClick)
-    : androidx.recyclerview.widget.RecyclerView.Adapter<HomeLobbyAdapter.ItemViewHolder>(){
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    interface InterfaceOnClick {
-        fun onItemClick(pos: Int)
-    }
-
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.recycler_item_home_lobby, p0, false)
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ItemViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_home_lobby, parent, false)
         return ItemViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return lobbyItemsList.size
-    }
+    override fun getItemCount(): Int = lobbyItemsList.size
 
-    override fun onBindViewHolder(p0: ItemViewHolder, pos: Int) {
-        p0.setData(pos, lobbyItemsList[pos], eventClick)
-    }
+    var onItemClicked: ((Item) -> Unit)? = null
 
-    @Suppress("DEPRECATION")
-    inner class ItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
-        private val mRandom = Random()
+    override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
+        val item = lobbyItemsList[pos]
 
-        fun setData(pos: Int, item: Item, eventItemClick: InterfaceOnClick){
-
-            itemView.titleLobby.text = item.name
-            itemView.subtitleLobby.text = item.description
+        with(holder.itemView){
+            titleLobby.text = item.name
+            subtitleLobby.text = item.description
 
             Glide.with(context)
                 .load(item.imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_blur)
-                .into(itemView.image)
+                .into(image)
 
-            itemView.setOnClickListener {
-                eventItemClick.onItemClick(pos)
+            setOnClickListener {
+                onItemClicked?.invoke(item)
             }
-        }
-
-        private fun getRandomIntInRange(max: Int, min: Int): Int {
-            return mRandom.nextInt(max - min + min) + min
         }
     }
 }

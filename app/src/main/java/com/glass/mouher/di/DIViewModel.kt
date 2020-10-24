@@ -42,7 +42,7 @@ val DIViewModel = module{
 
     viewModel { HomeMallViewModel(
         context = androidContext(),
-        categoriesUseCase = get(UseCases.CATEGORIES.name))
+        mallUseCase = get(UseCases.MALL.name))
     }
 
     viewModel { MainStoreViewModel(

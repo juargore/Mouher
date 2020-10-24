@@ -6,6 +6,8 @@ import com.glass.domain.usecases.categories.CategoriesUsecase
 import com.glass.domain.usecases.categories.ICategoriesUseCase
 import com.glass.domain.usecases.history.IHistoryUseCase
 import com.glass.domain.usecases.history.HistoryUseCase
+import com.glass.domain.usecases.mall.IMallUseCase
+import com.glass.domain.usecases.mall.MallUseCase
 import com.glass.domain.usecases.productDetail.IProductDetailUseCase
 import com.glass.domain.usecases.productDetail.ProductDetailUseCase
 import com.glass.domain.usecases.products.IProductsUseCase
@@ -22,6 +24,11 @@ import org.koin.dsl.module.module
 
 @Suppress("USELESS_CAST")
 val DIUseCases = module {
+
+    single(DIConstants.UseCases.MALL.name) { MallUseCase(
+        mallRepository = get()
+        //mallRepository = get(DIConstants.Repositories.MALL.name)
+    ) as IMallUseCase }
 
     single(DIConstants.UseCases.CATEGORIES.name) { CategoriesUsecase(
         categoriesRepository = get()

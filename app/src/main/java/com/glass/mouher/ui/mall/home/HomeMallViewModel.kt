@@ -1,11 +1,14 @@
 package com.glass.mouher.ui.mall.home
 
 import android.content.Context
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
-import com.glass.domain.usecases.categories.ICategoriesUseCase
+import com.glass.domain.entities.TopBannerUI
+import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.mouher.BR
+import com.glass.mouher.BuildConfig
 import com.glass.mouher.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,14 +16,42 @@ import io.reactivex.schedulers.Schedulers
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class HomeMallViewModel(
     private val context: Context,
-    private val categoriesUseCase: ICategoriesUseCase
+    private val mallUseCase: IMallUseCase
 ): BaseViewModel() {
 
     @Bindable
-    var bannerList = mutableListOf<Item>()
+    var topBannerList = mutableListOf<TopBannerUI>()
 
     @Bindable
-    var sponsorsList = mutableListOf<Item>()
+    var urlImageTopLeft: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.urlImageTopLeft)
+        }
+
+    @Bindable
+    var urlImageTopRight: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.urlImageTopRight)
+        }
+
+    @Bindable
+    var sponsorStoresList = mutableListOf<Item>()
+
+    @Bindable
+    var titleLobby: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.titleLobby)
+        }
+
+    @Bindable
+    var descriptionLobby: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.descriptionLobby)
+        }
 
     @Bindable
     var lobbyList = mutableListOf<Item>()
@@ -28,31 +59,31 @@ class HomeMallViewModel(
     @Bindable
     var zonesList = mutableListOf<Item>()
 
+
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        val disposable = categoriesUseCase.getAllCategories()
+        addDisposable(mallUseCase.getTopBannerList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponse, this::onError)
-
-        addDisposable(disposable)
+            .subscribe(this::onResponse, this::onError))
     }
 
-    private fun onResponse(@Suppress("UNUSED_PARAMETER") list: List<Item>){
+    private fun onResponse(bannerList: List<TopBannerUI>){
 
-        bannerList.clear()
-        bannerList.add(Item(imageUrl = "https://d500.epimg.net/cincodias/imagenes/2020/05/23/companias/1590247574_823229_1590247687_noticia_normal.jpg", name = "Bienvenido", description = "Mouher Market"))
-        bannerList.add(Item(imageUrl = "https://www.modaes.com/files/000_2016/mexico/Mexico%20centro%20comercial%20Santa%20Fe%20728.png", name = "Habilita tu \ne-commerce", description = "Cuanto antes"))
-        bannerList.add(Item(imageUrl = "https://s03.s3c.es/imag/_v0/770x420/7/c/b/centro-comercial-770.jpg", name = "Titulo", description = "Descripcion"))
-        notifyPropertyChanged(BR.bannerList)
+        bannerList.forEach {
+            it.imageUrl = "${BuildConfig.IMAGE_URL_MALL}${it.imageUrl}"
+        }
 
-        sponsorsList.clear()
-        sponsorsList.add(Item(imageUrl = "https://i.pinimg.com/originals/75/b7/59/75b759a40bb58ac5afbdaea57455831d.jpg"))
-        sponsorsList.add(Item(imageUrl = "https://bcassetcdn.com/public/blog/wp-content/uploads/2019/07/18094726/artisan-oz.jpg"))
-        sponsorsList.add(Item(imageUrl = "https://i.etsystatic.com/10773810/r/il/5bda90/1718025006/il_570xN.1718025006_3wes.jpg"))
-        sponsorsList.add(Item(imageUrl = "https://mir-s3-cdn-cf.behance.net/project_modules/1400/6cbf3568556191.5b611f672d5e3.jpg"))
-        notifyPropertyChanged(BR.sponsorsList)
+        topBannerList = bannerList.toMutableList()
+        notifyPropertyChanged(BR.topBannerList)
+
+        sponsorStoresList.clear()
+        sponsorStoresList.add(Item(imageUrl = "https://i.pinimg.com/originals/75/b7/59/75b759a40bb58ac5afbdaea57455831d.jpg"))
+        sponsorStoresList.add(Item(imageUrl = "https://bcassetcdn.com/public/blog/wp-content/uploads/2019/07/18094726/artisan-oz.jpg"))
+        sponsorStoresList.add(Item(imageUrl = "https://i.etsystatic.com/10773810/r/il/5bda90/1718025006/il_570xN.1718025006_3wes.jpg"))
+        sponsorStoresList.add(Item(imageUrl = "https://mir-s3-cdn-cf.behance.net/project_modules/1400/6cbf3568556191.5b611f672d5e3.jpg"))
+        notifyPropertyChanged(BR.sponsorStoresList)
 
         lobbyList.clear()
         lobbyList.add(Item(imageUrl = "https://d500.epimg.net/cincodias/imagenes/2020/05/23/companias/1590247574_823229_1590247687_noticia_normal.jpg", name = "Pescadores (1980)", description = "Arte naíf."))
@@ -71,7 +102,7 @@ class HomeMallViewModel(
 
     private fun onError(t: Throwable?){
         t?.let {
-
+            Log.e("Error", it.localizedMessage)
         }
     }
 

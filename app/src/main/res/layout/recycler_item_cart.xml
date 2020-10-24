@@ -59,7 +59,7 @@
                     android:includeFontPadding="false"
                     android:inputType="textMultiLine"
                     android:text="@{ viewModel.name }"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/mainGrey"
                     android:textSize="14sp"
                     tools:text="Descripción" />
             </LinearLayout>

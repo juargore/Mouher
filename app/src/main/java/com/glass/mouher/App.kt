@@ -17,7 +17,8 @@ class App: Application() {
                 DIHelpers,
                 DIRepositories,
                 DIUseCases,
-                DIViewModel
+                DIViewModel,
+                DIAPIs
             ))
     }
 }

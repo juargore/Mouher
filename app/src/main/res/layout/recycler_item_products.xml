@@ -106,7 +106,7 @@
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:text="$250"
-                    android:textColor="@color/errorRed" />
+                    android:textColor="@color/mainRed" />
                 <TextView android:id="@+id/txtOldPrice"
                     style="@style/TextView.TitlesH6"
                     android:layout_width="wrap_content"
