@@ -14,7 +14,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeMallBinding
 import com.glass.mouher.extensions.startFadeInAnimation
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.mall.home.adapters.HomeLobbyAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
@@ -31,9 +33,10 @@ class HomeMallFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.topBannerList -> setImagesInTopBanner()
+                BR.sponsorStoresList -> setUpSponsorStoresRecycler()
                 BR.lobbyList -> setUpLobbyRecycler()
                 BR.zonesList -> setUpZonesRecycler()
-                BR.sponsorStoresList -> setUpSponsorStoresRecycler()
+                BR.error -> showErrorMsg()
             }
         }
 
@@ -128,5 +131,9 @@ class HomeMallFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_blur)
             .into(imageView)
+    }
+
+    private fun showErrorMsg(){
+        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
     }
 }

@@ -46,9 +46,36 @@ class MallData(
     val AcercaDeTexto2Col4: String? = null
 ){
 
-    fun getTopBannerList(): List<TopBannerUI>{
-        val topBannerList = mutableListOf<TopBannerUI>()
+    fun getLobbyData(): LobbyData{
+        val l1 = ItemLobby(
+            urlImage = VestibuloFotografiaPos1,
+            title = VestibuloTexto1Pos1,
+            subtitle = VestibuloTexto2Pos1
+        )
 
+        val l2 = ItemLobby(
+            urlImage = VestibuloFotografiaPos2,
+            title = VestibuloTexto1Pos2,
+            subtitle = VestibuloTexto2Pos2
+        )
+
+        val l3 = ItemLobby(
+            urlImage = VestibuloFotografiaPos3,
+            title = VestibuloTexto1Pos3,
+            subtitle = VestibuloTexto2Pos3
+        )
+
+        return LobbyData(
+            title = VestibuloTitulo,
+            description = "${VestibuloTexto1} ${VestibuloTexto2}",
+            listItemsLobby = mutableListOf<ItemLobby>()
+                .apply {
+                    add(l1); add(l2); add(l3)
+            }
+        )
+    }
+
+    fun getTopBannerList(): List<TopBannerUI>{
         val l1 = TopBannerUI(
             id = "1",
             imageUrl = Fotografia1,
@@ -73,11 +100,17 @@ class MallData(
             subtitle = Texto2Portada3
         )
 
-        topBannerList.add(l1)
-        topBannerList.add(l2)
-        topBannerList.add(l3)
+        return mutableListOf<TopBannerUI>()
+            .apply {
+                add(l1); add(l2); add(l3)
+        }
+    }
 
-        return topBannerList
+    fun getTopTwoImages(): TopTwoImagesUI{
+        return TopTwoImagesUI(
+            urlImageTopLeft = Fotografia4,
+            urlImageTopRight = Fotografia5
+        )
     }
 
 }
