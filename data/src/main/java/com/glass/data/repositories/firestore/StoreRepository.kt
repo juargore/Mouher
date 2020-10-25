@@ -1,8 +1,8 @@
 package com.glass.data.repositories.firestore
 
 import com.glass.data.repositories.repositories.serverapi.StoreApi
-import com.glass.domain.entities.ResponseSponsorStores
-import com.glass.domain.entities.SponsorStoreUI
+import com.glass.domain.common.or
+import com.glass.domain.entities.SponsorStoreData
 import com.glass.domain.repositories.IStoreRepository
 import io.reactivex.Observable
 
@@ -10,25 +10,37 @@ class StoreRepository(
     private val api: StoreApi
 ): IStoreRepository {
 
-    override fun getSponsorStoresByMall(): Observable<List<SponsorStoreUI>> {
-        /*return api.getSponsorStoresByMall(
+    override fun getSponsorStoresByMall(): Observable<List<SponsorStoreData>> {
+
+        return api.getSponsorStoresByMall(
             WebService = "ConsultaRegEnlacePlazaIdPlaza",
             IdBDD = "0",
-            IdPlaza = "1"
-        ).flatMap { responseSponsorStores ->
+            IdPlaza = "1")
+            .map {  response->
 
-            val list = responseSponsorStores.Datos?
+                response.Datos?.let{ listData->
+                    listData
+                }.or {
+                    emptyList()
+                }
 
-            list.forEach {
-                api.getSponsorStoresByMall(
-                    WebService = "ConsultaCatTiendaIdZona",
-                    IdBDD = "0",
-                    IdPlaza = "1"
-                )
-            }
+            }.toObservable()
+    }
 
-        }.toObservable()*/
-        return Observable.just(emptyList())
+    override fun getImageForSponsorStore(storeId: String): Observable<String> {
+        return api.getImageForSponsorStore(
+            WebService = "ConsultaCatTiendaId",
+            IdBDD = "0",
+            Id = storeId)
+            .map {  response->
+
+                response.Datos?.let{ listData->
+                    listData[0].FotografiaLogo1
+                }.or{
+                    ""
+                }
+
+            }.toObservable()
     }
 
 }

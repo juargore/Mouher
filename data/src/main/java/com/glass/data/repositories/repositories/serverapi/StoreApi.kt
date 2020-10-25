@@ -19,6 +19,6 @@ interface StoreApi {
     @POST("models/catalogos/CCatTiendaConsulta.php")
     fun getImageForSponsorStore(@Field("WebService") WebService: String,
                                 @Field("IdBDD") IdBDD: String,
-                                @Field("IdZona") IdZona: String): Single<ResponseSponsorImageStore>
+                                @Field("Id") Id: String): Single<ResponseSponsorImageStore>
 
 }

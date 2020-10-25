@@ -105,6 +105,21 @@ class HomeMallViewModel(
         )
     }
 
+    private fun onResponseTopBannerList(bannerList: List<TopBannerUI>){
+
+        bannerList.forEach {
+            it.imageUrl = completeUrlForImage(it.imageUrl)
+        }
+
+        topBannerList = bannerList
+        notifyPropertyChanged(BR.topBannerList)
+    }
+
+    private fun onResponseTwoTopImages(twoImages: TopTwoImagesUI){
+        urlImageTopLeft = completeUrlForImage(twoImages.urlImageTopLeft)
+        urlImageTopRight = completeUrlForImage(twoImages.urlImageTopRight)
+    }
+
     private fun onResponseSponsorStores(storesList: List<SponsorStoreUI>){
         storesList.forEach {
             it.urlImage = completeUrlForImage(it.urlImage)
@@ -112,6 +127,8 @@ class HomeMallViewModel(
 
         sponsorStoresList = storesList
         notifyPropertyChanged(BR.sponsorStoresList)
+
+        progressVisible = false
     }
 
     private fun onResponseLobbyData(lobbyData: LobbyData){
@@ -126,23 +143,6 @@ class HomeMallViewModel(
             lobbyList = list
             notifyPropertyChanged(BR.lobbyList)
         }
-
-        progressVisible = false
-    }
-
-    private fun onResponseTwoTopImages(twoImages: TopTwoImagesUI){
-        urlImageTopLeft = completeUrlForImage(twoImages.urlImageTopLeft)
-        urlImageTopRight = completeUrlForImage(twoImages.urlImageTopRight)
-    }
-
-    private fun onResponseTopBannerList(bannerList: List<TopBannerUI>){
-
-        bannerList.forEach {
-            it.imageUrl = completeUrlForImage(it.imageUrl)
-        }
-
-        topBannerList = bannerList
-        notifyPropertyChanged(BR.topBannerList)
     }
 
     private fun onResponseZones(zonesList: List<ZoneUI>){
