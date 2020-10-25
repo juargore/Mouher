@@ -68,7 +68,7 @@
                     android:fontFamily="@font/regular"
                     android:gravity="center_horizontal"
                     android:includeFontPadding="false"
-                    android:text="( 8 productos )"
+                    android:text="@{ viewModel.totalProducts }"
                     tools:text="Text" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

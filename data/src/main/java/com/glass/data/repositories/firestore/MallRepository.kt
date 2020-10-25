@@ -3,6 +3,7 @@ package com.glass.data.repositories.firestore
 import com.glass.data.repositories.repositories.serverapi.MallApi
 import com.glass.domain.common.or
 import com.glass.domain.entities.MallData
+import com.glass.domain.entities.StoreInZoneData
 import com.glass.domain.entities.ZoneData
 import com.glass.domain.repositories.IMallRepository
 import io.reactivex.Observable
@@ -27,7 +28,6 @@ class MallRepository(
         }.toObservable()
     }
 
-
     override fun getZonesByMall(): Observable<List<ZoneData>> {
         return api.getZonesByMall(
             WebService = "ConsultaCatZonaIdPlaza",
@@ -41,6 +41,20 @@ class MallRepository(
                 emptyList()
             }
 
+        }.toObservable()
+    }
+
+    override fun getStoresByZone(zoneId: String): Observable<List<StoreInZoneData>> {
+        return api.getStoresInZone(
+            WebService = "ConsultaCatTiendaIdZona",
+            IdBDD = "0",
+            IdZona = zoneId
+        ).map { response->
+            response.Datos?.let{
+                it
+            }.or {
+                emptyList()
+            }
         }.toObservable()
     }
 }

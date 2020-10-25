@@ -51,12 +51,14 @@ val DIViewModel = module{
     }
 
     viewModel { StoresViewModel(
-        context = androidContext())
+        context = androidContext(),
+        mallUseCase = get(UseCases.MALL.name))
     }
 
     viewModel { MenuViewModel(
         context = androidContext(),
-        menuUseCase = get(UseCases.USER_LIST.name))
+        menuUseCase = get(UseCases.USER_LIST.name),
+        mallUseCase = get(UseCases.MALL.name))
     }
 
     viewModel { UserProfileViewModel(

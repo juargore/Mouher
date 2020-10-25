@@ -1,5 +1,6 @@
 package com.glass.mouher.ui.mall.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.glass.mouher.ui.mall.home.adapters.HomeLobbyAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
+import com.glass.mouher.ui.store.MainStoreActivity
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -65,6 +67,16 @@ class HomeMallFragment : Fragment() {
             false)
 
         binding.rvHomeSponsors.adapter = adapter
+
+        adapter.onItemClicked = { store->
+            val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                putExtra("storeId", store.id)
+            }
+
+            activity?.overridePendingTransition(0,0)
+            startActivity(intent)
+        }
     }
 
     private fun setUpZonesRecycler() {
@@ -76,6 +88,7 @@ class HomeMallFragment : Fragment() {
         adapter.onItemClicked = { item->
             val args = Bundle().apply {
                 putString("zoneName", item.name)
+                putString("zoneId", item.id.toString())
             }
 
             requireActivity().supportFragmentManager.beginTransaction().apply {

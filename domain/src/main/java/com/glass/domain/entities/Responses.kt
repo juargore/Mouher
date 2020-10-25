@@ -23,3 +23,9 @@ data class ResponseSponsorImageStore(
     val Mensaje: String? = null,
     val Datos: List<SponsorImageData>?
 )
+
+data class ResponseStoresInZone(
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+    val Datos: List<StoreInZoneData>?
+)

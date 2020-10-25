@@ -42,4 +42,18 @@ class MallUseCase(
                 return@map mList
             }
     }
+
+    override fun getStoresByZone(zoneId: String): Observable<List<StoreInZoneUI>> {
+        return mallRepository
+            .getStoresByZone(zoneId)
+            .map { storeDataList->
+                val mList = mutableListOf<StoreInZoneUI>()
+
+                storeDataList.forEach {
+                    mList.add(it.getStoreInZoneUI())
+                }
+
+                return@map mList
+            }
+    }
 }

@@ -7,6 +7,8 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.ZoneUI
+import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.domain.usecases.userList.IMenuUseCase
 import com.glass.mouher.R
 import com.glass.mouher.ui.base.BaseViewModel
@@ -16,13 +18,17 @@ import io.reactivex.schedulers.Schedulers
 
 class MenuViewModel(
     private val context: Context,
-    private val menuUseCase: IMenuUseCase
+    private val menuUseCase: IMenuUseCase,
+    private val mallUseCase: IMallUseCase
 ): BaseViewModel(), ClickHandler<AMenuViewModel> {
 
     private var source: String? = null
 
     @Bindable
     var screen: MENU? = null
+
+    @Bindable
+    var openZoneSelected: ZoneUI? = null
 
     @Bindable
     var openProfileScreen: Unit? = null
@@ -65,8 +71,7 @@ class MenuViewModel(
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        addDisposable(menuUseCase
-            .getMenuItems()
+        addDisposable(mallUseCase.getZonesByMall()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::onResponseMenuItems, this::onError)
@@ -80,18 +85,12 @@ class MenuViewModel(
         )
     }
 
-    private fun onResponseMenuItems(list: List<Item>){
-        val mList = list.toMutableList()
-        mList.add(Item( name = "Zona 1"))
-        mList.add(Item( name = "Zona 2"))
-        mList.add(Item( name = "Zona 3"))
-        mList.add(Item( name = "Zona AB"))
-
-        emptyList = mList.isEmpty()
+    private fun onResponseMenuItems(zonesList: List<ZoneUI>){
+        emptyList = zonesList.isEmpty()
 
         val viewModels = mutableListOf<AMenuViewModel>()
 
-        mList.forEach {
+        zonesList.forEach {
             val viewModel = MenuItemViewModel(context = context, menu = it)
             viewModels.add(viewModel)
         }
@@ -152,16 +151,8 @@ class MenuViewModel(
 
     override fun onClick(viewModel: AMenuViewModel) {
         if(viewModel is MenuItemViewModel){
-            Log.e("--", "${viewModel.name}")
-
-            /*screen = when(viewModel.name){
-                "Mi Perfil"-> MENU.PROFILE
-                "Mis compras"-> MENU.HISTORY
-                "Acerca de" -> MENU.ABOUT
-                else -> MENU.MORE_INFO
-            }
-
-            notifyPropertyChanged(BR.screen)*/
+            openZoneSelected = viewModel.zoneUI
+            notifyPropertyChanged(BR.openZoneSelected)
         }
     }
 }

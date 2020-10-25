@@ -29,6 +29,7 @@ import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.history.HistoryFragment
 import com.glass.mouher.ui.mall.home.HomeMallFragment
+import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.profile.UserProfileFragment
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -48,6 +49,7 @@ class MenuFragment: Fragment() {
             when (propertyId) {
                 BR.itemsSocial -> setUpSocialMediaItems(viewModel.itemsSocial)
                 BR.screen -> openFromMenuSubscreen(viewModel.screen)
+                BR.openZoneSelected -> openStoresByZoneId()
             }
         }
 
@@ -80,6 +82,26 @@ class MenuFragment: Fragment() {
             })
 
         binding.rvSocialMedia.adapter = adapter
+    }
+
+    private fun openStoresByZoneId(){
+        val args = Bundle().apply {
+            putString("zoneName", viewModel.openZoneSelected?.name)
+            putString("zoneId", viewModel.openZoneSelected?.id.toString())
+        }
+
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container_body_mall, StoresFragment().apply {
+                arguments = args
+            })
+
+            addToBackStack("Stores")
+            commit()
+        }
+
+        view?.let{
+            mDrawerLayout?.closeDrawer(it)
+        }
     }
 
     private fun openFromMenuSubscreen(from: MENU?){

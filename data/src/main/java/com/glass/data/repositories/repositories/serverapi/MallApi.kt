@@ -1,6 +1,7 @@
 package com.glass.data.repositories.repositories.serverapi
 
 import com.glass.domain.entities.ResponseMall
+import com.glass.domain.entities.ResponseStoresInZone
 import com.glass.domain.entities.ResponseZone
 import io.reactivex.Single
 import retrofit2.http.Field
@@ -20,4 +21,10 @@ interface MallApi {
     fun getZonesByMall(@Field("WebService") WebService: String,
                        @Field("IdBDD") IdBDD: String,
                        @Field("IdPlaza") IdPlaza: String): Single<ResponseZone>
+
+    @FormUrlEncoded
+    @POST("models/catalogos/CCatTiendaConsulta.php")
+    fun getStoresInZone(@Field("WebService") WebService: String,
+                        @Field("IdBDD") IdBDD: String,
+                        @Field("IdZona") IdZona: String): Single<ResponseStoresInZone>
 }

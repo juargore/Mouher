@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import com.glass.mouher.R
 import androidx.databinding.library.baseAdapters.BR
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentStoresBinding
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.store.MainStoreActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -25,12 +27,8 @@ class StoresFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.openStore -> {
-                    val intent = Intent(requireActivity(), MainStoreActivity::class.java)
-                    activity?.overridePendingTransition(0,0)
-                    intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                    startActivity(intent)
-                }
+                BR.openStoreWithId -> openStore()
+                BR.onClose -> activity?.onBackPressed()
             }
         }
 
@@ -43,8 +41,12 @@ class StoresFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
-        viewModel.initialize(arguments?.getString("zoneName"))
-        binding.rvStores.layoutManager = GridLayoutManager(requireContext(), 1)
+        viewModel.initialize(
+            arguments?.getString("zoneName"),
+            arguments?.getString("zoneId")
+        )
+
+        binding.rvStores.layoutManager = LinearLayoutManager(requireContext())
 
         return binding.root
     }
@@ -54,9 +56,23 @@ class StoresFragment : Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
+    private fun openStore(){
+        val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            putExtra("storeId", viewModel.openStoreWithId)
+        }
+
+        activity?.overridePendingTransition(0,0)
+        startActivity(intent)
+    }
+
     override fun onPause() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
+    }
+
+    private fun showErrorMsg(){
+        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
     }
 
     fun itemViewBinder(): ItemBinder<AStoresViewModel> {
