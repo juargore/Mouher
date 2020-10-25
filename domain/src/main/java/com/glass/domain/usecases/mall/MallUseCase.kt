@@ -1,9 +1,6 @@
 package com.glass.domain.usecases.mall
 
-import com.glass.domain.entities.LobbyData
-import com.glass.domain.entities.MallData
-import com.glass.domain.entities.TopBannerUI
-import com.glass.domain.entities.TopTwoImagesUI
+import com.glass.domain.entities.*
 import com.glass.domain.repositories.IMallRepository
 import io.reactivex.Observable
 
@@ -29,5 +26,20 @@ class MallUseCase(
 
     override fun getLobbyData(): Observable<LobbyData> {
         return Observable.just(mallData?.getLobbyData())
+    }
+
+    override fun getZonesByMall(): Observable<List<ZoneUI>> {
+
+        return mallRepository
+            .getZonesByMall()
+            .map { zonesList->
+                val mList = mutableListOf<ZoneUI>()
+
+                zonesList.forEach {
+                    mList.add(it.toZoneUI())
+                }
+
+                return@map mList
+            }
     }
 }

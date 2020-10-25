@@ -11,6 +11,10 @@ val DIRepositories = module {
         api = get(DIConstants.APIs.MALL.name)
     ) as IMallRepository }
 
+    single{ StoreRepository(
+        api = get(DIConstants.APIs.STORE.name)
+    ) as IStoreRepository }
+
     single{ CategoriesRepository(
 
     ) as ICategoriesRepository }

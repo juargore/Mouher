@@ -8,12 +8,12 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.domain.entities.Item
+import com.glass.domain.entities.ZoneUI
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_home_zones.view.*
 
 class HomeZonesAdapter (
-    private var zonesList : MutableList<Item>
+    private var zonesList : List<ZoneUI>
 ): RecyclerView.Adapter<HomeZonesAdapter.ItemViewHolder>(){
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -25,21 +25,26 @@ class HomeZonesAdapter (
 
     override fun getItemCount(): Int = zonesList.size
 
-    var onItemClicked: ((Item) -> Unit)? = null
+    var onItemClicked: ((ZoneUI) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = zonesList[pos]
 
         with(holder.itemView){
             title.text = item.name
-            subtitle.text = item.description
 
-            if(item.imageUrl.isNullOrEmpty()){
+            if(item.description.isNullOrBlank()){
+                subtitle.visibility = View.GONE
+            } else{
+                subtitle.text = item.description
+            }
+
+            if(item.urlImage.isNullOrEmpty()){
                 cardHomeZones.layoutParams.height = WRAP_CONTENT
             }
 
             Glide.with(context)
-                .load(item.imageUrl)
+                .load(item.urlImage)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_blur)
                 .into(image)

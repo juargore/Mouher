@@ -5,3 +5,21 @@ data class ResponseMall(
     val Mensaje: String? = null,
     val Datos: List<MallData>?
 )
+
+data class ResponseZone(
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+    val Datos: List<ZoneData>?
+)
+
+data class ResponseSponsorStores(
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+    val Datos: List<SponsorStoreData>?
+)
+
+data class ResponseSponsorImageStore(
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+    val Datos: List<SponsorImageData>?
+)

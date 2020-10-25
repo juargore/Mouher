@@ -14,6 +14,8 @@ import com.glass.domain.usecases.products.IProductsUseCase
 import com.glass.domain.usecases.products.ProductsUseCase
 import com.glass.domain.usecases.socialNetwork.ISocialNetworkUseCase
 import com.glass.domain.usecases.socialNetwork.SocialNetworkUseCase
+import com.glass.domain.usecases.store.IStoreUseCase
+import com.glass.domain.usecases.store.StoreUseCase
 import com.glass.domain.usecases.userList.IMenuUseCase
 import com.glass.domain.usecases.userList.MenuUseCase
 import com.glass.domain.usecases.userList.detail.IUserListDetailUseCase
@@ -27,8 +29,11 @@ val DIUseCases = module {
 
     single(DIConstants.UseCases.MALL.name) { MallUseCase(
         mallRepository = get()
-        //mallRepository = get(DIConstants.Repositories.MALL.name)
     ) as IMallUseCase }
+
+    single(DIConstants.UseCases.STORE.name) { StoreUseCase(
+        storeRepository = get()
+    ) as IStoreUseCase }
 
     single(DIConstants.UseCases.CATEGORIES.name) { CategoriesUsecase(
         categoriesRepository = get()

@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.domain.entities.Item
+import com.glass.domain.entities.SponsorStoreUI
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_home_sponsors.view.*
 
 class HomeSponsorsAdapter (
-    private var sponsorsList : MutableList<Item>
+    private var sponsorsList : List<SponsorStoreUI>
 ) : RecyclerView.Adapter<HomeSponsorsAdapter.ItemViewHolder>(){
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -23,14 +23,14 @@ class HomeSponsorsAdapter (
 
     override fun getItemCount(): Int = sponsorsList.size
 
-    var onItemClicked: ((Item) -> Unit)? = null
+    var onItemClicked: ((SponsorStoreUI) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = sponsorsList[pos]
 
         with(holder.itemView){
             Glide.with(context)
-                .load(item.imageUrl)
+                .load(item.urlImage)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_blur)
                 .into(image)
