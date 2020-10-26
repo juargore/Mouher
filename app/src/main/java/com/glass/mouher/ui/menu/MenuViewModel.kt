@@ -148,8 +148,10 @@ class MenuViewModel(
     }
 
     private fun getCurrentVersionCode(){
-        context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_ACTIVITIES).apply {
-            versionStr = "v${versionName}"
+        context.packageManager.getPackageInfo(
+            context.packageName,
+            PackageManager.GET_ACTIVITIES).apply {
+                versionStr = "v${versionName}"
         }
     }
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +45,8 @@ class HomeMallFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_mall, container, false)
+
+        binding = FragmentHomeMallBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
 
@@ -103,10 +103,8 @@ class HomeMallFragment : Fragment() {
     }
 
     private fun setUpLobbyRecycler() {
-        val adapter = HomeLobbyAdapter(viewModel.lobbyList)
-
         binding.rvHomeLobby.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvHomeLobby.adapter = adapter
+        binding.rvHomeLobby.adapter = HomeLobbyAdapter(viewModel.lobbyList)
     }
 
     override fun onPause() {

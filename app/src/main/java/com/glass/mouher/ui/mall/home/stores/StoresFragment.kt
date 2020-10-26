@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,21 +31,22 @@ class StoresFragment : Fragment() {
             }
         }
 
+    private val layoutManager: LinearLayoutManager by lazy { LinearLayoutManager(context)}
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stores, container, false)
+        binding = FragmentStoresBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
+        binding.rvStores.layoutManager = layoutManager
 
         viewModel.initialize(
             arguments?.getString("zoneName"),
             arguments?.getString("zoneId")
         )
-
-        binding.rvStores.layoutManager = LinearLayoutManager(requireContext())
 
         return binding.root
     }

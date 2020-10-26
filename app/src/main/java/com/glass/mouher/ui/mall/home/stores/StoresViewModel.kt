@@ -44,9 +44,23 @@ class StoresViewModel(
     var items: List<AStoresViewModel> = listOf()
         set(value){
             field = value
-            notifyPropertyChanged(BR.items)
+            rvVisible = !value.isNullOrEmpty()
+            emptyTextVisible = value.isNullOrEmpty()
         }
 
+    @Bindable
+    var rvVisible: Boolean? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.rvVisible)
+        }
+
+    @Bindable
+    var emptyTextVisible: Boolean? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.emptyTextVisible)
+        }
 
     fun initialize(zoneName: String?, zoneId: String?){
         this.zoneName = zoneName
@@ -78,8 +92,10 @@ class StoresViewModel(
             viewModels.add(viewModel)
         }
 
-        items = viewModels
         progressVisible = false
+
+        items = viewModels
+        notifyPropertyChanged(BR.items)
     }
 
     private fun onError(t: Throwable?){

@@ -62,7 +62,6 @@ class MenuFragment: Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
         binding.viewModel = viewModel
         binding.view = this
-
         binding.rvMenu.layoutManager = LinearLayoutManager(context)
 
         return binding.root
@@ -74,12 +73,7 @@ class MenuFragment: Fragment() {
     }
 
     private fun setUpSocialMediaItems(itemsSocial: MutableList<Item>) {
-        val adapter = MenuItemSocialMediaAdapter(requireContext(), itemsSocial,
-            object : MenuItemSocialMediaAdapter.InterfaceOnClick{
-                override fun onItemClick(pos: Int) {
-
-                }
-            })
+        val adapter = MenuItemSocialMediaAdapter(itemsSocial)
 
         binding.rvSocialMedia.layoutManager = LinearLayoutManager(
             context,
@@ -147,7 +141,6 @@ class MenuFragment: Fragment() {
 
             closeDrawer()
         }
-
     }
 
     private fun showPopUpContact(){
