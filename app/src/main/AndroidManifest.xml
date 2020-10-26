@@ -15,7 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.mall.MainActivityMall"></activity>
+        <activity android:name=".ui.mall.MainActivityMall">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".ui.registration.splash.SplashActivity">
             <intent-filter>

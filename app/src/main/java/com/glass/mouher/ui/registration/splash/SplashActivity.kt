@@ -10,6 +10,7 @@ import com.glass.mouher.R
 import org.koin.android.viewmodel.ext.android.viewModel
 import com.glass.mouher.databinding.ActivitySplashBinding
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.mall.MainActivityMall
 import com.glass.mouher.ui.registration.signin.SignInActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -20,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
         when (propertyId) {
             BR.nextScreen -> {
-                startActivity(Intent(this, SignInActivity::class.java))
+                startActivity(Intent(this, MainActivityMall::class.java))
                 finish()
             }
         }

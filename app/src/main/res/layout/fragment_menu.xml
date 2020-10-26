@@ -21,12 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_12dp"
-            android:text="v2.1.0"
+            tools:text="v2.1.0"
+            android:text="@{ viewModel.versionStr }"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
             app:layout_constraintEnd_toEndOf="parent" />
         <LinearLayout android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="1dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +65,8 @@
                 android:background="@color/onyxBlack"
                 android:elevation="4dp"
                 android:orientation="horizontal"
+                tools:visibility="visible"
+                android:visibility="@{viewModel.layoutUserLoggedInVisible ? View.VISIBLE : View.GONE}">
                 android:weightSum="2">
 
                 <ImageView android:id="@+id/productImage"
@@ -102,6 +105,35 @@
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/onyxBlack"
+                android:elevation="4dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:visibility="gone"
+                android:visibility="@{viewModel.layoutUserNotLoggedInVisible ? View.VISIBLE : View.GONE}"
+                android:weightSum="2">
+
+                <ImageView android:id="@+id/prImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="@dimen/margin_12dp"
+                    android:layout_marginEnd="@dimen/margin_12dp"
+                    android:padding="@dimen/margin_18dp"
+                    app:srcCompat="@drawable/logo_mouher1" />
+
+                <TextView android:id="@+id/textView30"
+                    style="@style/TextView.TitlesH5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:includeFontPadding="false"
+                    android:text="Iniciar Sesión"
+                    android:onClick="@{ viewModel::onSignInClick }"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_margin="@dimen/margin_18dp"
                 android:background="@drawable/background_stroke_gray_no_filled"
@@ -137,8 +169,7 @@
                     android:paddingStart="@dimen/margin_12dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="@dimen/margin_12dp"
-                    android:paddingBottom="5dp"
-                    android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}" />
+                    android:paddingBottom="5dp"/>
             </LinearLayout>
 
             <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
@@ -151,33 +182,42 @@
                     android:paddingTop="@dimen/margin_12dp"
                     android:paddingEnd="@dimen/margin_18dp">
 
-                    <TextView android:id="@+id/textView72"
-                        style="@style/TextView.TitlesH6"
-                        android:layout_width="match_parent"
+                    <LinearLayout android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:fontFamily="@font/regular"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:text="Mi Perfil"
-                        android:onClick="@{ viewModel::onProfileClick }"
-                        android:textSize="15sp" />
-                    <TextView android:id="@+id/textView70"
-                        style="@style/TextView.TitlesH6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/regular"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:text="Mis Compras"
-                        android:onClick="@{ viewModel::onHistoryClick }"
-                        android:textSize="15sp" />
+                        android:orientation="vertical"
+                        tools:visibility="visible"
+                        android:visibility="@{ viewModel.profileSectionVisible ? View.VISIBLE : View.GONE }">>
+
+                        <TextView android:id="@+id/textView72"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:fontFamily="@font/regular"
+                            android:onClick="@{ viewModel::onProfileClick }"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="Mi Perfil"
+                            android:textSize="15sp" />
+                        <TextView android:id="@+id/textView70"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:onClick="@{ viewModel::onHistoryClick }"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="Mis Compras"
+                            android:textSize="15sp" />
+                    </LinearLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_12dp"
                         android:layout_marginBottom="@dimen/margin_12dp"
+                        android:onClick="@{ viewModel::onShowZonesSectionClick }"
                         android:orientation="horizontal">
+
                         <TextView android:id="@+id/textView63"
                             style="@style/TextView.TitlesH5"
                             android:layout_width="wrap_content"
@@ -190,11 +230,11 @@
                         <ImageView android:id="@+id/imageView23"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:rotation="90"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_right_arrow" />
+                            app:srcCompat="@drawable/ic_right_arrow"
+                            tools:rotationFromResource="@{ viewModel.rotateAnimationForZonesSection}" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvMenu"
@@ -202,12 +242,14 @@
                         android:layout_height="wrap_content"
                         app:items="@{viewModel.items}"
                         app:clickHandler="@{ viewModel }"
-                        app:itemViewBinder="@{view.itemViewBinder}" />
+                        app:itemViewBinder="@{view.itemViewBinder}"
+                        android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_12dp"
+                        android:onClick="@{ viewModel::onShowMouherSectionClick }"
                         android:orientation="horizontal">
                         <TextView android:id="@+id/textView64"
                             style="@style/TextView.TitlesH5"
@@ -221,58 +263,65 @@
                         <ImageView android:id="@+id/imageView24"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:rotation="90"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            tools:rotationFromResource="@{ viewModel.rotateAnimationForMouherSection }"
                             app:srcCompat="@drawable/ic_right_arrow" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                    <TextView android:id="@+id/textView66"
-                        style="@style/TextView.TitlesH6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="@font/regular"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:text="Acerca de"
-                        android:onClick="@{ viewModel::onAboutClick }"
-                        android:textSize="15sp" />
 
-                    <TextView android:id="@+id/textView67"
-                        style="@style/TextView.TitlesH6"
-                        android:layout_width="match_parent"
+                    <LinearLayout android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="@font/regular"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:text="Contáctanos"
-                        android:onClick="@{ viewModel::onContactUsClick }"
-                        android:textSize="15sp" />
-                    <TextView android:id="@+id/textView68"
-                        style="@style/TextView.TitlesH6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="@font/regular"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:text="Servicios Adicionales"
-                        android:onClick="@{ viewModel::onExtraServicesClick }"
-                        android:textSize="15sp" />
-                    <TextView android:id="@+id/textView69"
-                        style="@style/TextView.TitlesH6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/regular"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:text="Más Información..."
-                        android:onClick="@{ viewModel::onMoreInfoClick }"
-                        android:textSize="15sp" />
+                        android:orientation="vertical"
+                        android:visibility="@{ viewModel.mouherSectionVisible ? View.VISIBLE : View.GONE }">
+                        <TextView android:id="@+id/textView66"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/regular"
+                            android:onClick="@{ viewModel::onAboutClick }"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="Acerca de"
+                            android:textSize="15sp" />
+
+                        <TextView android:id="@+id/textView67"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/regular"
+                            android:onClick="@{ viewModel::onContactUsClick }"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="Contáctanos"
+                            android:textSize="15sp" />
+                        <TextView android:id="@+id/textView68"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/regular"
+                            android:onClick="@{ viewModel::onExtraServicesClick }"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="Servicios Adicionales"
+                            android:textSize="15sp" />
+                        <TextView android:id="@+id/textView69"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/regular"
+                            android:onClick="@{ viewModel::onMoreInfoClick }"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="Más Información..."
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
             <TextView android:id="@+id/textView71"

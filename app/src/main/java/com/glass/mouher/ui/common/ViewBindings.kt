@@ -9,6 +9,7 @@ import android.text.util.Linkify
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.util.LinkifyCompat
@@ -199,6 +200,13 @@ fun setImageCircleFromResource(imageView: ImageView, resource: Int?) {
             .apply(RequestOptions.circleCropTransform())
             .placeholder(R.drawable.ic_blur)
             .into(imageView)
+    }
+}
+
+@BindingAdapter("rotationFromResource")
+fun setRotationForImage(imageView: ImageView, angle: Int?) {
+    if (angle != null) {
+        imageView.animate().rotation(imageView.rotation + angle).start()
     }
 }
 

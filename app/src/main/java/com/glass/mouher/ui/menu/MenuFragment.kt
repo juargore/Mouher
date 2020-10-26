@@ -31,6 +31,7 @@ import com.glass.mouher.ui.history.HistoryFragment
 import com.glass.mouher.ui.mall.home.HomeMallFragment
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.profile.UserProfileFragment
+import com.glass.mouher.ui.registration.signin.SignInActivity
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -63,7 +64,6 @@ class MenuFragment: Fragment() {
         binding.view = this
 
         binding.rvMenu.layoutManager = LinearLayoutManager(context)
-        binding.rvSocialMedia.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         return binding.root
     }
@@ -81,6 +81,11 @@ class MenuFragment: Fragment() {
                 }
             })
 
+        binding.rvSocialMedia.layoutManager = LinearLayoutManager(
+            context,
+            RecyclerView.HORIZONTAL,
+            false
+        )
         binding.rvSocialMedia.adapter = adapter
     }
 
@@ -99,12 +104,15 @@ class MenuFragment: Fragment() {
             commit()
         }
 
-        view?.let{
-            mDrawerLayout?.closeDrawer(it)
-        }
+        closeDrawer()
     }
 
     private fun openFromMenuSubscreen(from: MENU?){
+
+        if(from == MENU.LOGIN){
+            startActivity(Intent(activity, SignInActivity::class.java))
+            return
+        }
 
         if(from == MENU.CONTACT){
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")))
@@ -137,9 +145,7 @@ class MenuFragment: Fragment() {
                 commit()
             }
 
-            view?.let{
-                mDrawerLayout?.closeDrawer(it)
-            }
+            closeDrawer()
         }
 
     }
@@ -219,6 +225,12 @@ class MenuFragment: Fragment() {
         }
 
         openMallorStoreScreen()
+    }
+
+    private fun closeDrawer(){
+        view?.let{
+            mDrawerLayout?.closeDrawer(it)
+        }
     }
 
     override fun onPause() {

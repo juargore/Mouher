@@ -1,6 +1,7 @@
 package com.glass.mouher.ui.menu
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
@@ -36,14 +37,66 @@ class MenuViewModel(
     @Bindable
     var openHistoryScreen: Unit? = null
 
+
+    @Bindable
+    var isUserLoggedIn = false
+        set(value){
+            field = value
+            layoutUserLoggedInVisible = value
+            layoutUserNotLoggedInVisible = !value
+            profileSectionVisible = value
+        }
+
+    @Bindable
+    var layoutUserLoggedInVisible: Boolean? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.layoutUserLoggedInVisible)
+        }
+
+    @Bindable
+    var layoutUserNotLoggedInVisible: Boolean? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.layoutUserNotLoggedInVisible)
+        }
+
     @Bindable
     val userPhoto = R.drawable.face
 
     @Bindable
-    var emptyList: Boolean = false
+    var profileSectionVisible: Boolean? = null
         set(value){
             field = value
-            notifyPropertyChanged(BR.emptyList)
+            notifyPropertyChanged(BR.profileSectionVisible)
+        }
+
+    @Bindable
+    var zonesSectionVisible: Boolean = false
+        set(value){
+            field = value
+            rotateAnimationForZonesSection = if(value) 90 else -90
+        }
+
+    @Bindable
+    var rotateAnimationForZonesSection: Int? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.rotateAnimationForZonesSection)
+        }
+
+    @Bindable
+    var mouherSectionVisible: Boolean = false
+        set(value){
+            field = value
+            rotateAnimationForMouherSection = if(value) 90 else -90
+        }
+
+    @Bindable
+    var rotateAnimationForMouherSection: Int? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.rotateAnimationForMouherSection)
         }
 
     @Bindable
@@ -63,6 +116,14 @@ class MenuViewModel(
             notifyPropertyChanged(BR.items)
         }
 
+    @Bindable
+    var versionStr = ""
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.versionStr)
+        }
+
+
     fun initialize(source: String){
         this.source = source
         searchProductVisibility = source != "MALL"
@@ -70,6 +131,7 @@ class MenuViewModel(
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
+        getCurrentVersionCode()
 
         addDisposable(mallUseCase.getZonesByMall()
             .subscribeOn(Schedulers.io())
@@ -85,8 +147,16 @@ class MenuViewModel(
         )
     }
 
+    private fun getCurrentVersionCode(){
+        context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_ACTIVITIES).apply {
+            versionStr = "v${versionName}"
+        }
+    }
+
     private fun onResponseMenuItems(zonesList: List<ZoneUI>){
-        emptyList = zonesList.isEmpty()
+
+        isUserLoggedIn = true
+        notifyPropertyChanged(BR.isUserLoggedIn)
 
         val viewModels = mutableListOf<AMenuViewModel>()
 
@@ -107,6 +177,11 @@ class MenuViewModel(
 
         itemsSocial = items
         notifyPropertyChanged(BR.itemsSocial)
+    }
+
+    fun onSignInClick(@Suppress("UNUSED_PARAMETER") view: View){
+        screen = MENU.LOGIN
+        notifyPropertyChanged(BR.screen)
     }
 
     fun onProfileClick(@Suppress("UNUSED_PARAMETER") view: View){
@@ -144,6 +219,16 @@ class MenuViewModel(
         Log.e("ERROR", t?.localizedMessage)
     }
 
+    fun onShowZonesSectionClick(@Suppress("UNUSED_PARAMETER") view: View){
+        zonesSectionVisible = !zonesSectionVisible
+        notifyPropertyChanged(BR.zonesSectionVisible)
+    }
+
+    fun onShowMouherSectionClick(@Suppress("UNUSED_PARAMETER") view: View){
+        mouherSectionVisible = !mouherSectionVisible
+        notifyPropertyChanged(BR.mouherSectionVisible)
+    }
+
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
         onCleared()
@@ -158,6 +243,7 @@ class MenuViewModel(
 }
 
 enum class MENU{
+    LOGIN,
     PROFILE,
     HISTORY,
     ABOUT,

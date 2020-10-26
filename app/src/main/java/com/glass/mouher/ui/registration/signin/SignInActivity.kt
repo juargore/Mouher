@@ -21,7 +21,7 @@ class SignInActivity : AppCompatActivity() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.mainMallScreen -> startActivity(Intent(this, MainActivityMall::class.java))
+                BR.mainMallScreen -> finish()
                 BR.passwordScreen -> startActivity(Intent(this, ForgotPasswordActivity::class.java))
                 BR.signupScreen -> startActivity(Intent(this, SignUpActivity::class.java))
             }
