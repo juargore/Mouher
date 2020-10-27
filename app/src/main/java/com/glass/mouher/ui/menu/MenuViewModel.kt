@@ -8,18 +8,18 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.SocialMediaUI
 import com.glass.domain.entities.ZoneUI
 import com.glass.domain.usecases.mall.IMallUseCase
-import com.glass.domain.usecases.userList.IMenuUseCase
 import com.glass.mouher.R
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
+import com.glass.mouher.ui.common.completeUrlForImage
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MenuViewModel(
     private val context: Context,
-    private val menuUseCase: IMenuUseCase,
     private val mallUseCase: IMallUseCase
 ): BaseViewModel(), ClickHandler<AMenuViewModel> {
 
@@ -107,7 +107,7 @@ class MenuViewModel(
         }
 
     @Bindable
-    var itemsSocial = mutableListOf<Item>()
+    var itemsSocial: List<SocialMediaUI> = listOf()
 
     @Bindable
     var items: List<AMenuViewModel> = listOf()
@@ -133,17 +133,16 @@ class MenuViewModel(
         addOnPropertyChangedCallback(callback)
         getCurrentVersionCode()
 
+        addDisposable(mallUseCase.getSocialMedia()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onResponseMenuSocialMediaItems, this::onError)
+        )
+
         addDisposable(mallUseCase.getZonesByMall()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::onResponseMenuItems, this::onError)
-        )
-
-        addDisposable(menuUseCase
-            .getMenuSocialMediaItems()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponseMenuSocialMediaItems, this::onError)
         )
     }
 
@@ -170,14 +169,12 @@ class MenuViewModel(
         items = viewModels
     }
 
-    private fun onResponseMenuSocialMediaItems(list: List<Item>){
-        val items = mutableListOf<Item>()
-        items.add(Item(imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"))
-        items.add(Item(imageUrl = "https://images.vexels.com/media/users/3/137380/isolated/preview/1b2ca367caa7eff8b45c09ec09b44c16-icono-de-instagram-logo-by-vexels.png"))
-        items.add(Item(imageUrl = "https://www.pngkey.com/png/full/2-27646_twitter-logo-png-transparent-background-logo-twitter-png.png"))
-        items.add(Item(imageUrl = "https://musicodiy.cdbaby.com/wp-content/uploads/2017/08/2d2700cbc33a006fc7be45736cb80b07-snapchat-icon-logo-by-vexels.png"))
+    private fun onResponseMenuSocialMediaItems(socialList: List<SocialMediaUI>){
+        socialList.forEach {
+            it.urlImage = completeUrlForImage(it.urlImage)
+        }
 
-        itemsSocial = items
+        itemsSocial = socialList
         notifyPropertyChanged(BR.itemsSocial)
     }
 

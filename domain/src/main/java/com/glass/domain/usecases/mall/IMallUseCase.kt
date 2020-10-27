@@ -9,9 +9,11 @@ interface IMallUseCase {
 
     fun getTwoTopImages(): Observable<TopTwoImagesUI>
 
-    fun getLobbyData(): Observable<LobbyData>
+    fun getLobbyData(): Observable<LobbyFullData>
 
     fun getZonesByMall(): Observable<List<ZoneUI>>
 
     fun getStoresByZone(zoneId: String): Observable<List<StoreInZoneUI>>
+
+    fun getSocialMedia(): Observable<List<SocialMediaUI>>
 }

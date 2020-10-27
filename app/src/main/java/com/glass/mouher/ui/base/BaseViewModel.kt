@@ -1,31 +1,12 @@
 package com.glass.mouher.ui.base
 
-import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.ViewModel
-import androidx.databinding.library.baseAdapters.BR
-import com.glass.mouher.ui.common.AlertDialogViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 abstract class BaseViewModel : ViewModel(), Observable {
-
-    /**
-     * If Non-null, an alert dialog should be displayed to the user.
-     */
-    @Bindable
-    var errorPopupViewModel : AlertDialogViewModel? = null
-
-    /**
-     * Helper to display an alert dialog notifying an error to the user.
-     * @param message the string id of the message
-     * @param title the string id of the title of the popup.
-     */
-    protected fun displayErrorPopup(title: String, message: String) {
-        errorPopupViewModel = AlertDialogViewModel(true, title, message)
-        propertyChangeRegistry.notifyChange(this, BR.errorPopupViewModel)
-    }
 
     /**
      * @property propertyChangeRegistry helper to make some properties of this object observable.

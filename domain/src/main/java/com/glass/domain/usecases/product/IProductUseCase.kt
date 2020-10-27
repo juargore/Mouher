@@ -1,9 +1,9 @@
-package com.glass.domain.usecases.productDetail
+package com.glass.domain.usecases.product
 
 import com.glass.domain.entities.Item
 import io.reactivex.Observable
 
-interface IProductDetailUseCase {
+interface IProductUseCase {
 
     fun startRegistration(productId: String)
 

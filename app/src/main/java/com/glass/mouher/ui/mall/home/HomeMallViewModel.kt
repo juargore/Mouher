@@ -131,11 +131,11 @@ class HomeMallViewModel(
         progressVisible = false
     }
 
-    private fun onResponseLobbyData(lobbyData: LobbyData){
-        titleLobby = lobbyData.title
-        descriptionLobby = lobbyData.description
+    private fun onResponseLobbyData(lobbyFullData: LobbyFullData){
+        titleLobby = lobbyFullData.title
+        descriptionLobby = lobbyFullData.description
 
-        lobbyData.listItemsLobby?.let{ list->
+        lobbyFullData.listItemsLobby?.let{ list->
             list.forEach {
                 it.urlImage = completeUrlForImage(it.urlImage)
             }

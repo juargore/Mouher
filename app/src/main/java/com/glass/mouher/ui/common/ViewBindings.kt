@@ -1,34 +1,23 @@
 @file:Suppress("UNCHECKED_CAST")
-
 package com.glass.mouher.ui.common
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.Drawable
-import android.text.util.Linkify
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.text.util.LinkifyCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.glass.mouher.R
 import com.glass.mouher.ui.common.binder.BindingRecyclerViewAdapter
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.binder.ItemBinder
-import com.google.android.material.textfield.TextInputLayout
-import java.util.regex.Pattern
 
 
 private const val KEY_ITEMS = -123
@@ -84,16 +73,6 @@ fun setPropertyChangeCallback(recyclerView: RecyclerView, callback: Observable.O
         adapter.setPropertyChangedCallback(callback)
     } else {
         recyclerView.setTag(KEY_PROPERTY_CHANGE_CALLBACK, callback)
-    }
-}
-
-@BindingAdapter("itemSwipeHelper")
-fun setItemSwipeHelper(recyclerView: RecyclerView, helper: ViewBinderHelper) {
-    val adapter = recyclerView.adapter as BindingRecyclerViewAdapter<*>?
-    if (adapter != null) {
-        adapter.setSwipeHelper(helper)
-    } else {
-        recyclerView.setTag(KEY_SWIPE_HELPER, helper)
     }
 }
 
@@ -170,18 +149,6 @@ fun setImageFromUrl(imageView: ImageView, url: String?) {
     }
 }
 
-@BindingAdapter("fromUrlExtended")
-fun setImageFromUrlExtended(imageView: ImageView, url: String?) {
-    if (url != null) {
-        Glide.with(imageView.context)
-            .load(url)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.ic_blur)
-            .centerCrop()
-            .into(imageView)
-    }
-}
-
 @BindingAdapter("circleFromUrl")
 fun setImageCircleFromUrl(imageView: ImageView, url: String?) {
     if (url != null) {
@@ -208,12 +175,4 @@ fun setRotationForImage(imageView: ImageView, angle: Int?) {
     if (angle != null) {
         imageView.animate().rotation(imageView.rotation + angle).start()
     }
-}
-
-@BindingAdapter("textWithLinks")
-fun setTextWithLinks(textView: TextView, message: String) {
-    textView.text = message
-    LinkifyCompat.addLinks(textView, Linkify.ALL)
-    val pattern = Pattern.compile("([\\d|(][\\s|(\\d{3})|.|\\-|\\d]{4,}\\d{4,})", Pattern.CASE_INSENSITIVE);
-    LinkifyCompat.addLinks(textView, pattern, "tel://")
 }

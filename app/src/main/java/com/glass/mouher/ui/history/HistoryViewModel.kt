@@ -6,15 +6,11 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
-import com.glass.domain.usecases.history.IHistoryUseCase
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.propertyChangedCallback
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class HistoryViewModel(
-    private val context: Context,
-    private val orderUseCase: IHistoryUseCase
+    private val context: Context
 ): BaseViewModel() {
 
     @Bindable
@@ -42,11 +38,6 @@ class HistoryViewModel(
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
-
-        addDisposable(orderUseCase.getHistoryByUser()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponse, this::onError))
     }
 
     private fun onResponse(list: List<Item>){

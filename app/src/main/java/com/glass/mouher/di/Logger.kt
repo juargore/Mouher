@@ -25,13 +25,11 @@ class Logger private constructor(): ILogger {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message ?: "")
         }
-        //FirebaseCrashlytics.getInstance().recordException(Exception("$tag: $message"))
     }
 
     override fun logException(throwable: Throwable) {
         if (BuildConfig.DEBUG) {
             Log.e("ExceptionToCrashlytics", throwable.message, throwable)
         }
-        //FirebaseCrashlytics.getInstance().recordException(throwable)
     }
 }

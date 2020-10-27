@@ -1,5 +1,6 @@
 package com.glass.mouher.di
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -34,6 +35,7 @@ class NetworkConnectionInterceptor(private val context: Context) : Interceptor {
         return chain.proceed(builder.build())
     }
 
+    @SuppressLint("MissingPermission")
     @Suppress("DEPRECATION")
     private fun isNetworkConnected() : Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
@@ -88,6 +90,4 @@ private fun retrofitClient(baseUrl: String, httpClient: OkHttpClient): Retrofit 
 
 class DateMoshiAdapter {
     @ToJson fun dateToJson(date: Date): Long = date.time
-
-    //@FromJson fun fromJson(timestamp: FirestoreTimestamp): Date = Timestamp(timestamp._seconds, timestamp._nanoseconds).toDate()
 }

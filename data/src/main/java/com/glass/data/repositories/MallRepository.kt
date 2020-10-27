@@ -1,4 +1,4 @@
-package com.glass.data.repositories.firestore
+package com.glass.data.repositories.repositories.firestore
 
 import com.glass.data.repositories.repositories.serverapi.MallApi
 import com.glass.domain.common.or

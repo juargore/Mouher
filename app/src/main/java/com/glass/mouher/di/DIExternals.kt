@@ -14,11 +14,4 @@ val DIExternals = module {
     )}
 
     single(DIConstants.Externals.LOGGER.name) { Logger.instance as ILogger }
-    //single(DIConstants.Externals.REALM.name) {
-        /*val config = RealmConfiguration.Builder()
-            .schemaVersion(DatabaseMigration.latestVersion)
-            .migration(DatabaseMigration())
-            .build()
-        Realm.getInstance(config)*/
-    //}
 }

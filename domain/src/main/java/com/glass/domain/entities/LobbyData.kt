@@ -1,6 +1,6 @@
 package com.glass.domain.entities
 
-data class LobbyData(
+data class LobbyFullData(
     val title: String? = null,
     val description: String? = null,
     val listItemsLobby: List<ItemLobby>? = null

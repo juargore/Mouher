@@ -24,7 +24,7 @@ class MallUseCase(
         return Observable.just(mallData?.getTopTwoImages())
     }
 
-    override fun getLobbyData(): Observable<LobbyData> {
+    override fun getLobbyData(): Observable<LobbyFullData> {
         return Observable.just(mallData?.getLobbyData())
     }
 
@@ -55,5 +55,9 @@ class MallUseCase(
 
                 return@map mList
             }
+    }
+
+    override fun getSocialMedia(): Observable<List<SocialMediaUI>> {
+        return Observable.just(emptyList())
     }
 }

@@ -3,7 +3,7 @@ package com.glass.domain.repositories
 import com.glass.domain.entities.Item
 import io.reactivex.Observable
 
-interface IProductDetailRepository {
+interface IProductRepository {
 
     fun startRegistration(productId: String)
 

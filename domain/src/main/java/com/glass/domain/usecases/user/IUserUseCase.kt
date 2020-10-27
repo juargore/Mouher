@@ -1,9 +1,9 @@
-package com.glass.domain.usecases.userProfile
+package com.glass.domain.usecases.user
 
 import com.glass.domain.entities.Item
 import io.reactivex.Observable
 
-interface IUserProfileUseCase {
+interface IUserUseCase {
 
     fun getUserProfile(): Observable<Item>
 

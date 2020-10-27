@@ -46,7 +46,7 @@ class MallData(
     val AcercaDeTexto2Col4: String? = null
 ){
 
-    fun getLobbyData(): LobbyData{
+    fun getLobbyData(): LobbyFullData{
         val l1 = ItemLobby(
             urlImage = VestibuloFotografiaPos1,
             title = VestibuloTexto1Pos1,
@@ -65,7 +65,7 @@ class MallData(
             subtitle = VestibuloTexto2Pos3
         )
 
-        return LobbyData(
+        return LobbyFullData(
             title = VestibuloTitulo,
             description = "${VestibuloTexto1} ${VestibuloTexto2}",
             listItemsLobby = mutableListOf<ItemLobby>()

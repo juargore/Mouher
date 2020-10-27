@@ -57,18 +57,15 @@ val DIViewModel = module{
 
     viewModel { MenuViewModel(
         context = androidContext(),
-        menuUseCase = get(UseCases.USER_LIST.name),
         mallUseCase = get(UseCases.MALL.name))
     }
 
     viewModel { UserProfileViewModel(
-        context = androidContext(),
-        userProfileUseCase = get(UseCases.USER_PROFILE.name))
+        context = androidContext())
     }
 
     viewModel { HistoryViewModel(
-        context = androidContext(),
-        orderUseCase = get(UseCases.ORDERS.name))
+        context = androidContext())
     }
 
     viewModel { HomeStoreViewModel(
