@@ -9,8 +9,6 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //TODO: Add DIApi here:
-
         startKoin(this,
             listOf(
                 DIExternals,
