@@ -24,11 +24,11 @@
             local:layout_constraintEnd_toEndOf="parent"
             local:layout_constraintTop_toTopOf="parent">
 
-            <ImageView android:id="@+id/imageView13"
+            <ImageView
+                android:id="@+id/imageView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
                 android:tint="@color/bgWhite"
                 local:srcCompat="@drawable/ic_shopping_cart" />
         </RelativeLayout>

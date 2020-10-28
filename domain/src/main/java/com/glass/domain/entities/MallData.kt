@@ -26,24 +26,7 @@ class MallData(
     val VestibuloTexto1Pos2: String? = null,
     val VestibuloTexto2Pos2: String? = null,
     val VestibuloTexto1Pos3: String? = null,
-    val VestibuloTexto2Pos3: String? = null,
-    val AcercaDeFotografiaPortada: String? = null,
-    val AcercaDeFotografiaMedia: String? = null,
-    val AcercaDeFotografiaCol1: String? = null,
-    val AcercaDeFotografiaCol2: String? = null,
-    val AcercaDeFotografiaCol3: String? = null,
-    val AcercaDeFotografiaCol4: String? = null,
-    val AcercaDeTitulo: String? = null,
-    val AcercaDeTexto1: String? = null,
-    val AcercaDeTexto2: String? = null,
-    val AcercaDeTexto1Col1: String? = null,
-    val AcercaDeTexto2Col1: String? = null,
-    val AcercaDeTexto1Col2: String? = null,
-    val AcercaDeTexto2Col2: String? = null,
-    val AcercaDeTexto1Col3: String? = null,
-    val AcercaDeTexto2Col3: String? = null,
-    val AcercaDeTexto1Col4: String? = null,
-    val AcercaDeTexto2Col4: String? = null
+    val VestibuloTexto2Pos3: String? = null
 ){
 
     fun getLobbyData(): LobbyFullData{
