@@ -2,11 +2,11 @@ package com.glass.mouher.ui.menu
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
-import com.glass.domain.entities.Item
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.SocialMediaUI
 import com.glass.domain.entities.ZoneUI
@@ -46,6 +46,9 @@ class MenuViewModel(
             layoutUserNotLoggedInVisible = !value
             profileSectionVisible = value
         }
+
+    @Bindable
+    var logoMouher = ""
 
     @Bindable
     var layoutUserLoggedInVisible: Boolean? = null
@@ -133,6 +136,19 @@ class MenuViewModel(
         addOnPropertyChangedCallback(callback)
         getCurrentVersionCode()
 
+        isUserLoggedIn = false
+
+        if(!isUserLoggedIn){
+            addDisposable(mallUseCase.getTopBannerList()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .flatMap {
+                        mallUseCase.getLogoImage()
+                    }
+                    .subscribe(this::onResponseLogo, this::onError)
+            )
+        }
+
         addDisposable(mallUseCase.getSocialMedia()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -154,9 +170,12 @@ class MenuViewModel(
         }
     }
 
-    private fun onResponseMenuItems(zonesList: List<ZoneUI>){
+    private fun onResponseLogo(urlLogo: String){
+        logoMouher = completeUrlForImage(urlLogo)
+        notifyPropertyChanged(BR.logoMouher)
+    }
 
-        isUserLoggedIn = true
+    private fun onResponseMenuItems(zonesList: List<ZoneUI>){
         notifyPropertyChanged(BR.isUserLoggedIn)
 
         val viewModels = mutableListOf<AMenuViewModel>()

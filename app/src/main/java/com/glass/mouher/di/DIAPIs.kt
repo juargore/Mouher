@@ -1,7 +1,7 @@
 package com.glass.mouher.di
 
-import com.glass.data.repositories.repositories.serverapi.MallApi
 import com.glass.data.repositories.repositories.serverapi.StoreApi
+import com.glass.data.serverapi.MallApi
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 

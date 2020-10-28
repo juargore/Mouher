@@ -8,7 +8,11 @@ class MallUseCase(
     private val mallRepository: IMallRepository
 ): IMallUseCase {
 
-    var mallData: MallData? = null
+    private var mallData: MallData? = null
+
+    override fun getLogoImage(): Observable<String> {
+        return Observable.just(mallData?.getMallLogoImage())
+    }
 
     override fun getTopBannerList(): Observable<List<TopBannerUI>> {
 

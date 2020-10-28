@@ -9,6 +9,7 @@ import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.completeUrlForImage
+import com.glass.mouher.ui.mall.MainActivityMall
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -89,7 +90,12 @@ class HomeMallViewModel(
                 return@flatMap mallUseCase.getLobbyData()
             }
 
-            .subscribe(this::onResponseLobbyData, this::onError)
+            .flatMap {
+                onResponseLobbyData(it)
+                return@flatMap mallUseCase.getLogoImage()
+            }
+
+            .subscribe(this::onResponseLogoImage, this::onError)
         )
 
         addDisposable(storeUseCase.getSponsorStoresByMall()
@@ -102,6 +108,12 @@ class HomeMallViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::onResponseZones, this::onError)
+        )
+    }
+
+    private fun onResponseLogoImage(logo: String){
+        MainActivityMall.setLogoOnToolbar(
+                completeUrlForImage(logo)
         )
     }
 

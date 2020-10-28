@@ -32,7 +32,8 @@
                 android:tint="@color/bgWhite"
                 local:srcCompat="@drawable/ic_shopping_cart" />
         </RelativeLayout>
-        <ImageView android:id="@+id/imageView6"
+
+        <ImageView android:id="@+id/imageLogo"
             android:layout_width="80dp"
             android:layout_height="0dp"
             android:paddingTop="10dp"
@@ -40,7 +41,8 @@
             local:layout_constraintEnd_toStartOf="@+id/layoutCart"
             local:layout_constraintStart_toStartOf="parent"
             local:layout_constraintTop_toTopOf="@+id/layoutCart"
-            local:srcCompat="@drawable/logo_mouher1" />
+            local:srcCompat="@drawable/logo_zara" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.Toolbar>
 

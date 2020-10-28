@@ -60,16 +60,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/onyxBlack"
                 android:elevation="4dp"
                 android:orientation="horizontal"
-                tools:visibility="visible"
                 android:visibility="@{viewModel.layoutUserLoggedInVisible ? View.VISIBLE : View.GONE}"
-                android:weightSum="2">
+                android:weightSum="2"
+                tools:visibility="gone">
 
-                <ImageView android:id="@+id/productImage"
+                <ImageView
+                    android:id="@+id/productImage"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginStart="@dimen/margin_12dp"
@@ -80,12 +82,15 @@
                     app:circleFromResource="@{ viewModel.userPhoto }"
                     tools:srcCompat="@drawable/face" />
 
-                <LinearLayout android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
-                    <TextView android:id="@+id/textView3"
+
+                    <TextView
+                        android:id="@+id/textView3"
                         style="@style/TextView.TitlesH5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,7 +98,9 @@
                         android:includeFontPadding="false"
                         android:text="Carlos Esparza Cuevas"
                         android:textColor="@color/colorPrimary" />
-                    <TextView android:id="@+id/textView2"
+
+                    <TextView
+                        android:id="@+id/textView2"
                         style="@style/TextView.TitlesH6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -104,32 +111,37 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/onyxBlack"
                 android:elevation="4dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                tools:visibility="gone"
                 android:visibility="@{viewModel.layoutUserNotLoggedInVisible ? View.VISIBLE : View.GONE}"
-                android:weightSum="2">
+                android:weightSum="2"
+                tools:visibility="visible">
 
-                <ImageView android:id="@+id/prImage"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/prImage"
+                    android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginStart="@dimen/margin_12dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
                     android:padding="@dimen/margin_18dp"
-                    app:srcCompat="@drawable/logo_mouher1" />
+                    tools:fromUrl="@{ viewModel.logoMouher }"
+                    tools:srcCompat="@drawable/logo_mouher1" />
 
-                <TextView android:id="@+id/textView30"
+                <TextView
+                    android:id="@+id/textView30"
                     style="@style/TextView.TitlesH5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/regular"
                     android:includeFontPadding="false"
-                    android:text="Iniciar Sesión"
                     android:onClick="@{ viewModel::onSignInClick }"
+                    android:text="Iniciar Sesión"
                     android:textColor="@color/white" />
             </LinearLayout>
 

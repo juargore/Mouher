@@ -1,4 +1,4 @@
-package com.glass.data.repositories.repositories.serverapi
+package com.glass.data.serverapi
 
 import com.glass.domain.entities.ResponseMall
 import com.glass.domain.entities.ResponseStoresInZone

@@ -113,5 +113,8 @@ class MallData(
         )
     }
 
+    fun getMallLogoImage(): String? {
+        return FotografiaLogo2
+    }
 }
 

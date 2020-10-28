@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.domain.entities.Item
+import com.glass.domain.entities.SocialMediaUI
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_social_media.view.*
 
-class MenuItemSocialMediaAdapter (private var socialMediaItemsList : List<Item>)
+class MenuItemSocialMediaAdapter (private var socialMediaItemsList : List<SocialMediaUI>)
     : RecyclerView.Adapter<MenuItemSocialMediaAdapter.ItemViewHolder>(){
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -23,14 +23,14 @@ class MenuItemSocialMediaAdapter (private var socialMediaItemsList : List<Item>)
 
     override fun getItemCount(): Int = socialMediaItemsList.size
 
-    var onItemClicked: ((Item) -> Unit)? = null
+    var onItemClicked: ((SocialMediaUI) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = socialMediaItemsList[pos]
 
         with(holder.itemView){
             Glide.with(context)
-                .load(item.imageUrl)
+                .load(item.urlImage)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_blur)
                 .into(imgMedia)

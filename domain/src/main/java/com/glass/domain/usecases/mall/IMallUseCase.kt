@@ -5,6 +5,8 @@ import io.reactivex.Observable
 
 interface IMallUseCase {
 
+    fun getLogoImage(): Observable<String>
+
     fun getTopBannerList(): Observable<List<TopBannerUI>>
 
     fun getTwoTopImages(): Observable<TopTwoImagesUI>

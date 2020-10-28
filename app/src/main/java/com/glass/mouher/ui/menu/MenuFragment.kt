@@ -13,14 +13,13 @@ import android.view.Window
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.glass.domain.entities.Item
+import com.glass.domain.entities.SocialMediaUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentMenuBinding
 import com.glass.mouher.ui.about.AboutFragment
@@ -59,7 +58,7 @@ class MenuFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
+        binding = FragmentMenuBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
         binding.rvMenu.layoutManager = LinearLayoutManager(context)
@@ -72,7 +71,7 @@ class MenuFragment: Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun setUpSocialMediaItems(itemsSocial: MutableList<Item>) {
+    private fun setUpSocialMediaItems(itemsSocial: List<SocialMediaUI>) {
         val adapter = MenuItemSocialMediaAdapter(itemsSocial)
 
         binding.rvSocialMedia.layoutManager = LinearLayoutManager(
@@ -170,7 +169,7 @@ class MenuFragment: Fragment() {
         ft.commitAllowingStateLoss()
     }
 
-    fun setUpDrawer(fragmentId: Int, drawerLayout: DrawerLayout, toolbar: Toolbar, source: String) {
+    fun setUpDrawer(fragmentId: Int, drawerLayout: DrawerLayout, toolbar: Toolbar?, source: String) {
         this.source = source
         viewModel.initialize(source)
 
@@ -193,7 +192,7 @@ class MenuFragment: Fragment() {
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
-                toolbar.alpha = 1 - slideOffset / 2
+                toolbar?.alpha = 1 - slideOffset / 2
             }
         }
 

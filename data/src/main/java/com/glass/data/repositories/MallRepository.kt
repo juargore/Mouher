@@ -1,6 +1,6 @@
-package com.glass.data.repositories.repositories.firestore
+package com.glass.data.repositories
 
-import com.glass.data.repositories.repositories.serverapi.MallApi
+import com.glass.data.serverapi.MallApi
 import com.glass.domain.common.or
 import com.glass.domain.entities.MallData
 import com.glass.domain.entities.StoreInZoneData
