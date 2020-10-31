@@ -1,5 +1,7 @@
 package com.glass.mouher.di
 
+import com.glass.domain.usecases.cart.CartUseCase
+import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.domain.usecases.mall.MallUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
@@ -22,5 +24,9 @@ val DIUseCases = module {
     single(DIConstants.UseCases.USER_PROFILE.name) { UserUseCase(
         userProfileRepository = get()
     ) as IUserUseCase }
+
+    single(DIConstants.UseCases.CART.name) { CartUseCase(
+        cartRepository = get()
+    ) as ICartUseCase }
 
 }

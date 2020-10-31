@@ -30,6 +30,7 @@ object DIConstants {
         FIREBASE_STORAGE,
         FIREBASE_REMOTE_CONFIG,
         RETROFIT,
+        REALM,
         LOGGER;
 
         override val identifier get() = String.format(diFormatId, DIKeys.External, this)
@@ -63,7 +64,8 @@ object DIConstants {
     enum class UseCases: IDependencyInjection {
         USER_PROFILE,
         MALL,
-        STORE
+        STORE,
+        CART
         ;
 
         override val identifier get() = String.format(diFormatId, DIKeys.UseCase, this)

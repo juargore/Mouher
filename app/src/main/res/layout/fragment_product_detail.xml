@@ -212,6 +212,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_ripple"
                         android:inputType="textCapWords"
+                        android:onClick="@{ viewModel::onAddProductToCartClicked }"
                         android:text="Agregar al carrito" />
                 </LinearLayout>
 

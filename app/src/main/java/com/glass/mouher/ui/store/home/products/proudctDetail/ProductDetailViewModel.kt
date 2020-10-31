@@ -5,13 +5,16 @@ import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
+import com.glass.domain.usecases.cart.CartUseCase
+import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
 
 
 class ProductDetailViewModel(
-    private val context: Context
+    private val context: Context,
+    private val cartUseCase: ICartUseCase
 ): BaseViewModel(), ClickHandler<AProductDetailViewModel> {
 
     @Bindable
@@ -66,6 +69,17 @@ class ProductDetailViewModel(
 
         itemsRelatedProducts = newRelatedProductsList
         notifyPropertyChanged(BR.itemsRelatedProducts)
+    }
+
+    fun onAddProductToCartClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        cartUseCase.setProductOnCart(Item(name = getRandomString(), description = "Descripcion: ${getRandomString()}"))
+    }
+
+    fun getRandomString() : String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..5)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 
     fun onAddRatingClicked(@Suppress("UNUSED_PARAMETER") view: View){

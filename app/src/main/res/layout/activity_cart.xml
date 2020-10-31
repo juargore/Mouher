@@ -40,7 +40,8 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/margin_12dp"
                 app:items="@{viewModel.items}"
-                app:itemViewBinder="@{view.itemViewBinder}" />
+                app:itemViewBinder="@{view.itemViewBinder}"
+                app:clickHandler="@{ viewModel }"/>
 
         </LinearLayout>
 
