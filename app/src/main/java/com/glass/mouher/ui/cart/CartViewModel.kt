@@ -10,6 +10,8 @@ import com.glass.domain.usecases.cart.CartUseCase
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
+import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.history.HistoryItemViewModel
 import com.glass.mouher.ui.store.home.products.AProductsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,6 +25,9 @@ class CartViewModel(
     var onPopClicked: Unit? = null
 
     @Bindable
+    var deleteItem: String? = null
+
+    @Bindable
     var onBackClicked: Unit? = null
 
     @Bindable
@@ -31,6 +36,21 @@ class CartViewModel(
             field = value
             notifyPropertyChanged(BR.items)
         }
+
+    /**
+     * @property itemPropertyChangedCallback listener to item actions
+     */
+    val itemPropertyChangedCallback =
+            propertyChangedCallback { sender: Observable?, propertyId: Int ->
+                if(sender is CartItemViewModel){
+                    when(propertyId){
+                        BR.deleteClicked -> {
+                            deleteItem = sender.name
+                            notifyPropertyChanged(BR.deleteItem)
+                        }
+                    }
+                }
+            }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
@@ -52,6 +72,9 @@ class CartViewModel(
         )
     }
 
+    fun onDeleteItemClicked(itemId: String){
+        cartUseCase.deleteProductOnCart(itemId)
+    }
     fun onPopClicked(@Suppress("UNUSED_PARAMETER") view: View){
         notifyPropertyChanged(BR.onPopClicked)
     }
@@ -67,7 +90,7 @@ class CartViewModel(
 
     override fun onClick(viewModel: ACartListViewModel) {
         if(viewModel is CartItemViewModel){
-            cartUseCase.deleteProductOnCart(viewModel.name!!)
+
         }
     }
 }

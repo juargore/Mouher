@@ -36,10 +36,10 @@ class MainStoreViewModel(
         addOnPropertyChangedCallback(callback)
 
         addDisposable(
-            cartUseCase.getTotalProductsOnDb()
+            cartUseCase.getSizeProductsOnDb()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    totalProducts = it.size.toString()
+                    totalProducts = it
                 }
         )
     }

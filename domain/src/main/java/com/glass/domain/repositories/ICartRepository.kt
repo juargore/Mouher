@@ -7,8 +7,12 @@ interface ICartRepository {
 
     fun getTotalProductsOnDb(): Observable<List<Item>>
 
+    fun getSizeProductsOnDb(): Observable<String>
+
     fun setProductOnCart(product: Item)
 
     fun deleteProductOnCart(idProduct: String)
+
+    fun deleteAllProductsOnDb()
 
 }

@@ -12,6 +12,10 @@ class CartUseCase(
         return cartRepository.getTotalProductsOnDb()
     }
 
+    override fun getSizeProductsOnDb(): Observable<String> {
+        return cartRepository.getSizeProductsOnDb()
+    }
+
     override fun setProductOnCart(product: Item) {
         return cartRepository.setProductOnCart(product)
     }

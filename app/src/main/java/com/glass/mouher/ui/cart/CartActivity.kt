@@ -15,6 +15,8 @@ import com.glass.mouher.databinding.ActivityCartBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CartActivity : AppCompatActivity() {
@@ -27,6 +29,7 @@ class CartActivity : AppCompatActivity() {
             when (propertyId) {
                 BR.onBackClicked -> finish()
                 BR.onPopClicked -> showPopUpNotes()
+                BR.deleteItem -> showPopupDeleteConfirmation()
             }
         }
 
@@ -57,6 +60,14 @@ class CartActivity : AppCompatActivity() {
             setContentView(R.layout.pop_add_notes)
             show()
         }
+    }
+
+    private fun showPopupDeleteConfirmation(){
+        alert(title = "", message = "¿Está seguro que desea eliminar este registro?"){
+            yesButton {
+                viewModel.onDeleteItemClicked(viewModel.deleteItem ?: "")
+            }
+        }.show()
     }
 
     override fun onPause() {

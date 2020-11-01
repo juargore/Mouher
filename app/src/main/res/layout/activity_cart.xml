@@ -41,6 +41,7 @@
                 android:padding="@dimen/margin_12dp"
                 app:items="@{viewModel.items}"
                 app:itemViewBinder="@{view.itemViewBinder}"
+                app:itemPropertyChangeCallback="@{ viewModel.itemPropertyChangedCallback }"
                 app:clickHandler="@{ viewModel }"/>
 
         </LinearLayout>

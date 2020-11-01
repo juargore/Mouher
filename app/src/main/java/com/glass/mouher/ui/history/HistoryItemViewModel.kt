@@ -15,7 +15,6 @@ class HistoryItemViewModel(
     @Bindable
     var deleteClicked: Unit? = null
 
-
     val name = menu.name
 
     val icon = menu.icon
