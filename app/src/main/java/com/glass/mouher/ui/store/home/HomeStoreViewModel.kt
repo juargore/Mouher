@@ -1,15 +1,22 @@
 package com.glass.mouher.ui.store.home
 
 import android.content.Context
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
+import com.glass.domain.entities.TopBannerUI
+import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
+import com.glass.mouher.ui.common.completeUrlForImage
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class HomeStoreViewModel(
-    private val context: Context
+    private val context: Context,
+    private val storeUseCase: IStoreUseCase
 ): BaseViewModel(), ClickHandler<AStoreCategoryViewModel> {
 
     @Bindable
@@ -23,7 +30,7 @@ class HomeStoreViewModel(
         }
 
     @Bindable
-    var bannerList = mutableListOf<Item>()
+    var bannerList: List<TopBannerUI> = listOf()
 
     @Bindable
     var itemsNewProducts = mutableListOf<Item>()
@@ -34,16 +41,33 @@ class HomeStoreViewModel(
     @Bindable
     var urlVideo = ""
 
+    @Bindable
+    var urlImageVideo = ""
+
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        bannerList.clear()
-        bannerList.add(Item(imageUrl = "https://d500.epimg.net/cincodias/imagenes/2020/05/23/companias/1590247574_823229_1590247687_noticia_normal.jpg", name = "Bienvenido", description = "Mouher Market"))
-        bannerList.add(Item(imageUrl = "https://www.modaes.com/files/000_2016/mexico/Mexico%20centro%20comercial%20Santa%20Fe%20728.png", name = "Habilita tu \ne-commerce", description = "Cuanto antes"))
-        bannerList.add(Item(imageUrl = "https://s03.s3c.es/imag/_v0/770x420/7/c/b/centro-comercial-770.jpg", name = "Titulo", description = "Descripcion"))
-        notifyPropertyChanged(com.glass.mouher.BR.bannerList)
+        addDisposable(
+            storeUseCase.getStoreData("1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
 
+                .flatMap {
+                    return@flatMap storeUseCase.getTopBannerList()
+                }
+                .flatMap { list ->
+                    onTopBannerListResponse(list)
+                    return@flatMap storeUseCase.getImageVideo()
+                }
+
+                .flatMap {  urlImageVideo ->
+                    onUrlImageVideoResponse(urlImageVideo)
+                    return@flatMap storeUseCase.getUrlVideo()
+                }
+
+                .subscribe(this::onUrlVideoResponse, this::onError)
+        )
 
         val categoriesList = mutableListOf<Item>()
         categoriesList.add(Item(name = "Accesorios", description = "Complementa tu estilo", imageUrl = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"))
@@ -82,8 +106,30 @@ class HomeStoreViewModel(
         itemsLinkedStores = newLinkedStoresList
         notifyPropertyChanged(BR.itemsLinkedStores)
 
-        urlVideo = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
+        //urlVideo = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
+    }
+
+    private fun onTopBannerListResponse(list: List<TopBannerUI>){
+        list.forEach {
+            it.imageUrl = completeUrlForImage(it.imageUrl)
+        }
+
+        bannerList = list
+        notifyPropertyChanged(BR.bannerList)
+    }
+
+    private fun onUrlVideoResponse(url: String){
+        urlVideo = url
         notifyPropertyChanged(BR.urlVideo)
+    }
+
+    private fun onUrlImageVideoResponse(url: String){
+        urlImageVideo = completeUrlForImage(url)
+        notifyPropertyChanged(BR.urlImageVideo)
+    }
+
+    private fun onError(t: Throwable?){
+        Log.e("--", t?.localizedMessage.toString())
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

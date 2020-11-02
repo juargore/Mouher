@@ -1,6 +1,6 @@
 package com.glass.domain.entities
 
-class MallData(
+data class MallData(
     val Nombre: String? = null,
     val Fotografia1: String? = null,
     val Fotografia2: String? = null,

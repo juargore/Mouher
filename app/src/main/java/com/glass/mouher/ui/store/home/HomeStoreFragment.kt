@@ -72,11 +72,11 @@ class HomeStoreFragment : Fragment() {
             override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
                 binding.carouselTitle.apply {
                     this.startFadeInAnimation()
-                    this.text = viewModel.bannerList[pos].name
+                    this.text = viewModel.bannerList[pos].title
                 }
                 binding.carouselSubtitle.apply {
                     this.startFadeInAnimation()
-                    this.text = viewModel.bannerList[pos].description
+                    this.text = viewModel.bannerList[pos].subtitle
                 }
             }
             override fun onPageSelected(position: Int) {}
@@ -112,7 +112,7 @@ class HomeStoreFragment : Fragment() {
     }
 
     private fun setUpVideo(urlVideo: String) {
-        with(binding.videoStore){
+        /*with(binding.videoStore){
             setVideoPath(urlVideo)
 
             setOnClickListener {
@@ -122,7 +122,7 @@ class HomeStoreFragment : Fragment() {
                     start()
                 }
             }
-        }
+        }*/
     }
 
     override fun onResume() {

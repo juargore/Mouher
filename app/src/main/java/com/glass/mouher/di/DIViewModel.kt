@@ -48,7 +48,8 @@ val DIViewModel = module{
 
     viewModel { MainStoreViewModel(
         context = androidContext(),
-        cartUseCase = get(UseCases.CART.name))
+        cartUseCase = get(UseCases.CART.name),
+        storeUseCase = get(UseCases.STORE.name))
     }
 
     viewModel { StoresViewModel(
@@ -70,7 +71,9 @@ val DIViewModel = module{
     }
 
     viewModel { HomeStoreViewModel(
-        context = androidContext())
+        context = androidContext(),
+        storeUseCase = get(UseCases.STORE.name)
+    )
     }
 
     viewModel { ProductsViewModel(

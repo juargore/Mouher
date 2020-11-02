@@ -1,7 +1,7 @@
 package com.glass.mouher.di
 
 import com.glass.data.repositories.MallRepository
-import com.glass.data.repositories.repositories.firestore.StoreRepository
+import com.glass.data.repositories.StoreRepository
 import com.glass.domain.repositories.*
 import com.glass.mouher.database.repositories.CartRepository
 import org.koin.dsl.module.module

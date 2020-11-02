@@ -29,3 +29,9 @@ data class ResponseStoresInZone(
     val Mensaje: String? = null,
     val Datos: List<StoreInZoneData>?
 )
+
+data class ResponseStore(
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+    val Datos: List<StoreData>?
+)

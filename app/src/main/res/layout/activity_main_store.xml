@@ -104,13 +104,15 @@
                                     android:layout_marginEnd="8dp"
                                     android:layout_marginBottom="2dp"
                                     android:background="@color/bgWhite" />
-                                <ImageView android:id="@+id/imageView21"
+
+                                <ImageView
+                                    android:id="@+id/imageView21"
                                     android:layout_width="80dp"
                                     android:layout_height="match_parent"
                                     android:paddingTop="@dimen/margin_12dp"
                                     android:paddingBottom="@dimen/margin_12dp"
-                                    android:scaleType="fitStart"
                                     android:tint="@color/white"
+                                    app:fromUrl="@{ viewModel.urlImageLogo }"
                                     app:srcCompat="@drawable/logo_zara" />
                             </LinearLayout>
 

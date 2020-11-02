@@ -1,8 +1,9 @@
-package com.glass.data.repositories.repositories.firestore
+package com.glass.data.repositories
 
-import com.glass.data.repositories.repositories.serverapi.StoreApi
+import com.glass.data.serverapi.StoreApi
 import com.glass.domain.common.or
 import com.glass.domain.entities.SponsorStoreData
+import com.glass.domain.entities.StoreData
 import com.glass.domain.repositories.IStoreRepository
 import io.reactivex.Observable
 
@@ -40,6 +41,21 @@ class StoreRepository(
                     ""
                 }
 
+            }.toObservable()
+    }
+
+    override fun getAllStoreData(storeId: String): Observable<StoreData> {
+        return api.getDataForStore(
+            WebService = "ConsultaCatTiendaId",
+            IdBDD = "0",
+            Id = storeId
+        )
+            .map { response ->
+                response.Datos?.let{
+                    it[0]
+                }.or {
+                    StoreData()
+                }
             }.toObservable()
     }
 
