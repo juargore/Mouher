@@ -62,6 +62,16 @@ class MallUseCase(
     }
 
     override fun getSocialMedia(): Observable<List<SocialMediaUI>> {
-        return Observable.just(emptyList())
+        return mallRepository
+            .getSocialMediaForMall("1")
+            .map { socialDataList ->
+                val mList = mutableListOf<SocialMediaUI>()
+
+                socialDataList.forEach {
+                    mList.add(it.getSocialMediaUI())
+                }
+
+                return@map mList
+            }
     }
 }

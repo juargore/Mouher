@@ -3,6 +3,7 @@ package com.glass.data.repositories
 import com.glass.data.serverapi.MallApi
 import com.glass.domain.common.or
 import com.glass.domain.entities.MallData
+import com.glass.domain.entities.SocialMediaData
 import com.glass.domain.entities.StoreInZoneData
 import com.glass.domain.entities.ZoneData
 import com.glass.domain.repositories.IMallRepository
@@ -50,6 +51,20 @@ class MallRepository(
             IdBDD = "0",
             IdZona = zoneId
         ).map { response->
+            response.Datos?.let{
+                it
+            }.or {
+                emptyList()
+            }
+        }.toObservable()
+    }
+
+    override fun getSocialMediaForMall(mallId: String): Observable<List<SocialMediaData>> {
+        return api.getSocialMediaForMall(
+            WebService = "ConsultaCatRedPlazaIdPlaza",
+            IdBDD = "0",
+            IdPlaza = mallId
+        ).map { response ->
             response.Datos?.let{
                 it
             }.or {

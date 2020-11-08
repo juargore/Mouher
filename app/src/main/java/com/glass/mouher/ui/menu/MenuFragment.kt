@@ -79,7 +79,12 @@ class MenuFragment: Fragment() {
             RecyclerView.HORIZONTAL,
             false
         )
+
         binding.rvSocialMedia.adapter = adapter
+
+        adapter.onItemClicked={
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.linkToOpen)))
+        }
     }
 
     private fun openStoresByZoneId(){

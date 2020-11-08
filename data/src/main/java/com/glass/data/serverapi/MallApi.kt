@@ -1,6 +1,7 @@
 package com.glass.data.serverapi
 
 import com.glass.domain.entities.ResponseMall
+import com.glass.domain.entities.ResponseSocialMedia
 import com.glass.domain.entities.ResponseStoresInZone
 import com.glass.domain.entities.ResponseZone
 import io.reactivex.Single
@@ -27,4 +28,11 @@ interface MallApi {
     fun getStoresInZone(@Field("WebService") WebService: String,
                         @Field("IdBDD") IdBDD: String,
                         @Field("IdZona") IdZona: String): Single<ResponseStoresInZone>
+
+
+    @FormUrlEncoded
+    @POST("models/catalogos/CCatRedPlazaConsulta.php")
+    fun getSocialMediaForMall(@Field("WebService") WebService: String,
+                              @Field("IdBDD") IdBDD: String,
+                              @Field("IdPlaza") IdPlaza: String): Single<ResponseSocialMedia>
 }

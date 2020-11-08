@@ -35,3 +35,9 @@ data class ResponseStore(
     val Mensaje: String? = null,
     val Datos: List<StoreData>?
 )
+
+data class ResponseSocialMedia(
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+    val Datos: List<SocialMediaData>?
+)
