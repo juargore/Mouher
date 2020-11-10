@@ -6,18 +6,24 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
+import com.glass.domain.entities.ShortProductUI
 import com.glass.domain.entities.TopBannerUI
+import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.completeUrlForImage
+import com.glass.mouher.ui.common.completeUrlForImageOnStore
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class HomeStoreViewModel(
     private val context: Context,
-    private val storeUseCase: IStoreUseCase
+    private val storeUseCase: IStoreUseCase,
+    private val productUseCase: IProductUseCase
 ): BaseViewModel(), ClickHandler<AStoreCategoryViewModel> {
+
+    private var storeId = "1"
 
     @Bindable
     var onClick: Unit? = null
@@ -33,7 +39,7 @@ class HomeStoreViewModel(
     var bannerList: List<TopBannerUI> = listOf()
 
     @Bindable
-    var itemsNewProducts = mutableListOf<Item>()
+    var itemsNewProducts: List<ShortProductUI> = listOf()
 
     @Bindable
     var itemsLinkedStores = mutableListOf<Item>()
@@ -48,26 +54,29 @@ class HomeStoreViewModel(
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        addDisposable(
-            storeUseCase.getStoreData("1")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+        addDisposable(storeUseCase.getStoreData(storeId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
 
-                .flatMap {
-                    return@flatMap storeUseCase.getTopBannerList()
-                }
-                .flatMap { list ->
-                    onTopBannerListResponse(list)
-                    return@flatMap storeUseCase.getImageVideo()
-                }
+            .flatMap {
+                return@flatMap storeUseCase.getTopBannerList()
+            }
+            .flatMap { list ->
+                onTopBannerListResponse(list)
+                return@flatMap storeUseCase.getImageVideo()
+            }
 
-                .flatMap {  urlImageVideo ->
-                    onUrlImageVideoResponse(urlImageVideo)
-                    return@flatMap storeUseCase.getUrlVideo()
-                }
-
-                .subscribe(this::onUrlVideoResponse, this::onError)
+            .flatMap {  urlImageVideo ->
+                onUrlImageVideoResponse(urlImageVideo)
+                return@flatMap storeUseCase.getUrlVideo()
+            }.subscribe(this::onUrlVideoResponse, this::onError)
         )
+
+        addDisposable(productUseCase.getNewArrivalsForStore(storeId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(this::onShortResponseProductUI, this::onError))
+
 
         val categoriesList = mutableListOf<Item>()
         categoriesList.add(Item(name = "Accesorios", description = "Complementa tu estilo", imageUrl = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"))
@@ -86,14 +95,6 @@ class HomeStoreViewModel(
 
         items = viewModels
 
-        val newProductsList = mutableListOf<Item>()
-        newProductsList.add(Item(name = "Botín suela track", imageUrl = "https://www.freepngimg.com/thumb/shoes/28084-5-sneaker-transparent-image-thumb.png"))
-        newProductsList.add(Item(name = "Sandalia tacón tiras", imageUrl = "https://i.pinimg.com/originals/1d/49/ba/1d49bad547fd40681dbbd58e827675dd.jpg"))
-        newProductsList.add(Item(name = "Tenis picado blanco", imageUrl = "https://purepng.com/public/uploads/large/sandals-bxq.png"))
-        newProductsList.add(Item(name = "Pala dorada trenzada", imageUrl = "https://5.imimg.com/data5/XX/CQ/MY-14472477/balujas-men-formal-1100-cherry-shoe-500x500.png"))
-
-        itemsNewProducts = newProductsList
-        notifyPropertyChanged(BR.itemsNewProducts)
 
         val newLinkedStoresList = mutableListOf<Item>()
         newLinkedStoresList.add(Item(name = "ZARA", imageUrl = "https://gestion.pe/resizer/sfRLQ14ewsCJLKWqdIMwd93fJ2Q=/980x528/smart/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/LWKXDAO2QZEBBBKVXP76K4RNJI.jpg"))
@@ -107,6 +108,15 @@ class HomeStoreViewModel(
         notifyPropertyChanged(BR.itemsLinkedStores)
 
         //urlVideo = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
+    }
+
+    private fun onShortResponseProductUI(list: List<ShortProductUI>){
+        list.forEach {
+            it.imageUrl = completeUrlForImageOnStore(it.imageUrl, storeId)
+        }
+
+        itemsNewProducts = list
+        notifyPropertyChanged(BR.itemsNewProducts)
     }
 
     private fun onTopBannerListResponse(list: List<TopBannerUI>){

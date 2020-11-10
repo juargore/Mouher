@@ -11,4 +11,5 @@ interface IStoreRepository {
     fun getImageForSponsorStore(storeId: String): Observable<String>
 
     fun getAllStoreData(storeId: String): Observable<StoreData>
+
 }

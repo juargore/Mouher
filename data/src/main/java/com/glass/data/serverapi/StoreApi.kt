@@ -1,8 +1,6 @@
 package com.glass.data.serverapi
 
-import com.glass.domain.entities.ResponseSponsorImageStore
-import com.glass.domain.entities.ResponseSponsorStores
-import com.glass.domain.entities.ResponseStore
+import com.glass.domain.entities.*
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

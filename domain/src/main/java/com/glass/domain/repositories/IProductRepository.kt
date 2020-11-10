@@ -1,14 +1,13 @@
 package com.glass.domain.repositories
 
-import com.glass.domain.entities.Item
+import com.glass.domain.entities.NewArrivalProductData
+import com.glass.domain.entities.ProductData
 import io.reactivex.Observable
 
 interface IProductRepository {
 
-    fun startRegistration(productId: String)
+    fun getNewArrivalsForStoreData(storeId: String): Observable<List<NewArrivalProductData>>
 
-    fun getProductDetail(): Observable<Item>
-
-    fun stopRegistration()
+    fun getFullProductData(productId: String): Observable<ProductData>
 
 }

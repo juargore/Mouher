@@ -4,6 +4,8 @@ import com.glass.domain.usecases.cart.CartUseCase
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.domain.usecases.mall.MallUseCase
+import com.glass.domain.usecases.product.IProductUseCase
+import com.glass.domain.usecases.product.ProductUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.domain.usecases.store.StoreUseCase
 import com.glass.domain.usecases.user.IUserUseCase
@@ -20,6 +22,10 @@ val DIUseCases = module {
     single(DIConstants.UseCases.STORE.name) { StoreUseCase(
         storeRepository = get()
     ) as IStoreUseCase }
+
+    single(DIConstants.UseCases.PRODUCT.name) { ProductUseCase(
+        productRepository = get()
+    ) as IProductUseCase }
 
     single(DIConstants.UseCases.USER_PROFILE.name) { UserUseCase(
         userProfileRepository = get()

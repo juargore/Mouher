@@ -58,6 +58,8 @@ class ProductDetailFragment : Fragment() {
         binding.rvMiniList.layoutManager = LinearLayoutManager(context)
         binding.rvRelatedProducts.layoutManager = LinearLayoutManager(context)
 
+        viewModel.initialize(arguments?.getString("productId"))
+
         return binding.root
     }
 

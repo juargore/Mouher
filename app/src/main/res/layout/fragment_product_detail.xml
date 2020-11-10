@@ -165,7 +165,8 @@
                     <TextView android:id="@+id/textView17"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lorem_ipsum"
+                        tools:text="@string/lorem_ipsum"
+                        android:text="@={ viewModel.description }"
                         android:textColor="@color/onyxBlack" />
                 </LinearLayout>
                 <LinearLayout android:layout_width="match_parent"

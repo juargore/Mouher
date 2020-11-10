@@ -1,8 +1,6 @@
 package com.glass.domain.usecases.store
 
-import com.glass.domain.entities.SponsorStoreUI
-import com.glass.domain.entities.StoreData
-import com.glass.domain.entities.TopBannerUI
+import com.glass.domain.entities.*
 import com.glass.domain.repositories.IStoreRepository
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers

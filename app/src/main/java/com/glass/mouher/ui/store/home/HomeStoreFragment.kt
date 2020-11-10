@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.Item
+import com.glass.domain.entities.ShortProductUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
 import com.glass.mouher.extensions.startFadeInAnimation
@@ -22,7 +23,9 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
+import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.store.home.products.ProductsFragment
+import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -91,10 +94,21 @@ class HomeStoreFragment : Fragment() {
             .into(imageView)
     }
 
-    private fun setNewProducts(itemsNewProducts: MutableList<Item>) {
+    private fun setNewProducts(itemsNewProducts: List<ShortProductUI>) {
         val adapter = HomeStoreNewProductsAdapter(requireContext(), itemsNewProducts, object : HomeStoreNewProductsAdapter.InterfaceOnClick{
-            override fun onItemClick(pos: Int) {
+            override fun onItemClick(productId: String?) {
+                val args = Bundle().apply {
+                    putString("productId", productId)
+                }
 
+                requireActivity().supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container_body, ProductDetailFragment().apply {
+                        arguments = args
+                    })
+
+                    addToBackStack("ProductDetail")
+                    commit()
+                }
             }
         })
 

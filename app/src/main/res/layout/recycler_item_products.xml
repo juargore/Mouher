@@ -94,7 +94,8 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingTop="4dp">
-                <TextView android:id="@+id/textView24"
+
+                <TextView android:id="@+id/txtPrice"
                     style="@style/TextView.TitlesH6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

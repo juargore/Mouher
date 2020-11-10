@@ -41,6 +41,7 @@ object DIConstants {
      */
     enum class APIs: IDependencyInjection {
         MALL,
+        PRODUCT,
         STORE;
 
         override val identifier get() = String.format(diFormatId, DIKeys.Api, this)
@@ -51,7 +52,8 @@ object DIConstants {
      */
     enum class Repositories: IDependencyInjection {
         MALL,
-        STORE
+        STORE,
+        PRODUCT
         ;
 
         override val identifier get() = String.format(diFormatId, DIKeys.Repository, this)
@@ -65,6 +67,7 @@ object DIConstants {
         USER_PROFILE,
         MALL,
         STORE,
+        PRODUCT,
         CART
         ;
 
