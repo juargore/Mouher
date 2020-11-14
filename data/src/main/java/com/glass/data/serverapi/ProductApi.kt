@@ -14,10 +14,16 @@ interface ProductApi {
     fun getNewArrivalsForStore(@Field("WebService") WebService: String,
                                @Field("IdBDD") IdBDD: String): Single<ResponseNewArrivals>
 
+
     @FormUrlEncoded
     @POST("models/catalogos/CCatProductoConsulta.php")
     fun getFullProductData(@Field("WebService") WebService: String,
                            @Field("IdBDD") IdBDD: String,
                            @Field("Id") Id: String): Single<ResponseFullProduct>
 
+
+    @FormUrlEncoded
+    @POST("models/catalogos/CCatProductoConsultaCustom.php")
+    fun getProductListByCategory(@Field("WebService") WebService: String,
+                                 @Field("IdBDD") IdBDD: String): Single<ResponseFullProduct>
 }

@@ -78,7 +78,8 @@ val DIViewModel = module{
     }
 
     viewModel { ProductsViewModel(
-        context = androidContext())
+        context = androidContext(),
+        productUseCase = get(UseCases.PRODUCT.name))
     }
 
     viewModel { ProductDetailViewModel(

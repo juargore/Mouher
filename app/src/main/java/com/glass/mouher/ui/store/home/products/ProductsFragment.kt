@@ -24,9 +24,18 @@ class ProductsFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.detailScreen ->{
+                BR.onBack -> activity?.onBackPressed()
+                BR.detailScreen -> {
+                    val args = Bundle().apply {
+                        putString("productId", viewModel.productId)
+                        putString("storeId", viewModel.storeId)
+                    }
+
                     requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body, ProductDetailFragment())
+                        replace(R.id.container_body, ProductDetailFragment().apply {
+                            arguments = args
+                        })
+
                         addToBackStack("Detail")
                         commit()
                     }
@@ -43,7 +52,7 @@ class ProductsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.view = this
 
-        //viewModel.initialize(args.zoneId)
+        viewModel.initialize(arguments?.getString("categoryId"), arguments?.getString("storeId"))
         binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 1)
 
         return binding.root

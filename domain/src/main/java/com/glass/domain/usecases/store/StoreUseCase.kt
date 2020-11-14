@@ -33,11 +33,14 @@ class StoreUseCase(
     }
 
     @Suppress("CheckResult")
-    override fun getStoreData(storeId: String): Observable<Unit> {
+    override fun getStoreData(storeId: String): Observable<String> {
         return storeRepository
             .getAllStoreData(storeId)
             .observeOn(Schedulers.io())
-            .map { this.storeData = it }
+            .map {
+                this.storeData = it
+                return@map it.IdZona.toString()
+            }
     }
 
     override fun getTopBannerList(): Observable<List<TopBannerUI>> {

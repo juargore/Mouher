@@ -36,6 +36,7 @@ class ProductDetailFragment : Fragment() {
                 BR.miniSelected -> loadMiniImage(viewModel.miniSelected)
                 BR.itemsRelatedProducts -> setRelatedProducts(viewModel.itemsRelatedProducts)
                 BR.showPopRating -> showPopUpRating()
+                BR.onBack -> activity?.onBackPressed()
                 BR.openScreenReviews -> {
                     requireActivity().supportFragmentManager.beginTransaction().apply {
                         replace(R.id.container_body, ProductReviewsFragment())
@@ -58,7 +59,7 @@ class ProductDetailFragment : Fragment() {
         binding.rvMiniList.layoutManager = LinearLayoutManager(context)
         binding.rvRelatedProducts.layoutManager = LinearLayoutManager(context)
 
-        viewModel.initialize(arguments?.getString("productId"))
+        viewModel.initialize(arguments?.getString("productId"), arguments?.getString("storeId"))
 
         return binding.root
     }

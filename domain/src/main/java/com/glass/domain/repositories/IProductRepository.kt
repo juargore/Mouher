@@ -8,6 +8,7 @@ interface IProductRepository {
 
     fun getNewArrivalsForStoreData(storeId: String): Observable<List<NewArrivalProductData>>
 
-    fun getFullProductData(productId: String): Observable<ProductData>
+    fun getFullProductData(productId: String, storeId: String): Observable<ProductData>
 
+    fun getProductListByCategory(categoryId: String): Observable<List<ProductData>>
 }

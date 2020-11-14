@@ -50,10 +50,10 @@ data class MallData(
 
         return LobbyFullData(
             title = VestibuloTitulo,
-            description = "${VestibuloTexto1} ${VestibuloTexto2}",
+            description = "$VestibuloTexto1 $VestibuloTexto2",
             listItemsLobby = mutableListOf<ItemLobby>()
                 .apply {
-                    add(l1); add(l2); add(l3)
+                    add(l2); add(l1); add(l3)
             }
         )
     }

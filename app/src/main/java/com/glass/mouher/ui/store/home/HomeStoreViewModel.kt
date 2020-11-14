@@ -23,7 +23,11 @@ class HomeStoreViewModel(
     private val productUseCase: IProductUseCase
 ): BaseViewModel(), ClickHandler<AStoreCategoryViewModel> {
 
-    private var storeId = "1"
+    @Bindable
+    var storeId = "1"
+
+    @Bindable
+    var categoryId = "1"
 
     @Bindable
     var onClick: Unit? = null
@@ -51,14 +55,25 @@ class HomeStoreViewModel(
     var urlImageVideo = ""
 
 
+    @Bindable
+    var progressVisible = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(com.glass.mouher.BR.progressVisible)
+        }
+
+
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
+
+        progressVisible = true
 
         addDisposable(storeUseCase.getStoreData(storeId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
 
             .flatMap {
+                storeId = it
                 return@flatMap storeUseCase.getTopBannerList()
             }
             .flatMap { list ->
@@ -66,16 +81,17 @@ class HomeStoreViewModel(
                 return@flatMap storeUseCase.getImageVideo()
             }
 
-            .flatMap {  urlImageVideo ->
+            .flatMap { urlImageVideo ->
                 onUrlImageVideoResponse(urlImageVideo)
                 return@flatMap storeUseCase.getUrlVideo()
             }.subscribe(this::onUrlVideoResponse, this::onError)
         )
 
+        //TODO: fix empty storeId here
         addDisposable(productUseCase.getNewArrivalsForStore(storeId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe(this::onShortResponseProductUI, this::onError))
+            .subscribe(this::onNewArrivalsResponse, this::onError))
 
 
         val categoriesList = mutableListOf<Item>()
@@ -107,14 +123,15 @@ class HomeStoreViewModel(
         itemsLinkedStores = newLinkedStoresList
         notifyPropertyChanged(BR.itemsLinkedStores)
 
-        //urlVideo = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
+        urlVideo = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
     }
 
-    private fun onShortResponseProductUI(list: List<ShortProductUI>){
+    private fun onNewArrivalsResponse(list: List<ShortProductUI>){
         list.forEach {
             it.imageUrl = completeUrlForImageOnStore(it.imageUrl, storeId)
         }
 
+        progressVisible = false
         itemsNewProducts = list
         notifyPropertyChanged(BR.itemsNewProducts)
     }

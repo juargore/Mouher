@@ -16,20 +16,33 @@ class ProductUseCase(
             val mList = mutableListOf<ShortProductUI>()
 
             listNewArrivalProductData.forEach {
-                mList.add(getFullProduct(it.IdProducto ?: ""))
+                mList.add(getFullProduct(it.IdProducto ?: "", storeId))
             }
             return@map mList
         }
     }
 
-    override fun getProductUI(productId: String): Observable<ProductUI> {
-        return productRepository.getFullProductData(productId).map {
+    override fun getProductUI(productId: String, storeId: String): Observable<ProductUI> {
+        return productRepository.getFullProductData(productId, storeId).map {
             return@map it.getProductUI()
         }
     }
 
-    private fun getFullProduct(id: String): ShortProductUI{
-        return productRepository.getFullProductData(id)
+    override fun getProductListByCategory(categoryId: String): Observable<List<ProductUI>> {
+        return productRepository.getProductListByCategory(categoryId)
+                .map { listData ->
+                    val mList = mutableListOf<ProductUI>()
+
+                    listData.forEach {
+                        mList.add(it.getProductUI())
+                    }
+
+                    return@map mList
+                }
+    }
+
+    private fun getFullProduct(id: String, storeId: String): ShortProductUI{
+        return productRepository.getFullProductData(id, storeId)
             .subscribeOn(Schedulers.io())
             .map { productData ->
                 return@map productData.getShortProductUI()

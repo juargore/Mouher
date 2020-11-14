@@ -1,21 +1,21 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
 import com.glass.domain.entities.ProductUI
-import com.glass.domain.usecases.cart.CartUseCase
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
-import com.glass.mouher.ui.common.completeUrlForImage
 import com.glass.mouher.ui.common.completeUrlForImageOnStore
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.toast
 
 
 class ProductDetailViewModel(
@@ -25,7 +25,7 @@ class ProductDetailViewModel(
 ): BaseViewModel(), ClickHandler<AProductDetailViewModel> {
 
     private var productId = ""
-    private var storeId = "1"
+    private var storeId = ""
 
     @Bindable
     var urlTop = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"
@@ -45,6 +45,9 @@ class ProductDetailViewModel(
     @Bindable
     var description = ""
 
+    @Bindable
+    var onBack: Unit? = null
+
 
     @Bindable
     var items: List<AProductDetailViewModel> = listOf()
@@ -54,16 +57,25 @@ class ProductDetailViewModel(
         }
 
 
-    fun initialize(id: String?){
-        productId = id ?: ""
-    }
+    @Bindable
+    var progressVisible = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.progressVisible)
+        }
 
+
+
+    fun initialize(id: String?, _storeId: String?){
+        productId = id ?: ""
+        storeId = _storeId ?: ""
+    }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-
-        addDisposable( productUseCase.getProductUI(productId)
+        progressVisible = true
+        addDisposable( productUseCase.getProductUI(productId, storeId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::onResponseProductUI, this::onError))
@@ -105,13 +117,15 @@ class ProductDetailViewModel(
         // description
         description = product.description ?: ""
         notifyPropertyChanged(BR.description)
+
+        progressVisible = false
     }
 
     fun onAddProductToCartClicked(@Suppress("UNUSED_PARAMETER") view: View){
         cartUseCase.setProductOnCart(Item(name = getRandomString(), description = "Descripcion: ${getRandomString()}"))
     }
 
-    fun getRandomString() : String {
+    private fun getRandomString() : String {
         val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
         return (1..5)
             .map { allowedChars.random() }
@@ -127,7 +141,11 @@ class ProductDetailViewModel(
     }
 
     private fun onError(t: Throwable?){
+        context.toast(t?.localizedMessage.toString())
+    }
 
+    fun onBackClicked(view: View){
+        notifyPropertyChanged(BR.onBack)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

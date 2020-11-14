@@ -136,7 +136,7 @@ class MenuViewModel(
         addOnPropertyChangedCallback(callback)
         getCurrentVersionCode()
 
-        isUserLoggedIn = false
+        isUserLoggedIn = true
 
         if(!isUserLoggedIn){
             addDisposable(mallUseCase.getTopBannerList()

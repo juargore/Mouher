@@ -28,9 +28,16 @@ class HomeLobbyAdapter (
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = lobbyItemsList[pos]
 
+        //imageView.getLayoutParams().height = 20;
         with(holder.itemView){
             titleLobby.text = item.title
             subtitleLobby.text = item.subtitle
+
+            when(pos){
+                0 -> image.layoutParams.height = 1400
+                1 -> image.layoutParams.height = 800
+                else-> image.layoutParams.height = 500
+            }
 
             Glide.with(context)
                 .load(item.urlImage)

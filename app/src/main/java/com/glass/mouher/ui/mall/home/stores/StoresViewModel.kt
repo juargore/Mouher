@@ -1,6 +1,7 @@
 package com.glass.mouher.ui.mall.home.stores
 
 import android.content.Context
+import android.os.Handler
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -92,10 +93,12 @@ class StoresViewModel(
             viewModels.add(viewModel)
         }
 
-        progressVisible = false
-
         items = viewModels
         notifyPropertyChanged(BR.items)
+
+        Handler().postDelayed({
+            progressVisible = false
+        },500)
     }
 
     private fun onError(t: Throwable?){

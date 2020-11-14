@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
@@ -22,8 +21,6 @@ import com.glass.mouher.extensions.startFadeInAnimation
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
-import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
-import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
 import com.synnapps.carouselview.ImageListener
@@ -42,8 +39,16 @@ class HomeStoreFragment : Fragment() {
                 BR.itemsLinkedStores -> setLinkedStores(viewModel.itemsLinkedStores)
                 BR.urlVideo -> setUpVideo(viewModel.urlVideo)
                 BR.onClick ->{
+                    val args = Bundle().apply {
+                        putString("categoryId", viewModel.categoryId)
+                        putString("storeId", viewModel.storeId)
+                    }
+
                     requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body, ProductsFragment())
+                        replace(R.id.container_body, ProductsFragment().apply {
+                            arguments = args
+                        })
+
                         addToBackStack("Products")
                         commit()
                     }
@@ -99,6 +104,7 @@ class HomeStoreFragment : Fragment() {
             override fun onItemClick(productId: String?) {
                 val args = Bundle().apply {
                     putString("productId", productId)
+                    putString("storeId", viewModel.storeId)
                 }
 
                 requireActivity().supportFragmentManager.beginTransaction().apply {

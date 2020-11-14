@@ -25,17 +25,30 @@ class ProductRepository(
         }.toObservable()
     }
 
-    override fun getFullProductData(productId: String): Observable<ProductData> {
+    override fun getFullProductData(productId: String, storeId: String): Observable<ProductData> {
 
         return api.getFullProductData(
             WebService = "ConsultaCatProductoId",
-            IdBDD = "1",
+            IdBDD = storeId,
             Id = productId
         ).map { response ->
             response.Datos?.let {  listData ->
                 listData[0]
             }.or {
                 ProductData()
+            }
+        }.toObservable()
+    }
+
+    override fun getProductListByCategory(categoryId: String): Observable<List<ProductData>> {
+        return api.getProductListByCategory(
+                WebService = "ConsultaCatProductoId",
+                IdBDD = categoryId
+        ).map { response ->
+            response.Datos?.let {  listData ->
+                listData
+            }.or {
+                emptyList()
             }
         }.toObservable()
     }

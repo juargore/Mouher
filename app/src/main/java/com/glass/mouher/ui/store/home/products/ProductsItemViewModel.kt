@@ -1,18 +1,18 @@
 package com.glass.mouher.ui.store.home.products
 
 import android.content.Context
-import com.glass.domain.entities.Item
+import com.glass.domain.entities.ProductUI
 
 class ProductsItemViewModel(
     private val context: Context,
-    private val menu: Item
+    product: ProductUI
 ): AProductsViewModel() {
 
-    val name = menu.name
+    val id = product.id
 
-    val icon = menu.icon
+    val name = product.name
 
-    val imageUrl = menu.imageUrl
+    val imageUrl = product.sidePhoto1
 
-    val description = menu.description
+    val description = product.description
 }
