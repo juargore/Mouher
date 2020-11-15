@@ -1,5 +1,6 @@
 package com.glass.mouher.ui.menu
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -54,8 +56,8 @@ class MenuFragment: Fragment() {
         }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -75,9 +77,9 @@ class MenuFragment: Fragment() {
         val adapter = MenuItemSocialMediaAdapter(itemsSocial)
 
         binding.rvSocialMedia.layoutManager = LinearLayoutManager(
-            context,
-            RecyclerView.HORIZONTAL,
-            false
+                context,
+                RecyclerView.HORIZONTAL,
+                false
         )
 
         binding.rvSocialMedia.adapter = adapter
@@ -113,7 +115,10 @@ class MenuFragment: Fragment() {
         }
 
         if(from == MENU.CONTACT){
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")))
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "plain/text"
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(viewModel.email))
+            startActivity(Intent.createChooser(intent, ""))
             return
         }
 
@@ -147,12 +152,49 @@ class MenuFragment: Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showPopUpContact(){
         Dialog(requireContext(), R.style.FullDialogTheme).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setContentView(R.layout.pop_contact)
             show()
+
+            findViewById<TextView>(R.id.txtAddress).text = viewModel.address
+
+            with(findViewById<TextView>(R.id.txtPhone)){
+                text = "Teléfono: ${viewModel.phone}"
+                setOnClickListener {
+                    val i = Intent(Intent.ACTION_DIAL)
+                    val p = "tel:" + viewModel.phone
+                    i.data = Uri.parse(p)
+                    startActivity(i)
+                }
+            }
+
+            with(findViewById<TextView>(R.id.txtEmail)){
+                text = viewModel.email
+                setOnClickListener {
+
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.type = "plain/text"
+                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(viewModel.email))
+                    startActivity(Intent.createChooser(intent, ""))
+                }
+            }
+
+            findViewById<TextView>(R.id.txtWorkHours).text = viewModel.workHours
+            findViewById<TextView>(R.id.txtOportunities).setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlOportunities)))
+            }
+
+            findViewById<TextView>(R.id.txtPrivacyPolicy).setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlPrivacyPolicy)))
+            }
+
+            findViewById<TextView>(R.id.txtTermsAndConditions).setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlTermsAndConditions)))
+            }
         }
     }
 
@@ -182,8 +224,8 @@ class MenuFragment: Fragment() {
         mDrawerLayout = drawerLayout
 
         mDrawerToggle = object : ActionBarDrawerToggle(activity, drawerLayout, toolbar,
-            R.string.drawer_open,
-            R.string.drawer_close
+                R.string.drawer_open,
+                R.string.drawer_close
         ){
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)

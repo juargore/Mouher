@@ -1,9 +1,7 @@
 package com.glass.domain.usecases.store
 
-import com.glass.domain.entities.ShortProductUI
 import com.glass.domain.entities.SponsorStoreUI
 import com.glass.domain.entities.TopBannerUI
-import io.reactivex.Completable
 import io.reactivex.Observable
 
 interface IStoreUseCase {

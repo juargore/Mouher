@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentProductDetailBinding
 import com.glass.mouher.databinding.FragmentProductReviewsBinding
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.store.home.products.proudctDetail.AProductDetailViewModel
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductsDetailItemMiniBinder
@@ -27,7 +29,8 @@ class ProductReviewsFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-
+                BR.backClicked -> activity?.onBackPressed()
+                BR.error -> showErrorMsg()
             }
         }
 
@@ -48,6 +51,10 @@ class ProductReviewsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    private fun showErrorMsg(){
+        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
     }
 
     fun itemViewBinder(): ItemBinder<AProductReviewViewModel> {

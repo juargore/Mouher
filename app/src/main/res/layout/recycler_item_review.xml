@@ -27,11 +27,13 @@
                 <ImageView android:id="@+id/imageView26"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    app:fromUrl="@{ viewModel.urlImage }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/face" />
+                    tools:srcCompat="@drawable/face" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
             <LinearLayout android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -54,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="3dp"
-                        android:text="@{ viewModel.name }"
+                        android:text="@{ viewModel.userName }"
                         tools:text="Admin" />
 
                     <TextView android:id="@+id/textView77"
@@ -62,15 +64,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
-                        android:text="23 Sep 2020" />
+                        android:text="@{ viewModel.date }"
+                        tools:text="23 Sep 2020"/>
                 </LinearLayout>
                 <TextView android:id="@+id/textView76"
                     style="@style/TextView.TitlesH6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/regular"
-                    android:inputType="textMultiLine"
-                    android:text="@{ viewModel.description }"
+                    android:text="@{ viewModel.comment }"
                     tools:text="Bonito y barato." />
             </LinearLayout>
         </LinearLayout>

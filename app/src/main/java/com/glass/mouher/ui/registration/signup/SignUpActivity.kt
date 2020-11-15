@@ -6,7 +6,9 @@ import androidx.databinding.DataBindingUtil
 import com.glass.mouher.R
 import com.glass.mouher.BR
 import com.glass.mouher.databinding.ActivitySignUpBinding
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.common.showSnackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SignUpActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class SignUpActivity : AppCompatActivity() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.backClicked -> finish()
+                BR.error -> showErrorMsg()
             }
         }
 
@@ -29,6 +32,10 @@ class SignUpActivity : AppCompatActivity() {
         binding.view = this
 
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    private fun showErrorMsg(){
+        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
     }
 
     override fun onResume() {

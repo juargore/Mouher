@@ -1,8 +1,10 @@
 package com.glass.domain.usecases.product
 
 import com.glass.domain.entities.ProductUI
+import com.glass.domain.entities.ReviewUI
 import com.glass.domain.entities.ShortProductUI
 import io.reactivex.Observable
+import io.reactivex.Single
 
 interface IProductUseCase {
 
@@ -12,4 +14,5 @@ interface IProductUseCase {
 
     fun getProductListByCategory(categoryId: String): Observable<List<ProductUI>>
 
+    fun getReviewsForProduct(productId: String): Single<List<ReviewUI>>
 }

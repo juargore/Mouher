@@ -1,19 +1,20 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail.reviews
 
 import android.content.Context
-import com.glass.domain.entities.Item
-import com.glass.mouher.ui.store.home.products.proudctDetail.AProductDetailViewModel
+import com.glass.domain.entities.ReviewUI
 
 class ProductReviewItemViewModel(
     private val context: Context,
-    private val menu: Item
+    private val review: ReviewUI
 ): AProductReviewViewModel() {
 
-    val name = "${menu.name} -"
+    val userName = review.userName
 
-    val icon = menu.icon
+    val date = review.date
 
-    val imageUrl = menu.imageUrl
+    val comment = review.review
 
-    val description = menu.description
+    val rating = review.rating
+
+    val urlImage = review.urlPhoto
 }

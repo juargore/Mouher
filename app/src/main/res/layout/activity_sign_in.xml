@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.glass.mouher.ui.registration.signin.SignInViewModel" />
@@ -133,7 +134,8 @@
                     android:textSize="14sp"
                     android:visibility="gone" />
 
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/signinEmailInput"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/signinEmailInput"
                     style="@style/TextInputLayoutAppearanceBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,10 +143,12 @@
                     android:hint="Correo"
                     android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                    <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/EditTextBlack"
                         android:layout_width="match_parent"
                         android:focusedByDefault="true"
                         android:inputType="textEmailAddress"
+                        android:text="@={ viewModel.userEmail }"
                         tools:targetApi="o" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,7 +165,7 @@
                     <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
                         android:layout_width="match_parent"
                         android:inputType="textPassword"
-                        android:text="" />
+                        android:text="@={ viewModel.userPassword }" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView style="@style/TextView.TitlesH5"
@@ -209,6 +213,18 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ viewModel.progressVisible ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

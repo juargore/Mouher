@@ -7,7 +7,9 @@ import androidx.databinding.DataBindingUtil
 import com.glass.mouher.R
 import com.glass.mouher.BR
 import com.glass.mouher.databinding.ActivitySignInBinding
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.mall.MainActivityMall
 import com.glass.mouher.ui.registration.forgot.ForgotPasswordActivity
 import com.glass.mouher.ui.registration.signup.SignUpActivity
@@ -22,6 +24,7 @@ class SignInActivity : AppCompatActivity() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.mainMallScreen -> finish()
+                BR.error -> showErrorMsg()
                 BR.passwordScreen -> startActivity(Intent(this, ForgotPasswordActivity::class.java))
                 BR.signupScreen -> startActivity(Intent(this, SignUpActivity::class.java))
             }
@@ -35,6 +38,10 @@ class SignInActivity : AppCompatActivity() {
         binding.view = this
 
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    private fun showErrorMsg(){
+        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
     }
 
     override fun onResume() {

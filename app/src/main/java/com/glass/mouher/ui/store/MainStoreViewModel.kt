@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_PARAMETER")
+
 package com.glass.mouher.ui.store
 
 import android.content.Context
@@ -32,8 +34,7 @@ class MainStoreViewModel(
             notifyPropertyChanged(BR.totalProducts)
         }
 
-    fun onCartClick(@Suppress("UNUSED_PARAMETER") view: View){
-        Log.e("--", "click")
+    fun onCartClick(v: View?){
         notifyPropertyChanged(BR.openCart)
     }
 

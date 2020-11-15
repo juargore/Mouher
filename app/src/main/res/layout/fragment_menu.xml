@@ -287,7 +287,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="@{ viewModel.mouherSectionVisible ? View.VISIBLE : View.GONE }">
-                        <TextView android:id="@+id/textView66"
+
+                        <TextView
+                            android:id="@+id/textView66"
                             style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -297,7 +299,7 @@
                             android:onClick="@{ viewModel::onAboutClick }"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:text="Acerca de"
+                            android:text="Sobre nosotros"
                             android:textSize="15sp" />
 
                         <TextView android:id="@+id/textView67"

@@ -21,4 +21,6 @@ interface IMallUseCase {
     fun getSocialMedia(): Observable<List<SocialMediaUI>>
 
     fun getAboutInformation(): Single<AboutUI>
+
+    fun getContactInformation(): Single<ContactUI>
 }

@@ -1,13 +1,14 @@
+@file:Suppress("UNUSED_PARAMETER")
 package com.glass.mouher.ui.menu
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.ContactUI
 import com.glass.domain.entities.SocialMediaUI
 import com.glass.domain.entities.ZoneUI
 import com.glass.domain.usecases.mall.IMallUseCase
@@ -37,6 +38,26 @@ class MenuViewModel(
     @Bindable
     var openHistoryScreen: Unit? = null
 
+    @Bindable
+    var address = ""
+
+    @Bindable
+    var phone = ""
+
+    @Bindable
+    var email = ""
+
+    @Bindable
+    var workHours = ""
+
+    @Bindable
+    var urlOportunities = ""
+
+    @Bindable
+    var urlPrivacyPolicy = ""
+
+    @Bindable
+    var urlTermsAndConditions = ""
 
     @Bindable
     var isUserLoggedIn = false
@@ -136,7 +157,7 @@ class MenuViewModel(
         addOnPropertyChangedCallback(callback)
         getCurrentVersionCode()
 
-        isUserLoggedIn = true
+        isUserLoggedIn = false
 
         if(!isUserLoggedIn){
             addDisposable(mallUseCase.getTopBannerList()
@@ -144,22 +165,41 @@ class MenuViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .flatMap {
                         mallUseCase.getLogoImage()
-                    }
-                    .subscribe(this::onResponseLogo, this::onError)
-            )
+                    }.subscribe(this::onResponseLogo, this::onError))
         }
 
         addDisposable(mallUseCase.getSocialMedia()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onResponseMenuSocialMediaItems, this::onError)
-        )
+                .subscribe(this::onResponseMenuSocialMediaItems, this::onError))
 
         addDisposable(mallUseCase.getZonesByMall()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponseMenuItems, this::onError)
-        )
+            .subscribe(this::onResponseMenuItems, this::onError))
+
+        addDisposable(mallUseCase.getContactInformation()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onContactResponse, this::onError))
+    }
+
+    private fun onContactResponse(contact: ContactUI){
+        address = contact.address ?: ""
+        phone = contact.phone ?: ""
+        email = contact.email ?: ""
+        workHours = contact.workHours ?: ""
+        urlOportunities = contact.urlOportunities ?: ""
+        urlPrivacyPolicy = contact.urlPrivacyPolicy ?: ""
+        urlTermsAndConditions = contact.urlTermsAndConditions ?: ""
+
+        notifyPropertyChanged(BR.address)
+        notifyPropertyChanged(BR.phone)
+        notifyPropertyChanged(BR.email)
+        notifyPropertyChanged(BR.workHours)
+        notifyPropertyChanged(BR.urlOportunities)
+        notifyPropertyChanged(BR.urlPrivacyPolicy)
+        notifyPropertyChanged(BR.urlTermsAndConditions)
     }
 
     private fun getCurrentVersionCode(){
@@ -197,52 +237,51 @@ class MenuViewModel(
         notifyPropertyChanged(BR.itemsSocial)
     }
 
-    fun onSignInClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onSignInClick(view: View){
         screen = MENU.LOGIN
         notifyPropertyChanged(BR.screen)
     }
 
-    fun onProfileClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onProfileClick(view: View){
         screen = MENU.PROFILE
         notifyPropertyChanged(BR.screen)
     }
 
-    fun onHistoryClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onHistoryClick(view: View){
         screen = MENU.HISTORY
         notifyPropertyChanged(BR.screen)
     }
 
-    fun onAboutClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onAboutClick(view: View){
         screen = MENU.ABOUT
         notifyPropertyChanged(BR.screen)
     }
 
-    fun onContactUsClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onContactUsClick(view: View){
         screen = MENU.CONTACT
         notifyPropertyChanged(BR.screen)
     }
 
-    fun onExtraServicesClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onExtraServicesClick(view: View){
         screen = MENU.EXTRA_SERVICES
         notifyPropertyChanged(BR.screen)
     }
 
-    fun onMoreInfoClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onMoreInfoClick(view: View){
         screen = MENU.MORE_INFO
         notifyPropertyChanged(BR.screen)
     }
 
     private fun onError(t: Throwable?){
-        @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-        Log.e("ERROR", t?.localizedMessage)
+        Log.e("ERROR", t?.localizedMessage.toString())
     }
 
-    fun onShowZonesSectionClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onShowZonesSectionClick(view: View){
         zonesSectionVisible = !zonesSectionVisible
         notifyPropertyChanged(BR.zonesSectionVisible)
     }
 
-    fun onShowMouherSectionClick(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onShowMouherSectionClick(view: View){
         mouherSectionVisible = !mouherSectionVisible
         notifyPropertyChanged(BR.mouherSectionVisible)
     }
