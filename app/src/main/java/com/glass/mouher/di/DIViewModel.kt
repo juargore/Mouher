@@ -1,6 +1,7 @@
 package com.glass.mouher.di
 
 import com.glass.mouher.di.DIConstants.UseCases
+import com.glass.mouher.ui.about.AboutViewModel
 import com.glass.mouher.ui.cart.CartViewModel
 import com.glass.mouher.ui.checkout.address.AddressViewModel
 import com.glass.mouher.ui.checkout.payment.PaymentViewModel
@@ -103,6 +104,11 @@ val DIViewModel = module{
 
     viewModel { PaymentViewModel(
         context = androidContext())
+    }
+
+    viewModel { AboutViewModel(
+            context = androidContext(),
+            mallUseCase = get(UseCases.MALL.name))
     }
 }
 

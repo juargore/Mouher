@@ -2,6 +2,7 @@ package com.glass.domain.usecases.mall
 
 import com.glass.domain.entities.*
 import io.reactivex.Observable
+import io.reactivex.Single
 
 interface IMallUseCase {
 
@@ -18,4 +19,6 @@ interface IMallUseCase {
     fun getStoresByZone(zoneId: String): Observable<List<StoreInZoneUI>>
 
     fun getSocialMedia(): Observable<List<SocialMediaUI>>
+
+    fun getAboutInformation(): Single<AboutUI>
 }
