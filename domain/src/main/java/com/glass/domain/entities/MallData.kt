@@ -1,56 +1,115 @@
 package com.glass.domain.entities
 
 data class MallData(
-    val Nombre: String? = null,
-    val Fotografia1: String? = null,
-    val Fotografia2: String? = null,
-    val Fotografia3: String? = null,
-    val Fotografia4: String? = null,
-    val Fotografia5: String? = null,
-    val FotografiaLogo1: String? = null,
-    val FotografiaLogo2: String? = null,
-    val Texto1Portada1: String? = null,
-    val Texto2Portada1: String? = null,
-    val Texto1Portada2: String? = null,
-    val Texto2Portada2: String? = null,
-    val Texto1Portada3: String? = null,
-    val Texto2Portada3: String? = null,
-    val VestibuloTitulo: String? = null,
-    val VestibuloTexto1: String? = null,
-    val VestibuloTexto2: String? = null,
-    val VestibuloFotografiaPos1: String? = null,
-    val VestibuloFotografiaPos2: String? = null,
-    val VestibuloFotografiaPos3: String? = null,
-    val VestibuloTexto1Pos1: String? = null,
-    val VestibuloTexto2Pos1: String? = null,
-    val VestibuloTexto1Pos2: String? = null,
-    val VestibuloTexto2Pos2: String? = null,
-    val VestibuloTexto1Pos3: String? = null,
-    val VestibuloTexto2Pos3: String? = null
+    // Error section
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+
+
+    // Plaza comercial gral section
+    val PlazaNombre: String? = null,
+    val PlazaLogoColor: String? = null,
+    val PlazaLogoBlanco: String? = null,
+
+
+    // Banners top of Plaza comercial section
+    val BannerFotoTop1: String? = null,
+    val BannerLinkFotoTop1: String? = null,
+    val BannerTituloFotoTop1: String? = null,
+    val BannerSubtituloFotoTop1: String? = null,
+
+    val BannerFotoTop2: String? = null,
+    val BannerLinkFotoTop2: String? = null,
+    val BannerTituloFotoTop2: String? = null,
+    val BannerSubtituloFotoTop2: String? = null,
+
+    val BannerFotoTop3: String? = null,
+    val BannerLinkFotoTop3: String? = null,
+    val BannerTituloFotoTop3: String? = null,
+    val BannerSubtituloFotoTop3: String? = null,
+
+    val BannerFotoTopIzq: String? = null,
+    val BannerLinkFotoTopIzq: String? = null,
+    val BannerFotoTopDer: String? = null,
+    val BannerLinkFotoTopDer: String? = null,
+
+
+    // Main Lobby of plaza comercial section
+    val LobbyTitulo: String? = null,
+    val LobbySubtitulo: String? = "En este espacio, conoce a Mouheres que han emprendido sus sueños\n" +
+            "¡Compártenos tu historia!",
+    val LobbyTitulo1: String? = null,
+    val LobbySubtitulo1: String? = null,
+    val LobbyFoto1: String? = null,
+    val LobbyLink1: String? = null,
+    val LobbyTitulo2: String? = null,
+    val LobbySubtitulo2: String? = null,
+    val LobbyFoto2: String? = null,
+    val LobbyLink2: String? = null,
+    val LobbyTitulo3: String? = null,
+    val LobbySubtitulo3: String? = null,
+    val LobbyFoto3: String? = null,
+    val LobbyLink3: String? = null,
+
+
+    // Sponsors of plaza comercial section
+    val Sponsors: List<SponsorData>? = null,
+
+
+    // Sponsors of plaza comercial section
+    val Zonas: List<ZoneData>? = null
 ){
+
+    fun getTopBannerList(): List<TopBannerUI>{
+        val l1 = TopBannerUI(
+            id = "1",
+            imageUrl = BannerFotoTop1,
+            title = BannerTituloFotoTop1,
+            subtitle = BannerSubtituloFotoTop1
+        )
+
+        val l2 = TopBannerUI(
+            id = "2",
+            imageUrl = BannerFotoTop2,
+            title = BannerTituloFotoTop2,
+            subtitle = BannerSubtituloFotoTop2
+        )
+
+        val l3 = TopBannerUI(
+            id = "3",
+            imageUrl = BannerFotoTop3,
+            title = BannerTituloFotoTop3,
+            subtitle = BannerSubtituloFotoTop3
+        )
+
+        return mutableListOf<TopBannerUI>()
+            .apply {
+                add(l1); add(l2); add(l3)
+            }
+    }
 
     fun getLobbyData(): LobbyFullData{
         val l1 = ItemLobby(
-            urlImage = VestibuloFotografiaPos1,
-            title = VestibuloTexto1Pos1,
-            subtitle = VestibuloTexto2Pos1
+            urlImage = LobbyFoto1,
+            title = LobbyTitulo1,
+            subtitle = LobbySubtitulo1
         )
 
         val l2 = ItemLobby(
-            urlImage = VestibuloFotografiaPos2,
-            title = VestibuloTexto1Pos2,
-            subtitle = VestibuloTexto2Pos2
+            urlImage = LobbyFoto2,
+            title = LobbyTitulo2,
+            subtitle = LobbySubtitulo2
         )
 
         val l3 = ItemLobby(
-            urlImage = VestibuloFotografiaPos3,
-            title = VestibuloTexto1Pos3,
-            subtitle = VestibuloTexto2Pos3
+            urlImage = LobbyFoto3,
+            title = LobbyTitulo3,
+            subtitle = LobbySubtitulo3
         )
 
         return LobbyFullData(
-            title = VestibuloTitulo,
-            description = "$VestibuloTexto1 $VestibuloTexto2",
+            title = LobbyTitulo,
+            description = LobbySubtitulo,
             listItemsLobby = mutableListOf<ItemLobby>()
                 .apply {
                     add(l2); add(l1); add(l3)
@@ -58,46 +117,15 @@ data class MallData(
         )
     }
 
-    fun getTopBannerList(): List<TopBannerUI>{
-        val l1 = TopBannerUI(
-            id = "1",
-            imageUrl = Fotografia1,
-            linkToOpen = "",
-            title = Texto1Portada1,
-            subtitle = Texto2Portada1
-        )
-
-        val l2 = TopBannerUI(
-            id = "2",
-            imageUrl = Fotografia2,
-            linkToOpen = "",
-            title = Texto1Portada2,
-            subtitle = Texto2Portada2
-        )
-
-        val l3 = TopBannerUI(
-            id = "3",
-            imageUrl = Fotografia3,
-            linkToOpen = "",
-            title = Texto1Portada3,
-            subtitle = Texto2Portada3
-        )
-
-        return mutableListOf<TopBannerUI>()
-            .apply {
-                add(l1); add(l2); add(l3)
-        }
-    }
-
     fun getTopTwoImages(): TopTwoImagesUI{
         return TopTwoImagesUI(
-            urlImageTopLeft = Fotografia4,
-            urlImageTopRight = Fotografia5
+            urlImageTopLeft = BannerFotoTopIzq,
+            urlImageTopRight = BannerFotoTopDer
         )
     }
 
     fun getMallLogoImage(): String? {
-        return FotografiaLogo2
+        return PlazaLogoBlanco
     }
 }
 

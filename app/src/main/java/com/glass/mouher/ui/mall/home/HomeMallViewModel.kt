@@ -1,6 +1,5 @@
 package com.glass.mouher.ui.mall.home
 
-import android.content.Context
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.*
@@ -13,9 +12,7 @@ import com.glass.mouher.ui.mall.MainActivityMall
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class HomeMallViewModel(
-    private val context: Context,
     private val mallUseCase: IMallUseCase,
     private val storeUseCase: IStoreUseCase
 ): BaseViewModel() {
@@ -48,7 +45,7 @@ class HomeMallViewModel(
         }
 
     @Bindable
-    var sponsorStoresList: List<SponsorStoreUI> = listOf()
+    var sponsorStoresList: List<SponsorUI> = listOf()
 
     @Bindable
     var titleLobby: String? = null
@@ -76,9 +73,12 @@ class HomeMallViewModel(
 
         progressVisible = true
 
-        addDisposable(mallUseCase.getTopBannerList()
+        addDisposable(mallUseCase.triggerToGetAllMallData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .flatMap {
+                return@flatMap mallUseCase.getTopBannerList()
+            }
 
             .flatMap {
                 onResponseTopBannerList(it)
@@ -95,34 +95,25 @@ class HomeMallViewModel(
                 return@flatMap mallUseCase.getLogoImage()
             }
 
-            .subscribe(this::onResponseLogoImage, this::onError)
-        )
+            .flatMap {
+                onResponseLogoImage(it)
+                return@flatMap mallUseCase.getSponsorsByMallId("")
+            }
 
-        addDisposable(storeUseCase.getSponsorStoresByMall()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponseSponsorStores, this::onError)
-        )
+            .flatMap {
+                onResponseSponsors(it)
+                return@flatMap mallUseCase.getZonesByMall()
+            }
 
-        addDisposable(mallUseCase.getZonesByMall()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::onResponseZones, this::onError)
         )
     }
 
     private fun onResponseLogoImage(logo: String){
-        MainActivityMall.setLogoOnToolbar(
-                completeUrlForImage(logo)
-        )
+        MainActivityMall.setLogoOnToolbar(logo)
     }
 
     private fun onResponseTopBannerList(bannerList: List<TopBannerUI>){
-
-        bannerList.forEach {
-            it.imageUrl = completeUrlForImage(it.imageUrl)
-        }
-
         topBannerList = bannerList
         notifyPropertyChanged(BR.topBannerList)
     }
@@ -132,12 +123,8 @@ class HomeMallViewModel(
         urlImageTopRight = completeUrlForImage(twoImages.urlImageTopRight)
     }
 
-    private fun onResponseSponsorStores(storesList: List<SponsorStoreUI>){
-        storesList.forEach {
-            it.urlImage = completeUrlForImage(it.urlImage)
-        }
-
-        sponsorStoresList = storesList
+    private fun onResponseSponsors(sponsorsList: List<SponsorUI>){
+        sponsorStoresList = sponsorsList
         notifyPropertyChanged(BR.sponsorStoresList)
 
         progressVisible = false
@@ -148,21 +135,13 @@ class HomeMallViewModel(
         descriptionLobby = lobbyFullData.description
 
         lobbyFullData.listItemsLobby?.let{ list->
-            list.forEach {
-                it.urlImage = completeUrlForImage(it.urlImage)
-            }
-
             lobbyList = list
             notifyPropertyChanged(BR.lobbyList)
         }
     }
 
-    private fun onResponseZones(zonesList: List<ZoneUI>){
-        zonesList.forEach {
-            it.urlImage = completeUrlForImage(it.urlImage)
-        }
-
-        this.zonesList = zonesList
+    private fun onResponseZones(zoneList: List<ZoneUI>){
+        zonesList = zoneList
         notifyPropertyChanged(BR.zonesList)
     }
 

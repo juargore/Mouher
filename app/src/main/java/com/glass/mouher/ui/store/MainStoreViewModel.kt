@@ -51,8 +51,7 @@ class MainStoreViewModel(
                 .subscribe(this::onUrlImageLogoResponse, this::onError)
         )
 
-        addDisposable(
-            cartUseCase.getSizeProductsOnDb()
+        addDisposable(cartUseCase.getSizeProductsOnDb()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     totalProducts = it

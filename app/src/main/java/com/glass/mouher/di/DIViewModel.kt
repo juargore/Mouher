@@ -45,7 +45,6 @@ val DIViewModel = module{
     }
 
     viewModel { HomeMallViewModel(
-        context = androidContext(),
         mallUseCase = get(UseCases.MALL.name),
         storeUseCase = get(UseCases.STORE.name))
     }
@@ -63,7 +62,8 @@ val DIViewModel = module{
 
     viewModel { MenuViewModel(
         context = androidContext(),
-        mallUseCase = get(UseCases.MALL.name))
+        mallUseCase = get(UseCases.MALL.name),
+        storeUseCase = get(UseCases.STORE.name))
     }
 
     viewModel { UserProfileViewModel(

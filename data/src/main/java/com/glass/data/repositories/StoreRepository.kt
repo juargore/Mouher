@@ -2,7 +2,7 @@ package com.glass.data.repositories
 
 import com.glass.data.serverapi.StoreApi
 import com.glass.domain.common.or
-import com.glass.domain.entities.SponsorStoreData
+import com.glass.domain.entities.SponsorData
 import com.glass.domain.entities.StoreData
 import com.glass.domain.repositories.IStoreRepository
 import io.reactivex.Observable
@@ -11,7 +11,7 @@ class StoreRepository(
     private val api: StoreApi
 ): IStoreRepository {
 
-    override fun getSponsorStoresByMall(): Observable<List<SponsorStoreData>> {
+    override fun getSponsorStoresByMall(): Observable<List<SponsorData>> {
 
         return api.getSponsorStoresByMall(
             WebService = "ConsultaRegEnlacePlazaIdPlaza",
@@ -19,7 +19,7 @@ class StoreRepository(
             IdPlaza = "1")
             .map {  response->
 
-                response.Datos?.let{ listData->
+                response.datoes?.let{ listData->
                     listData
                 }.or {
                     emptyList()

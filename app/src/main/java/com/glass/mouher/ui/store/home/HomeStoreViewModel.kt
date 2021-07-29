@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.CategoryUI
 import com.glass.domain.entities.Item
 import com.glass.domain.entities.ShortProductUI
 import com.glass.domain.entities.TopBannerUI
@@ -93,23 +94,10 @@ class HomeStoreViewModel(
             .subscribeOn(Schedulers.io())
             .subscribe(this::onNewArrivalsResponse, this::onError))
 
-
-        val categoriesList = mutableListOf<Item>()
-        categoriesList.add(Item(name = "Accesorios", description = "Complementa tu estilo", imageUrl = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"))
-        categoriesList.add(Item(name = "Cremas", description = "Cuida tu piel", imageUrl = "https://static.pullandbear.net/2/static2/itxwebstandard/images/home/2020-07/31/1400/Newin_Woman.jpg?ver=20200813112500"))
-        categoriesList.add(Item(name = "Hogar", description = "Todo para tu hogar", imageUrl = "https://static.zara.net/photos///2020/I/1/1/p/6660/510/040/3/w/1337/6660510040_9_1_1.jpg?ts=1597259304529"))
-        categoriesList.add(Item(name = "Oficina", description = "Trabaja como te gusta", imageUrl = "https://static.zara.net/photos///rw-center/2020/I/0/1/p/1856/209/881/2/w/1337/1856209881_2_11_1.jpg?ts=1597061763237"))
-        categoriesList.add(Item(name = "Accesorios", description = "Complementa tu estilo", imageUrl = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"))
-        categoriesList.add(Item(name = "Cremas", description = "Cuida tu piel", imageUrl = "https://static.pullandbear.net/2/static2/itxwebstandard/images/home/2020-07/31/1400/Newin_Woman.jpg?ver=20200813112500"))
-
-        val viewModels = mutableListOf<AStoreCategoryViewModel>()
-
-        categoriesList.forEach {
-            val viewModel = StoreCategoryItemViewModel(context = context, menu = it)
-            viewModels.add(viewModel)
-        }
-
-        items = viewModels
+        addDisposable(storeUseCase.getCategoriesByStore(storeId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::onCategoriesResponse, this::onError))
 
 
         val newLinkedStoresList = mutableListOf<Item>()
@@ -124,6 +112,18 @@ class HomeStoreViewModel(
         notifyPropertyChanged(BR.itemsLinkedStores)
 
         urlVideo = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
+    }
+
+    private fun onCategoriesResponse(list: List<CategoryUI>){
+        val viewModels = mutableListOf<AStoreCategoryViewModel>()
+
+        list.forEach {
+            //it.imageUrl = completeUrlForImageOnStore(it.imageUrl, storeId)
+            val viewModel = StoreCategoryItemViewModel(context = context, category = it)
+            viewModels.add(viewModel)
+        }
+
+        items = viewModels
     }
 
     private fun onNewArrivalsResponse(list: List<ShortProductUI>){

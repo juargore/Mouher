@@ -1,21 +1,9 @@
 package com.glass.domain.entities
 
-data class ResponseMall(
-    val Error: Int? = null,
-    val Mensaje: String? = null,
-    val Datos: List<MallData>?
-)
-
-data class ResponseZone(
-    val Error: Int? = null,
-    val Mensaje: String? = null,
-    val Datos: List<ZoneData>?
-)
-
 data class ResponseSponsorStores(
     val Error: Int? = null,
     val Mensaje: String? = null,
-    val Datos: List<SponsorStoreData>?
+    val datoes: List<SponsorData>?
 )
 
 data class ResponseSponsorImageStore(
@@ -27,7 +15,7 @@ data class ResponseSponsorImageStore(
 data class ResponseStoresInZone(
     val Error: Int? = null,
     val Mensaje: String? = null,
-    val Datos: List<StoreInZoneData>?
+    val datoes: List<StoresInZoneData>?
 )
 
 data class ResponseStore(

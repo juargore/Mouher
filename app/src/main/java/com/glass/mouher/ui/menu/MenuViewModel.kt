@@ -8,10 +8,12 @@ import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.CategoryUI
 import com.glass.domain.entities.ContactUI
 import com.glass.domain.entities.SocialMediaUI
 import com.glass.domain.entities.ZoneUI
 import com.glass.domain.usecases.mall.IMallUseCase
+import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.R
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
@@ -20,8 +22,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MenuViewModel(
-    private val context: Context,
-    private val mallUseCase: IMallUseCase
+        private val context: Context,
+        private val mallUseCase: IMallUseCase,
+        private val storeUseCase: IStoreUseCase
 ): BaseViewModel(), ClickHandler<AMenuViewModel> {
 
     private var source: String? = null
@@ -141,6 +144,9 @@ class MenuViewModel(
         }
 
     @Bindable
+    var categories: List<CategoryUI> = listOf()
+
+    @Bindable
     var versionStr = ""
         set(value){
             field = value
@@ -159,8 +165,8 @@ class MenuViewModel(
 
         isUserLoggedIn = false
 
-        if(!isUserLoggedIn){
-            addDisposable(mallUseCase.getTopBannerList()
+        /*if(!isUserLoggedIn){
+            addDisposable(mallUseCase.triggerToGetAllMallData()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .flatMap {
@@ -173,15 +179,27 @@ class MenuViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onResponseMenuSocialMediaItems, this::onError))
 
-        addDisposable(mallUseCase.getZonesByMall()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponseMenuItems, this::onError))
+        if(source == "MALL"){
+            addDisposable(mallUseCase.getZonesByMall()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onResponseMenuItems, this::onError))
+        }else{
+            addDisposable(storeUseCase.getCategoriesByStore("1")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onStoreCategoriesResponse, this::onError))
+        }
 
         addDisposable(mallUseCase.getContactInformation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onContactResponse, this::onError))
+                .subscribe(this::onContactResponse, this::onError))*/
+    }
+
+    private fun onStoreCategoriesResponse(list: List<CategoryUI>){
+        categories = list
+        notifyPropertyChanged(BR.categories)
     }
 
     private fun onContactResponse(contact: ContactUI){

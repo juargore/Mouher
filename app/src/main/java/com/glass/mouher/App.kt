@@ -15,7 +15,6 @@ class App: Application() {
         startKoin(this,
             listOf(
                 DIExternals,
-                DIHelpers,
                 DIRepositories,
                 DIUseCases,
                 DIViewModel,

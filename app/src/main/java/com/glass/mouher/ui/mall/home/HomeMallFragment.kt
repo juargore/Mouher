@@ -44,7 +44,7 @@ class HomeMallFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentHomeMallBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
@@ -59,57 +59,58 @@ class HomeMallFragment : Fragment() {
     }
 
     private fun setUpSponsorStoresRecycler(){
-        val adapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
+        with(binding.rvHomeSponsors){
+            val mAdapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
 
-        binding.rvHomeSponsors.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false)
 
-        binding.rvHomeSponsors.adapter = adapter
+            adapter = mAdapter
 
-        adapter.onItemClicked = { store->
-            val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                putExtra("storeId", store.id)
+            mAdapter.onItemClicked = { store->
+                val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    putExtra("storeId", store.id)
+                }
+
+                activity?.overridePendingTransition(0,0)
+                startActivity(intent)
             }
-
-            activity?.overridePendingTransition(0,0)
-            startActivity(intent)
         }
     }
 
     private fun setUpZonesRecycler() {
-        val adapter = HomeZonesAdapter(viewModel.zonesList)
+        with(binding.rvHomeZones){
+            val mAdapter = HomeZonesAdapter(viewModel.zonesList)
 
-        binding.rvHomeZones.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvHomeZones.adapter = adapter
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mAdapter
 
-        adapter.onItemClicked = { item->
-            val args = Bundle().apply {
-                putString("zoneName", item.name)
-                putString("zoneId", item.id.toString())
-            }
+            mAdapter.onItemClicked = { item->
+                val args = Bundle().apply {
+                    putString("zoneName", item.name)
+                    putString("zoneId", item.id.toString())
+                }
 
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container_body_mall, StoresFragment().apply {
-                    arguments = args
-                })
+                requireActivity().supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container_body_mall, StoresFragment().apply {
+                        arguments = args
+                    })
 
-                addToBackStack("Stores")
-                commit()
+                    addToBackStack("Stores")
+                    commit()
+                }
             }
         }
     }
 
     private fun setUpLobbyRecycler() {
-        binding.rvHomeLobby.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvHomeLobby.adapter = HomeLobbyAdapter(viewModel.lobbyList)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.onPause(onPropertyChangedCallback)
+        with(binding.rvHomeLobby){
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = HomeLobbyAdapter(viewModel.lobbyList)
+        }
     }
 
     private fun setImagesInTopBanner(){
@@ -146,5 +147,10 @@ class HomeMallFragment : Fragment() {
 
     private fun showErrorMsg(){
         showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.onPause(onPropertyChangedCallback)
     }
 }

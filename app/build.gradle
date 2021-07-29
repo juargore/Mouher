@@ -22,17 +22,13 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "URL_PARENT", '"http://desarrollo01.mouhermarket.com/admin/"'
-            buildConfigField "String", "IMAGE_URL_MALL", '"http://desarrollo01.mouhermarket.com/admin/uploads/tienda0/"'
-            buildConfigField "String", "IMAGE_URL_STORE", '"http://desarrollo01.mouhermarket.com/admin/uploads/"'
+            buildConfigField "String", "URL_PARENT", '"https://mouhermarket.com/admin/models/"'
             minifyEnabled false
             shrinkResources false
             debuggable true
         }
         release {
-            buildConfigField "String", "URL_PARENT", '"http://mouhermarket.com/admin/"'
-            buildConfigField "String", "IMAGE_URL_MALL", '"http://mouhermarket.com/admin/uploads/tienda0/"'
-            buildConfigField "String", "IMAGE_URL_STORE", '"http://mouhermarket.com/admin/uploads/"'
+            buildConfigField "String", "URL_PARENT", '"https://mouhermarket.com/admin/models/"'
             minifyEnabled false
             shrinkResources false
             debuggable true
@@ -97,12 +93,7 @@ dependencies {
     // Glide: Image downloader + cache
     implementation glide
     implementation glideOkhttp
-    implementation 'com.google.firebase:firebase-firestore:21.4.3'
     kapt glideKapt
-
-    // Google Play Servies
-    implementation playServicesPlaces
-    implementation playServicesVision
 
     // Swipe Layout
     implementation swipeLayout
@@ -131,16 +122,7 @@ dependencies {
     implementation retrofitLoggingInterceptors
 
     // Moshi
-    //implementation moshi
     implementation retrofitMoshiConverter
-
-    // Firebase
-    implementation firebaseAuthent
-    implementation firebaseFirestore
-    implementation firebaseStorage
-    implementation firebaseMessaging
-    implementation firebaseConfig
-    implementation firebaseAnalytics
 
     implementation project(':data')
     implementation project(':domain')

@@ -20,7 +20,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import com.glass.domain.entities.CategoryUI
 import com.glass.domain.entities.SocialMediaUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentMenuBinding
@@ -34,6 +35,7 @@ import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.profile.UserProfileFragment
 import com.glass.mouher.ui.registration.signin.SignInActivity
 import com.glass.mouher.ui.store.home.HomeStoreFragment
+import com.glass.mouher.ui.store.home.products.ProductsFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MenuFragment: Fragment() {
@@ -49,16 +51,17 @@ class MenuFragment: Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.itemsSocial -> setUpSocialMediaItems(viewModel.itemsSocial)
+                BR.itemsSocial -> setUpMallSocialMediaItems(viewModel.itemsSocial)
                 BR.screen -> openFromMenuSubscreen(viewModel.screen)
-                BR.openZoneSelected -> openStoresByZoneId()
+                BR.openZoneSelected -> openMallStoresByZoneId()
+                BR.categories -> setUpStoreCategoriesItems(viewModel.categories)
             }
         }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMenuBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
@@ -73,23 +76,45 @@ class MenuFragment: Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun setUpSocialMediaItems(itemsSocial: List<SocialMediaUI>) {
-        val adapter = MenuItemSocialMediaAdapter(itemsSocial)
+    private fun setUpMallSocialMediaItems(itemsSocial: List<SocialMediaUI>) {
+        with(binding.rvSocialMedia){
+            val socialAdapter = MenuItemSocialMediaAdapter(itemsSocial)
 
-        binding.rvSocialMedia.layoutManager = LinearLayoutManager(
-                context,
-                RecyclerView.HORIZONTAL,
-                false
-        )
+            layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
+            adapter = socialAdapter
 
-        binding.rvSocialMedia.adapter = adapter
-
-        adapter.onItemClicked={
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.linkToOpen)))
+            socialAdapter.onItemClicked ={
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.linkToOpen)))
+            }
         }
     }
 
-    private fun openStoresByZoneId(){
+    private fun setUpStoreCategoriesItems(itemsCategories: List<CategoryUI>){
+        with(binding.rvMenu){
+            val categoryAdapter = MenuItemCategoriesAdapter(itemsCategories)
+
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = categoryAdapter
+
+            categoryAdapter.onItemClicked={
+                val args = Bundle().apply {
+                    putString("categoryId", it.id)
+                    putString("storeId", "1")
+                }
+
+                requireActivity().supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.container_body, ProductsFragment().apply {
+                        arguments = args
+                    })
+
+                    addToBackStack("Products")
+                    commit()
+                }
+            }
+        }
+    }
+
+    private fun openMallStoresByZoneId(){
         val args = Bundle().apply {
             putString("zoneName", viewModel.openZoneSelected?.name)
             putString("zoneId", viewModel.openZoneSelected?.id.toString())

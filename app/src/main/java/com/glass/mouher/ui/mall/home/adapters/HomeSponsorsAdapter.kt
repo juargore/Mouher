@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.domain.entities.SponsorStoreUI
+import com.glass.domain.entities.SponsorUI
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_home_sponsors.view.*
 
 class HomeSponsorsAdapter (
-    private var sponsorsList : List<SponsorStoreUI>
+    private var sponsorsList : List<SponsorUI>
 ) : RecyclerView.Adapter<HomeSponsorsAdapter.ItemViewHolder>(){
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -23,7 +23,7 @@ class HomeSponsorsAdapter (
 
     override fun getItemCount(): Int = sponsorsList.size
 
-    var onItemClicked: ((SponsorStoreUI) -> Unit)? = null
+    var onItemClicked: ((SponsorUI) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = sponsorsList[pos]

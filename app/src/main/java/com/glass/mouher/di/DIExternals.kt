@@ -10,13 +10,10 @@ import org.koin.dsl.module.module
 
 @Suppress("USELESS_CAST")
 val DIExternals = module {
-    single(DIConstants.Externals.FIREBASE_STORAGE.name) { createStorage() }
     single(DIConstants.Externals.RETROFIT.name) { createNetworkClient(
         context = androidContext(),
         baseUrl = BuildConfig.URL_PARENT
     )}
-
-    single(DIConstants.Externals.LOGGER.name) { Logger.instance as ILogger }
 
     single(DIConstants.Externals.REALM.name) {
         val config = RealmConfiguration.Builder()

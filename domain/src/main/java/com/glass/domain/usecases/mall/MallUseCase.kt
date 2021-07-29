@@ -11,22 +11,32 @@ class MallUseCase(
 
     private var mallData: MallData? = null
 
+    override fun triggerToGetAllMallData(): Observable<Unit> {
+        return mallRepository.getAllMallData().map {
+            mallData = it
+        }
+    }
+
+    override fun getTopBannerList(): Observable<List<TopBannerUI>> {
+        return Observable.just(mallData?.getTopBannerList())
+    }
+
     override fun getLogoImage(): Observable<String> {
         return Observable.just(mallData?.getMallLogoImage())
     }
 
-    override fun getTopBannerList(): Observable<List<TopBannerUI>> {
-
-        return mallRepository
-            .getAllMallData()
-            .map { data ->
-                this.mallData = data
-                data.getTopBannerList()
-            }
-    }
-
     override fun getTwoTopImages(): Observable<TopTwoImagesUI> {
         return Observable.just(mallData?.getTopTwoImages())
+    }
+
+    override fun getSponsorsByMallId(mallId: String): Observable<List<SponsorUI>> {
+        val mList = mutableListOf<SponsorUI>()
+
+        mallData?.Sponsors?.forEach {
+            mList.add(it.getSponsorStoreUI())
+        }
+
+        return Observable.just(mList)
     }
 
     override fun getLobbyData(): Observable<LobbyFullData> {
@@ -34,18 +44,13 @@ class MallUseCase(
     }
 
     override fun getZonesByMall(): Observable<List<ZoneUI>> {
+        val mList = mutableListOf<ZoneUI>()
 
-        return mallRepository
-            .getZonesByMall()
-            .map { zonesList->
-                val mList = mutableListOf<ZoneUI>()
+        mallData?.Zonas?.forEach {
+            mList.add(it.toZoneUI())
+        }
 
-                zonesList.forEach {
-                    mList.add(it.toZoneUI())
-                }
-
-                return@map mList
-            }
+        return Observable.just(mList)
     }
 
     override fun getStoresByZone(zoneId: String): Observable<List<StoreInZoneUI>> {
@@ -54,7 +59,7 @@ class MallUseCase(
             .map { storeDataList->
                 val mList = mutableListOf<StoreInZoneUI>()
 
-                storeDataList.forEach {
+                storeDataList.Tiendas?.forEach {
                     mList.add(it.getStoreInZoneUI())
                 }
 

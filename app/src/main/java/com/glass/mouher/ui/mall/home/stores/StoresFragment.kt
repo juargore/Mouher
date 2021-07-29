@@ -36,7 +36,7 @@ class StoresFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentStoresBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel

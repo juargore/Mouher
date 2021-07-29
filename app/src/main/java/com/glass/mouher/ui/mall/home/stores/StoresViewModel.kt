@@ -39,7 +39,7 @@ class StoresViewModel(
     var zoneName: String? = null
 
     @Bindable
-    var zoneId: String? = null
+    var zoneId: String = "0"
 
     @Bindable
     var items: List<AStoresViewModel> = listOf()
@@ -65,7 +65,7 @@ class StoresViewModel(
 
     fun initialize(zoneName: String?, zoneId: String?){
         this.zoneName = zoneName
-        this.zoneId = zoneId
+        this.zoneId = zoneId ?: "0"
 
         notifyPropertyChanged(BR.zoneName)
         notifyPropertyChanged(BR.zoneId)
@@ -76,7 +76,7 @@ class StoresViewModel(
 
         progressVisible = true
 
-        addDisposable(mallUseCase.getStoresByZone(zoneId ?: "0")
+        addDisposable(mallUseCase.getStoresByZone(zoneId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::onResponseStoresByZone, this::onError)
@@ -87,8 +87,6 @@ class StoresViewModel(
         val viewModels = mutableListOf<AStoresViewModel>()
 
         storesList.forEach {
-            it.urlImage = completeUrlForImage(it.urlImage)
-
             val viewModel = StoreItemViewModel(context = context, store = it)
             viewModels.add(viewModel)
         }

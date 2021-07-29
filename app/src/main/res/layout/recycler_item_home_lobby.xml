@@ -43,22 +43,22 @@
             <TextView
                 android:id="@+id/titleLobby"
                 style="@style/TextView.TitlesH6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:gravity="center_horizontal"
+                android:gravity="start|center_horizontal"
                 android:text="Text" />
 
             <TextView
                 android:id="@+id/subtitleLobby"
                 style="@style/TextView.TitlesH7"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/regular"
-                android:gravity="center_horizontal"
+                android:gravity="start|center_horizontal"
                 android:includeFontPadding="false"
                 android:text="Text" />
         </LinearLayout>

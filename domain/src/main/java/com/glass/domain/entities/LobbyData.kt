@@ -6,7 +6,6 @@ data class LobbyFullData(
     val listItemsLobby: List<ItemLobby>? = null
 )
 
-
 data class ItemLobby(
     var urlImage: String? = null,
     val title: String? = null,

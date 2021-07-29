@@ -1,5 +1,6 @@
 package com.glass.mouher.ui.mall
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -14,6 +15,7 @@ import com.glass.mouher.ui.menu.MenuFragment
 class MainActivityMall : AppCompatActivity() {
 
     companion object{
+        @SuppressLint("StaticFieldLeak")
         var toolbar: Toolbar? = null
 
         fun setLogoOnToolbar(urlImage: String){
