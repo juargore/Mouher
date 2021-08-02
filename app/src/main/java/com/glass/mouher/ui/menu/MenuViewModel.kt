@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package com.glass.mouher.ui.menu
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
@@ -22,10 +23,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MenuViewModel(
-        private val context: Context,
-        private val mallUseCase: IMallUseCase,
-        private val storeUseCase: IStoreUseCase
+    private val mallUseCase: IMallUseCase,
+    private val storeUseCase: IStoreUseCase
 ): BaseViewModel(), ClickHandler<AMenuViewModel> {
+
+    @SuppressLint("StaticFieldLeak")
+    lateinit var context: Context
 
     private var source: String? = null
 
@@ -154,52 +157,43 @@ class MenuViewModel(
         }
 
 
-    fun initialize(source: String){
-        this.source = source
+    fun initialize(c: Context, s: String){
+        context = c
+        source = s
         searchProductVisibility = source != "MALL"
+
+        //TODO
+        isUserLoggedIn = false
     }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
         getCurrentVersionCode()
 
-        isUserLoggedIn = false
-
-        /*if(!isUserLoggedIn){
+        if(!isUserLoggedIn){
+            // If user hasn't signed in -> Load the Mall logo instead of his/her photo
             addDisposable(mallUseCase.triggerToGetAllMallData()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .flatMap {
-                        mallUseCase.getLogoImage()
-                    }.subscribe(this::onResponseLogo, this::onError))
+                        return@flatMap mallUseCase.getLogoImage()
+                    }.subscribe(this::onResponseLogo, this::onError)
+            )
+        }else{
+            // User already signed in -> Just load the zones
+            onResponseLogo(null)
         }
 
-        addDisposable(mallUseCase.getSocialMedia()
+        /*addDisposable(mallUseCase.getSocialMedia()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onResponseMenuSocialMediaItems, this::onError))
+                .subscribe(this::onResponseMenuSocialMediaItems, this::onError))*/
 
-        if(source == "MALL"){
-            addDisposable(mallUseCase.getZonesByMall()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onResponseMenuItems, this::onError))
-        }else{
-            addDisposable(storeUseCase.getCategoriesByStore("1")
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onStoreCategoriesResponse, this::onError))
-        }
-
+        /*
         addDisposable(mallUseCase.getContactInformation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onContactResponse, this::onError))*/
-    }
-
-    private fun onStoreCategoriesResponse(list: List<CategoryUI>){
-        categories = list
-        notifyPropertyChanged(BR.categories)
     }
 
     private fun onContactResponse(contact: ContactUI){
@@ -228,9 +222,28 @@ class MenuViewModel(
         }
     }
 
-    private fun onResponseLogo(urlLogo: String){
-        logoMouher = completeUrlForImage(urlLogo)
-        notifyPropertyChanged(BR.logoMouher)
+    private fun onResponseLogo(urlLogo: String?){
+        urlLogo?.let{
+            logoMouher = it
+            notifyPropertyChanged(BR.logoMouher)
+        }
+
+        if(source == "MALL"){
+            addDisposable(mallUseCase.getZonesByMall()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onResponseMenuItems, this::onError))
+        }else{
+            addDisposable(storeUseCase.getCategoriesByStore()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onStoreCategoriesResponse, this::onError))
+        }
+    }
+
+    private fun onStoreCategoriesResponse(list: List<CategoryUI>){
+        categories = list
+        notifyPropertyChanged(BR.categories)
     }
 
     private fun onResponseMenuItems(zonesList: List<ZoneUI>){
@@ -317,12 +330,12 @@ class MenuViewModel(
     }
 }
 
-enum class MENU{
-    LOGIN,
-    PROFILE,
-    HISTORY,
-    ABOUT,
-    CONTACT,
-    EXTRA_SERVICES,
-    MORE_INFO
-}
+    enum class MENU{
+        LOGIN,
+        PROFILE,
+        HISTORY,
+        ABOUT,
+        CONTACT,
+        EXTRA_SERVICES,
+        MORE_INFO
+    }

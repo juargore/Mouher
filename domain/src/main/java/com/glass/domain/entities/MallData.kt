@@ -36,8 +36,8 @@ data class MallData(
 
     // Main Lobby of plaza comercial section
     val LobbyTitulo: String? = null,
-    val LobbySubtitulo: String? = "En este espacio, conoce a Mouheres que han emprendido sus sueños\n" +
-            "¡Compártenos tu historia!",
+    val LobbySubtitulo: String? = null,
+    val LobbySubtituloInferior: String? = null,
     val LobbyTitulo1: String? = null,
     val LobbySubtitulo1: String? = null,
     val LobbyFoto1: String? = null,
@@ -65,21 +65,24 @@ data class MallData(
             id = "1",
             imageUrl = BannerFotoTop1,
             title = BannerTituloFotoTop1,
-            subtitle = BannerSubtituloFotoTop1
+            subtitle = BannerSubtituloFotoTop1,
+            linkToOpen = BannerLinkFotoTop1
         )
 
         val l2 = TopBannerUI(
             id = "2",
             imageUrl = BannerFotoTop2,
             title = BannerTituloFotoTop2,
-            subtitle = BannerSubtituloFotoTop2
+            subtitle = BannerSubtituloFotoTop2,
+            linkToOpen = BannerLinkFotoTop2
         )
 
         val l3 = TopBannerUI(
             id = "3",
             imageUrl = BannerFotoTop3,
             title = BannerTituloFotoTop3,
-            subtitle = BannerSubtituloFotoTop3
+            subtitle = BannerSubtituloFotoTop3,
+            linkToOpen = BannerLinkFotoTop3
         )
 
         return mutableListOf<TopBannerUI>()
@@ -92,24 +95,27 @@ data class MallData(
         val l1 = ItemLobby(
             urlImage = LobbyFoto1,
             title = LobbyTitulo1,
-            subtitle = LobbySubtitulo1
+            subtitle = LobbySubtitulo1,
+            linkToOpen = LobbyLink1
         )
 
         val l2 = ItemLobby(
             urlImage = LobbyFoto2,
             title = LobbyTitulo2,
-            subtitle = LobbySubtitulo2
+            subtitle = LobbySubtitulo2,
+            linkToOpen = LobbyLink2
         )
 
         val l3 = ItemLobby(
             urlImage = LobbyFoto3,
             title = LobbyTitulo3,
-            subtitle = LobbySubtitulo3
+            subtitle = LobbySubtitulo3,
+            linkToOpen = LobbyLink3
         )
 
         return LobbyFullData(
             title = LobbyTitulo,
-            description = LobbySubtitulo,
+            description = "$LobbySubtitulo\n$LobbySubtituloInferior",
             listItemsLobby = mutableListOf<ItemLobby>()
                 .apply {
                     add(l2); add(l1); add(l3)

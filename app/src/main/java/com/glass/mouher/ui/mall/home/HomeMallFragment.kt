@@ -22,6 +22,7 @@ import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.store.MainStoreActivity
+import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -69,10 +70,10 @@ class HomeMallFragment : Fragment() {
 
             adapter = mAdapter
 
-            mAdapter.onItemClicked = { store->
+            mAdapter.onItemClicked = { sponsor->
                 val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                    putExtra("storeId", store.id)
+                    putExtra("storeId", sponsor.id)
                 }
 
                 activity?.overridePendingTransition(0,0)
@@ -108,8 +109,16 @@ class HomeMallFragment : Fragment() {
 
     private fun setUpLobbyRecycler() {
         with(binding.rvHomeLobby){
+            val mAdapter = HomeLobbyAdapter(viewModel.lobbyList)
+
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = HomeLobbyAdapter(viewModel.lobbyList)
+            adapter = mAdapter
+
+            mAdapter.onItemClicked={
+                it.linkToOpen?.let{ url->
+                    openUrlInExternalWebBrowser(url)
+                }
+            }
         }
     }
 
@@ -134,6 +143,13 @@ class HomeMallFragment : Fragment() {
                     }
                 }
             })
+
+            setImageClickListener { position->
+                val item = viewModel.topBannerList[position]
+                if(!item.linkToOpen.isNullOrBlank()){
+                    openUrlInExternalWebBrowser(item.linkToOpen!!)
+                }
+            }
         }
     }
 

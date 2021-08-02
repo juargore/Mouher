@@ -61,7 +61,6 @@ val DIViewModel = module{
     }
 
     viewModel { MenuViewModel(
-        context = androidContext(),
         mallUseCase = get(UseCases.MALL.name),
         storeUseCase = get(UseCases.STORE.name))
     }
@@ -75,14 +74,12 @@ val DIViewModel = module{
     }
 
     viewModel { HomeStoreViewModel(
-        context = androidContext(),
         storeUseCase = get(UseCases.STORE.name),
         productUseCase = get(UseCases.PRODUCT.name)
     )
     }
 
     viewModel { ProductsViewModel(
-        context = androidContext(),
         productUseCase = get(UseCases.PRODUCT.name))
     }
 

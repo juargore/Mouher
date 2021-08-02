@@ -2,6 +2,7 @@
 
 package com.glass.mouher.ui.store.home.products
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import androidx.databinding.Bindable
@@ -11,20 +12,21 @@ import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
-import com.glass.mouher.ui.common.completeUrlForImageOnStore
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.toast
 
 class ProductsViewModel(
-    private val context: Context,
     private val productUseCase: IProductUseCase
 ): BaseViewModel(), ClickHandler<AProductsViewModel> {
 
-    private var categoryId = ""
+    @SuppressLint("StaticFieldLeak")
+    lateinit var context: Context
+
+    private var categoryId = 1
 
     @Bindable
-    var storeId = ""
+    var storeId = 1
 
     @Bindable
     var urlTop = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"
@@ -39,7 +41,7 @@ class ProductsViewModel(
     var onBack: Unit? = null
 
     @Bindable
-    var categoryName = "Zapatos"
+    var categoryName: String? = null
 
     @Bindable
     var items: List<AProductsViewModel> = listOf()
@@ -56,16 +58,18 @@ class ProductsViewModel(
         }
 
 
-    fun initialize(_categoryId: String?, _storeId: String?){
-        categoryId = _categoryId ?: ""
-        storeId = _storeId ?: ""
+    fun initialize(c: Context, catId: String?, stoId: String?, catName: String?){
+        context = c
+        categoryId = catId?.toInt() ?: 1
+        storeId = stoId?.toInt() ?: 1
+        categoryName = catName ?: ""
     }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
         progressVisible = true
-        addDisposable(productUseCase.getProductListByCategory(categoryId)
+        addDisposable(productUseCase.getProductListByCategory(storeId, categoryId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onProductListResponse, this::onError))
@@ -75,7 +79,6 @@ class ProductsViewModel(
         val viewModels = mutableListOf<AProductsViewModel>()
 
         storesList.forEach {
-            it.sidePhoto1 = completeUrlForImageOnStore(it.sidePhoto1, storeId)
             val viewModel = ProductsItemViewModel(context = context, product = it)
             viewModels.add(viewModel)
         }
@@ -89,6 +92,7 @@ class ProductsViewModel(
     }
 
     private fun onError(t: Throwable?){
+        progressVisible = false
         context.toast(t?.cause.toString())
     }
 
@@ -99,7 +103,7 @@ class ProductsViewModel(
 
     override fun onClick(viewModel: AProductsViewModel) {
         if(viewModel is ProductsItemViewModel){
-            productId = viewModel.id
+            productId = viewModel.id.toString()
             notifyPropertyChanged(BR.detailScreen)
         }
     }

@@ -9,19 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.domain.entities.ShortProductUI
+import com.glass.domain.entities.ProductUI
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_products.view.*
 
 
 class HomeStoreNewProductsAdapter (private val context: Context,
-                                   private var productsList : List<ShortProductUI>,
-                                   private val eventClick: InterfaceOnClick)
+                                   private var productsList : List<ProductUI>)
     : androidx.recyclerview.widget.RecyclerView.Adapter<HomeStoreNewProductsAdapter.ItemViewHolder>(){
 
-    interface InterfaceOnClick {
-        fun onItemClick(productId: String?)
-    }
+    var onItemClicked: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.recycler_item_products, p0, false)
@@ -33,30 +30,51 @@ class HomeStoreNewProductsAdapter (private val context: Context,
     }
 
     override fun onBindViewHolder(p0: ItemViewHolder, pos: Int) {
-        p0.setData(pos, productsList[pos], eventClick)
+        p0.setData(productsList[pos])
     }
 
     @Suppress("DEPRECATION")
     inner class ItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
-        fun setData(pos: Int, item: ShortProductUI, eventItemClick: InterfaceOnClick){
+        fun setData(item: ProductUI){
 
-            itemView.productName.text = item.name
-            itemView.txtPrice.text = item.price
-            itemView.txtOldPrice.text = item.oldPrice
+            with(itemView){
+                productName.text = item.name
+                txtPrice.text = item.currentPrice
+                txtDescriptionTop.text = item.description
 
-            // middle line on the old price
-            itemView.txtOldPrice.let{
-                it.paintFlags = it.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            }
+                // set rating on stars
+                val rating = item.rating?.toFloat() ?: 0f
+                ratingBar.rating = rating
 
-            Glide.with(context)
-                .load(item.imageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_blur)
-                .into(itemView.productImage)
+                // if oldPrice does not exists -> hide view
+                if(item.oldPrice.isNullOrBlank()){
+                    txtOldPrice.visibility = View.GONE
+                }else{
+                    txtOldPrice.text = item.oldPrice
+                    txtOldPrice.let{
+                        // middle line on the old price
+                        it.paintFlags = it.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    }
+                }
 
-            itemView.setOnClickListener {
-                eventItemClick.onItemClick(item.id)
+                // if discount on product does not exists -> hide view
+                if(item.discount.isNullOrBlank()){
+                    txtDiscount.visibility = View.GONE
+                }else{
+                    txtDiscount.text = item.discount
+                }
+
+                Glide.with(context)
+                    .load(item.sidePhoto1)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_blur)
+                    .into(itemView.productImage)
+
+                setOnClickListener {
+                    item.id?.let{
+                        onItemClicked?.invoke(it)
+                    }
+                }
             }
         }
     }

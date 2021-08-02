@@ -31,7 +31,6 @@ class StoresFragment : Fragment() {
             }
         }
 
-    private val layoutManager: LinearLayoutManager by lazy { LinearLayoutManager(context)}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +40,8 @@ class StoresFragment : Fragment() {
         binding = FragmentStoresBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
-        binding.rvStores.layoutManager = layoutManager
+
+        binding.rvStores.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.initialize(
             arguments?.getString("zoneName"),

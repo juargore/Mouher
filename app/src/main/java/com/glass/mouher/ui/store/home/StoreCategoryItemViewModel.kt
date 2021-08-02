@@ -8,7 +8,7 @@ class StoreCategoryItemViewModel(
     category: CategoryUI
 ): AStoreCategoryViewModel() {
 
-    val id = category.id
+    val id = category.categoryId
 
     val name = category.name
 

@@ -9,21 +9,16 @@ import retrofit2.http.POST
 interface StoreApi {
 
     @FormUrlEncoded
-    @POST("models/catalogos/CRegEnlacePlazaConsulta.php")
-    fun getSponsorStoresByMall(@Field("WebService") WebService: String,
-                               @Field("IdBDD") IdBDD: String,
-                               @Field("IdPlaza") IdPlaza: String): Single<ResponseSponsorStores>
-
-    @FormUrlEncoded
-    @POST("models/catalogos/CCatTiendaConsulta.php")
-    fun getImageForSponsorStore(@Field("WebService") WebService: String,
-                                @Field("IdBDD") IdBDD: String,
-                                @Field("Id") Id: String): Single<ResponseSponsorImageStore>
-
-    @FormUrlEncoded
-    @POST("models/catalogos/CCatTiendaConsulta.php")
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
     fun getDataForStore(@Field("WebService") WebService: String,
-                        @Field("IdBDD") IdBDD: String,
-                        @Field("Id") Id: String): Single<ResponseStore>
+                        @Field("IdTienda") IdTienda: String): Single<StoreData>
+
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesOperaciones.php")
+    fun subscribeUserToNewsletter(@Field("WebService") WebService: String,
+                                  @Field("IdTienda") IdTienda: String,
+                                  @Field("Nombre") Nombre: String,
+                                  @Field("Correo") Correo: String): Single<ResponseData>
 
 }

@@ -3,6 +3,7 @@ package com.glass.data.repositories
 import com.glass.data.serverapi.ProductApi
 import com.glass.domain.common.or
 import com.glass.domain.entities.NewArrivalProductData
+import com.glass.domain.entities.ProductByCategoryData
 import com.glass.domain.entities.ProductData
 import com.glass.domain.repositories.IProductRepository
 import io.reactivex.Observable
@@ -40,17 +41,12 @@ class ProductRepository(
         }.toObservable()
     }
 
-    override fun getProductListByCategory(categoryId: String): Observable<List<ProductData>> {
+    override fun getProductListByCategory(storeId: Int, categoryId: Int): Observable<ProductByCategoryData> {
         return api.getProductListByCategory(
-                WebService = "ConsultaCatProductoId",
-                IdBDD = categoryId
-        ).map { response ->
-            response.Datos?.let {  listData ->
-                listData
-            }.or {
-                emptyList()
-            }
-        }.toObservable()
+            WebService = "ConsultaIntegralProductosPorCategoria",
+            IdTienda = storeId.toString(),
+            IdValorClasif1 = categoryId.toString()
+        ).toObservable()
     }
 
 }

@@ -9,13 +9,13 @@ import retrofit2.http.POST
 interface MallApi {
 
     @FormUrlEncoded
-    @POST("servicios/CServiciosAplicaciones.php")
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
     fun getAllDataForMall(@Field("WebService") WebService: String,
                           @Field("IdPlaza") IdPlaza: String): Single<MallData>
 
 
     @FormUrlEncoded
-    @POST("servicios/CServiciosAplicaciones.php")
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
     fun getStoresInZone(@Field("WebService") WebService: String,
                         @Field("IdZona") IdZona: String): Single<StoresInZoneData>
 

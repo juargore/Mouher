@@ -41,22 +41,20 @@ class MainStoreViewModel(
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        addDisposable(
-            storeUseCase.getStoreData("1")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .flatMap {
-                    return@flatMap storeUseCase.getStoreLogo()
-                }
-                .subscribe(this::onUrlImageLogoResponse, this::onError)
+        val storeId = MainStoreActivity.storeId.toInt()
+
+        addDisposable(storeUseCase.triggerToGetStoreData(storeId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .flatMap {
+                return@flatMap storeUseCase.getStoreLogo()
+            }
+            .subscribe(this::onUrlImageLogoResponse, this::onError)
         )
 
         addDisposable(cartUseCase.getSizeProductsOnDb()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    totalProducts = it
-                }
-        )
+                .subscribe { totalProducts = it })
     }
 
     private fun onUrlImageLogoResponse(url: String){

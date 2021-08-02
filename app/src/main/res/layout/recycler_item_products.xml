@@ -16,7 +16,7 @@
         app:cardCornerRadius="3dp"
         app:cardElevation="3dp">
 
-        <TextView android:id="@+id/textView26"
+        <TextView android:id="@+id/txtDiscount"
             style="@style/TextView.TitlesH7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,12 +29,13 @@
             android:paddingTop="6dp"
             android:paddingEnd="10dp"
             android:paddingBottom="5dp"
-            android:text="-15%"
+            tools:text="-15%"
+            android:text="@{ viewModel.discount }"
             android:textColor="@color/white"
-            android:visibility="visible"
-            tools:text="-10%" />
+            android:visibility="@{ viewModel.discountVisible }" />
 
-        <LinearLayout android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -49,7 +50,8 @@
                 app:fromUrl="@{viewModel.imageUrl}"
                 tools:srcCompat="@drawable/ic_delete" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -61,16 +63,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:numStars="5"
-                    android:rating="3"
+                    tools:rating="3"
+                    android:rating="@{ viewModel.ratingStar }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView android:id="@+id/textView"
+                <TextView android:id="@+id/txtDescriptionTop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Men's Originals"
+                    tools:text="Men's Originals"
+                    android:text="@{ viewModel.description }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -106,13 +110,18 @@
                     android:includeFontPadding="true"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="$250"
+                    tools:text="$250"
+                    android:text="@{ viewModel.currentPrice }"
                     android:textColor="@color/mainRed" />
+
                 <TextView android:id="@+id/txtOldPrice"
                     style="@style/TextView.TitlesH6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$320" />
+                    android:visibility="@{ viewModel.oldPriceVisible }"
+                    android:text="@{ viewModel.oldPrice }"
+                    strikeThrough="@{ viewModel.middleLine }"
+                    tools:text="$320" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

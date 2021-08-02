@@ -25,34 +25,27 @@ class ProductsFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.onBack -> activity?.onBackPressed()
-                BR.detailScreen -> {
-                    val args = Bundle().apply {
-                        putString("productId", viewModel.productId)
-                        putString("storeId", viewModel.storeId)
-                    }
-
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body, ProductDetailFragment().apply {
-                            arguments = args
-                        })
-
-                        addToBackStack("Detail")
-                        commit()
-                    }
-                }
+                BR.detailScreen -> openDetailedScreen()
             }
         }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_products_list, container, false)
         binding.viewModel = viewModel
         binding.view = this
 
-        viewModel.initialize(arguments?.getString("categoryId"), arguments?.getString("storeId"))
+        arguments?.let{ args->
+            val categoryId = args.getString("categoryId")
+            val storeId = args.getString("storeId")
+            val categoryName = args.getString("categoryName")
+
+            viewModel.initialize(requireContext(), categoryId, storeId, categoryName)
+        }
+
         binding.rvProducts.layoutManager = GridLayoutManager(requireContext(), 1)
 
         return binding.root
@@ -61,6 +54,20 @@ class ProductsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    private fun openDetailedScreen(){
+        val args = Bundle().apply {
+            putString("productId", viewModel.productId)
+            putString("storeId", viewModel.storeId.toString())
+        }
+
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container_body, ProductDetailFragment().apply {
+                arguments = args })
+
+            addToBackStack("Detail"); commit()
+        }
     }
 
     override fun onPause() {

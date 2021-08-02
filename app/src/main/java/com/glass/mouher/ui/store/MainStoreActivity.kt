@@ -1,7 +1,10 @@
 package com.glass.mouher.ui.store
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -18,6 +21,10 @@ class MainStoreActivity : AppCompatActivity() {
     private val viewModel: MainStoreViewModel by viewModel()
     private lateinit var binding: ActivityMainStoreBinding
 
+    companion object{
+        var storeId: String = "1" // 1 is defaul value
+    }
+
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
@@ -29,10 +36,8 @@ class MainStoreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main_store)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_store)
-
         binding.viewModel = viewModel
         binding.view = this
 
@@ -53,6 +58,10 @@ class MainStoreActivity : AppCompatActivity() {
             toolbar,
             "STORE"
         )
+
+        intent?.extras?.let{
+            storeId = it.getString("storeId") ?: "1"
+        }
     }
 
     override fun onResume() {
@@ -63,5 +72,14 @@ class MainStoreActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm: InputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

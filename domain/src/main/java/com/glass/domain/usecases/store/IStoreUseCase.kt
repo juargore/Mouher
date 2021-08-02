@@ -1,18 +1,16 @@
 package com.glass.domain.usecases.store
 
-import com.glass.domain.entities.CategoryUI
-import com.glass.domain.entities.SponsorUI
-import com.glass.domain.entities.TopBannerUI
+import com.glass.domain.entities.*
 import io.reactivex.Observable
 import io.reactivex.Single
 
 interface IStoreUseCase {
 
-    fun getSponsorStoresByMallId(mallId: String): Observable<List<SponsorUI>>
-
-    fun getStoreData(storeId: String): Observable<String>
+    fun triggerToGetStoreData(storeId: Int): Observable<Unit>
 
     fun getTopBannerList(): Observable<List<TopBannerUI>>
+
+    fun getSponsorStoresByMallId(mallId: String): Observable<List<SponsorUI>>
 
     fun getStoreLogo(): Observable<String>
 
@@ -20,5 +18,12 @@ interface IStoreUseCase {
 
     fun getUrlVideo(): Observable<String>
 
-    fun getCategoriesByStore(storeId: String): Single<List<CategoryUI>>
+    fun getNewArrivalsForStore(): Observable<List<ProductUI>>
+
+    fun getCategoriesByStore(): Observable<List<CategoryUI>>
+
+    fun getSponsorsByStore(): Observable<List<SponsorUI>>
+
+    fun subscribeUserToNewsletter(userName: String, email: String, storeId: Int): Observable<ResponseUI>
+
 }

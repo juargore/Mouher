@@ -1,30 +1,37 @@
 package com.glass.mouher.ui.store.home
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.domain.entities.Item
-import com.glass.domain.entities.ShortProductUI
+import com.glass.domain.entities.ProductUI
+import com.glass.domain.entities.ResponseUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
 import com.glass.mouher.extensions.startFadeInAnimation
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.common.showSnackbar
+import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
+import com.glass.mouher.ui.store.MainStoreActivity
 import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
+import com.glass.mouher.utils.WebBrowserUtils
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.lang.Exception
 
 class HomeStoreFragment : Fragment() {
 
@@ -34,61 +41,63 @@ class HomeStoreFragment : Fragment() {
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
+                BR.urlVideo -> setUpVideo(viewModel.urlVideo)
                 BR.bannerList -> setImagesInBanner()
                 BR.itemsNewProducts -> setNewProducts(viewModel.itemsNewProducts)
-                BR.itemsLinkedStores -> setLinkedStores(viewModel.itemsLinkedStores)
-                BR.urlVideo -> setUpVideo(viewModel.urlVideo)
-                BR.onClick ->{
-                    val args = Bundle().apply {
-                        putString("categoryId", viewModel.categoryId)
-                        putString("storeId", viewModel.storeId)
-                    }
-
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body, ProductsFragment().apply {
-                            arguments = args
-                        })
-
-                        addToBackStack("Products")
-                        commit()
-                    }
-                }
+                BR.sponsorStoresList -> setLinkedStores()
+                BR.error -> showErrorMsg()
+                BR.onClick -> openCategoryScreen()
             }
         }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_store, container, false)
         binding.viewModel = viewModel
         binding.view = this
 
         binding.rvCategories.layoutManager = GridLayoutManager(context, 2)
-        binding.rvNewProducts.layoutManager = LinearLayoutManager(context)
-        binding.rvLinkedStores.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+
+        viewModel.initialize(requireContext(), MainStoreActivity.storeId)
 
         return binding.root
     }
 
-    private fun setImagesInBanner(){
-        binding.carouselView.setImageListener(imageListener)
-        binding.carouselView.pageCount = viewModel.bannerList.size
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume(onPropertyChangedCallback)
+    }
 
-        binding.carouselView.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
-                binding.carouselTitle.apply {
-                    this.startFadeInAnimation()
-                    this.text = viewModel.bannerList[pos].title
+    private fun setImagesInBanner(){
+        with(binding.carouselView){
+            setImageListener(imageListener)
+            pageCount = viewModel.bannerList.size
+
+            binding.carouselView.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+                override fun onPageScrollStateChanged(state: Int) {}
+                override fun onPageSelected(position: Int) {}
+
+                override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
+                    binding.carouselTitle.apply {
+                        this.startFadeInAnimation()
+                        this.text = viewModel.bannerList[pos].title
+                    }
+                    binding.carouselSubtitle.apply {
+                        this.startFadeInAnimation()
+                        this.text = viewModel.bannerList[pos].subtitle
+                    }
                 }
-                binding.carouselSubtitle.apply {
-                    this.startFadeInAnimation()
-                    this.text = viewModel.bannerList[pos].subtitle
+            })
+
+            setImageClickListener { position->
+                val item = viewModel.bannerList[position]
+                if(!item.linkToOpen.isNullOrBlank()){
+                    WebBrowserUtils.openUrlInExternalWebBrowser(item.linkToOpen!!)
                 }
             }
-            override fun onPageSelected(position: Int) {}
-        })
+        }
     }
 
     private var imageListener: ImageListener = ImageListener { position, imageView ->
@@ -99,12 +108,16 @@ class HomeStoreFragment : Fragment() {
             .into(imageView)
     }
 
-    private fun setNewProducts(itemsNewProducts: List<ShortProductUI>) {
-        val adapter = HomeStoreNewProductsAdapter(requireContext(), itemsNewProducts, object : HomeStoreNewProductsAdapter.InterfaceOnClick{
-            override fun onItemClick(productId: String?) {
+    private fun setNewProducts(itemsNewProducts: List<ProductUI>) {
+        with(binding.rvNewProducts){
+            val mAdapter = HomeStoreNewProductsAdapter(requireContext(), itemsNewProducts)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mAdapter
+
+            mAdapter.onItemClicked={
                 val args = Bundle().apply {
-                    putString("productId", productId)
-                    putString("storeId", viewModel.storeId)
+                    putString("productId", it.toString())
+                    putString("storeId", viewModel.storeId.toString())
                 }
 
                 requireActivity().supportFragmentManager.beginTransaction().apply {
@@ -116,38 +129,63 @@ class HomeStoreFragment : Fragment() {
                     commit()
                 }
             }
-        })
-
-        binding.rvNewProducts.adapter = adapter
+        }
     }
 
-    private fun setLinkedStores(itemsLinkedStores: MutableList<Item>) {
-        val adapter = HomeStoreLinkedStoresAdapter(requireContext(), itemsLinkedStores, object : HomeStoreLinkedStoresAdapter.InterfaceOnClick{
-            override fun onItemClick(pos: Int) {
+    private fun openCategoryScreen(){
+        val args = Bundle().apply {
+            putString("categoryId", viewModel.categoryId.toString())
+            putString("storeId", viewModel.storeId.toString())
+            putString("categoryName", viewModel.categoryName)
+        }
+
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container_body, ProductsFragment().apply {
+                arguments = args
+            })
+
+            addToBackStack("Products")
+            commit()
+        }
+    }
+
+    private fun setLinkedStores() {
+        with(binding.rvLinkedStores){
+            val mAdapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
+
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false)
+
+            adapter = mAdapter
+
+            mAdapter.onItemClicked={ sponsor->
 
             }
-        })
-
-        binding.rvLinkedStores.adapter = adapter
+        }
     }
 
-    private fun setUpVideo(urlVideo: String) {
-        /*with(binding.videoStore){
-            setVideoPath(urlVideo)
-
-            setOnClickListener {
-                if(isPlaying){
-                    stopPlayback(); resume()
-                } else{
-                    start()
+    private fun setUpVideo(urlVideo: String?) {
+        if(urlVideo.isNullOrBlank()){
+            binding.layVideo.visibility = View.GONE
+        }else{
+            with(binding.videoStore){
+                setMediaController(MediaController(requireContext()))
+                try {
+                    setVideoURI(Uri.parse(viewModel.urlVideo))
+                }catch (e: Exception){
+                    viewModel.error =  ResponseUI(hasErrors = false, message = e.message)
                 }
             }
-        }*/
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.onResume(onPropertyChangedCallback)
+    private fun showErrorMsg(){
+        with(viewModel.error){
+            val errorType = if(hasErrors) SnackType.ERROR else SnackType.INFO
+            showSnackbar(binding.root, viewModel.error.message, errorType)
+        }
     }
 
     override fun onPause() {

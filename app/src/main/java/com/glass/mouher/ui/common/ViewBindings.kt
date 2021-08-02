@@ -1,6 +1,7 @@
 @file:Suppress("UNCHECKED_CAST")
 package com.glass.mouher.ui.common
 
+import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.util.Log
@@ -18,6 +19,10 @@ import com.glass.mouher.R
 import com.glass.mouher.ui.common.binder.BindingRecyclerViewAdapter
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.binder.ItemBinder
+import android.widget.TextView
+
+
+
 
 
 private const val KEY_ITEMS = -123
@@ -174,5 +179,14 @@ fun setImageCircleFromResource(imageView: ImageView, resource: Int?) {
 fun setRotationForImage(imageView: ImageView, angle: Int?) {
     if (angle != null) {
         imageView.animate().rotation(imageView.rotation + angle).start()
+    }
+}
+
+@BindingAdapter("strikeThrough")
+fun strikeThrough(textView: TextView, strikeThrough: Boolean) {
+    if (strikeThrough) {
+        textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    } else {
+        textView.paintFlags = textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
     }
 }

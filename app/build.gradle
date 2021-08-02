@@ -43,6 +43,7 @@ android {
 
     kotlinOptions {
         jvmTarget = rootProject.ext.jvm_target
+        kotlinOptions.allWarningsAsErrors = false
     }
 
     lintOptions {

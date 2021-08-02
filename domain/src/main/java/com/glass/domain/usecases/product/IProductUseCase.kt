@@ -12,7 +12,7 @@ interface IProductUseCase {
 
     fun getProductUI(productId: String, storeId: String): Observable<ProductUI>
 
-    fun getProductListByCategory(categoryId: String): Observable<List<ProductUI>>
+    fun getProductListByCategory(storeId: Int, categoryId: Int): Observable<List<ProductUI>>
 
     fun getReviewsForProduct(productId: String): Single<List<ReviewUI>>
 }

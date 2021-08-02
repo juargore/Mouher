@@ -98,7 +98,7 @@ class MenuFragment: Fragment() {
 
             categoryAdapter.onItemClicked={
                 val args = Bundle().apply {
-                    putString("categoryId", it.id)
+                    putString("categoryId", it.categoryId.toString())
                     putString("storeId", "1")
                 }
 
@@ -243,7 +243,7 @@ class MenuFragment: Fragment() {
 
     fun setUpDrawer(fragmentId: Int, drawerLayout: DrawerLayout, toolbar: Toolbar?, source: String) {
         this.source = source
-        viewModel.initialize(source)
+        viewModel.initialize(requireContext(), source)
 
         containerView = requireActivity().findViewById(fragmentId)
         mDrawerLayout = drawerLayout
