@@ -1,24 +1,20 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail.reviews
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
-import com.glass.mouher.databinding.FragmentProductDetailBinding
 import com.glass.mouher.databinding.FragmentProductReviewsBinding
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
-import com.glass.mouher.ui.store.home.products.proudctDetail.AProductDetailViewModel
-import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel
-import com.glass.mouher.ui.store.home.products.proudctDetail.ProductsDetailItemMiniBinder
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductReviewsFragment : Fragment() {
@@ -37,7 +33,7 @@ class ProductReviewsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_reviews, container, false)
         binding.viewModel = viewModel
