@@ -16,15 +16,8 @@ interface ProductApi {
 
 
     @FormUrlEncoded
-    @POST("models/catalogos/CRegProductoNuevoConsulta.php")
-    fun getNewArrivalsForStore(@Field("WebService") WebService: String,
-                               @Field("IdBDD") IdBDD: String): Single<ResponseNewArrivals>
-
-
-    @FormUrlEncoded
-    @POST("models/catalogos/CCatProductoConsulta.php")
-    fun getFullProductData(@Field("WebService") WebService: String,
-                           @Field("IdBDD") IdBDD: String,
-                           @Field("Id") Id: String): Single<ResponseFullProduct>
-
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
+    fun getFullProduct(@Field("WebService") WebService: String,
+                       @Field("IdTienda") IdTienda: String,
+                       @Field("IdProducto") IdProducto: String): Single<FullProductDataResponse>
 }

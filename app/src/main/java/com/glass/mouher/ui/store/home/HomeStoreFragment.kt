@@ -1,11 +1,9 @@
 package com.glass.mouher.ui.store.home
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
@@ -15,7 +13,6 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.ProductUI
-import com.glass.domain.entities.ResponseUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
 import com.glass.mouher.extensions.startFadeInAnimation
@@ -31,7 +28,6 @@ import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragme
 import com.glass.mouher.utils.WebBrowserUtils
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.lang.Exception
 
 class HomeStoreFragment : Fragment() {
 
@@ -114,10 +110,10 @@ class HomeStoreFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mAdapter
 
-            mAdapter.onItemClicked={
+            mAdapter.onItemClicked={ id->
                 val args = Bundle().apply {
-                    putString("productId", it.toString())
-                    putString("storeId", viewModel.storeId.toString())
+                    putInt("productId", id)
+                    putInt("storeId", viewModel.storeId)
                 }
 
                 requireActivity().supportFragmentManager.beginTransaction().apply {
@@ -134,8 +130,8 @@ class HomeStoreFragment : Fragment() {
 
     private fun openCategoryScreen(){
         val args = Bundle().apply {
-            putString("categoryId", viewModel.categoryId.toString())
-            putString("storeId", viewModel.storeId.toString())
+            putInt("categoryId", viewModel.categoryId)
+            putInt("storeId", viewModel.storeId)
             putString("categoryName", viewModel.categoryName)
         }
 
@@ -169,7 +165,7 @@ class HomeStoreFragment : Fragment() {
     private fun setUpVideo(urlVideo: String?) {
         if(urlVideo.isNullOrBlank()){
             binding.layVideo.visibility = View.GONE
-        }else{
+        }/*else{
             with(binding.videoStore){
                 setMediaController(MediaController(requireContext()))
                 try {
@@ -178,7 +174,7 @@ class HomeStoreFragment : Fragment() {
                     viewModel.error =  ResponseUI(hasErrors = false, message = e.message)
                 }
             }
-        }
+        }*/
     }
 
     private fun showErrorMsg(){

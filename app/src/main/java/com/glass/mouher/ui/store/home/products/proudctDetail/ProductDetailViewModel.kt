@@ -1,34 +1,54 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail
 
-import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
 import com.glass.domain.entities.ProductUI
+import com.glass.domain.entities.ScreenTopInformationUI
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.product.IProductUseCase
+import com.glass.mouher.App.Companion.context
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
-import com.glass.mouher.ui.common.completeUrlForImageOnStore
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.toast
 
 
 class ProductDetailViewModel(
-    private val context: Context,
     private val cartUseCase: ICartUseCase,
     private val productUseCase: IProductUseCase
 ): BaseViewModel(), ClickHandler<AProductDetailViewModel> {
 
-    private var productId = ""
-    private var storeId = ""
+    private var productId = 1
+
+    private var storeId = 1
 
     @Bindable
-    var urlTop = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"
+    var urlImageTop: String = ""
+
+    @Bindable
+    var titleTop: String = ""
+
+    @Bindable
+    var subTitleTop: String = ""
+
+    @Bindable
+    var productName: String = ""
+
+    @Bindable
+    var productDescription: String = ""
+
+    @Bindable
+    var productRating: Int = 0
+
+    @Bindable
+    var currentPrice: String = "$"
+
+    @Bindable
+    var oldPrice: String = "$"
 
     @Bindable
     var showPopRating: Unit? = null
@@ -40,10 +60,7 @@ class ProductDetailViewModel(
     var miniSelected: String? = null
 
     @Bindable
-    var itemsRelatedProducts = mutableListOf<Item>()
-
-    @Bindable
-    var description = ""
+    var itemsRelatedProducts = listOf<ProductUI>()
 
     @Bindable
     var onBack: Unit? = null
@@ -66,93 +83,131 @@ class ProductDetailViewModel(
 
 
 
-    fun initialize(id: String?, _storeId: String?){
-        productId = id ?: ""
-        storeId = _storeId ?: ""
+    fun initialize(id: Int?, _storeId: Int?){
+        productId = id ?: 1
+        storeId = _storeId ?: 1
     }
+
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
         progressVisible = true
-        addDisposable( productUseCase.getProductUI(productId, storeId)
+
+        addDisposable(productUseCase.triggerToGetFullProduct(storeId, productId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onResponseProductUI, this::onError))
 
-        val newRelatedProductsList = mutableListOf<Item>()
-        newRelatedProductsList.add(Item(name = "Jogging", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1316/540/050/1316540050_4_1_8.jpg?t=1582651694009&imwidth=375"))
-        newRelatedProductsList.add(Item(name = "Botín", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1059/640/040/1059640040_4_1_8.jpg?t=1594808755920&imwidth=375"))
-        newRelatedProductsList.add(Item(name = "Sandalia", imageUrl = "https://static.pullandbear.net/2/photos//2020/I/1/1/p/1608/640/040/1608640040_4_1_8.jpg?t=1593175295433&imwidth=375"))
+            .flatMap {
+                return@flatMap productUseCase.getProductUI()
+            }
 
-        itemsRelatedProducts = newRelatedProductsList
-        notifyPropertyChanged(BR.itemsRelatedProducts)
+            .flatMap {
+                onResponseProductUI(it)
+                return@flatMap productUseCase.getTopScreenInformation()
+            }
+
+            .flatMap {
+                onTopInformationResponse(it)
+                return@flatMap productUseCase.getRelatedProductsByProduct()
+            }
+
+            .subscribe(this::onRelatedProductsListResponse, this::onError))
     }
 
-    private fun onResponseProductUI(product: ProductUI){
-        val storesList = mutableListOf<String?>()
 
-        storesList.add(completeUrlForImageOnStore(product.sidePhoto1, storeId))
-        storesList.add(completeUrlForImageOnStore(product.sidePhoto2, storeId))
-        storesList.add(completeUrlForImageOnStore(product.sidePhoto3, storeId))
-        storesList.add(completeUrlForImageOnStore(product.sidePhoto4, storeId))
-        storesList.add(completeUrlForImageOnStore(product.sidePhoto5, storeId))
+    private fun onResponseProductUI(product: ProductUI){
+        val miniPhotosList = mutableListOf<String?>().apply {
+            add(product.sidePhoto1)
+            add(product.sidePhoto2)
+            add(product.sidePhoto3)
+            add(product.sidePhoto4)
+            add(product.sidePhoto5)
+        }
 
         val viewModels = mutableListOf<AProductDetailViewModel>()
 
-        storesList.forEach {
-            val viewModel = ProductDetailItemMiniViewModel(context = context, image = it ?: "")
-            viewModels.add(viewModel)
+        miniPhotosList.forEach {
+            context?.let{ c->
+                val viewModel = ProductDetailItemMiniViewModel(context = c, image = it ?: "")
+                viewModels.add(viewModel)
+            }
         }
 
         items = viewModels
 
         // load first image on photoView
         if(items.isNotEmpty()){
-            miniSelected = storesList[0]
+            miniSelected = miniPhotosList[0]
             notifyPropertyChanged(BR.miniSelected)
         }
 
+        // Product information
+        productName = product.name ?: ""
+        productDescription = product.description ?: ""
+        productRating = product.rating ?: 0
+        currentPrice = product.currentPrice ?: "$"
+        oldPrice = product.oldPrice ?: "$"
 
-        // description
-        description = product.description ?: ""
-        notifyPropertyChanged(BR.description)
+        notifyPropertyChanged(BR.productName)
+        notifyPropertyChanged(BR.productDescription)
+        notifyPropertyChanged(BR.productRating)
+        notifyPropertyChanged(BR.currentPrice)
+        notifyPropertyChanged(BR.oldPrice)
 
         progressVisible = false
     }
 
-    fun onAddProductToCartClicked(@Suppress("UNUSED_PARAMETER") view: View){
-        cartUseCase.setProductOnCart(Item(name = getRandomString(), description = "Descripcion: ${getRandomString()}"))
+
+    private fun onTopInformationResponse(topInformation: ScreenTopInformationUI){
+        urlImageTop = topInformation.urlImageTop ?: ""
+        titleTop = topInformation.titleTop ?: ""
+        subTitleTop = topInformation.subTitleTop ?: ""
+        progressVisible = false
+
+        notifyPropertyChanged(BR.urlImageTop)
+        notifyPropertyChanged(BR.titleTop)
+        notifyPropertyChanged(BR.subTitleTop)
     }
 
-    private fun getRandomString() : String {
-        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-        return (1..5)
-            .map { allowedChars.random() }
-            .joinToString("")
+
+    private fun onRelatedProductsListResponse(list: List<ProductUI>){
+        itemsRelatedProducts = list
+        notifyPropertyChanged(BR.itemsRelatedProducts)
     }
+
+
+    fun onAddProductToCartClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        cartUseCase.setProductOnCart(Item(name = productName, description = "Descripcion: $productDescription"))
+    }
+
 
     fun onAddRatingClicked(@Suppress("UNUSED_PARAMETER") view: View){
         notifyPropertyChanged(BR.showPopRating)
     }
 
+
     fun onReviewsClicked(@Suppress("UNUSED_PARAMETER") view: View){
         notifyPropertyChanged(BR.openScreenReviews)
     }
 
+
     private fun onError(t: Throwable?){
-        context.toast(t?.localizedMessage.toString())
+        Log.e("--", t?.localizedMessage.toString())
     }
 
-    fun onBackClicked(view: View){
+
+    fun onBackClicked(@Suppress("UNUSED_PARAMETER") view: View){
         notifyPropertyChanged(BR.onBack)
     }
+
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
         items = listOf()
         onCleared()
     }
+
 
     override fun onClick(viewModel: AProductDetailViewModel) {
         if(viewModel is ProductDetailItemMiniViewModel){

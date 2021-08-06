@@ -8,6 +8,7 @@ import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.ProductUI
+import com.glass.domain.entities.ScreenTopInformationUI
 import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
@@ -23,16 +24,21 @@ class ProductsViewModel(
     @SuppressLint("StaticFieldLeak")
     lateinit var context: Context
 
+    var storeId: Int = 1
+
     private var categoryId = 1
 
-    @Bindable
-    var storeId = 1
+    var productId: Int = 1
+
 
     @Bindable
-    var urlTop = "https://static.zara.net/photos//mkt/spots/aw20-north-shoes-bags-woman/subhome-xmedia-33//landscape_0.jpg?ts=1597317424891&imwidth=1366"
+    var urlImageTop = ""
 
     @Bindable
-    var productId: String? = null
+    var titleTop = ""
+
+    @Bindable
+    var subTitleTop = ""
 
     @Bindable
     var detailScreen: Unit? = null
@@ -58,10 +64,11 @@ class ProductsViewModel(
         }
 
 
-    fun initialize(c: Context, catId: String?, stoId: String?, catName: String?){
+
+    fun initialize(c: Context, catId: Int?, stoId: Int?, catName: String?){
         context = c
-        categoryId = catId?.toInt() ?: 1
-        storeId = stoId?.toInt() ?: 1
+        categoryId = catId ?: 1
+        storeId = stoId ?: 1
         categoryName = catName ?: ""
     }
 
@@ -70,9 +77,15 @@ class ProductsViewModel(
 
         progressVisible = true
         addDisposable(productUseCase.getProductListByCategory(storeId, categoryId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onProductListResponse, this::onError))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+            .flatMap {
+                onProductListResponse(it)
+                return@flatMap productUseCase.getTopScreenInformation()
+            }
+
+            .subscribe(this::onTopInformationResponse, this::onError))
     }
 
     private fun onProductListResponse(storesList: List<ProductUI>){
@@ -83,8 +96,18 @@ class ProductsViewModel(
             viewModels.add(viewModel)
         }
 
-        progressVisible = false
         items = viewModels
+    }
+
+    private fun onTopInformationResponse(topInformation: ScreenTopInformationUI){
+        urlImageTop = topInformation.urlImageTop ?: ""
+        titleTop = topInformation.titleTop ?: ""
+        subTitleTop = topInformation.subTitleTop ?: ""
+        progressVisible = false
+
+        notifyPropertyChanged(BR.urlImageTop)
+        notifyPropertyChanged(BR.titleTop)
+        notifyPropertyChanged(BR.subTitleTop)
     }
 
     fun onBackClicked(view: View){
@@ -103,7 +126,7 @@ class ProductsViewModel(
 
     override fun onClick(viewModel: AProductsViewModel) {
         if(viewModel is ProductsItemViewModel){
-            productId = viewModel.id.toString()
+            productId = viewModel.id ?: 1
             notifyPropertyChanged(BR.detailScreen)
         }
     }

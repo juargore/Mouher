@@ -84,13 +84,11 @@ val DIViewModel = module{
     }
 
     viewModel { ProductDetailViewModel(
-        context = androidContext(),
         cartUseCase = get(UseCases.CART.name),
         productUseCase = get(UseCases.PRODUCT.name))
     }
 
     viewModel { ProductReviewsViewModel(
-        context = androidContext(),
         productUseCase = get(UseCases.PRODUCT.name))
     }
 

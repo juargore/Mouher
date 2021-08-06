@@ -39,7 +39,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:scaleType="centerCrop"
-                        app:fromUrl="@{ viewModel.urlTop }"
+                        app:fromUrl="@{ viewModel.urlImageTop }"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -60,23 +60,26 @@
                         android:id="@+id/textView28"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Complementa tu estilo..."
+                        android:layout_marginBottom="4dp"
+                        android:text="@{ viewModel.subTitleTop }"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toTopOf="@+id/textView27"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:text="Complementa tu estilo..." />
 
                     <TextView
                         android:id="@+id/textView27"
-                        style="@style/TextView.TitlesH6"
+                        style="@style/TextView.TitlesH5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Accesorios"
+                        android:text="@{ viewModel.titleTop }"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Accesorios" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
@@ -84,14 +87,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="@dimen/margin_12dp"
-                    android:paddingBottom="6dp">
+                    android:paddingBottom="@dimen/margin_12dp">
 
                     <ImageButton
                         android:id="@+id/back"
                         android:layout_width="36dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
-                        android:layout_marginLeft="4dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:onClick="@{ viewModel::onBackClicked }"
                         android:padding="20dp"

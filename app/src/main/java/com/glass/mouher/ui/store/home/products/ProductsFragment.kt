@@ -39,8 +39,8 @@ class ProductsFragment : Fragment() {
         binding.view = this
 
         arguments?.let{ args->
-            val categoryId = args.getString("categoryId")
-            val storeId = args.getString("storeId")
+            val categoryId = args.getInt("categoryId")
+            val storeId = args.getInt("storeId")
             val categoryName = args.getString("categoryName")
 
             viewModel.initialize(requireContext(), categoryId, storeId, categoryName)
@@ -58,8 +58,8 @@ class ProductsFragment : Fragment() {
 
     private fun openDetailedScreen(){
         val args = Bundle().apply {
-            putString("productId", viewModel.productId)
-            putString("storeId", viewModel.storeId.toString())
+            putInt("productId", viewModel.productId)
+            putInt("storeId", viewModel.storeId)
         }
 
         requireActivity().supportFragmentManager.beginTransaction().apply {

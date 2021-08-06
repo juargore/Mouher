@@ -19,12 +19,15 @@
             android:padding="4dp"
             android:weightSum="2">
 
-            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:visibility="gone">
 
-                <ImageView android:id="@+id/imageView26"
+                <ImageView
+                    android:id="@+id/imageView26"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     app:fromUrl="@{ viewModel.urlImage }"
@@ -41,31 +44,42 @@
                 android:layout_weight="1.5"
                 android:orientation="vertical"
                 android:padding="5dp">
-                <RatingBar android:id="@+id/ratingBar4"
+
+                <RatingBar
+                    android:id="@+id/ratingBar4"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:numStars="5" />
-                <LinearLayout android:layout_width="match_parent"
+                    android:layout_gravity="end"
+                    android:numStars="5"
+                    android:rating="@{ viewModel.rating }" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
-                    android:orientation="horizontal">
-                    <TextView android:id="@+id/textView78"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView78"
                         style="@style/TextView.TitlesH6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="3dp"
+                        android:includeFontPadding="false"
                         android:text="@{ viewModel.userName }"
+                        android:textSize="15sp"
                         tools:text="Admin" />
 
-                    <TextView android:id="@+id/textView77"
+                    <TextView
+                        android:id="@+id/textView77"
                         style="@style/TextView.TitlesH6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text="@{ viewModel.date }"
-                        tools:text="23 Sep 2020"/>
+                        android:textSize="12sp"
+                        tools:text="23 Sep 2020" />
                 </LinearLayout>
                 <TextView android:id="@+id/textView76"
                     style="@style/TextView.TitlesH6"

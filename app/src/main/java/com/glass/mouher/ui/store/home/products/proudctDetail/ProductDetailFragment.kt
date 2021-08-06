@@ -12,16 +12,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.domain.entities.Item
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentProductDetailBinding
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
-import com.glass.mouher.ui.store.home.HomeStoreLinkedStoresAdapter
+import com.glass.mouher.ui.store.home.HomeStoreNewProductsAdapter
 import com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -34,7 +32,7 @@ class ProductDetailFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.miniSelected -> loadMiniImage(viewModel.miniSelected)
-                BR.itemsRelatedProducts -> setRelatedProducts(viewModel.itemsRelatedProducts)
+                BR.itemsRelatedProducts -> setRelatedProducts()
                 BR.showPopRating -> showPopUpRating()
                 BR.onBack -> activity?.onBackPressed()
                 BR.openScreenReviews -> {
@@ -50,29 +48,34 @@ class ProductDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail, container, false)
         binding.viewModel = viewModel
         binding.view = this
 
         binding.rvMiniList.layoutManager = LinearLayoutManager(context)
-        binding.rvRelatedProducts.layoutManager = LinearLayoutManager(context)
 
-        viewModel.initialize(arguments?.getString("productId"), arguments?.getString("storeId"))
+        arguments?.let{
+            val productId = it.getInt("productId")
+            val storeId = it.getInt("storeId")
+
+            viewModel.initialize(productId, storeId)
+        }
 
         return binding.root
     }
 
-    private fun setRelatedProducts(itemsRelatedProducts: MutableList<Item>) {
-        val adapter = ProductDetailRelatedProductsAdapter(requireContext(), itemsRelatedProducts,
-            object : ProductDetailRelatedProductsAdapter.InterfaceOnClick{
-                override fun onItemClick(pos: Int) {
+    private fun setRelatedProducts() {
+        with(binding.rvRelatedProducts){
+            val mAdapter = HomeStoreNewProductsAdapter(requireContext(), viewModel.itemsRelatedProducts)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mAdapter
 
-                }
-            })
+            mAdapter.onItemClicked={
 
-        binding.rvRelatedProducts.adapter = adapter
+            }
+        }
     }
 
     private fun loadMiniImage(imageUrl: String?){

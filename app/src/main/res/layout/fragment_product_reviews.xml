@@ -18,54 +18,94 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout12"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{ viewModel::onBackClicked }"
+                android:padding="20dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/onyxBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/TextView.TitlesH5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_18dp"
-                android:layout_marginBottom="@dimen/margin_18dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/back"
-                    android:layout_width="36dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:onClick="@{ viewModel::onBackClicked }"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="20dp"
-                    android:src="@drawable/ic_arrow_back"
-                    android:tint="@color/onyxBlack"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    style="@style/TextView.TitlesH5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:paddingTop="3dp"
-                    android:text="Reseñas del producto"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvReviews"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/margin_12dp"
-                app:items="@{viewModel.items}"
-                app:itemViewBinder="@{view.itemViewBinder}" />
+                android:includeFontPadding="false"
+                android:paddingTop="3dp"
+                android:text="Reseñas del producto"
+                android:textSize="20sp" />
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvReviews"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/margin_12dp"
+            app:items="@{viewModel.items}"
+            app:itemViewBinder="@{view.itemViewBinder}"
+            android:visibility="@{ viewModel.items.size() > 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout12"
+            tools:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/margin_12dp"
+            android:visibility="@{ viewModel.items.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout12" >
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/TextView.TitlesH6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Sin reseñas generadas para este producto. \n\nSé el primero en agregar la tuya."
+                app:layout_constraintBottom_toTopOf="@+id/sendEmailButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sendEmailButton"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginBottom="@dimen/margin_18dp"
+                android:background="@drawable/button_ripple"
+                android:onClick="@{ viewModel::onAddReviewButtonClicked }"
+                android:paddingStart="@dimen/margin_18dp"
+                android:paddingEnd="@dimen/margin_18dp"
+                android:text="Agregar reseña"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
