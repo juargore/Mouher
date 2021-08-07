@@ -74,7 +74,7 @@ class MainStoreActivity : AppCompatActivity() {
         viewModel.onPause(onPropertyChangedCallback)
     }
 
-    // Test to manage branches part two
+    // Test to manage branches part three
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm: InputMethodManager =
