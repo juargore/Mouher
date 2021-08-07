@@ -15,7 +15,7 @@ class DatabaseMigration: RealmMigration {
      *  - Version 1: Added `codeReason` field in the `PODDatasDb` model
      */
     companion object {
-        const val latestVersion = 1L
+        const val latestVersion = 4L
     }
 
     /**
@@ -24,7 +24,7 @@ class DatabaseMigration: RealmMigration {
     override fun migrate(realm: DynamicRealm, oldVersion: Long, newVersion: Long) {
         val schema = realm.schema
 
-        if (oldVersion < 1L) {
+        if (oldVersion < latestVersion) {
             if (schema.get("PODDatasDb")?.hasField("codeReason") == false) {
                 schema.get("PODDatasDb")
                     ?.addField("codeReason", String::class.java, FieldAttribute.REQUIRED)

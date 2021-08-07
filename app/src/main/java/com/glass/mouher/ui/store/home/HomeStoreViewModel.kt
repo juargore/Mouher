@@ -186,6 +186,8 @@ class HomeStoreViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ responseUI->
                         progressVisible = false
+
+                        // inform result on UI
                         error = ResponseUI(
                             hasErrors = responseUI.hasErrors,
                             message = responseUI.message

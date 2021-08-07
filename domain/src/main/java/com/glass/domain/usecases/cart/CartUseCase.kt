@@ -20,7 +20,7 @@ class CartUseCase(
         return cartRepository.setProductOnCart(product)
     }
 
-    override fun deleteProductOnCart(idProduct: String) {
+    override fun deleteProductOnCart(idProduct: Int) {
         return cartRepository.deleteProductOnCart(idProduct)
     }
 

@@ -21,10 +21,6 @@ import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.binder.ItemBinder
 import android.widget.TextView
 
-
-
-
-
 private const val KEY_ITEMS = -123
 private const val KEY_CLICK_HANDLER = -124
 private const val KEY_PROPERTY_CHANGE_CALLBACK = -125
@@ -188,5 +184,12 @@ fun strikeThrough(textView: TextView, strikeThrough: Boolean) {
         textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
     } else {
         textView.paintFlags = textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+    }
+}
+
+@BindingAdapter("doubleAsString")
+fun setDoubleAsString(textView: TextView, double: Double?) {
+    double?.let{
+        textView.text = double.toString()
     }
 }

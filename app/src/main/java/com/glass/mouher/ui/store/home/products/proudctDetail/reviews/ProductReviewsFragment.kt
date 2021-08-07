@@ -1,9 +1,17 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail.reviews
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
@@ -15,6 +23,8 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
+import com.glass.mouher.utils.isEmailValid
+import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductReviewsFragment : Fragment() {
@@ -26,6 +36,7 @@ class ProductReviewsFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.backClicked -> activity?.onBackPressed()
+                BR.showPopRating -> showPopUpRating()
                 BR.error -> showErrorMsg()
             }
         }
@@ -41,6 +52,13 @@ class ProductReviewsFragment : Fragment() {
 
         binding.rvReviews.layoutManager = LinearLayoutManager(context)
 
+        arguments?.let{
+            val productId = it.getInt("productId")
+            val storeId = it.getInt("storeId")
+
+            viewModel.initialize(productId, storeId)
+        }
+
         return binding.root
     }
 
@@ -49,8 +67,57 @@ class ProductReviewsFragment : Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
+    private fun showPopUpRating(){
+        val d = Dialog(requireContext(), R.style.FullDialogTheme).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(R.layout.pop_add_rating)
+            show()
+        }
+
+        val etName = d.findViewById<EditText>(R.id.etNameReview)
+        val etEmail = d.findViewById<EditText>(R.id.etEmailReview)
+        val etStars = d.findViewById<RatingBar>(R.id.ratingReview)
+        val etComments = d.findViewById<EditText>(R.id.etCommentReview)
+        val imgClose = d.findViewById<ImageView>(R.id.imgCloseReview)
+        val txtSave = d.findViewById<TextView>(R.id.txtSaveReview)
+
+        imgClose.setOnClickListener {
+            d.dismiss()
+        }
+
+        txtSave.setOnClickListener {
+            val name = etName.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val comments = etComments.text.toString().trim()
+            val rate = etStars.rating
+
+            if(name.isBlank() || email.isBlank() || comments.isBlank()){
+                toast("Por favor llene todos los campos para poder guardar su reseña")
+                return@setOnClickListener
+            }
+
+            if(rate == 0f){
+                toast("Agrege una calificación con las estrellas para continuar")
+                return@setOnClickListener
+            }
+
+            if(!email.isEmailValid()){
+                toast("Ingrese un email válido para continuar")
+                return@setOnClickListener
+            }
+
+            // everythig goes well -> save on WS
+            viewModel.onAddRatingFromPopupClicked(name, email, comments, rate)
+            d.dismiss()
+        }
+    }
+
     private fun showErrorMsg(){
-        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
+        with(viewModel.error){
+            val errorType = if(hasErrors) SnackType.ERROR else SnackType.INFO
+            showSnackbar(binding.root, viewModel.error.message, errorType)
+        }
     }
 
     fun itemViewBinder(): ItemBinder<AProductReviewViewModel> {

@@ -1,11 +1,12 @@
 package com.glass.mouher.ui.store.home.products.proudctDetail
 
-import android.util.Log
+import android.os.Handler
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.Item
 import com.glass.domain.entities.ProductUI
+import com.glass.domain.entities.ResponseUI
 import com.glass.domain.entities.ScreenTopInformationUI
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.product.IProductUseCase
@@ -22,9 +23,9 @@ class ProductDetailViewModel(
     private val productUseCase: IProductUseCase
 ): BaseViewModel(), ClickHandler<AProductDetailViewModel> {
 
-    private var productId = 1
+    var productId = 1
 
-    private var storeId = 1
+    var storeId = 1
 
     @Bindable
     var urlImageTop: String = ""
@@ -45,7 +46,7 @@ class ProductDetailViewModel(
     var productRating: Int = 0
 
     @Bindable
-    var currentPrice: String = "$"
+    var currentPrice: Double = 0.0
 
     @Bindable
     var oldPrice: String = "$"
@@ -66,11 +67,55 @@ class ProductDetailViewModel(
     var onBack: Unit? = null
 
 
+    // ----- Classification values here ------ //
+    @Bindable
+    var titleClassification1: String? = null
+
+    @Bindable
+    var listClassification1: List<String>? = listOf()
+
+    var valueClassificationSelected1: String? = null
+
+    @Bindable
+    var titleClassification2: String? = null
+
+    @Bindable
+    var listClassification2: List<String>? = listOf()
+
+    var valueClassificationSelected2: String? = null
+
+    @Bindable
+    var titleClassification3: String? = null
+
+    @Bindable
+    var listClassification3: List<String>? = listOf()
+
+    var valueClassificationSelected3: String? = null
+
+    @Bindable
+    var titleClassificationQty: String? = null
+
+    @Bindable
+    var listClassificationQty: List<String>? = listOf()
+
+    var valueClassificationSelectedQuantity: String? = null
+
+    // ------- End classification values ------ //
+
+
     @Bindable
     var items: List<AProductDetailViewModel> = listOf()
         set(value){
             field = value
             notifyPropertyChanged(BR.items)
+        }
+
+
+    @Bindable
+    var error = ResponseUI()
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.error)
         }
 
 
@@ -91,7 +136,10 @@ class ProductDetailViewModel(
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
+        startGettingInformation()
+    }
 
+    private fun startGettingInformation(){
         progressVisible = true
 
         addDisposable(productUseCase.triggerToGetFullProduct(storeId, productId)
@@ -146,7 +194,7 @@ class ProductDetailViewModel(
         productName = product.name ?: ""
         productDescription = product.description ?: ""
         productRating = product.rating ?: 0
-        currentPrice = product.currentPrice ?: "$"
+        currentPrice = product.currentPrice?.toDouble() ?: 0.0
         oldPrice = product.oldPrice ?: "$"
 
         notifyPropertyChanged(BR.productName)
@@ -155,7 +203,38 @@ class ProductDetailViewModel(
         notifyPropertyChanged(BR.currentPrice)
         notifyPropertyChanged(BR.oldPrice)
 
-        progressVisible = false
+
+        // Classification section here
+        titleClassification1 = product.classificationTitle1
+        titleClassification2 = product.classificationTitle2
+        titleClassification3 = product.classificationTitle3
+        titleClassificationQty = "(${product.classificationValuesQty} en existencia)"
+
+        notifyPropertyChanged(BR.titleClassification1)
+        notifyPropertyChanged(BR.titleClassification2)
+        notifyPropertyChanged(BR.titleClassification3)
+        notifyPropertyChanged(BR.titleClassificationQty)
+
+        listClassification1 = product.classificationValues1
+        listClassification2 = product.classificationValues2
+        listClassification3 = product.classificationValues3
+
+        notifyPropertyChanged(BR.listClassification1)
+        notifyPropertyChanged(BR.listClassification2)
+        notifyPropertyChanged(BR.listClassification3)
+
+        val total = product.classificationValuesQty
+
+        total?.let{ t->
+            val mList = mutableListOf<String>()
+
+            for(i in 1 until if(t > 10) 11 else t+1){
+                mList.add("$i")
+            }
+
+            listClassificationQty = mList
+            notifyPropertyChanged(BR.listClassificationQty)
+        }
     }
 
 
@@ -172,18 +251,64 @@ class ProductDetailViewModel(
 
 
     private fun onRelatedProductsListResponse(list: List<ProductUI>){
+        progressVisible = false
+
         itemsRelatedProducts = list
         notifyPropertyChanged(BR.itemsRelatedProducts)
     }
 
 
     fun onAddProductToCartClicked(@Suppress("UNUSED_PARAMETER") view: View){
-        cartUseCase.setProductOnCart(Item(name = productName, description = "Descripcion: $productDescription"))
+        var value = valueClassificationSelected1
+
+        if(!valueClassificationSelected2.isNullOrBlank()){
+            value = "$value, $valueClassificationSelected2"
+        }
+
+        if(!valueClassificationSelected3.isNullOrBlank()){
+            value = "$value, $valueClassificationSelected3"
+        }
+
+        cartUseCase.setProductOnCart(
+            Item(id = productId,
+                name = productName,
+                description = productDescription,
+                price = currentPrice,
+                imageUrl = miniSelected,
+                quantity = valueClassificationSelectedQuantity?.toInt() ?: 1,
+                valueClassification = value
+            ))
     }
 
 
     fun onAddRatingClicked(@Suppress("UNUSED_PARAMETER") view: View){
         notifyPropertyChanged(BR.showPopRating)
+    }
+
+
+    fun onAddRatingFromPopupClicked(name: String, email: String, comment: String, rating: Float){
+        progressVisible = true
+
+        addDisposable(productUseCase.saveNewReviewForProduct(
+            storeId = storeId,
+            productId = productId,
+            userName = name,
+            userEmail = email,
+            userComment = comment,
+            userRating = rating
+        ).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ responseUI->
+                progressVisible = false
+
+                // inform result on UI
+                error = ResponseUI(
+                    hasErrors = responseUI.hasErrors,
+                    message = responseUI.message)
+
+                Handler().postDelayed({
+                    startGettingInformation() }, 1000)
+            }, this::onError))
     }
 
 
@@ -193,7 +318,7 @@ class ProductDetailViewModel(
 
 
     private fun onError(t: Throwable?){
-        Log.e("--", t?.localizedMessage.toString())
+        error = ResponseUI(hasErrors = true, message = t?.message)
     }
 
 

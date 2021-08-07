@@ -41,13 +41,28 @@ class ProductUseCase(
         return Observable.just(productByCategoryData?.getScreenTopInfo())
     }
 
-    override fun getReviewsForProduct(): Single<List<ReviewUI>> {
-        val mList = mutableListOf<ReviewUI>()
+    override fun getReviewsForProduct(storeId: Int, productId: Int): Single<List<ReviewUI>> {
+        return productRepository.triggerToGetFullProduct(storeId, productId)
+            .map { response->
+                val mList = mutableListOf<ReviewUI>()
 
-        fullProductDataResponse?.Reseñas?.forEach {
-            mList.add(it.toReviewUI())
-        }
-        return Single.just(mList)
+                response.Reseñas?.forEach {
+                    mList.add(it.toReviewUI())
+                }
+                return@map mList.toList()
+        }.firstOrError()
+    }
+
+    override fun saveNewReviewForProduct(
+        storeId: Int,
+        productId: Int,
+        userName: String,
+        userEmail: String,
+        userComment: String,
+        userRating: Float
+    ): Observable<ResponseUI> {
+        return productRepository.saveNewReviewForProduct(storeId, productId, userName, userEmail, userComment, userRating)
+            .map { it.toResponseUI() }
     }
 
     override fun getRelatedProductsByProduct(): Observable<List<ProductUI>> {

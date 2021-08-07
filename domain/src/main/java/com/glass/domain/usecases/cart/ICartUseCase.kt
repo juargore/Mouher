@@ -11,6 +11,6 @@ interface ICartUseCase {
 
     fun setProductOnCart(product: Item)
 
-    fun deleteProductOnCart(idProduct: String)
+    fun deleteProductOnCart(idProduct: Int)
 
 }

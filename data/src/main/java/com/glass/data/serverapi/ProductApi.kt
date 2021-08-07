@@ -20,4 +20,15 @@ interface ProductApi {
     fun getFullProduct(@Field("WebService") WebService: String,
                        @Field("IdTienda") IdTienda: String,
                        @Field("IdProducto") IdProducto: String): Single<FullProductDataResponse>
+
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesOperaciones.php")
+    fun saveNewReviewForProduct(@Field("WebService") WebService: String,
+                                @Field("IdTienda") IdTienda: String,
+                                @Field("IdProducto") IdProducto: String,
+                                @Field("Nombre") Nombre: String,
+                                @Field("Correo") Correo: String,
+                                @Field("Reseña") Reseña: String,
+                                @Field("Valoracion") Valoracion: String): Single<ResponseData>
 }

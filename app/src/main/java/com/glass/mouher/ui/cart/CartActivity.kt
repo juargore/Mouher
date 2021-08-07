@@ -30,6 +30,12 @@ class CartActivity : AppCompatActivity() {
                 BR.onBackClicked -> finish()
                 BR.onPopClicked -> showPopUpNotes()
                 BR.deleteItem -> showPopupDeleteConfirmation()
+                BR.onRefreshScreen -> {
+                    finish()
+                    overridePendingTransition( 0, 0)
+                    startActivity(intent)
+                    overridePendingTransition( 0, 0)
+                }
             }
         }
 
@@ -65,7 +71,7 @@ class CartActivity : AppCompatActivity() {
     private fun showPopupDeleteConfirmation(){
         alert(title = "", message = "¿Está seguro que desea eliminar este registro?"){
             yesButton {
-                viewModel.onDeleteItemClicked(viewModel.deleteItem ?: "")
+                viewModel.onDeleteItemClicked(viewModel.deleteItem ?: 0)
             }
         }.show()
     }

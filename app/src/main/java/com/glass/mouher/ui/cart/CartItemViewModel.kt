@@ -4,24 +4,29 @@ import android.content.Context
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
-import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.glass.domain.entities.Item
 
 class CartItemViewModel(
     private val context: Context,
-    private val menu: Item
+    item: Item
 ): ACartListViewModel() {
 
     @Bindable
     var deleteClicked: Unit? = null
 
-    val name = menu.name
+    val id = item.id
 
-    val icon = menu.icon
+    val name = item.name
 
-    val imageUrl = menu.imageUrl
+    val quantity = item.quantity.toString()
 
-    val description = "$ ${menu.description}"
+    val description = item.valueClassification
+
+    val price = item.price
+
+    val icon = item.icon
+
+    val imageUrl = item.imageUrl
 
     fun onDeleteClicked(v: View){
         //(v.parent as? SwipeRevealLayout)?.close(true)

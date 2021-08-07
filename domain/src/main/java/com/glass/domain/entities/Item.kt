@@ -1,9 +1,12 @@
 package com.glass.domain.entities
 
 data class Item(
-    val id: String? = null,
+    val id: Int? = null,
     val name: String? = null,
     val description: String? = null,
     val imageUrl: String? = null,
-    val icon: Int? = null
+    val icon: Int? = null,
+    var price: Double? = null,
+    var quantity: Int? = null,
+    var valueClassification: String? = null
 )

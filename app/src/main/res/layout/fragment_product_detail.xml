@@ -107,25 +107,28 @@
                         tools:text="Botín suela track" />
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_marginBottom="@dimen/margin_12dp"
+                    android:layout_marginBottom="@dimen/margin_18dp"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/margin_12dp"
                     android:paddingEnd="@dimen/margin_12dp"
                     android:visibility="visible"
                     android:weightSum="2">
 
-                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvMiniList"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvMiniList"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
                         android:layout_weight=".3"
-                        app:items="@{viewModel.items}"
                         app:clickHandler="@{ viewModel }"
-                        app:itemViewBinder="@{view.itemViewBinder}" />
+                        app:itemViewBinder="@{view.itemViewBinder}"
+                        app:items="@{viewModel.items}" />
 
-                    <com.github.chrisbanes.photoview.PhotoView android:id="@+id/photoView"
+                    <com.github.chrisbanes.photoview.PhotoView
+                        android:id="@+id/photoView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.7"
@@ -175,7 +178,7 @@
                         android:gravity="center_vertical"
                         android:includeFontPadding="true"
                         tools:text="$250"
-                        android:text="@{ viewModel.currentPrice }"
+                        app:doubleAsString="@{ viewModel.currentPrice }"
                         android:textColor="@color/mainPink" />
 
                     <TextView android:id="@+id/textView17"
@@ -186,28 +189,33 @@
                         android:textColor="@color/onyxBlack" />
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/layClassification1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_12dp"
-                    android:layout_marginBottom="@dimen/margin_18dp"
+                    android:layout_marginBottom="@dimen/margin_12dp"
                     android:orientation="vertical"
+                    android:visibility="@{ viewModel.titleClassification1 == null || viewModel.titleClassification1.empty ? View.GONE : View.VISIBLE }"
                     android:paddingStart="@dimen/margin_12dp"
                     android:paddingEnd="@dimen/margin_12dp">
 
-                    <TextView android:id="@+id/textView11"
+                    <TextView
+                        android:id="@+id/titleClassification1"
                         style="@style/TextView.TitlesH6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_12dp"
+                        android:layout_marginBottom="8dp"
                         android:includeFontPadding="false"
-                        android:text="Cantidad" />
+                        android:text="@{ viewModel.titleClassification1 }"
+                        tools:text="Cantidad" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="160dp"
-                        android:layout_height="35dp"
-                        android:layout_marginBottom="@dimen/margin_12dp">
+                        android:layout_height="35dp">
 
-                        <ImageView android:id="@+id/imageView22"
+                        <ImageView
+                            android:id="@+id/imageView22"
                             android:layout_width="40dp"
                             android:layout_height="0dp"
                             android:layout_marginTop="1dp"
@@ -220,7 +228,8 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_arrow_drop_down" />
 
-                        <Spinner android:id="@+id/spinner"
+                        <Spinner
+                            android:id="@+id/spinnerClassification1"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:background="@drawable/background_stroke_gray_no_filled"
@@ -229,21 +238,195 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <Button android:id="@+id/button7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/button_ripple"
-                        android:inputType="textCapWords"
-                        android:onClick="@{ viewModel::onAddProductToCartClicked }"
-                        android:text="Agregar al carrito"
-                        tools:ignore="TextViewEdits" />
                 </LinearLayout>
 
-                <TextView style="@style/TextView.TitlesH5"
+                <LinearLayout
+                    android:id="@+id/layClassification2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_18dp"
+                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:layout_marginBottom="@dimen/margin_12dp"
+                    android:orientation="vertical"
+                    android:visibility="@{viewModel.titleClassification2 == null || viewModel.titleClassification2.empty ? View.GONE : View.VISIBLE }"
+                    android:paddingStart="@dimen/margin_12dp"
+                    android:paddingEnd="@dimen/margin_12dp">
+
+                    <TextView
+                        android:id="@+id/titleClassification2"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:includeFontPadding="false"
+                        android:text="@{ viewModel.titleClassification2 }"
+                        tools:text="Cantidad" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="160dp"
+                        android:layout_height="35dp">
+
+                        <ImageView
+                            android:id="@+id/imageView222"
+                            android:layout_width="40dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@drawable/background_stroke_gray_rectangle_filled"
+                            android:tint="@color/onyxBlack"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_arrow_drop_down" />
+
+                        <Spinner
+                            android:id="@+id/spinnerClassification2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="@drawable/background_stroke_gray_no_filled"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layClassification3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:layout_marginBottom="@dimen/margin_18dp"
+                    android:orientation="vertical"
+                    android:visibility="@{viewModel.titleClassification3 == null || viewModel.titleClassification3.empty ? View.GONE : View.VISIBLE }"
+                    android:paddingStart="@dimen/margin_12dp"
+                    android:paddingEnd="@dimen/margin_12dp">
+
+                    <TextView
+                        android:id="@+id/titleClassification3"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:includeFontPadding="false"
+                        android:text="@{ viewModel.titleClassificationQty }"
+                        tools:text="Cantidad" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="160dp"
+                        android:layout_height="35dp"
+                        android:layout_marginBottom="@dimen/margin_12dp">
+
+                        <ImageView
+                            android:id="@+id/imageView223"
+                            android:layout_width="40dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@drawable/background_stroke_gray_rectangle_filled"
+                            android:tint="@color/onyxBlack"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_arrow_drop_down" />
+
+                        <Spinner
+                            android:id="@+id/spinnerClassification3"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="@drawable/background_stroke_gray_no_filled"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layClassificationQty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_12dp"
+                    android:layout_marginBottom="@dimen/margin_18dp"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/margin_12dp"
+                    android:paddingEnd="@dimen/margin_12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/titleQty"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="Cantidad  " />
+
+                        <TextView
+                            android:id="@+id/titleClassificationQty"
+                            style="@style/TextView.TitlesH6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="@{ viewModel.titleClassificationQty }"
+                            android:textColor="@color/mainPink"
+                            android:textSize="13sp"
+                            tools:text="Total" />
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="160dp"
+                        android:layout_height="35dp"
+                        android:layout_marginBottom="@dimen/margin_12dp">
+
+                        <ImageView
+                            android:id="@+id/imageView225"
+                            android:layout_width="40dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@drawable/background_stroke_gray_rectangle_filled"
+                            android:tint="@color/onyxBlack"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_arrow_drop_down" />
+
+                        <Spinner
+                            android:id="@+id/spinnerClassificationQty"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:background="@drawable/background_stroke_gray_no_filled"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/button_ripple"
+                    android:inputType="textCapWords"
+                    android:onClick="@{ viewModel::onAddProductToCartClicked }"
+                    android:text="Agregar al carrito"
+                    tools:ignore="TextViewEdits" />
+
+                <TextView
+                    style="@style/TextView.TitlesH5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:gravity="center_horizontal"
                     android:includeFontPadding="false"
                     android:paddingStart="@dimen/margin_12dp"

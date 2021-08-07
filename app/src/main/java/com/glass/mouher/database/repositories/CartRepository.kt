@@ -26,7 +26,7 @@ class CartRepository(
 
     override fun setProductOnCart(product: Item) {
         realm.executeTransaction { db ->
-            val itemDb = getOrCreateItemInRealmThread(product.name ?: "")
+            val itemDb = getOrCreateItemInRealmThread(product)
             db.insertOrUpdate(itemDb)
 
             updateBehaviorSubject()
@@ -48,13 +48,19 @@ class CartRepository(
         itemObservable.onNext(getItemsOnDbAsList())
     }
 
-    private fun getOrCreateItemInRealmThread(productUID: String) : ItemDb {
-        var item = realm.where(ItemDb::class.java).equalTo("name", productUID).findFirst()
+    private fun getOrCreateItemInRealmThread(product: Item) : ItemDb {
+        var item = realm.where(ItemDb::class.java).equalTo("id", product.id).findFirst()
 
         if (item == null) {
 
             item = ItemDb()
-            item.name = productUID
+            item.id = product.id
+            item.name = product.name
+            item.description = product.description
+            item.price = product.price
+            item.imageUrl = product.imageUrl
+            item.quantity = product.quantity
+            item.valueClassification = product.valueClassification
 
             item = realm.copyToRealm(item)
 
@@ -64,9 +70,9 @@ class CartRepository(
         return item
     }
 
-    override fun deleteProductOnCart(idProduct: String) {
+    override fun deleteProductOnCart(idProduct: Int) {
         realm.beginTransaction()
-        val pod = realm.where(ItemDb::class.java).equalTo("name", idProduct).findFirst()
+        val pod = realm.where(ItemDb::class.java).equalTo("id", idProduct).findFirst()
         pod?.deleteFromRealm()
         realm.commitTransaction()
 

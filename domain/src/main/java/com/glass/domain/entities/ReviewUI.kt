@@ -4,13 +4,15 @@ data class ReviewData(
         val IdReseña: Int? = null,
         val Nombre: String? = null,
         val Reseña: String? = null,
+        val Fecha: String? = null,
         val Estrellas: Int? = null
 ){
         fun toReviewUI() = ReviewUI(
                 id = IdReseña,
                 userName = Nombre,
                 rating = Estrellas,
-                review = Reseña
+                review = Reseña,
+                date = Fecha
         )
 }
 

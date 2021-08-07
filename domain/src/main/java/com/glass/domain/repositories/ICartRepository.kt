@@ -11,7 +11,7 @@ interface ICartRepository {
 
     fun setProductOnCart(product: Item)
 
-    fun deleteProductOnCart(idProduct: String)
+    fun deleteProductOnCart(idProduct: Int)
 
     fun deleteAllProductsOnDb()
 

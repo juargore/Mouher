@@ -1,6 +1,5 @@
 package com.glass.mouher.di
 
-import com.glass.domain.common.ILogger
 import com.glass.mouher.BuildConfig
 import com.glass.mouher.database.DatabaseMigration
 import io.realm.Realm
@@ -19,6 +18,7 @@ val DIExternals = module {
         val config = RealmConfiguration.Builder()
             .schemaVersion(DatabaseMigration.latestVersion)
             .migration(DatabaseMigration())
+            .deleteRealmIfMigrationNeeded()
             .build()
         Realm.getInstance(config)
     }

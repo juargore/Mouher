@@ -20,7 +20,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView android:id="@+id/imageView15"
+                <ImageView android:id="@+id/imgCloseReview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_close" />
@@ -40,7 +40,7 @@
             android:orientation="vertical"
             android:padding="7dp">
 
-            <EditText android:id="@+id/editTextTextMultiLine"
+            <EditText android:id="@+id/etCommentReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -52,7 +52,7 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <TextView android:id="@+id/textView37"
+        <TextView android:id="@+id/txtSaveReview"
             style="@style/TextView.TitlesH6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

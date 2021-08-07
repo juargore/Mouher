@@ -93,7 +93,6 @@ val DIViewModel = module{
     }
 
     viewModel { CartViewModel(
-        context = androidContext(),
         cartUseCase = get(UseCases.CART.name))
     }
 
