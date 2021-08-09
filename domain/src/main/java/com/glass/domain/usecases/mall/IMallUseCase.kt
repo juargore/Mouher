@@ -9,6 +9,8 @@ interface IMallUseCase {
 
     fun triggerToGetAllMallData(): Observable<Unit>
 
+    fun getZonesForMenu(): Observable<List<ZoneUI>>
+
     fun getLogoImage(): Observable<String>
 
     fun getTopBannerList(): Observable<List<TopBannerUI>>

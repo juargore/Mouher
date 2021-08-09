@@ -17,8 +17,6 @@ class HistoryItemViewModel(
 
     val name = menu.name
 
-    val icon = menu.icon
-
     val imageUrl = menu.imageUrl
 
     val description = menu.description

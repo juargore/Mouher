@@ -16,7 +16,7 @@ data class StoreZoneData(
 ){
     fun getStoreInZoneUI(): StoreInZoneUI{
         return StoreInZoneUI(
-            id = IdTienda.toString(),
+            id = IdTienda,
             urlImage = Imagen,
             name = Nombre,
             totalProducts = Productos
@@ -26,7 +26,7 @@ data class StoreZoneData(
 
 
 data class StoreInZoneUI(
-    val id: String? = null,
+    val id: Int? = null,
     var urlImage: String? = null,
     val name: String? = null,
     val totalProducts: Int? = null

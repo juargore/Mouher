@@ -53,6 +53,9 @@ class HomeStoreViewModel(
     @Bindable
     var urlImageVideo = ""
 
+    @Bindable
+    var showVideoPlayer = true
+
 
     @Bindable
     var userNameToSubscribe: String? = null
@@ -75,9 +78,9 @@ class HomeStoreViewModel(
             notifyPropertyChanged(BR.progressVisible)
         }
 
-    fun initialize(c: Context, id: String){
+    fun initialize(c: Context, id: Int){
         context = c
-        storeId = id.toInt()
+        storeId = id
     }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
@@ -150,8 +153,16 @@ class HomeStoreViewModel(
     }
 
     private fun onUrlVideoResponse(url: String){
-        urlVideo = url
-        notifyPropertyChanged(BR.urlVideo)
+        if(url.contains(".mp4") || url.contains(".3gp") || url.contains(".mkv")){
+            showVideoPlayer = true
+
+            urlVideo = url
+            notifyPropertyChanged(BR.urlVideo)
+        }else{
+            showVideoPlayer = false
+        }
+
+        notifyPropertyChanged(BR.showVideoPlayer)
     }
 
     private fun onUrlImageVideoResponse(url: String){
@@ -168,7 +179,7 @@ class HomeStoreViewModel(
         onCleared()
     }
 
-    fun onSubscribeButtonClicked(v: View?){
+    fun onSubscribeButtonClicked(@Suppress("UNUSED_PARAMETER") v: View?){
         if(userNameToSubscribe.isNullOrBlank() || emailToSubscribe.isNullOrBlank()){
             error = ResponseUI(hasErrors = false, message = "Llene ambos campos para la suscripción")
             return

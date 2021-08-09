@@ -33,7 +33,7 @@ class StoresViewModel(
     var error: String? = null
 
     @Bindable
-    var openStoreWithId: String? = null
+    var openStoreWithId: Int? = null
 
     @Bindable
     var zoneName: String? = null

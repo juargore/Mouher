@@ -24,11 +24,9 @@ class CartItemViewModel(
 
     val price = item.price
 
-    val icon = item.icon
-
     val imageUrl = item.imageUrl
 
-    fun onDeleteClicked(v: View){
+    fun onDeleteClicked(@Suppress("UNUSED_PARAMETER") v: View){
         //(v.parent as? SwipeRevealLayout)?.close(true)
         notifyPropertyChanged(BR.deleteClicked)
     }

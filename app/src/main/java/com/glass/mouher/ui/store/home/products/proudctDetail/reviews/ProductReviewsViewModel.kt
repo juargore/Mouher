@@ -106,7 +106,7 @@ class ProductReviewsViewModel(
                     message = responseUI.message)
 
                 Handler().postDelayed({
-                    startGettingInformation() }, 1000)
+                    startGettingInformation() }, 600)
             }, this::onError))
     }
 

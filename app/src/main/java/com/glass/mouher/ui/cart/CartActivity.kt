@@ -1,10 +1,13 @@
 package com.glass.mouher.ui.cart
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -40,6 +43,7 @@ class CartActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.BlackTheme)
         super.onCreate(savedInstanceState)
 
         // change satus bar color only for Cart screen
@@ -83,5 +87,14 @@ class CartActivity : AppCompatActivity() {
 
     fun itemViewBinder(): ItemBinder<ACartListViewModel> {
         return CompositeItemBinder(CartItemBinder(BR.viewModel, R.layout.recycler_item_cart))
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm: InputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

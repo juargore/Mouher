@@ -131,23 +131,23 @@
                     android:layout_marginEnd="8dp"
                     android:text="Mira nuestro video:"
                     android:textColor="@color/onyxBlack"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layVideo"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/margin_18dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="@dimen/margin_12dp"
-                    tools:visibility="gone">
+                    android:layout_marginBottom="@dimen/margin_12dp">
 
                     <ImageView
                         android:id="@+id/imageView6"
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
-                        android:scaleType="centerCrop"
+                        android:scaleType="centerInside"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -159,6 +159,7 @@
                         android:id="@+id/videoStore"
                         android:layout_width="match_parent"
                         android:layout_height="220dp"
+                        android:visibility="@{ viewModel.showVideoPlayer ? View.VISIBLE : View.GONE }"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -178,13 +179,16 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="Suscríbete a nuestro Newsletter" />
-                    <TextView android:id="@+id/textView38"
+
+                    <TextView
+                        android:id="@+id/textView38"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:paddingStart="@dimen/margin_18dp"
                         android:paddingEnd="@dimen/margin_18dp"
-                        android:text="Ingresa tu dirección de correo electrónico para recibir nuestras últimas novedades" />
+                        android:text="Ingresa tu dirección de correo electrónico para recibir nuestras últimas novedades"
+                        android:textColor="@color/onyxBlack" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etNameReview"

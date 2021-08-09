@@ -64,9 +64,9 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="@font/regular"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:includeFontPadding="false"
-                        android:text="Title"
+                        android:text=""
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toTopOf="@+id/carouselSubtitle"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -78,7 +78,7 @@
                         android:layout_marginEnd="15dp"
                         android:gravity="right"
                         android:includeFontPadding="false"
-                        android:text="Subtitle"
+                        android:text=""
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -171,6 +171,7 @@
                         android:paddingStart="2dp"
                         android:paddingEnd="2dp"
                         android:text="@{ viewModel.descriptionLobby }"
+                        android:textColor="@color/mainGrey"
                         android:textSize="15sp"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore" />
                     <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHomeLobby"

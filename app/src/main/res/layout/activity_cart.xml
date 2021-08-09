@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.glass.mouher.ui.cart.CartViewModel" />
@@ -25,24 +26,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/constraintLayout2" />
 
-        <LinearLayout android:id="@+id/linearLayout8"
+        <LinearLayout
+            android:id="@+id/linearLayout8"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="2dp"
+            android:layout_marginBottom="45dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvCart"
+            <TextView
+                android:id="@+id/textView56"
+                style="@style/TextView.TitlesH6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/margin_12dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="26dp"
+                android:text="Aún no tienes productos en tu carrito de compras. Ve a cualquier tienda y comenza a seleccionar tus productos favoritos."
+                android:visibility="@{ viewModel.items.size() > 0 ? View.GONE : View.VISIBLE }"
+                tools:ignore="HardcodedText"
+                tools:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_18dp"
                 app:items="@{viewModel.items}"
-                app:itemViewBinder="@{view.itemViewBinder}"
+                app:clickHandler="@{ viewModel }"
                 app:itemPropertyChangeCallback="@{ viewModel.itemPropertyChangedCallback }"
-                app:clickHandler="@{ viewModel }"/>
+                app:itemViewBinder="@{view.itemViewBinder}"
+                android:visibility="@{ viewModel.items.size() == 0 ? View.GONE : View.VISIBLE }"
+                tools:visibility="gone" />
 
         </LinearLayout>
 
@@ -86,7 +104,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraintLayout2"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@color/bgGrey"
@@ -94,7 +113,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.cardview.widget.CardView android:id="@+id/cardView"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:backgroundTint="@color/bgWhite"
@@ -106,7 +126,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <RelativeLayout android:layout_width="20dp"
@@ -170,11 +191,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <TextView android:id="@+id/textView5"
+
+        <TextView
+            android:id="@+id/textView5"
             style="@style/TextView.TitlesH4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_18dp"
+            android:layout_marginTop="26dp"
             android:includeFontPadding="false"
             android:text="Carrito de Compras"
             app:layout_constraintEnd_toEndOf="parent"

@@ -23,10 +23,12 @@
             android:layout_height="match_parent"
             android:background="@color/white">
 
-            <ImageButton android:id="@+id/back"
+            <ImageButton
+                android:id="@+id/back"
                 android:layout_width="50dp"
                 android:layout_height="56dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:onClick="@{ viewModel::onBackClicked }"
                 android:padding="20dp"
@@ -35,8 +37,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView android:id="@+id/title"
-                style="@style/TextView.TitlesH5"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                style="@style/TextView.TitlesH4"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_marginEnd="24dp"
@@ -157,11 +160,12 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <CheckBox android:id="@+id/privacyPolicyCheckbox"
+                    <CheckBox
+                        android:id="@+id/privacyPolicyCheckbox"
                         android:layout_width="40dp"
-                        android:checked="@={ viewModel.policyChecked }"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:buttonTint="@color/colorPrimary"
+                        android:checked="@={ viewModel.policyChecked }"
                         android:padding="16dp" />
 
                     <TextView android:id="@+id/privacyPolicyLabel"
@@ -176,11 +180,12 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <CheckBox android:id="@+id/termsAndConditionsCheckbox"
+                    <CheckBox
+                        android:id="@+id/termsAndConditionsCheckbox"
                         android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:checked="@={ viewModel.conditionsChecked }"
+                        android:layout_height="40dp"
                         android:buttonTint="@color/colorPrimary"
+                        android:checked="@={ viewModel.conditionsChecked }"
                         android:padding="16dp" />
 
                     <TextView android:id="@+id/termsAndConditionsLabel"

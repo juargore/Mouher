@@ -2,8 +2,6 @@
 
 package com.glass.mouher.ui.store
 
-import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -16,7 +14,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainStoreViewModel(
-    private val context: Context,
     private val cartUseCase: ICartUseCase,
     private val storeUseCase: IStoreUseCase
 ): BaseViewModel() {
@@ -41,7 +38,7 @@ class MainStoreViewModel(
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        val storeId = MainStoreActivity.storeId.toInt()
+        val storeId = MainStoreActivity.storeId
 
         addDisposable(storeUseCase.triggerToGetStoreData(storeId)
             .observeOn(AndroidSchedulers.mainThread())

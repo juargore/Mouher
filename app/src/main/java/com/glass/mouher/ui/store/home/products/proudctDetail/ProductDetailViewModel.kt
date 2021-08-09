@@ -72,6 +72,9 @@ class ProductDetailViewModel(
     var titleClassification1: String? = null
 
     @Bindable
+    var listClassification1AsString: String? = null
+
+    @Bindable
     var listClassification1: List<String>? = listOf()
 
     var valueClassificationSelected1: String? = null
@@ -80,12 +83,18 @@ class ProductDetailViewModel(
     var titleClassification2: String? = null
 
     @Bindable
+    var listClassification2AsString: String? = null
+
+    @Bindable
     var listClassification2: List<String>? = listOf()
 
     var valueClassificationSelected2: String? = null
 
     @Bindable
     var titleClassification3: String? = null
+
+    @Bindable
+    var listClassification3AsString: String? = null
 
     @Bindable
     var listClassification3: List<String>? = listOf()
@@ -216,12 +225,18 @@ class ProductDetailViewModel(
         notifyPropertyChanged(BR.titleClassificationQty)
 
         listClassification1 = product.classificationValues1
+        listClassification1AsString = product.classificationValues1AsString
         listClassification2 = product.classificationValues2
+        listClassification2AsString = product.classificationValues2AsString
         listClassification3 = product.classificationValues3
+        listClassification3AsString = product.classificationValues3AsString
 
         notifyPropertyChanged(BR.listClassification1)
+        notifyPropertyChanged(BR.listClassification1AsString)
         notifyPropertyChanged(BR.listClassification2)
+        notifyPropertyChanged(BR.listClassification2AsString)
         notifyPropertyChanged(BR.listClassification3)
+        notifyPropertyChanged(BR.listClassification3AsString)
 
         val total = product.classificationValuesQty
 

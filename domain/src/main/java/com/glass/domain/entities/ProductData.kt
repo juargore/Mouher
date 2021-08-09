@@ -38,25 +38,17 @@ data class ProductUI(
     val rating: Int? = null,
     val discount: String? = null,
 
-
     // Classification values
     val classificationTitle1: String? = null,
+    val classificationValues1AsString: String? = null,
     val classificationValues1: List<String>? = null,
     val classificationTitle2: String? = null,
+    val classificationValues2AsString: String? = null,
     val classificationValues2: List<String>? = null,
     val classificationTitle3: String? = null,
+    val classificationValues3AsString: String? = null,
     val classificationValues3: List<String>? = null,
-    val classificationValuesQty: Int? = null,
-
-
-    val extraInfoTitle: String? = null,
-    val extraInfoDesc: String? = null,
-    val key1ForTable: String? = null,
-    val value1ForTable: String? = null,
-    val key2ForTable: String? = null,
-    val value2ForTable: String? = null,
-    val key3ForTable: String? = null,
-    val value3ForTable: String? = null
+    val classificationValuesQty: Int? = null
 )
 
 
@@ -100,10 +92,13 @@ data class FullProductDataResponse(
         description = Descripcion,
         rating = Rating,
         classificationTitle1 = Clasificacion1,
+        classificationValues1AsString = ValoresClasificacion1,
         classificationValues1 = getValuesAsList(ValoresClasificacion1),
         classificationTitle2 = Clasificacion2,
+        classificationValues2AsString = ValoresClasificacion2,
         classificationValues2 = getValuesAsList(ValoresClasificacion2),
         classificationTitle3 = Clasificacion3,
+        classificationValues3AsString = ValoresClasificacion3,
         classificationValues3 = getValuesAsList(ValoresClasificacion3),
         classificationValuesQty = 10
     )
@@ -111,6 +106,7 @@ data class FullProductDataResponse(
     private fun getValuesAsList(value: String?): List<String>{
         value?.let{
             return it
+                .replace(" ", "")
                 .split(",")
                 .toTypedArray()
                 .toList()

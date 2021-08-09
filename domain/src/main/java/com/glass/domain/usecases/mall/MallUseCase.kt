@@ -17,6 +17,18 @@ class MallUseCase(
         }
     }
 
+    override fun getZonesForMenu(): Observable<List<ZoneUI>> {
+        return mallRepository.getAllMallData().map {
+            val mList = mutableListOf<ZoneUI>()
+
+            mallData?.Zonas?.forEach {
+                mList.add(it.toZoneUI())
+            }
+
+            return@map mList
+        }
+    }
+
     override fun getTopBannerList(): Observable<List<TopBannerUI>> {
         return Observable.just(mallData?.getTopBannerList())
     }
@@ -68,7 +80,17 @@ class MallUseCase(
     }
 
     override fun getSocialMedia(): Observable<List<SocialMediaUI>> {
-        return mallRepository
+        val mList = mutableListOf<SocialMediaUI>().apply {
+            add(SocialMediaUI(urlImage = "https://mouhermarket.com/admin/uploads/tienda0/TD-ID0-CREP-ID1-Fotografia2.PNG"))
+            add(SocialMediaUI(urlImage = "https://mouhermarket.com/admin/uploads/tienda0/TD-ID0-CREP-ID2-Fotografia2.PNG"))
+            add(SocialMediaUI(urlImage = "https://mouhermarket.com/admin/uploads/tienda0/TD-ID0-CREP-ID3-Fotografia2.PNG"))
+            add(SocialMediaUI(urlImage = "https://mouhermarket.com/admin/uploads/tienda0/TD-ID0-CREP-ID4-Fotografia2.PNG"))
+            add(SocialMediaUI(urlImage = "https://mouhermarket.com/admin/uploads/tienda0/TD-ID0-CREP-ID5-Fotografia2.PNG"))
+        }
+
+        return Observable.just(mList)
+
+    /*return mallRepository
             .getSocialMediaForMall("1")
             .map { socialDataList ->
                 val mList = mutableListOf<SocialMediaUI>()
@@ -78,7 +100,7 @@ class MallUseCase(
                 }
 
                 return@map mList
-            }
+            }*/
     }
 
     override fun getAboutInformation(): Single<AboutUI> {

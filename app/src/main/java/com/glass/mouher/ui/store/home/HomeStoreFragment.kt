@@ -1,9 +1,12 @@
 package com.glass.mouher.ui.store.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
@@ -157,6 +160,17 @@ class HomeStoreFragment : Fragment() {
             adapter = mAdapter
 
             mAdapter.onItemClicked={ sponsor->
+                val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    putExtra("storeId", sponsor.id)
+                }
+
+                activity?.let{
+                    it.overridePendingTransition(0,0)
+                    startActivity(intent)
+                    it.overridePendingTransition(0,0)
+                    it.finish()
+                }
 
             }
         }
@@ -165,16 +179,12 @@ class HomeStoreFragment : Fragment() {
     private fun setUpVideo(urlVideo: String?) {
         if(urlVideo.isNullOrBlank()){
             binding.layVideo.visibility = View.GONE
-        }/*else{
+        }else{
             with(binding.videoStore){
                 setMediaController(MediaController(requireContext()))
-                try {
-                    setVideoURI(Uri.parse(viewModel.urlVideo))
-                }catch (e: Exception){
-                    viewModel.error =  ResponseUI(hasErrors = false, message = e.message)
-                }
+                setVideoURI(Uri.parse(viewModel.urlVideo))
             }
-        }*/
+        }
     }
 
     private fun showErrorMsg(){

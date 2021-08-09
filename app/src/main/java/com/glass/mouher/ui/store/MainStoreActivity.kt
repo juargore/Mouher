@@ -22,19 +22,22 @@ class MainStoreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainStoreBinding
 
     companion object{
-        var storeId: String = "1" // 1 is defaul value
+        var storeId: Int = 1 // 1 is defaul value
     }
 
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.openCart -> {
+                    overridePendingTransition( 0, 0)
                     startActivity(Intent(this, CartActivity::class.java))
+                    overridePendingTransition( 0, 0)
                 }
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.BlackTheme)
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_store)
@@ -60,7 +63,8 @@ class MainStoreActivity : AppCompatActivity() {
         )
 
         intent?.extras?.let{
-            storeId = it.getString("storeId") ?: "1"
+            storeId = it.getInt("storeId")
+            storeId
         }
     }
 
@@ -74,7 +78,6 @@ class MainStoreActivity : AppCompatActivity() {
         viewModel.onPause(onPropertyChangedCallback)
     }
 
-    // Test to manage branches part rebase.
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm: InputMethodManager =

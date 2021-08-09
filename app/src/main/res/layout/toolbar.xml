@@ -40,8 +40,7 @@
             local:layout_constraintBottom_toBottomOf="parent"
             local:layout_constraintEnd_toStartOf="@+id/layoutCart"
             local:layout_constraintStart_toStartOf="parent"
-            local:layout_constraintTop_toTopOf="@+id/layoutCart"
-            local:srcCompat="@drawable/logo_zara" />
+            local:layout_constraintTop_toTopOf="@+id/layoutCart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.Toolbar>

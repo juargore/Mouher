@@ -11,7 +11,6 @@ open class ItemDb: RealmModel {
     var description: String? = null
     var imageUrl: String? = null
     var price: Double? = null
-    var icon: Int? = null
     var quantity: Int? = null
     var valueClassification: String? = null
 
@@ -20,7 +19,6 @@ open class ItemDb: RealmModel {
         name = name,
         description = description,
         imageUrl = imageUrl,
-        icon = icon,
         price = price,
         quantity= quantity,
         valueClassification = valueClassification

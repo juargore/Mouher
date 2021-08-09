@@ -18,7 +18,6 @@ import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.R
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
-import com.glass.mouher.ui.common.completeUrlForImage
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -36,7 +35,13 @@ class MenuViewModel(
     var screen: MENU? = null
 
     @Bindable
+    var stringZoneOrCategory = "Zonas Comerciales"
+
+    @Bindable
     var openZoneSelected: ZoneUI? = null
+
+    @Bindable
+    var stringMouherOrStore = "Mouher Market"
 
     @Bindable
     var openProfileScreen: Unit? = null
@@ -102,7 +107,14 @@ class MenuViewModel(
         }
 
     @Bindable
-    var zonesSectionVisible: Boolean = false
+    var socialMediaVisible: Boolean? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.socialMediaVisible)
+        }
+
+    @Bindable
+    var zonesSectionVisible: Boolean = true
         set(value){
             field = value
             rotateAnimationForZonesSection = if(value) 90 else -90
@@ -116,7 +128,7 @@ class MenuViewModel(
         }
 
     @Bindable
-    var mouherSectionVisible: Boolean = false
+    var mouherSectionVisible: Boolean = true
         set(value){
             field = value
             rotateAnimationForMouherSection = if(value) 90 else -90
@@ -160,7 +172,6 @@ class MenuViewModel(
     fun initialize(c: Context, s: String){
         context = c
         source = s
-        searchProductVisibility = source != "MALL"
 
         //TODO
         isUserLoggedIn = false
@@ -184,10 +195,10 @@ class MenuViewModel(
             onResponseLogo(null)
         }
 
-        /*addDisposable(mallUseCase.getSocialMedia()
+        addDisposable(mallUseCase.getSocialMedia()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onResponseMenuSocialMediaItems, this::onError))*/
+                .subscribe(this::onResponseMenuSocialMediaItems, this::onError))
 
         /*
         addDisposable(mallUseCase.getContactInformation()
@@ -229,16 +240,28 @@ class MenuViewModel(
         }
 
         if(source == "MALL"){
-            addDisposable(mallUseCase.getZonesByMall()
+            stringZoneOrCategory = "Zonas Comerciales"
+            stringMouherOrStore = "Mouher Market"
+            socialMediaVisible = true
+
+            addDisposable(mallUseCase.getZonesForMenu()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onResponseMenuItems, this::onError))
         }else{
+            // TODO: Set name of store here
+            stringZoneOrCategory = "Categorías de Productos"
+            stringMouherOrStore = "Sobre la tienda"
+            socialMediaVisible = false
+
             addDisposable(storeUseCase.getCategoriesByStore()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onStoreCategoriesResponse, this::onError))
         }
+
+        notifyPropertyChanged(BR.stringZoneOrCategory)
+        notifyPropertyChanged(BR.stringMouherOrStore)
     }
 
     private fun onStoreCategoriesResponse(list: List<CategoryUI>){
@@ -260,10 +283,6 @@ class MenuViewModel(
     }
 
     private fun onResponseMenuSocialMediaItems(socialList: List<SocialMediaUI>){
-        socialList.forEach {
-            it.urlImage = completeUrlForImage(it.urlImage)
-        }
-
         itemsSocial = socialList
         notifyPropertyChanged(BR.itemsSocial)
     }

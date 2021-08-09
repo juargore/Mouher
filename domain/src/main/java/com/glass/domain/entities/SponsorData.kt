@@ -9,6 +9,7 @@ data class SponsorData(
 
     fun getSponsorStoreUI(): SponsorUI{
         return SponsorUI(
+            id = IdTienda,
             urlImage = Logotipo,
             name = Nombre,
             idOfStoreToOpen = IdTienda
@@ -17,7 +18,7 @@ data class SponsorData(
 }
 
 data class SponsorUI(
-    val id: String? = null,
+    val id: Int? = null,
     val name: String? = null,
     var urlImage: String? = null,
     var willOpenExternalUrl: Boolean = false,

@@ -84,7 +84,9 @@ class MenuFragment: Fragment() {
             adapter = socialAdapter
 
             socialAdapter.onItemClicked ={
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.linkToOpen)))
+                if(!it.linkToOpen.isNullOrBlank()){
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.linkToOpen)))
+                }
             }
         }
     }

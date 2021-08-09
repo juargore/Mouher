@@ -2,16 +2,15 @@
 
 package com.glass.mouher.ui.registration.signin
 
-import android.content.Context
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
-import com.glass.mouher.ui.base.BaseViewModel
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.usecases.user.IUserUseCase
+import com.glass.mouher.ui.base.BaseViewModel
+import com.glass.mouher.utils.isEmailValid
 
 class SignInViewModel(
-    private val context: Context,
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
 
@@ -68,20 +67,22 @@ class SignInViewModel(
         }
     }
 
+    fun onBackClicked(view: View){
+        notifyPropertyChanged(BR.onBack)
+    }
+
     private fun allFieldsValid(): Boolean{
-        if(userEmail.isBlank() || !isEmailValid()){
+        if(userEmail.isBlank() || !userEmail.trim().isEmailValid()){
             error = "Ingrese un email válido"
             return false
         }
+
         if(userPassword.isBlank()){
             error = "Ingrese una contraseña"
             return false
         }
-        return true
-    }
 
-    private fun isEmailValid(): Boolean{
-        return userEmail.isNotBlank() && "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})".toRegex().matches(userEmail)
+        return true
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

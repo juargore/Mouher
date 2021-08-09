@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/drawable/toggle_password.xml" value="0.21944444444444444" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/activity_cart.xml" value="0.2421875" />
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/activity_forgot_password.xml" value="0.4" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/activity_main_mall.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/activity_main_store.xml" value="0.2421875" />
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/activity_sign_in.xml" value="0.2421875" />
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/activity_sign_up.xml" value="0.4" />
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/activity_splash.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/fragment_home_mall.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/fragment_home_store.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/fragment_menu.xml" value="0.2421875" />
@@ -15,12 +20,15 @@
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/fragment_stores.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/pop_add_rating.xml" value="0.23846153846153847" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_cart.xml" value="0.264" />
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_history.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_home_lobby.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_home_sponsors.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_menu.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_mini_detail.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_products.xml" value="0.2421875" />
         <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/recycler_item_review.xml" value="0.2421875" />
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/spinner_item_simple.xml" value="0.2421875" />
+        <entry key="..\:/Users/artur/Documentos/GitHub/Mouher/app/src/main/res/layout/toolbar.xml" value="0.2421875" />
       </map>
     </option>
   </component>

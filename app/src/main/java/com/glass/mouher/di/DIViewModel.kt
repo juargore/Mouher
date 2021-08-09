@@ -30,7 +30,6 @@ val DIViewModel = module{
     }
 
     viewModel { SignInViewModel(
-        context = androidContext(),
         userUseCase = get(UseCases.USER_PROFILE.name))
     }
 
@@ -50,7 +49,6 @@ val DIViewModel = module{
     }
 
     viewModel { MainStoreViewModel(
-        context = androidContext(),
         cartUseCase = get(UseCases.CART.name),
         storeUseCase = get(UseCases.STORE.name))
     }
