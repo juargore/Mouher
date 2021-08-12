@@ -10,8 +10,6 @@ interface IStoreUseCase {
 
     fun getTopBannerList(): Observable<List<TopBannerUI>>
 
-    fun getSponsorStoresByMallId(mallId: String): Observable<List<SponsorUI>>
-
     fun getStoreLogo(): Observable<String>
 
     fun getImageVideo(): Observable<String>
@@ -21,6 +19,8 @@ interface IStoreUseCase {
     fun getNewArrivalsForStore(): Observable<List<ProductUI>>
 
     fun getCategoriesByStore(): Observable<List<CategoryUI>>
+
+    fun getStoreSimpleInformation(): Observable<String>
 
     fun getSponsorsByStore(): Observable<List<SponsorUI>>
 

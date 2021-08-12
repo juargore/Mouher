@@ -68,6 +68,7 @@ data class FullProductDataResponse(
     val PrecioActual: String? = null,
     val PrecioAnterior: String? = null,
     val Rating: Int? = null,
+    val Existencia: Int? = null,
 
     val Clasificacion1: String? = null,
     val ValoresClasificacion1: String? = null,
@@ -100,8 +101,15 @@ data class FullProductDataResponse(
         classificationTitle3 = Clasificacion3,
         classificationValues3AsString = ValoresClasificacion3,
         classificationValues3 = getValuesAsList(ValoresClasificacion3),
-        classificationValuesQty = 10
+        classificationValuesQty = Existencia
     )
+
+    fun getTopInformation(): ScreenTopInformationUI =
+        ScreenTopInformationUI(
+            urlImageTop = BannerFoto,
+            titleTop = BannerTituloFoto,
+            subTitleTop = BannerSubtituloFoto
+        )
 
     private fun getValuesAsList(value: String?): List<String>{
         value?.let{

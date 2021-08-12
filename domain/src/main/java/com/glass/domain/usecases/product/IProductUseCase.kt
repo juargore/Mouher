@@ -13,7 +13,7 @@ interface IProductUseCase {
 
     fun getProductUI(): Observable<ProductUI>
 
-    fun getTopScreenInformation(): Observable<ScreenTopInformationUI>
+    fun getTopScreenInformation(fromDetail: Boolean = false): Observable<ScreenTopInformationUI>
 
     fun getProductListByCategory(storeId: Int, categoryId: Int): Observable<List<ProductUI>>
 

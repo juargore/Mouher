@@ -141,7 +141,7 @@ fun setImageBytes(imageView: ImageView, bytes: ByteArray?) {
 
 @BindingAdapter("fromUrl")
 fun setImageFromUrl(imageView: ImageView, url: String?) {
-    if (url != null) {
+    if (!url.isNullOrBlank()) {
         Glide.with(imageView.context)
             .load(url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)

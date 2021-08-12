@@ -100,8 +100,9 @@ class MenuFragment: Fragment() {
 
             categoryAdapter.onItemClicked={
                 val args = Bundle().apply {
-                    putString("categoryId", it.categoryId.toString())
-                    putString("storeId", "1")
+                    putInt("categoryId", it.categoryId ?: 1)
+                    putInt("storeId", viewModel.storeIdSelectedOnMenu)
+                    putString("categoryName", it.name)
                 }
 
                 requireActivity().supportFragmentManager.beginTransaction().apply {
@@ -112,6 +113,8 @@ class MenuFragment: Fragment() {
                     addToBackStack("Products")
                     commit()
                 }
+
+                closeDrawer()
             }
         }
     }
@@ -164,6 +167,14 @@ class MenuFragment: Fragment() {
             MENU.HISTORY -> HistoryFragment()
             MENU.ABOUT -> AboutFragment()
             else -> null
+        }
+
+        if(fragment is AboutFragment){
+            val args = Bundle().apply {
+                putInt("storeId", viewModel.storeIdSelectedOnMenu)
+            }
+
+            fragment.arguments = args
         }
 
         fragment?.let{

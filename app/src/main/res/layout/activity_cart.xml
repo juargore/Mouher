@@ -46,6 +46,7 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:padding="26dp"
                 android:text="Aún no tienes productos en tu carrito de compras. Ve a cualquier tienda y comenza a seleccionar tus productos favoritos."
+                android:textColor="@color/onyxBlack"
                 android:visibility="@{ viewModel.items.size() > 0 ? View.GONE : View.VISIBLE }"
                 tools:ignore="HardcodedText"
                 tools:visibility="gone" />

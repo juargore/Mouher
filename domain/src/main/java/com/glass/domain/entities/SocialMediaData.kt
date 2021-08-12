@@ -1,27 +1,30 @@
 package com.glass.domain.entities
 
+data class SocialMediaDataResponse(
+    val Error: Int? = null,
+    val Mensaje: String? = null,
+    val Redes: List<SocialMediaData>? = null
+)
+
+
 data class SocialMediaData(
-    val Id: String? = null,
+    val IdRed: Int? = null,
     val Nombre: String? = null,
-    val DescripcionLarga: String? = null,
-    var Fotografia2: String? = null,
-    var Fotografia3: String? = null
-) {
-
-    fun getSocialMediaUI(): SocialMediaUI{
-
-        return SocialMediaUI(
-            id = Id,
-            name = Nombre,
-            linkToOpen = DescripcionLarga,
-            urlImage = Fotografia2
-        )
-    }
+    val Link: String? = null,
+    val Logotipo1: String? = null,
+    val Logotipo2: String? = null
+){
+    fun getSocialMediaUI() = SocialMediaUI(
+        id = IdRed,
+        name = Nombre,
+        linkToOpen = Link,
+        urlImage = Logotipo1
+    )
 }
 
 
 data class SocialMediaUI(
-    val id: String? = null,
+    val id: Int? = null,
     val name: String? = null,
     var urlImage: String? = null,
     val linkToOpen: String? = null

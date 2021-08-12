@@ -1,17 +1,16 @@
 package com.glass.mouher.ui.registration.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.glass.mouher.BR
 import com.glass.mouher.R
-import org.koin.android.viewmodel.ext.android.viewModel
 import com.glass.mouher.databinding.ActivitySplashBinding
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.MainActivityMall
-import com.glass.mouher.ui.registration.signin.SignInActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
 

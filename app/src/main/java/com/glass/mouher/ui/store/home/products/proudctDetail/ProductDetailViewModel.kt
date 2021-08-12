@@ -161,7 +161,7 @@ class ProductDetailViewModel(
 
             .flatMap {
                 onResponseProductUI(it)
-                return@flatMap productUseCase.getTopScreenInformation()
+                return@flatMap productUseCase.getTopScreenInformation(fromDetail = true)
             }
 
             .flatMap {
@@ -333,6 +333,7 @@ class ProductDetailViewModel(
 
 
     private fun onError(t: Throwable?){
+        progressVisible = false
         error = ResponseUI(hasErrors = true, message = t?.message)
     }
 

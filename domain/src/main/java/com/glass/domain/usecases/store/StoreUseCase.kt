@@ -8,14 +8,17 @@ class StoreUseCase(
     private val storeRepository: IStoreRepository
 ): IStoreUseCase {
 
+    private var storeID: Int? = null
+    private var storeName: String? = null
     private var storeData: StoreData? = null
 
-    override fun triggerToGetStoreData(storeId: Int): Observable<Unit> {
-        return storeRepository.getAllStoreData(storeId).map { storeData = it }
-    }
 
-    override fun getSponsorStoresByMallId(mallId: String): Observable<List<SponsorUI>> {
-        return Observable.just(listOf())
+    override fun triggerToGetStoreData(storeId: Int): Observable<Unit> {
+        return storeRepository.getAllStoreData(storeId).map {
+            storeID = storeId
+            storeData = it
+            storeName = it.TiendaNombre
+        }
     }
 
     override fun getTopBannerList(): Observable<List<TopBannerUI>> {
@@ -50,6 +53,10 @@ class StoreUseCase(
         }
 
         return Observable.just(mList)
+    }
+
+    override fun getStoreSimpleInformation(): Observable<String> {
+        return Observable.just("$storeID-$storeName")
     }
 
     override fun getSponsorsByStore(): Observable<List<SponsorUI>> {

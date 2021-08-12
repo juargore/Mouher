@@ -21,8 +21,14 @@ interface MallApi {
 
 
     @FormUrlEncoded
-    @POST("models/catalogos/CCatRedPlazaConsulta.php")
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
     fun getSocialMediaForMall(@Field("WebService") WebService: String,
-                              @Field("IdBDD") IdBDD: String,
-                              @Field("IdPlaza") IdPlaza: String): Single<ResponseSocialMedia>
+                              @Field("IdPlaza") IdPlaza: String): Single<SocialMediaDataResponse>
+
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
+    fun getMallAboutInformation(@Field("WebService") WebService: String,
+                                @Field("IdTienda") IdTienda: String?,
+                                @Field("IdPlaza") IdPlaza: String?): Single<AboutResponse>
 }

@@ -60,6 +60,19 @@ class MainActivityMall : AppCompatActivity() {
         )
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        // Refresh the whole activity when clicking on middle logo -Mouher Market-
+        val logo = toolbar?.findViewById<ImageView>(R.id.imageLogo)
+        logo?.setOnClickListener {
+            finish()
+            overridePendingTransition( 0, 0)
+            startActivity(intent)
+            overridePendingTransition( 0, 0)
+        }
+    }
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm: InputMethodManager =

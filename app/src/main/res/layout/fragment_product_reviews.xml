@@ -83,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Sin reseñas generadas para este producto. \n\nSé el primero en agregar la tuya."
+                android:textColor="@color/mainGrey"
                 app:layout_constraintBottom_toTopOf="@+id/sendEmailButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

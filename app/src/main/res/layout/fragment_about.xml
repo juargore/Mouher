@@ -30,7 +30,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                tools:src="@tools:sample/backgrounds/scenic"
+                android:contentDescription="@string/app_name" />
 
             <TextView
                 android:id="@+id/textView24"
@@ -60,10 +61,11 @@
                     android:id="@+id/textView83"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_12dp"
-                    tools:text="Bienvenidas mouheres!"
+                    android:layout_marginTop="@dimen/margin_18dp"
                     android:text="@{ viewModel.title }"
-                    android:textSize="16sp" />
+                    android:textColor="@color/mainGrey"
+                    android:textSize="16sp"
+                    tools:text="Bienvenidas mouheres!" />
 
                 <TextView
                     android:id="@+id/textView82"
@@ -80,22 +82,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    tools:text="Description"
+                    android:layout_marginBottom="@dimen/margin_18dp"
                     android:text="@{ viewModel.description }"
-                    android:textColor="@color/onyxBlack" />
+                    android:textColor="@color/onyxBlack"
+                    tools:text="Description" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/txtAboutUs"
+                style="@style/TextView.TitlesH5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_24dp"
+                android:layout_marginTop="@dimen/margin_12dp"
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp"
                 android:text="Nuestro equipo"
+                android:textColor="@color/mainPink"
+                android:visibility="@{ viewModel.hidePeopleSection ? View.GONE : View.VISIBLE }"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout11"
+                tools:ignore="HardcodedText" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPeople"
@@ -104,6 +111,7 @@
                 android:layout_marginTop="@dimen/margin_12dp"
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp"
+                android:visibility="@{ viewModel.hidePeopleSection ? View.GONE : View.VISIBLE }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

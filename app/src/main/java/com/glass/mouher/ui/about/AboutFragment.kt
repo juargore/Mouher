@@ -25,9 +25,14 @@ class AboutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAboutBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+
+        arguments?.let{
+            val storeId = it.getInt("storeId")
+            viewModel.initialize(storeId)
+        }
 
         return binding.root
     }
@@ -37,7 +42,6 @@ class AboutFragment : Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-
     private fun setUpRecyclerPeople(){
         with(binding.rvPeople){
             layoutManager = LinearLayoutManager(requireContext())
@@ -45,7 +49,6 @@ class AboutFragment : Fragment() {
             adapter = adapter1
         }
     }
-
 
     override fun onPause() {
         super.onPause()

@@ -74,6 +74,7 @@ class ProductReviewsViewModel(
     }
 
     private fun onError(t: Throwable?){
+        progressVisible = false
         error = ResponseUI(hasErrors = true, message = t?.message)
     }
 

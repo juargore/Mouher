@@ -113,7 +113,7 @@
                                     android:paddingBottom="4dp"
                                     android:tint="@color/white"
                                     app:fromUrl="@{ viewModel.urlImageLogo }"
-                                    app:srcCompat="@drawable/logo_zara" />
+                                    tools:srcCompat="@drawable/logo_zara" />
                             </LinearLayout>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

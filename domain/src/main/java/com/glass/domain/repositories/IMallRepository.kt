@@ -1,8 +1,6 @@
 package com.glass.domain.repositories
 
-import com.glass.domain.entities.MallData
-import com.glass.domain.entities.SocialMediaData
-import com.glass.domain.entities.StoresInZoneData
+import com.glass.domain.entities.*
 import io.reactivex.Observable
 
 interface IMallRepository {
@@ -11,6 +9,8 @@ interface IMallRepository {
 
     fun getStoresByZone(zoneId: String): Observable<StoresInZoneData>
 
-    fun getSocialMediaForMall(mallId: String): Observable<List<SocialMediaData>>
+    fun getSocialMediaForMall(mallId: Int): Observable<SocialMediaDataResponse>
+
+    fun getAboutInformation(storeId: Int?): Observable<AboutResponse>
 
 }

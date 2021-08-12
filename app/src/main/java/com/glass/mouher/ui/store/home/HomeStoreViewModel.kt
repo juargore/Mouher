@@ -171,6 +171,7 @@ class HomeStoreViewModel(
     }
 
     private fun onError(t: Throwable?){
+        progressVisible = false
         Log.e("--", t?.localizedMessage.toString())
     }
 

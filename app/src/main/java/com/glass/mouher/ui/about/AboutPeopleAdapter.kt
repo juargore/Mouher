@@ -28,8 +28,7 @@ class AboutPeopleAdapter (
 
         with(holder.itemView){
             name.text = item.name
-            position.text = item.position
-            partner.text = item.partner
+            position.text = item.jobDescription
 
             Glide.with(context)
                 .load(item.imageUrl)

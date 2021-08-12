@@ -4,6 +4,7 @@ package com.glass.mouher.ui.menu
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
@@ -25,6 +26,10 @@ class MenuViewModel(
     private val mallUseCase: IMallUseCase,
     private val storeUseCase: IStoreUseCase
 ): BaseViewModel(), ClickHandler<AMenuViewModel> {
+
+    var storeIdSelectedOnMenu: Int = 0
+
+    private var storeNameSelectedOnMenu: String = ""
 
     @SuppressLint("StaticFieldLeak")
     lateinit var context: Context
@@ -195,7 +200,7 @@ class MenuViewModel(
             onResponseLogo(null)
         }
 
-        addDisposable(mallUseCase.getSocialMedia()
+        addDisposable(mallUseCase.getSocialMedia(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onResponseMenuSocialMediaItems, this::onError))
@@ -249,15 +254,17 @@ class MenuViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onResponseMenuItems, this::onError))
         }else{
-            // TODO: Set name of store here
             stringZoneOrCategory = "Categorías de Productos"
             stringMouherOrStore = "Sobre la tienda"
             socialMediaVisible = false
 
-            addDisposable(storeUseCase.getCategoriesByStore()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onStoreCategoriesResponse, this::onError))
+            // Wait a little while data is downloaded from StoreViewModel
+            Handler().postDelayed({
+                addDisposable(storeUseCase.getCategoriesByStore()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onStoreCategoriesResponse, this::onError))
+            }, 1000)
         }
 
         notifyPropertyChanged(BR.stringZoneOrCategory)
@@ -267,6 +274,14 @@ class MenuViewModel(
     private fun onStoreCategoriesResponse(list: List<CategoryUI>){
         categories = list
         notifyPropertyChanged(BR.categories)
+
+        addDisposable(storeUseCase.getStoreSimpleInformation()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                storeIdSelectedOnMenu = it.substringBefore("-").toInt()
+                storeNameSelectedOnMenu = it.substringAfter("-")
+            }, this::onError))
     }
 
     private fun onResponseMenuItems(zonesList: List<ZoneUI>){

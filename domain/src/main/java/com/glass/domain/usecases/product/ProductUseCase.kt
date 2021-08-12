@@ -37,8 +37,12 @@ class ProductUseCase(
             }
     }
 
-    override fun getTopScreenInformation(): Observable<ScreenTopInformationUI> {
-        return Observable.just(productByCategoryData?.getScreenTopInfo())
+    override fun getTopScreenInformation(fromDetail: Boolean): Observable<ScreenTopInformationUI> {
+        return if(fromDetail){
+            Observable.just(fullProductDataResponse?.getTopInformation())
+        }else{
+            Observable.just(productByCategoryData?.getScreenTopInfo())
+        }
     }
 
     override fun getReviewsForProduct(storeId: Int, productId: Int): Single<List<ReviewUI>> {

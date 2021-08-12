@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="1dp"
-    android:layout_marginEnd="1dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="3dp"
-    app:cardElevation="2dp">
+    android:layout_marginBottom="@dimen/margin_18dp"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +17,7 @@
             android:id="@+id/photo"
             android:layout_width="match_parent"
             android:layout_height="500dp"
+            android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
@@ -28,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="TextView" />
 
         <TextView
@@ -35,14 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
-            android:text="TextView" />
+            android:paddingEnd="8dp"
+            android:text="TextView"
+            android:textColor="@color/mainGrey"
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/partner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_12dp"
-            android:paddingStart="8dp"
-            android:text="TextView" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
