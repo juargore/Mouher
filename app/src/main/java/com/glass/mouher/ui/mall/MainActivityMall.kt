@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
@@ -63,13 +64,9 @@ class MainActivityMall : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        // Refresh the whole activity when clicking on middle logo -Mouher Market-
-        val logo = toolbar?.findViewById<ImageView>(R.id.imageLogo)
-        logo?.setOnClickListener {
-            finish()
-            overridePendingTransition( 0, 0)
-            startActivity(intent)
-            overridePendingTransition( 0, 0)
+        // Clean the backstack of fragments when clicking on middle logo -Mouher Market-
+        toolbar?.findViewById<ImageView>(R.id.imageLogo)?.setOnClickListener {
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 

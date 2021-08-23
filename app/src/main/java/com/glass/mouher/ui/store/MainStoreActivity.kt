@@ -14,6 +14,7 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.menu.MenuFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 import androidx.databinding.library.baseAdapters.BR
+import androidx.fragment.app.FragmentManager
 import com.glass.mouher.ui.cart.CartActivity
 
 class MainStoreActivity : AppCompatActivity() {
@@ -64,13 +65,21 @@ class MainStoreActivity : AppCompatActivity() {
 
         intent?.extras?.let{
             storeId = it.getInt("storeId")
-            storeId
         }
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Clean the backstack of fragments when clicking on middle logo of store
+        binding.layoutLogos.setOnClickListener {
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
     }
 
     override fun onPause() {

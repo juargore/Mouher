@@ -109,15 +109,7 @@ class MallUseCase(
     }
 
 
-    override fun getContactInformation(): Single<ContactUI> {
-        return Single.just(ContactUI(
-                address = "Colombia 1856, Puerto Vallarta",
-                phone = "3221216060",
-                email = "contacto@mouhermarket.com",
-                workHours = "09:00 a 16:00, de lunes a viernes",
-                urlOportunities = "http://desarrollo01.mouhermarket.com/",
-                urlPrivacyPolicy = "http://desarrollo01.mouhermarket.com/",
-                urlTermsAndConditions = "http://desarrollo01.mouhermarket.com/"
-        ))
+    override fun getContactInformation(mallId: Int): Observable<ContactUI> {
+        return Observable.just(mallData?.getContactInformation())
     }
 }

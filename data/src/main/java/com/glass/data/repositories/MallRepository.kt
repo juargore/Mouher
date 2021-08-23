@@ -1,8 +1,10 @@
 package com.glass.data.repositories
 
 import com.glass.data.serverapi.MallApi
-import com.glass.domain.common.or
-import com.glass.domain.entities.*
+import com.glass.domain.entities.AboutResponse
+import com.glass.domain.entities.MallData
+import com.glass.domain.entities.SocialMediaDataResponse
+import com.glass.domain.entities.StoresInZoneData
 import com.glass.domain.repositories.IMallRepository
 import io.reactivex.Observable
 

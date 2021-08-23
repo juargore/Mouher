@@ -2,7 +2,6 @@ package com.glass.domain.usecases.store
 
 import com.glass.domain.entities.*
 import io.reactivex.Observable
-import io.reactivex.Single
 
 interface IStoreUseCase {
 

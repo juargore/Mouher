@@ -3,12 +3,6 @@ package com.glass.domain.entities
 data class ZoneData(
     val IdZona: Int? = null,
     val Nombre: String? = null,
-
-    /*val DescripcionCorta: String? = null,
-    val Fotografia1: String? = null,
-    val IdPlaza: Int? = null,
-    val CodigoPlaza: String? = null,
-    val NombrePlaza: String? = null*/
 ){
 
     fun toZoneUI(): ZoneUI{
@@ -18,3 +12,10 @@ data class ZoneData(
         )
     }
 }
+
+data class ZoneUI(
+    val id: Int? = null,
+    val name: String? = null,
+    var urlImage: String? = null,
+    val description: String? = null
+)

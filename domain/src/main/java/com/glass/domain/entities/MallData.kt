@@ -57,8 +57,31 @@ data class MallData(
 
 
     // Sponsors of plaza comercial section
-    val Zonas: List<ZoneData>? = null
+    val Zonas: List<ZoneData>? = null,
+
+
+    // Extra information section
+    val LinkContactanos: String? = null,
+    val LinkServiciosAdicionales: String? = null,
+    val LinkTerminosCondiciones: String? = null,
+    val LinkAvisoPrivacidad: String? = null,
+    val LinkPoliticasUsuariosCompradores: String? = null,
+    val LinkPoliticasUsuariosVendedores: String? = null
 ){
+
+    fun getContactInformation() = ContactUI(
+        address = "Mezquite 449, Puerto Vallarta, Jalisco",
+        phone = "Teléfono: 3221564052",
+        email = "contacto@mouhermarket.com",
+        workHours = "09:00 a 18:00, de lunes a viernes",
+        urlContactUs = LinkContactanos,
+        urlExtraServices = LinkServiciosAdicionales,
+
+        urlTermsAndConditions = LinkTerminosCondiciones,
+        urlNoticeOfPrivacy = LinkAvisoPrivacidad,
+        urlPoliciesUsersBuyers = LinkPoliticasUsuariosCompradores,
+        urlPoliciesUsersSellers = LinkPoliticasUsuariosVendedores
+    )
 
     fun getTopBannerList(): List<TopBannerUI>{
         val l1 = TopBannerUI(

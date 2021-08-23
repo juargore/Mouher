@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:orientation="vertical">
+
         <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp">
@@ -27,12 +28,15 @@
                     android:visibility="gone"
                     app:srcCompat="@drawable/ic_close" />
             </RelativeLayout>
-            <TextView android:id="@+id/textView35"
+
+            <TextView
+                android:id="@+id/textView35"
                 style="@style/TextView.TitlesH6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Contacto"
-                android:textColor="@color/white"
+                android:textColor="@color/mainPink"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,12 +51,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-                <ImageView android:id="@+id/imageView16"
+
+                <ImageView
+                    android:id="@+id/imageView16"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
                     android:tint="@color/bgWhite"
-                    app:srcCompat="@drawable/ic_envelope" />
+                    app:srcCompat="@drawable/ic_home_stroke" />
                 <TextView android:id="@+id/txtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -64,12 +70,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-                <ImageView android:id="@+id/imageView17"
+
+                <ImageView
+                    android:id="@+id/imageView17"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
                     android:tint="@color/bgWhite"
-                    app:srcCompat="@drawable/ic_envelope" />
+                    app:srcCompat="@drawable/ic_telephone_stroke" />
                 <TextView android:id="@+id/txtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,12 +89,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-                <ImageView android:id="@+id/imageView18"
+
+                <ImageView
+                    android:id="@+id/imageView18"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
                     android:tint="@color/bgWhite"
-                    app:srcCompat="@drawable/ic_envelope" />
+                    app:srcCompat="@drawable/ic_envelope_stroke" />
                 <TextView android:id="@+id/txtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,12 +108,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-                <ImageView android:id="@+id/imageView19"
+
+                <ImageView
+                    android:id="@+id/imageView19"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
                     android:tint="@color/bgWhite"
-                    app:srcCompat="@drawable/ic_envelope" />
+                    app:srcCompat="@drawable/ic_wall_clock_stroke" />
                 <TextView android:id="@+id/txtWorkHours"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,13 +123,16 @@
                     android:textColor="@color/bgWhite" />
             </LinearLayout>
         </LinearLayout>
-        <TextView android:id="@+id/textView58"
+
+        <TextView
+            android:id="@+id/textView58"
             style="@style/TextView.TitlesH6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Información"
-            android:textColor="@color/white" />
+            android:textColor="@color/mainPink"
+            android:textSize="15sp" />
 
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,21 +143,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-                <TextView android:id="@+id/txtOportunities"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Oportunidades laborales"
-                    android:textColor="@color/bgWhite" />
-            </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-                <TextView android:id="@+id/txtPrivacyPolicy"
+                <TextView
+                    android:id="@+id/txtTerms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Política de privacidad"
+                    android:text="Términos y Condiciones"
                     android:textColor="@color/bgWhite" />
             </LinearLayout>
 
@@ -151,13 +157,63 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView android:id="@+id/txtTermsAndConditions"
+                <TextView
+                    android:id="@+id/txtPrivacyPolicy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Términos y condiciones"
+                    android:text="Aviso de privacidad"
+                    android:textColor="@color/bgWhite" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtPoliciesBuyers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Políticas de Usuarios Compradores"
+                    android:textColor="@color/bgWhite" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtPoliciesSellers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Políticas de Usuarios Vendedores"
                     android:textColor="@color/bgWhite" />
             </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/textView57"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:layout_marginBottom="@dimen/margin_12dp"
+                android:text="Somos parte de la familia"
+                android:textColor="@color/lightGrey"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/imageView28"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/logo_grupo_crecento" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -5,7 +5,12 @@ class ContactUI(
         val phone: String? = null,
         val email: String? = null,
         val workHours: String? = null,
-        val urlOportunities: String? = null,
-        val urlPrivacyPolicy: String? = null,
-        val urlTermsAndConditions: String? = null
+
+        val urlContactUs: String? = null,
+        val urlExtraServices: String? = null,
+
+        val urlTermsAndConditions: String? = null,
+        val urlNoticeOfPrivacy: String? = null,
+        val urlPoliciesUsersBuyers: String? = null,
+        val urlPoliciesUsersSellers: String? = null
 )

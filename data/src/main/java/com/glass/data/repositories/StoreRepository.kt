@@ -22,6 +22,7 @@ class StoreRepository(
         email: String,
         storeId: Int
     ): Observable<ResponseData> {
+
         return api.subscribeUserToNewsletter(
             WebService = "GuardaSuscriptor",
             IdTienda = storeId.toString(),

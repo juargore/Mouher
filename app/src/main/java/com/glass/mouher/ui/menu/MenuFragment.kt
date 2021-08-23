@@ -1,6 +1,5 @@
 package com.glass.mouher.ui.menu
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -11,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -36,6 +34,8 @@ import com.glass.mouher.ui.profile.UserProfileFragment
 import com.glass.mouher.ui.registration.signin.SignInActivity
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import com.glass.mouher.ui.store.home.products.ProductsFragment
+import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
+import kotlinx.android.synthetic.main.pop_contact.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MenuFragment: Fragment() {
@@ -62,7 +62,6 @@ class MenuFragment: Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentMenuBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
@@ -138,22 +137,18 @@ class MenuFragment: Fragment() {
     }
 
     private fun openFromMenuSubscreen(from: MENU?){
-
         if(from == MENU.LOGIN){
             startActivity(Intent(activity, SignInActivity::class.java))
             return
         }
 
         if(from == MENU.CONTACT){
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "plain/text"
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(viewModel.email))
-            startActivity(Intent.createChooser(intent, ""))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlContactUs)))
             return
         }
 
         if(from == MENU.EXTRA_SERVICES){
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlExtraServices)))
             return
         }
 
@@ -190,48 +185,31 @@ class MenuFragment: Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun showPopUpContact(){
         Dialog(requireContext(), R.style.FullDialogTheme).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setContentView(R.layout.pop_contact)
-            show()
+            setContentView(R.layout.pop_contact); show()
 
-            findViewById<TextView>(R.id.txtAddress).text = viewModel.address
+            txtAddress.text = viewModel.address
+            txtPhone.text = viewModel.phone
+            txtEmail.text = viewModel.email
+            txtWorkHours.text = viewModel.workHours
 
-            with(findViewById<TextView>(R.id.txtPhone)){
-                text = "Teléfono: ${viewModel.phone}"
-                setOnClickListener {
-                    val i = Intent(Intent.ACTION_DIAL)
-                    val p = "tel:" + viewModel.phone
-                    i.data = Uri.parse(p)
-                    startActivity(i)
-                }
+            txtTerms.setOnClickListener {
+                openUrlInExternalWebBrowser(viewModel.urlTermsAndConditions)
             }
 
-            with(findViewById<TextView>(R.id.txtEmail)){
-                text = viewModel.email
-                setOnClickListener {
-
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.type = "plain/text"
-                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(viewModel.email))
-                    startActivity(Intent.createChooser(intent, ""))
-                }
+            txtPrivacyPolicy.setOnClickListener {
+                openUrlInExternalWebBrowser(viewModel.urlNoticeOfPrivacy)
             }
 
-            findViewById<TextView>(R.id.txtWorkHours).text = viewModel.workHours
-            findViewById<TextView>(R.id.txtOportunities).setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlOportunities)))
+            txtPoliciesBuyers.setOnClickListener {
+                openUrlInExternalWebBrowser(viewModel.urlPoliciesUsersBuyers)
             }
 
-            findViewById<TextView>(R.id.txtPrivacyPolicy).setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlPrivacyPolicy)))
-            }
-
-            findViewById<TextView>(R.id.txtTermsAndConditions).setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlTermsAndConditions)))
+            txtPoliciesSellers.setOnClickListener {
+                openUrlInExternalWebBrowser(viewModel.urlPoliciesUsersSellers)
             }
         }
     }
@@ -261,10 +239,9 @@ class MenuFragment: Fragment() {
         containerView = requireActivity().findViewById(fragmentId)
         mDrawerLayout = drawerLayout
 
-        mDrawerToggle = object : ActionBarDrawerToggle(activity, drawerLayout, toolbar,
-                R.string.drawer_open,
-                R.string.drawer_close
-        ){
+        mDrawerToggle = object : ActionBarDrawerToggle(
+            activity, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
+        {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
                 activity?.invalidateOptionsMenu()
@@ -294,6 +271,7 @@ class MenuFragment: Fragment() {
 
         mDrawerToggle?.let{
             it.isDrawerIndicatorEnabled = false
+
             it.setToolbarNavigationClickListener {
                 mDrawerLayout?.openDrawer(GravityCompat.START)
             }

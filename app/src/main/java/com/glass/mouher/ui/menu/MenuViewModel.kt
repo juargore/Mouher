@@ -54,26 +54,18 @@ class MenuViewModel(
     @Bindable
     var openHistoryScreen: Unit? = null
 
-    @Bindable
     var address = ""
-
-    @Bindable
     var phone = ""
-
-    @Bindable
     var email = ""
-
-    @Bindable
     var workHours = ""
-
-    @Bindable
-    var urlOportunities = ""
-
-    @Bindable
-    var urlPrivacyPolicy = ""
-
-    @Bindable
+    var urlContactUs = ""
+    var urlExtraServices = ""
     var urlTermsAndConditions = ""
+    var urlNoticeOfPrivacy = ""
+    var urlPoliciesUsersBuyers = ""
+
+    @Bindable
+    var urlPoliciesUsersSellers = ""
 
     @Bindable
     var isUserLoggedIn = false
@@ -186,30 +178,23 @@ class MenuViewModel(
         addOnPropertyChangedCallback(callback)
         getCurrentVersionCode()
 
-        if(!isUserLoggedIn){
-            // If user hasn't signed in -> Load the Mall logo instead of his/her photo
-            addDisposable(mallUseCase.triggerToGetAllMallData()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .flatMap {
-                        return@flatMap mallUseCase.getLogoImage()
-                    }.subscribe(this::onResponseLogo, this::onError)
-            )
-        }else{
-            // User already signed in -> Just load the zones
-            onResponseLogo(null)
-        }
+        addDisposable(mallUseCase.triggerToGetAllMallData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap {
+                return@flatMap mallUseCase.getLogoImage()
+            }
+            .flatMap {
+                onResponseLogo(it)
+                return@flatMap mallUseCase.getContactInformation(1)
+            }
+            .subscribe(this::onContactResponse, this::onError)
+        )
 
         addDisposable(mallUseCase.getSocialMedia(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onResponseMenuSocialMediaItems, this::onError))
-
-        /*
-        addDisposable(mallUseCase.getContactInformation()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onContactResponse, this::onError))*/
     }
 
     private fun onContactResponse(contact: ContactUI){
@@ -217,17 +202,13 @@ class MenuViewModel(
         phone = contact.phone ?: ""
         email = contact.email ?: ""
         workHours = contact.workHours ?: ""
-        urlOportunities = contact.urlOportunities ?: ""
-        urlPrivacyPolicy = contact.urlPrivacyPolicy ?: ""
-        urlTermsAndConditions = contact.urlTermsAndConditions ?: ""
 
-        notifyPropertyChanged(BR.address)
-        notifyPropertyChanged(BR.phone)
-        notifyPropertyChanged(BR.email)
-        notifyPropertyChanged(BR.workHours)
-        notifyPropertyChanged(BR.urlOportunities)
-        notifyPropertyChanged(BR.urlPrivacyPolicy)
-        notifyPropertyChanged(BR.urlTermsAndConditions)
+        urlContactUs = contact.urlContactUs ?: ""
+        urlExtraServices = contact.urlExtraServices ?: ""
+        urlTermsAndConditions = contact.urlTermsAndConditions ?: ""
+        urlNoticeOfPrivacy = contact.urlNoticeOfPrivacy ?: ""
+        urlPoliciesUsersBuyers = contact.urlPoliciesUsersBuyers ?: ""
+        urlPoliciesUsersSellers = contact.urlPoliciesUsersSellers ?: ""
     }
 
     private fun getCurrentVersionCode(){
@@ -239,9 +220,11 @@ class MenuViewModel(
     }
 
     private fun onResponseLogo(urlLogo: String?){
-        urlLogo?.let{
-            logoMouher = it
-            notifyPropertyChanged(BR.logoMouher)
+        if(!isUserLoggedIn){
+            urlLogo?.let{
+                logoMouher = it
+                notifyPropertyChanged(BR.logoMouher)
+            }
         }
 
         if(source == "MALL"){

@@ -28,5 +28,5 @@ interface IMallUseCase {
 
     fun getAboutInformation(storeId: Int?): Observable<AboutUI>
 
-    fun getContactInformation(): Single<ContactUI>
+    fun getContactInformation(mallId: Int): Observable<ContactUI>
 }
