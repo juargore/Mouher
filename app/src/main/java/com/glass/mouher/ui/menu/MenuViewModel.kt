@@ -47,6 +47,10 @@ class MenuViewModel(
 
     @Bindable
     var stringMouherOrStore = "Mouher Market"
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.stringMouherOrStore)
+        }
 
     @Bindable
     var openProfileScreen: Unit? = null
@@ -238,7 +242,7 @@ class MenuViewModel(
                 .subscribe(this::onResponseMenuItems, this::onError))
         }else{
             stringZoneOrCategory = "Categorías de Productos"
-            stringMouherOrStore = "Sobre la tienda"
+            stringMouherOrStore = "Sobre $storeNameSelectedOnMenu"
             socialMediaVisible = false
 
             // Wait a little while data is downloaded from StoreViewModel
@@ -264,6 +268,7 @@ class MenuViewModel(
             .subscribe({
                 storeIdSelectedOnMenu = it.substringBefore("-").toInt()
                 storeNameSelectedOnMenu = it.substringAfter("-")
+                stringMouherOrStore = "Sobre $storeNameSelectedOnMenu"
             }, this::onError))
     }
 

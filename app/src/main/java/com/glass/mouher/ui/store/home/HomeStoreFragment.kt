@@ -1,9 +1,14 @@
 package com.glass.mouher.ui.store.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
@@ -28,6 +33,7 @@ import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.store.MainStoreActivity
 import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
+import com.glass.mouher.utils.CustomVideoView
 import com.glass.mouher.utils.WebBrowserUtils
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -171,19 +177,71 @@ class HomeStoreFragment : Fragment() {
                     it.overridePendingTransition(0,0)
                     it.finish()
                 }
-
             }
+
+            // Start 'animation' to scroll current horizontal scrollview
+            val mainHandler = Handler(Looper.getMainLooper())
+            currentState = ScrollPositions.Start
+
+            // repeat the funcion every 'SPONSOR_DURATION' duration
+            mainHandler.post(object : Runnable {
+                override fun run() {
+                    when(currentState){
+                        ScrollPositions.Start -> sponsorsScrollToMiddle()
+                        ScrollPositions.Middle -> sponsorsScrollToEnd()
+                        else -> sponsorsScrollToStart()
+                    }
+                    mainHandler.postDelayed(this, SPONSOR_DURATION)
+                }
+            })
         }
+    }
+
+    private fun sponsorsScrollToStart(){
+        binding.rvLinkedStores.smoothScrollToPosition(0)
+        currentState = ScrollPositions.Start
+    }
+
+    private fun sponsorsScrollToMiddle(){
+        binding.rvLinkedStores.smoothScrollToPosition(viewModel.sponsorStoresList.size/2)
+        currentState = ScrollPositions.Middle
+    }
+
+    private fun sponsorsScrollToEnd(){
+        binding.rvLinkedStores.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
+        currentState = ScrollPositions.End
+    }
+
+    private val SPONSOR_DURATION = 5000L
+    private var currentState = ScrollPositions.Middle
+
+    enum class ScrollPositions{
+        Start,
+        Middle,
+        End
     }
 
     private fun setUpVideo(urlVideo: String?) {
         if(urlVideo.isNullOrBlank()){
             binding.layVideo.visibility = View.GONE
         }else{
+            // hide photo image if video is playing or show it if pause()
             with(binding.videoStore){
+                setPlayPauseListener(object : CustomVideoView.PlayPauseListener{
+                    override fun onPlay() {
+                        binding.imgPhotoVideo.visibility = View.GONE
+                    }
+
+                    override fun onPause() {
+                        binding.imgPhotoVideo.visibility = View.VISIBLE
+                    }
+
+                })
+
                 setMediaController(MediaController(requireContext()))
                 setVideoURI(Uri.parse(viewModel.urlVideo))
             }
+            binding.imgPhotoVideo.bringToFront()
         }
     }
 

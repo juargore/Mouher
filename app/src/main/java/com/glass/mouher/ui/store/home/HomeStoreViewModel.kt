@@ -55,6 +55,10 @@ class HomeStoreViewModel(
 
     @Bindable
     var showVideoPlayer = true
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.showVideoPlayer)
+        }
 
 
     @Bindable
@@ -153,16 +157,14 @@ class HomeStoreViewModel(
     }
 
     private fun onUrlVideoResponse(url: String){
-        if(url.contains(".mp4") || url.contains(".3gp") || url.contains(".mkv")){
+        if(url.isEmpty()){
+            showVideoPlayer = false
+        }else{
             showVideoPlayer = true
 
             urlVideo = url
             notifyPropertyChanged(BR.urlVideo)
-        }else{
-            showVideoPlayer = false
         }
-
-        notifyPropertyChanged(BR.showVideoPlayer)
     }
 
     private fun onUrlImageVideoResponse(url: String){

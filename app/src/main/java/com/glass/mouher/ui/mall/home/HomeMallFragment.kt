@@ -2,6 +2,8 @@ package com.glass.mouher.ui.mall.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,7 +81,47 @@ class HomeMallFragment : Fragment() {
                 activity?.overridePendingTransition(0,0)
                 startActivity(intent)
             }
+
+            // Start 'animation' to scroll current horizontal scrollview
+            val mainHandler = Handler(Looper.getMainLooper())
+            currentState = ScrollPositions.Start
+
+            // repeat the funcion every 'SPONSOR_DURATION' duration
+            mainHandler.post(object : Runnable {
+                override fun run() {
+                    when(currentState){
+                        ScrollPositions.Start -> sponsorsScrollToMiddle()
+                        ScrollPositions.Middle -> sponsorsScrollToEnd()
+                        else -> sponsorsScrollToStart()
+                    }
+                    mainHandler.postDelayed(this, SPONSOR_DURATION)
+                }
+            })
         }
+    }
+
+    private fun sponsorsScrollToStart(){
+        binding.rvHomeSponsors.smoothScrollToPosition(0)
+        currentState = ScrollPositions.Start
+    }
+
+    private fun sponsorsScrollToMiddle(){
+        binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size/2)
+        currentState = ScrollPositions.Middle
+    }
+
+    private fun sponsorsScrollToEnd(){
+        binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
+        currentState = ScrollPositions.End
+    }
+
+    private val SPONSOR_DURATION = 5000L
+    private var currentState = ScrollPositions.Middle
+
+    enum class ScrollPositions{
+        Start,
+        Middle,
+        End
     }
 
     private fun setUpZonesRecycler() {

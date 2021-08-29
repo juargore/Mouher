@@ -40,19 +40,37 @@
             android:orientation="vertical"
             android:padding="7dp">
 
-            <EditText android:id="@+id/etCommentReview"
+            <EditText
+                android:id="@+id/etCommentReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="Agregue aquí su nota para esta orden"
+                android:hint="Notas *"
                 android:inputType="textMultiLine"
                 android:paddingBottom="2dp"
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <TextView android:id="@+id/txtSaveReview"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/txtSaveReview"
+            android:layout_width="280dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginStart="@dimen/margin_18dp"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:layout_marginEnd="@dimen/margin_18dp"
+            android:background="@drawable/button_ripple"
+            android:letterSpacing="0.2"
+            android:paddingStart="@dimen/margin_18dp"
+            android:paddingEnd="@dimen/margin_18dp"
+            android:text="ACEPTAR"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <!--<TextView android:id="@+id/txtSaveReview"
             style="@style/TextView.TitlesH6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,6 +78,6 @@
             android:gravity="right"
             android:includeFontPadding="true"
             android:paddingEnd="10dp"
-            android:text="Aceptar" />
+            android:text="Aceptar" />-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

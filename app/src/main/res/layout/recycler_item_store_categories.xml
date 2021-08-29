@@ -8,18 +8,20 @@
             name="viewModel"
             type="com.glass.mouher.ui.store.home.StoreCategoryItemViewModel" />
     </data>
-    <androidx.cardview.widget.CardView android:id="@+id/cardStoreCategories"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardStoreCategories"
         android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:layout_margin="3dp"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="3dp">
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="1dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView android:id="@+id/imageView3"
+            <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
@@ -29,7 +31,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            <LinearLayout android:layout_width="match_parent"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_category_gradient"
                 android:gravity="center_horizontal|center_vertical"
@@ -40,7 +44,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView3">
 
-                <TextView style="@style/TextView.TitlesH6"
+                <TextView
+                    style="@style/TextView.TitlesH7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -49,13 +54,15 @@
                     android:fontFamily="@font/regular"
                     android:gravity="center_horizontal"
                     android:includeFontPadding="false"
+                    android:lines="2"
                     android:maxLines="2"
                     android:text="@{ viewModel.description }"
                     android:textColor="@color/bgWhite"
-                    android:textSize="13sp"
+                    android:textSize="11sp"
                     tools:text="Text" />
 
-                <TextView style="@style/TextView.TitlesH5"
+                <TextView
+                    style="@style/TextView.TitlesH6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -64,6 +71,7 @@
                     android:maxLines="2"
                     android:text="@{ viewModel.name }"
                     android:textColor="@color/bgWhite"
+                    android:textSize="13sp"
                     tools:text="Text" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -74,5 +74,18 @@ data class StoreData(
 
     fun getImageVideo(): String? = VideoImagenFondo
 
-    fun getLinkForVideo(): String? = Video
+    fun getLinkForVideo(): String?{
+        Video?.let{ url->
+            return if(url.contains(".mp4")
+                || url.contains(".3gp")
+                || url.contains(".mkv")
+            ){
+                url
+            }else{
+                ""
+            }
+        }
+
+        return ""
+    }
 }

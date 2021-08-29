@@ -39,14 +39,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView android:id="@+id/productImage"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
                 android:layout_gravity="center_horizontal"
-                android:paddingStart="5dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="5dp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 app:fromUrl="@{viewModel.imageUrl}"
                 tools:srcCompat="@drawable/ic_delete" />
 
@@ -54,30 +52,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="3dp">
 
-                <RatingBar android:id="@+id/ratingBar"
+                <RatingBar
+                    android:id="@+id/ratingBar"
                     style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:numStars="5"
-                    tools:rating="3"
                     android:rating="@{ viewModel.ratingStar }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:rating="3" />
 
-                <TextView android:id="@+id/txtDescriptionTop"
+                <TextView
+                    android:id="@+id/txtDescriptionTop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    tools:text="Men's Originals"
                     android:text="@{ viewModel.description }"
+                    android:textColor="@color/mainGrey"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Men's Originals" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView android:id="@+id/productName"
@@ -99,7 +101,8 @@
                 android:orientation="horizontal"
                 android:paddingTop="4dp">
 
-                <TextView android:id="@+id/txtPrice"
+                <TextView
+                    android:id="@+id/txtPrice"
                     style="@style/TextView.TitlesH6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,9 +113,9 @@
                     android:includeFontPadding="true"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    tools:text="$250"
                     android:text="@{ viewModel.currentPrice }"
-                    android:textColor="@color/mainRed" />
+                    android:textColor="@color/mainPink"
+                    tools:text="$250" />
 
                 <TextView android:id="@+id/txtOldPrice"
                     style="@style/TextView.TitlesH6"

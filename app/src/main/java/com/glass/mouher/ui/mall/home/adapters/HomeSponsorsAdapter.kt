@@ -35,6 +35,7 @@ class HomeSponsorsAdapter (
                 .placeholder(R.drawable.ic_blur)
                 .into(image)
 
+            //number.text = pos.toString()
             setOnClickListener {
                 onItemClicked?.invoke(item)
             }

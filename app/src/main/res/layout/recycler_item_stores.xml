@@ -60,7 +60,8 @@
                     android:text="@{ viewModel.name }"
                     tools:text="Text" />
 
-                <TextView style="@style/TextView.TitlesH6"
+                <TextView
+                    style="@style/TextView.TitlesH7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -69,6 +70,7 @@
                     android:gravity="center_horizontal"
                     android:includeFontPadding="false"
                     android:text="@{ viewModel.totalProducts }"
+                    android:textSize="11sp"
                     tools:text="Text" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

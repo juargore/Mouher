@@ -4,42 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardHomeZones"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:layout_margin="2dp"
     app:cardCornerRadius="2dp"
     app:cardElevation="3dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="2dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView android:id="@+id/image"
+        <ImageView
+            android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="0dp"
             android:foreground="?android:attr/selectableItemBackground"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:cardBackgroundColor="@color/mainPink"
+            app:cardCornerRadius="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="vertical"
-                android:paddingTop="6dp"
-                android:paddingBottom="4dp">
+                android:paddingTop="20dp"
+                android:paddingBottom="@dimen/margin_18dp">
 
-                <TextView android:id="@+id/title"
+                <TextView
+                    android:id="@+id/title"
                     style="@style/TextView.TitlesH5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,7 +59,9 @@
                     android:includeFontPadding="false"
                     android:text="Text"
                     android:textSize="17sp" />
-                <TextView android:id="@+id/subtitle"
+
+                <TextView
+                    android:id="@+id/subtitle"
                     style="@style/TextView.TitlesH7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

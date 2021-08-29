@@ -107,9 +107,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="24dp"
+                android:layout_marginStart="@dimen/margin_24dp"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:layout_marginEnd="@dimen/margin_24dp"
+                android:layout_marginBottom="@dimen/margin_12dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -127,7 +131,8 @@
                         android:text="Bienvenid@" />
                 </LinearLayout>
 
-                <TextView android:id="@+id/signinError"
+                <TextView
+                    android:id="@+id/signinError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -154,7 +159,8 @@
                         tools:targetApi="o" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/signinPasswordInput"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/signinPasswordInput"
                     style="@style/TextInputLayoutAppearanceBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,7 +170,8 @@
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/onyxBlack">
 
-                    <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/EditTextBlack"
                         android:layout_width="match_parent"
                         android:inputType="textPassword"
                         android:text="@={ viewModel.userPassword }" />
@@ -198,23 +205,26 @@
                     android:text="Nuevo Registro"
                     android:textColor="@color/mainPink" />
 
-                <View android:layout_width="match_parent"
+                <View
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/signinButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="58dp"
+                    android:layout_width="280dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/margin_18dp"
                     android:background="@drawable/button_ripple"
+                    android:letterSpacing="0.2"
                     android:onClick="@{ viewModel::onSignInButtonClicked }"
                     android:paddingStart="@dimen/margin_18dp"
                     android:paddingEnd="@dimen/margin_18dp"
                     android:text="ENVIAR"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="19sp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

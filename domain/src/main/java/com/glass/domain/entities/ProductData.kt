@@ -4,7 +4,8 @@ package com.glass.domain.entities
 data class ProductData(
     val IdProducto: Int? = null,
     val Nombre: String? = null,
-    val Descripcion: String? = null,
+    val DescripcionCorta: String? = null,
+    val DescripcionLarga: String? = null,
     val Fotografia: String? = null,
     val PrecioActual: String? = null,
     val PrecioAnterior: String? = null,
@@ -17,7 +18,8 @@ data class ProductData(
             sidePhoto1 = Fotografia,
             currentPrice = PrecioActual,
             oldPrice = PrecioAnterior,
-            description = Descripcion,
+            description = DescripcionCorta,
+            fullDescription = DescripcionLarga,
             rating = Rating
         )
     }
@@ -35,6 +37,7 @@ data class ProductUI(
     val currentPrice: String? = null,
     val oldPrice: String? = null,
     val description: String? = null,
+    val fullDescription: String? = null,
     val rating: Int? = null,
     val discount: String? = null,
 
@@ -59,7 +62,9 @@ data class FullProductDataResponse(
     val BannerTituloFoto: String? = null,
     val BannerSubtituloFoto: String? = null,
     val Nombre: String? = null,
-    val Descripcion: String? = null,
+    val DescripcionCorta: String? = null,
+    val DescripcionLarga: String? = null,
+    val FullDescription: String? = null,
     val Fotografia1: String? = null,
     val Fotografia2: String? = null,
     val Fotografia3: String? = null,
@@ -90,7 +95,8 @@ data class FullProductDataResponse(
         sidePhoto5 = Fotografia5,
         currentPrice = PrecioActual,
         oldPrice = PrecioAnterior,
-        description = Descripcion,
+        description = DescripcionCorta,
+        fullDescription = DescripcionLarga,
         rating = Rating,
         classificationTitle1 = Clasificacion1,
         classificationValues1AsString = ValoresClasificacion1,

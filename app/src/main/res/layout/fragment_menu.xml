@@ -16,15 +16,30 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <TextView android:id="@+id/textView73"
+        <TextView
+            android:id="@+id/textView73"
             style="@style/TextView.TitlesH7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_12dp"
-            tools:text="v2.1.0"
+            android:includeFontPadding="false"
             android:text="@{ viewModel.versionStr }"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="v2.1.0" />
+
+        <TextView
+            android:id="@+id/textView60"
+            style="@style/TextView.TitlesH7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ocean Business Software"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <LinearLayout android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -67,7 +82,8 @@
                 android:elevation="4dp"
                 android:orientation="horizontal"
                 android:visibility="@{viewModel.layoutUserLoggedInVisible ? View.VISIBLE : View.GONE}"
-                android:weightSum="2">
+                android:weightSum="2"
+                tools:visibility="gone">
 
                 <ImageView
                     android:id="@+id/productImage"
@@ -129,8 +145,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:visibility="@{viewModel.layoutUserNotLoggedInVisible ? View.VISIBLE : View.GONE}"
-                android:weightSum="2"
-                tools:visibility="gone">
+                android:weightSum="2">
 
                 <ImageView
                     android:id="@+id/prImage"
@@ -142,7 +157,39 @@
                     tools:fromUrl="@{ viewModel.logoMouher }"
                     tools:srcCompat="@drawable/logo_mouher1" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button7"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginStart="@dimen/margin_18dp"
+                    android:layout_marginEnd="@dimen/margin_18dp"
+                    android:layout_marginBottom="@dimen/margin_12dp"
+                    android:background="@drawable/button_ripple"
+                    android:letterSpacing="0.2"
+                    android:onClick="@{ viewModel::onSignInClick }"
+                    android:paddingStart="@dimen/margin_18dp"
+                    android:paddingEnd="@dimen/margin_18dp"
+                    android:text="INICIAR SESIÓN"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <!--<Button
+                    android:id="@+id/button7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/margin_12dp"
+                    android:background="@drawable/button_ripple"
+                    android:inputType="textCapWords"
+                    android:onClick="@{ viewModel::onSignInClick }"
+                    android:paddingStart="@dimen/margin_18dp"
+                    android:paddingEnd="@dimen/margin_18dp"
+                    android:text="Iniciar Sesión"
+                    tools:ignore="TextViewEdits" />-->
+
+                <!--<TextView
                     android:id="@+id/textView30"
                     style="@style/TextView.TitlesH5"
                     android:layout_width="wrap_content"
@@ -157,7 +204,7 @@
                     android:text="Iniciar Sesión"
                     android:textColor="@color/white"
                     tools:ignore="UnusedAttribute"
-                    tools:targetApi="m" />
+                    tools:targetApi="m" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -206,23 +253,30 @@
                     android:paddingBottom="5dp"/>
             </LinearLayout>
 
-            <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="44dp"
                 android:fillViewport="true">
-                <LinearLayout android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingStart="20sp"
                     android:paddingTop="@dimen/margin_12dp"
                     android:paddingEnd="@dimen/margin_18dp">
 
-                    <LinearLayout android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        tools:visibility="visible"
-                        android:visibility="@{ viewModel.profileSectionVisible ? View.VISIBLE : View.GONE }">>
+                        android:visibility="@{ viewModel.profileSectionVisible ? View.VISIBLE : View.GONE }"
+                        tools:visibility="visible">
+                        >
 
-                        <TextView android:id="@+id/textView72"
+                        <TextView
+                            android:id="@+id/textView72"
                             style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -233,7 +287,9 @@
                             android:paddingEnd="8dp"
                             android:text="Mi Perfil"
                             android:textSize="15sp" />
-                        <TextView android:id="@+id/textView70"
+
+                        <TextView
+                            android:id="@+id/textView70"
                             style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -245,23 +301,25 @@
                             android:textSize="15sp" />
                     </LinearLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_12dp"
                         android:layout_marginBottom="@dimen/margin_12dp"
                         android:onClick="@{ viewModel::onShowZonesSectionClick }"
                         android:orientation="horizontal">
 
-                        <TextView android:id="@+id/txtZonesOrCategories"
+                        <TextView
+                            android:id="@+id/txtZonesOrCategories"
                             style="@style/TextView.TitlesH5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
-                            tools:text="Zonas Comerciales"
                             android:text="@{ viewModel.stringZoneOrCategory }"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Zonas Comerciales" />
 
                         <ImageView
                             android:id="@+id/imageView23"
@@ -275,13 +333,14 @@
                             tools:rotationFromResource="@{ viewModel.rotateAnimationForZonesSection}" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvMenu"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:items="@{viewModel.items}"
+                        android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"
                         app:clickHandler="@{ viewModel }"
-                        app:itemViewBinder="@{view.itemViewBinder}"
-                        android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"/>
+                        app:itemViewBinder="@{view.itemViewBinder}" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -289,16 +348,18 @@
                         android:layout_marginTop="@dimen/margin_12dp"
                         android:onClick="@{ viewModel::onShowMouherSectionClick }"
                         android:orientation="horizontal">
-                        <TextView android:id="@+id/textView64"
+
+                        <TextView
+                            android:id="@+id/textView64"
                             style="@style/TextView.TitlesH5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
-                            tools:text="Mouher Market"
                             android:text="@{ viewModel.stringMouherOrStore }"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Mouher Market" />
 
                         <ImageView
                             android:id="@+id/imageView24"
@@ -312,7 +373,8 @@
                             tools:rotationFromResource="@{ viewModel.rotateAnimationForMouherSection }" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <LinearLayout android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="@{ viewModel.mouherSectionVisible ? View.VISIBLE : View.GONE }">
@@ -331,7 +393,8 @@
                             android:text="Sobre nosotros"
                             android:textSize="15sp" />
 
-                        <TextView android:id="@+id/textView67"
+                        <TextView
+                            android:id="@+id/textView67"
                             style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -342,7 +405,9 @@
                             android:paddingEnd="8dp"
                             android:text="Contáctanos"
                             android:textSize="15sp" />
-                        <TextView android:id="@+id/textView68"
+
+                        <TextView
+                            android:id="@+id/textView68"
                             style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -353,7 +418,9 @@
                             android:paddingEnd="8dp"
                             android:text="Servicios Adicionales"
                             android:textSize="15sp" />
-                        <TextView android:id="@+id/textView69"
+
+                        <TextView
+                            android:id="@+id/textView69"
                             style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

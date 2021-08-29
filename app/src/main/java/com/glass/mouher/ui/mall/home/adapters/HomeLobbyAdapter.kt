@@ -1,5 +1,6 @@
 package com.glass.mouher.ui.mall.home.adapters
 
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.ItemLobby
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_home_lobby.view.*
+import org.jetbrains.anko.windowManager
+
 
 class HomeLobbyAdapter (
     private var lobbyItemsList : List<ItemLobby>
@@ -28,15 +31,27 @@ class HomeLobbyAdapter (
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = lobbyItemsList[pos]
 
-        //imageView.getLayoutParams().height = 20;
         with(holder.itemView){
             titleLobby.text = item.title
             subtitleLobby.text = item.subtitle
 
-            when(pos){
-                0 -> image.layoutParams.height = 1400
-                1 -> image.layoutParams.height = 800
-                else-> image.layoutParams.height = 500
+            // Get width screen to apply correct size for image
+            val displayMetrics = DisplayMetrics()
+            context.windowManager.defaultDisplay.getMetrics(displayMetrics)
+            val width = displayMetrics.widthPixels
+
+            if(width < 950){
+                when(pos){
+                    0 -> image.layoutParams.height = 1000
+                    1 -> image.layoutParams.height = 500
+                    else-> image.layoutParams.height = 300
+                }
+            }else{
+                when(pos){
+                    0 -> image.layoutParams.height = 1500
+                    1 -> image.layoutParams.height = 700
+                    else-> image.layoutParams.height = 500
+                }
             }
 
             Glide.with(context)

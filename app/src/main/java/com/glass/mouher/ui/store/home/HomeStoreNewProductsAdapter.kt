@@ -2,6 +2,7 @@
 
 package com.glass.mouher.ui.store.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -35,11 +36,12 @@ class HomeStoreNewProductsAdapter (private val context: Context,
 
     @Suppress("DEPRECATION")
     inner class ItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
+        @SuppressLint("SetTextI18n")
         fun setData(item: ProductUI){
 
             with(itemView){
                 productName.text = item.name
-                txtPrice.text = item.currentPrice
+                txtPrice.text = "$${item.currentPrice}"
                 txtDescriptionTop.text = item.description
 
                 // set rating on stars
@@ -50,7 +52,7 @@ class HomeStoreNewProductsAdapter (private val context: Context,
                 if(item.oldPrice.isNullOrBlank()){
                     txtOldPrice.visibility = View.GONE
                 }else{
-                    txtOldPrice.text = item.oldPrice
+                    txtOldPrice.text = "$${item.oldPrice}"
                     txtOldPrice.let{
                         // middle line on the old price
                         it.paintFlags = it.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

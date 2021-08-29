@@ -28,11 +28,12 @@
                     app:srcCompat="@drawable/ic_close" />
             </RelativeLayout>
 
-            <TextView android:id="@+id/textView35"
+            <TextView
+                android:id="@+id/textView35"
                 style="@style/TextView.TitlesH6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar una Reseña"
+                android:text="Comparte una Reseña"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,26 +43,28 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <EditText android:id="@+id/etNameReview"
+            <EditText
+                android:id="@+id/etNameReview"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="@dimen/margin_12dp"
                 android:background="@drawable/background_grey_subscribe"
                 android:ems="10"
-                android:hint="Nombre*"
+                android:hint="Nombre *"
                 android:inputType="textPersonName"
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp"
                 android:textSize="15sp" />
 
-            <EditText android:id="@+id/etEmailReview"
+            <EditText
+                android:id="@+id/etEmailReview"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="@dimen/margin_12dp"
                 android:background="@drawable/background_grey_subscribe"
                 android:ems="10"
-                android:hint="Correo*"
+                android:hint="Correo *"
                 android:inputType="textPersonName"
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp"
@@ -97,19 +100,35 @@
             android:orientation="vertical"
             android:padding="7dp">
 
-            <EditText android:id="@+id/etCommentReview"
+            <EditText
+                android:id="@+id/etCommentReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="Agregue aquí sus comentarios sobre el producto"
+                android:hint="Comentarios *"
                 android:inputType="textMultiLine"
                 android:paddingBottom="2dp"
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <TextView android:id="@+id/txtSaveReview"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/txtSaveReview"
+            android:layout_width="280dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:background="@drawable/button_ripple"
+            android:letterSpacing="0.2"
+            android:paddingStart="@dimen/margin_18dp"
+            android:paddingEnd="@dimen/margin_18dp"
+            android:text="Compartir"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <!--<TextView android:id="@+id/txtSaveReview"
             style="@style/TextView.TitlesH6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,6 +136,6 @@
             android:gravity="right"
             android:includeFontPadding="true"
             android:paddingEnd="10dp"
-            android:text="Guardar Reseña" />
+            android:text="Guardar Reseña" />-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

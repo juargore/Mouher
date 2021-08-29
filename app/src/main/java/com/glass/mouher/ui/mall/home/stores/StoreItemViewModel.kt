@@ -14,6 +14,6 @@ class StoreItemViewModel(
 
     val imageUrl = store.urlImage
 
-    val totalProducts = "${store.totalProducts} Productos"
+    val totalProducts = "(${store.totalProducts} productos)"
 
 }

@@ -201,16 +201,19 @@ class ProductDetailViewModel(
 
         // Product information
         productName = product.name ?: ""
-        productDescription = product.description ?: ""
+        productDescription = product.fullDescription ?: ""
         productRating = product.rating ?: 0
         currentPrice = product.currentPrice?.toDouble() ?: 0.0
-        oldPrice = product.oldPrice ?: "$"
+
+        product.oldPrice?.let{
+            oldPrice = "$ $it"
+            notifyPropertyChanged(BR.oldPrice)
+        }
 
         notifyPropertyChanged(BR.productName)
         notifyPropertyChanged(BR.productDescription)
         notifyPropertyChanged(BR.productRating)
         notifyPropertyChanged(BR.currentPrice)
-        notifyPropertyChanged(BR.oldPrice)
 
 
         // Classification section here
