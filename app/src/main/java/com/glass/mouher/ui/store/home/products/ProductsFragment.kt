@@ -14,6 +14,7 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
+import com.glass.mouher.utils.openOrRefreshFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductsFragment : Fragment() {
@@ -62,12 +63,12 @@ class ProductsFragment : Fragment() {
             putInt("storeId", viewModel.storeId)
         }
 
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container_body, ProductDetailFragment().apply {
-                arguments = args })
-
-            addToBackStack("Detail"); commit()
-        }
+        requireActivity().openOrRefreshFragment(
+            forStore = true,
+            destination = ProductDetailFragment(),
+            args = args,
+            name = "Detail"
+        )
     }
 
     override fun onPause() {

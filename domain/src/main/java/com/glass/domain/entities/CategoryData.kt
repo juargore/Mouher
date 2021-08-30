@@ -3,7 +3,7 @@ package com.glass.domain.entities
 data class CategoryData(
     val IdCategoria: Int? = null,
     val Nombre: String? = null,
-    val Descripcion: String? = null,
+    val DescripcionCorta: String? = null,
     val Imagen: String? = null
 ){
 
@@ -11,7 +11,7 @@ data class CategoryData(
         return CategoryUI(
             categoryId = IdCategoria,
             name = Nombre,
-            description = Descripcion,
+            description = DescripcionCorta,
             imageUrl = Imagen
         )
     }

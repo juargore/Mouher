@@ -25,6 +25,7 @@ import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.store.home.HomeStoreNewProductsAdapter
 import com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsFragment
 import com.glass.mouher.utils.isEmailValid
+import com.glass.mouher.utils.openOrRefreshFragment
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -52,14 +53,12 @@ class ProductDetailFragment : Fragment() {
                         putInt("productId", viewModel.productId)
                     }
 
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body, ProductReviewsFragment().apply {
-                            arguments = args
-                        })
-
-                        addToBackStack("Reviews")
-                        commit()
-                    }
+                    requireActivity().openOrRefreshFragment(
+                        forStore = true,
+                        destination = ProductReviewsFragment(),
+                        args = args,
+                        name = "Reviews"
+                    )
                 }
             }
         }
@@ -91,8 +90,20 @@ class ProductDetailFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mAdapter
 
-            mAdapter.onItemClicked={
+            mAdapter.onItemClicked={ productId->
+                val storeId = arguments?.getInt("storeId") ?: 0
 
+                val args = Bundle().apply {
+                    putInt("productId", productId)
+                    putInt("storeId", storeId)
+                }
+
+                requireActivity().openOrRefreshFragment(
+                    forStore = true,
+                    destination = ProductDetailFragment(),
+                    args = args,
+                    name = null
+                )
             }
         }
     }

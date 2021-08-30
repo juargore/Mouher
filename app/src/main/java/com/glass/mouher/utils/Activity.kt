@@ -3,8 +3,12 @@ package com.glass.mouher.utils
 import android.app.Activity
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import com.glass.mouher.R
 
 
 fun Activity.makeStatusBarTransparent() {
@@ -18,5 +22,21 @@ fun Activity.makeStatusBarTransparent() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
         statusBarColor = Color.TRANSPARENT
+    }
+}
+
+fun FragmentActivity.openOrRefreshFragment(forStore: Boolean, destination: Fragment, args: Bundle?, name: String?){
+    supportFragmentManager.beginTransaction().apply {
+        replace(if(forStore) R.id.container_body else R.id.container_body_mall, destination.apply {
+            args?.let{
+                arguments = args
+            }
+        })
+
+        name?.let{
+            addToBackStack(it)
+        }
+
+        commit()
     }
 }

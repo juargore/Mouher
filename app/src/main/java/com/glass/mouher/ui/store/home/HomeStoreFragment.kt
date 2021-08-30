@@ -1,14 +1,11 @@
 package com.glass.mouher.ui.store.home
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
@@ -22,6 +19,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.ProductUI
 import com.glass.mouher.R
+import com.glass.mouher.utils.Constants.ScrollPositions
+import com.glass.mouher.utils.Constants.SPONSOR_DURATION
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
 import com.glass.mouher.extensions.startFadeInAnimation
 import com.glass.mouher.ui.common.SnackType
@@ -35,6 +34,7 @@ import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
 import com.glass.mouher.utils.CustomVideoView
 import com.glass.mouher.utils.WebBrowserUtils
+import com.glass.mouher.utils.openOrRefreshFragment
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -42,6 +42,7 @@ class HomeStoreFragment : Fragment() {
 
     private val viewModel: HomeStoreViewModel by viewModel()
     private lateinit var binding: FragmentHomeStoreBinding
+    private var currentState = ScrollPositions.Middle
 
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
@@ -125,14 +126,12 @@ class HomeStoreFragment : Fragment() {
                     putInt("storeId", viewModel.storeId)
                 }
 
-                requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.container_body, ProductDetailFragment().apply {
-                        arguments = args
-                    })
-
-                    addToBackStack("ProductDetail")
-                    commit()
-                }
+                requireActivity().openOrRefreshFragment(
+                    forStore = true,
+                    destination = ProductDetailFragment(),
+                    args = args,
+                    name = "ProductDetail"
+                )
             }
         }
     }
@@ -144,14 +143,12 @@ class HomeStoreFragment : Fragment() {
             putString("categoryName", viewModel.categoryName)
         }
 
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container_body, ProductsFragment().apply {
-                arguments = args
-            })
-
-            addToBackStack("Products")
-            commit()
-        }
+        requireActivity().openOrRefreshFragment(
+            forStore = true,
+            destination = ProductsFragment(),
+            args = args,
+            name = "Products"
+        )
     }
 
     private fun setLinkedStores() {
@@ -212,14 +209,6 @@ class HomeStoreFragment : Fragment() {
         currentState = ScrollPositions.End
     }
 
-    private val SPONSOR_DURATION = 5000L
-    private var currentState = ScrollPositions.Middle
-
-    enum class ScrollPositions{
-        Start,
-        Middle,
-        End
-    }
 
     private fun setUpVideo(urlVideo: String?) {
         if(urlVideo.isNullOrBlank()){

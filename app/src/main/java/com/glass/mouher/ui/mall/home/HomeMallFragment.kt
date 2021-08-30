@@ -24,7 +24,10 @@ import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.store.MainStoreActivity
+import com.glass.mouher.utils.Constants.ScrollPositions
+import com.glass.mouher.utils.Constants.SPONSOR_DURATION
 import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
+import com.glass.mouher.utils.openOrRefreshFragment
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,6 +35,7 @@ class HomeMallFragment : Fragment() {
 
     private val viewModel: HomeMallViewModel by viewModel()
     private lateinit var binding: FragmentHomeMallBinding
+    private var currentState = ScrollPositions.Middle
 
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
@@ -115,15 +119,6 @@ class HomeMallFragment : Fragment() {
         currentState = ScrollPositions.End
     }
 
-    private val SPONSOR_DURATION = 5000L
-    private var currentState = ScrollPositions.Middle
-
-    enum class ScrollPositions{
-        Start,
-        Middle,
-        End
-    }
-
     private fun setUpZonesRecycler() {
         with(binding.rvHomeZones){
             val mAdapter = HomeZonesAdapter(viewModel.zonesList)
@@ -137,14 +132,12 @@ class HomeMallFragment : Fragment() {
                     putString("zoneId", item.id.toString())
                 }
 
-                requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.container_body_mall, StoresFragment().apply {
-                        arguments = args
-                    })
-
-                    addToBackStack("Stores")
-                    commit()
-                }
+                requireActivity().openOrRefreshFragment(
+                    forStore = false,
+                    destination = StoresFragment(),
+                    args = args,
+                    name = "Stores"
+                )
             }
         }
     }

@@ -19,6 +19,7 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.menu.AMenuViewModel
 import com.glass.mouher.ui.menu.MenuItemBinder
+import com.glass.mouher.utils.openOrRefreshFragment
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -32,18 +33,20 @@ class UserProfileFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.openPayment -> {
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body_mall, PaymentFragment())
-                        addToBackStack("Payment")
-                        commit()
-                    }
+                    requireActivity().openOrRefreshFragment(
+                        forStore = false,
+                        destination = PaymentFragment(),
+                        args = null,
+                        name = "Payment"
+                    )
                 }
                 BR.openAddress -> {
-                    requireActivity().supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.container_body_mall, AddressFragment())
-                        addToBackStack("Address")
-                        commit()
-                    }
+                    requireActivity().openOrRefreshFragment(
+                        forStore = false,
+                        destination = AddressFragment(),
+                        args = null,
+                        name = "Address"
+                    )
                 }
                 BR.onDiscard -> showPopConfirmation()
             }
@@ -52,7 +55,7 @@ class UserProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false)
         binding.viewModel = viewModel
