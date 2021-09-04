@@ -30,17 +30,15 @@ val DIViewModel = module{
     }
 
     viewModel { SignInViewModel(
-        userUseCase = get(UseCases.USER_PROFILE.name))
+        userUseCase = get(UseCases.USER.name))
     }
 
     viewModel { SignUpViewModel(
-        context = androidContext(),
-        userUseCase = get(UseCases.USER_PROFILE.name))
+        userUseCase = get(UseCases.USER.name))
     }
 
     viewModel { ForgotPasswordViewModel(
-        context = androidContext(),
-        userUseCase = get(UseCases.USER_PROFILE.name))
+        userUseCase = get(UseCases.USER.name))
     }
 
     viewModel { HomeMallViewModel(

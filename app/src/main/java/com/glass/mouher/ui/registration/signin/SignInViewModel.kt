@@ -62,7 +62,6 @@ class SignInViewModel(
     fun onSignInButtonClicked(v: View){
         if(allFieldsValid()){
             // TODO: Make it disposable
-            userUseCase.signIn(userEmail, userPassword)
             notifyPropertyChanged(BR.mainMallScreen)
         }
     }

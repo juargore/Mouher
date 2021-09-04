@@ -27,8 +27,8 @@ val DIUseCases = module {
         productRepository = get()
     ) as IProductUseCase }
 
-    single(DIConstants.UseCases.USER_PROFILE.name) { UserUseCase(
-
+    single(DIConstants.UseCases.USER.name) { UserUseCase(
+        userRepository = get()
     ) as IUserUseCase }
 
     single(DIConstants.UseCases.CART.name) { CartUseCase(

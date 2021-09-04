@@ -1,17 +1,30 @@
 package com.glass.domain.usecases.user
 
-import com.glass.domain.entities.Item
-import io.reactivex.Observable
+import com.glass.domain.entities.LoginData
+import com.glass.domain.entities.RegistrationData
+import com.glass.domain.entities.ResponseUI
+import io.reactivex.Single
 
 interface IUserUseCase {
 
-    fun getUserProfile(): Observable<Item>
+    fun signIn(
+        email: String,
+        password: String
+    ): Single<LoginData>
 
-    fun addOrUpdateUserProfile()
+    fun signUp(
+        name: String,
+        fLastName: String,
+        mLastName: String,
+        gender: Int,
+        birthday: String,
+        phone: Int,
+        email: String,
+        password: String
+    ): Single<RegistrationData>
 
-    fun signIn(email: String, password: String)
 
-    fun signUp()
-
-    fun recoverPassword()
+    fun recoverPassword(
+        email: String
+    ): Single<ResponseUI>
 }

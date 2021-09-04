@@ -2,16 +2,14 @@
 
 package com.glass.mouher.ui.registration.forgot
 
-import android.content.Context
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
-import com.glass.mouher.ui.base.BaseViewModel
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.usecases.user.IUserUseCase
+import com.glass.mouher.ui.base.BaseViewModel
 
 class ForgotPasswordViewModel(
-    private val context: Context,
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
 
@@ -48,8 +46,7 @@ class ForgotPasswordViewModel(
         if(!isEmailValid()){
             error = "Introduzca su correo electrónico válido"
         } else{
-            //TODO: Make it observable
-            userUseCase.recoverPassword()
+
         }
     }
 
