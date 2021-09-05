@@ -2,6 +2,7 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <import type="android.view.View"/>
         <variable
@@ -11,6 +12,7 @@
             name="view"
             type="com.glass.mouher.ui.registration.signin.SignInActivity" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -38,7 +40,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <LinearLayout android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -87,7 +90,8 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="74dp"
                 android:src="@drawable/logo_mouher1"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:ignore="ContentDescription" />
             <View android:id="@+id/view7"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -128,7 +132,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Bienvenid@" />
+                        android:text="Bienvenid@"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <TextView
@@ -148,7 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:hint="Correo"
-                    android:theme="@style/TextInputLayoutAppearanceBlack">
+                    android:theme="@style/TextInputLayoutAppearanceBlack"
+                    tools:ignore="HardcodedText">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/EditTextBlack"
@@ -168,7 +174,8 @@
                     android:theme="@style/TextInputLayoutAppearanceBlack"
                     app:passwordToggleDrawable="@drawable/toggle_password"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/onyxBlack">
+                    app:passwordToggleTint="@color/onyxBlack"
+                    tools:ignore="HardcodedText">
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/EditTextBlack"
@@ -189,21 +196,22 @@
                     android:includeFontPadding="false"
                     android:onClick="@{ viewModel::onPasswordClicked }"
                     android:text="Recuperar Contraseña"
-                    android:textColor="@color/mainPink" />
+                    android:textColor="@color/mainPink"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     style="@style/TextView.TitlesH5"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_gravity="end"
-                    android:layout_marginTop="8dp"
                     android:drawableEnd="@drawable/ic_right_arrow"
                     android:fontFamily="@font/medium"
                     android:gravity="end|center_vertical"
                     android:includeFontPadding="false"
                     android:onClick="@{ viewModel::onSignupClicked }"
                     android:text="Nuevo Registro"
-                    android:textColor="@color/mainPink" />
+                    android:textColor="@color/mainPink"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="match_parent"
@@ -227,7 +235,8 @@
                     android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/textView11"

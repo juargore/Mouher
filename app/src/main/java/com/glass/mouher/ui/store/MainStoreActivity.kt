@@ -15,12 +15,16 @@ import com.glass.mouher.ui.menu.MenuFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.FragmentManager
+import com.glass.mouher.shared.General
 import com.glass.mouher.ui.cart.CartActivity
 
 class MainStoreActivity : AppCompatActivity() {
 
     private val viewModel: MainStoreViewModel by viewModel()
     private lateinit var binding: ActivityMainStoreBinding
+
+    private lateinit var drawerFragment: MenuFragment
+    private lateinit var toolbar: Toolbar
 
     companion object{
         var storeId: Int = 1 // 1 is defaul value
@@ -48,11 +52,11 @@ class MainStoreActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // set custom toolbar with menu | logo | cart
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         // set navigation drawer on left side
-        val drawerFragment = supportFragmentManager
+        drawerFragment = supportFragmentManager
             .findFragmentById(R.id.fragment_navigation_drawer_store) as MenuFragment
 
         // open first screen on framelayout
@@ -71,6 +75,18 @@ class MainStoreActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+
+        if(General.getMustRefreshMenuStore()){
+            // open first screen on framelayout
+            drawerFragment.setUpDrawer(
+                R.id.fragment_navigation_drawer_store,
+                findViewById(R.id.drawer_layout_store),
+                toolbar,
+                "STORE"
+            )
+
+            General.saveMustRefreshMenuStore(false)
+        }
     }
 
     override fun onStart() {
@@ -80,6 +96,13 @@ class MainStoreActivity : AppCompatActivity() {
         binding.layoutLogos.setOnClickListener {
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
+    }
+
+    fun refreshActivityFromFragment(){
+        General.saveMustRefreshMenuMall(true)
+
+        finish()
+        startActivity(intent)
     }
 
     override fun onPause() {

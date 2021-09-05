@@ -2,6 +2,7 @@ package com.glass.mouher.ui.registration.forgot
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -20,13 +21,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private val viewModel: ForgotPasswordViewModel by viewModel()
     private lateinit var binding: ActivityForgotPasswordBinding
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.backClicked -> finish()
-                BR.error -> showErrorMsg()
-            }
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.backClicked -> finish()
+            BR.error -> showErrorMsg()
         }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +36,18 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding.view = this
 
         makeStatusBarTransparent()
-
-        viewModel.onResume(onPropertyChangedCallback)
     }
 
     private fun showErrorMsg(){
-        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
+        val type = if(viewModel.hasError) SnackType.ERROR else SnackType.SUCCESS
+        showSnackbar(binding.root, viewModel.error, type)
+
+        if(!viewModel.hasError){
+            // Recover success -> Go back to login screen
+            Handler().postDelayed({
+                this@ForgotPasswordActivity.finish()
+            }, 1500)
+        }
     }
 
     override fun onResume() {

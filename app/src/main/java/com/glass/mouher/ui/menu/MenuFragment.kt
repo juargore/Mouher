@@ -135,22 +135,29 @@ class MenuFragment: Fragment() {
 
     private fun openFromMenuSubscreen(from: MENU?){
         if(from == MENU.LOGIN){
-            startActivity(Intent(activity, SignInActivity::class.java))
+            val intent = Intent(activity, SignInActivity::class.java)
+            intent.putExtra("source", source)
+            startActivity(Intent(intent))
+
+            closeDrawer()
             return
         }
 
         if(from == MENU.CONTACT){
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlContactUs)))
+            closeDrawer()
             return
         }
 
         if(from == MENU.EXTRA_SERVICES){
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlExtraServices)))
+            closeDrawer()
             return
         }
 
         if(from == MENU.MORE_INFO){
             showPopUpContact()
+            closeDrawer()
             return
         }
 

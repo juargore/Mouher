@@ -95,8 +95,10 @@
                 android:drawablePadding="8dp"
                 android:includeFontPadding="true"
                 android:text="Salir"
+                android:onClick="@{ viewModel::onSignOutClicked }"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -259,13 +261,16 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/regular"
-                                android:text="México" />
+                                android:text="México"
+                                tools:ignore="HardcodedText" />
                             <TextView android:id="@+id/textView48"
                                 style="@style/TextView.TitlesH7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/regular"
-                                android:text="Teléfono: 3335815761" />
+                                android:text="Teléfono: 3335815761"
+                                tools:ignore="HardcodedText" />
+
                             <LinearLayout android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="5dp"
@@ -280,7 +285,8 @@
                                     android:backgroundTint="@color/mainGrey"
                                     android:onClick="@{ viewModel::onEditAddressClicked }"
                                     android:text="Editar"
-                                    android:textAllCaps="false" />
+                                    android:textAllCaps="false"
+                                    tools:ignore="HardcodedText" />
 
                                 <Button android:id="@+id/button4"
                                     android:layout_width="wrap_content"
@@ -291,7 +297,8 @@
                                     android:backgroundTint="@color/mainRed"
                                     android:onClick="@{ viewModel::onDiscardAddressClicked }"
                                     android:text="Eliminar"
-                                    android:textAllCaps="false" />
+                                    android:textAllCaps="false"
+                                    tools:ignore="HardcodedText" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -313,7 +320,9 @@
                             android:layout_marginEnd="@dimen/margin_18dp"
                             android:gravity="center_horizontal"
                             android:text="Aún no has agregado una dirección de entrega preestablecida. Agrégala ahora."
-                            android:textColor="@color/mainBlue" />
+                            android:textColor="@color/mainBlue"
+                            tools:ignore="HardcodedText" />
+
                         <ImageView android:id="@+id/imageView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -6,13 +6,22 @@ import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.LoginData
 import com.glass.domain.usecases.user.IUserUseCase
+import com.glass.mouher.shared.General.saveUserEmail
+import com.glass.mouher.shared.General.saveUserId
+import com.glass.mouher.shared.General.saveUserName
+import com.glass.mouher.shared.General.saveUserSignedIn
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.utils.isEmailValid
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class SignInViewModel(
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
+
+    var hasErrors = true
 
     @Bindable
     var passwordScreen: Unit? = null
@@ -61,9 +70,43 @@ class SignInViewModel(
 
     fun onSignInButtonClicked(v: View){
         if(allFieldsValid()){
-            // TODO: Make it disposable
-            notifyPropertyChanged(BR.mainMallScreen)
+            progressVisible = true
+            addDisposable(userUseCase.signIn(userEmail.trim(), userPassword.trim())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSignInResponse, this::onError)
+            )
         }
+    }
+
+    private fun onSignInResponse(response: LoginData){
+        progressVisible = false
+
+        if(response.Error!! > 0){
+            hasErrors = true
+            error = response.Mensaje
+        }else{
+            hasErrors = false
+            error = response.Mensaje
+
+            // save data on internal shared preferences
+            with(response){
+                val user = "$Nombre $ApellidoP $ApellidoM"
+                val id = IdCliente ?: 0
+
+                saveUserSignedIn(true)
+                saveUserName(user)
+                saveUserId(id)
+                saveUserEmail(userEmail)
+            }
+        }
+    }
+
+
+    private fun onError(t: Throwable?){
+        progressVisible = false
+        hasErrors = true
+        error = t?.message
     }
 
     fun onBackClicked(view: View){

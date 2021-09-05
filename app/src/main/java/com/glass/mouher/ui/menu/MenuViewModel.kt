@@ -17,6 +17,10 @@ import com.glass.domain.entities.ZoneUI
 import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.R
+import com.glass.mouher.shared.General.getUserEmail
+import com.glass.mouher.shared.General.getUserId
+import com.glass.mouher.shared.General.getUserName
+import com.glass.mouher.shared.General.getUserSignedIn
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,6 +39,20 @@ class MenuViewModel(
     lateinit var context: Context
 
     private var source: String? = null
+
+    @Bindable
+    var userName: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.userName)
+        }
+
+    @Bindable
+    var userEmail: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.userEmail)
+        }
 
     @Bindable
     var screen: MENU? = null
@@ -174,8 +192,13 @@ class MenuViewModel(
         context = c
         source = s
 
-        //TODO
-        isUserLoggedIn = false
+        // if user is signed in && his id != 0 && his name != blank()
+        isUserLoggedIn = getUserSignedIn() && getUserId() > 0 && getUserName()!!.isNotBlank()
+
+        if(isUserLoggedIn){
+            userName = getUserName()
+            userEmail = getUserEmail()
+        }
     }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {

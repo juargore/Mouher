@@ -1,6 +1,7 @@
 package com.glass.mouher.ui.cart
 
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -8,6 +9,10 @@ import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.mouher.App.Companion.context
+import com.glass.mouher.shared.General
+import com.glass.mouher.shared.General.getUserId
+import com.glass.mouher.shared.General.getUserName
+import com.glass.mouher.shared.General.getUserSignedIn
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.propertyChangedCallback
@@ -44,6 +49,13 @@ class CartViewModel(
         set(value){
             field = value
             notifyPropertyChanged(BR.items)
+        }
+
+    @Bindable
+    var error: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.error)
         }
 
     /**
@@ -112,10 +124,22 @@ class CartViewModel(
         notifyPropertyChanged(BR.onBackClicked)
     }
 
+    fun onPayClicked(v: View?){
+        if(items.isNotEmpty()){
+            val isUserLoggedIn = getUserSignedIn() && getUserId() > 0 && getUserName()!!.isNotBlank()
+
+            if(isUserLoggedIn){
+                // TODO: proceed to payment process
+                Log.e("--", "Aquí se procede al pago")
+            }else{
+                // inform no user signed in
+                error = "Inicie sesión para continuar con el pago de sus productos"
+            }
+        }
+    }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
-        onCleared()
     }
 
 

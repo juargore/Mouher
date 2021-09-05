@@ -7,10 +7,7 @@ import io.reactivex.Single
 
 interface IUserUseCase {
 
-    fun signIn(
-        email: String,
-        password: String
-    ): Single<LoginData>
+    fun signIn(email: String, password: String): Single<LoginData>
 
     fun signUp(
         name: String,
@@ -20,11 +17,8 @@ interface IUserUseCase {
         birthday: String,
         phone: Int,
         email: String,
-        password: String
-    ): Single<RegistrationData>
+        password: String ): Single<RegistrationData>
 
 
-    fun recoverPassword(
-        email: String
-    ): Single<ResponseUI>
+    fun recoverPassword(email: String): Single<ResponseUI>
 }

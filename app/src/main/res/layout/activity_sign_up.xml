@@ -270,11 +270,23 @@
                                 android:padding="16dp" />
 
                             <TextView
-                                android:id="@+id/termsAndConditionsLabel"
+                                android:id="@+id/termsAndConditionsLabel1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="He leído y acepto los "
+                                android:textColor="@color/mainGrey"
+                                android:textSize="13sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/termsAndConditionsLabel2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="He leído y acepto los Términos y Condiciones"
+                                android:onClick="@{ viewModel::onTermsClicked }"
+                                android:text="Términos y Condiciones"
                                 android:textColor="@color/mainGrey"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
                                 tools:ignore="HardcodedText" />
                         </LinearLayout>
                     </LinearLayout>

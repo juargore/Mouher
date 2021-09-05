@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
@@ -15,9 +16,12 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityCartBinding
+import com.glass.mouher.shared.General
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.common.showSnackbar
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -39,6 +43,7 @@ class CartActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition( 0, 0)
                 }
+                BR.error -> showErrorMsg()
             }
         }
 
@@ -83,6 +88,10 @@ class CartActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
+    }
+
+    private fun showErrorMsg(){
+        showSnackbar(binding.root, viewModel.error, SnackType.INFO)
     }
 
     fun itemViewBinder(): ItemBinder<ACartListViewModel> {

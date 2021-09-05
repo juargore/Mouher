@@ -1,20 +1,17 @@
 package com.glass.mouher.ui.profile
 
-import android.content.Context
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
-import com.glass.domain.usecases.user.IUserUseCase
 import com.glass.mouher.R
 import com.glass.mouher.ui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
-class UserProfileViewModel(
-    private val context: Context
-): BaseViewModel() {
+class UserProfileViewModel: BaseViewModel() {
+
+    @Bindable
+    val signOut: Unit? = null
 
     @Bindable
     val openAddress: String? = null
@@ -56,6 +53,10 @@ class UserProfileViewModel(
 
     private fun onError(t: Throwable?){
 
+    }
+
+    fun onSignOutClicked(v: View?){
+        notifyPropertyChanged(BR.signOut)
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

@@ -6,12 +6,18 @@ import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.ResponseUI
 import com.glass.domain.usecases.user.IUserUseCase
 import com.glass.mouher.ui.base.BaseViewModel
+import com.glass.mouher.utils.isEmailValid
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class ForgotPasswordViewModel(
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
+
+    var hasError = true
 
     @Bindable
     var error: String? = null
@@ -43,19 +49,38 @@ class ForgotPasswordViewModel(
     }
 
     fun onSendClicked(v: View?){
-        if(!isEmailValid()){
+        if(!userEmail.isEmailValid()){
             error = "Introduzca su correo electrónico válido"
         } else{
+            progressVisible = true
 
+            addDisposable(userUseCase.recoverPassword(userEmail.trim())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onRecoverResponse, this::onError)
+            )
         }
     }
 
-    private fun isEmailValid(): Boolean{
-        return userEmail.isNotBlank() && "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})".toRegex().matches(userEmail)
+    private fun onRecoverResponse(response: ResponseUI){
+        progressVisible = false
+
+        if(response.hasErrors){
+            hasError = true
+            error = response.message
+        }else{
+            hasError = false
+            error = response.message
+        }
+    }
+
+    private fun onError(t: Throwable?){
+        progressVisible = false
+        hasError = true
+        error = t?.message
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
-        onCleared()
     }
 }

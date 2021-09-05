@@ -5,21 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
-import androidx.recyclerview.widget.GridLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentUserProfileBinding
+import com.glass.mouher.shared.General.saveUserEmail
+import com.glass.mouher.shared.General.saveUserId
+import com.glass.mouher.shared.General.saveUserName
+import com.glass.mouher.shared.General.saveUserSignedIn
 import com.glass.mouher.ui.checkout.address.AddressFragment
 import com.glass.mouher.ui.checkout.payment.PaymentFragment
-import com.glass.mouher.ui.common.binder.CompositeItemBinder
-import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
-import com.glass.mouher.ui.mall.home.stores.StoresFragment
-import com.glass.mouher.ui.menu.AMenuViewModel
-import com.glass.mouher.ui.menu.MenuItemBinder
+import com.glass.mouher.ui.mall.MainActivityMall
+import com.glass.mouher.ui.store.MainStoreActivity
 import com.glass.mouher.utils.openOrRefreshFragment
+import org.jetbrains.anko.noButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -49,6 +49,7 @@ class UserProfileFragment : Fragment() {
                     )
                 }
                 BR.onDiscard -> showPopConfirmation()
+                BR.signOut -> showPopSignOut()
             }
         }
 
@@ -68,6 +69,30 @@ class UserProfileFragment : Fragment() {
         alert(title = "", message = "¿Está seguro que desea eliminar este registro?"){
             yesButton {
 
+            }
+        }.show()
+    }
+
+    private fun showPopSignOut(){
+        alert(title = "", message = "¿Seguro que deseas cerrar sesión en Mouher Market?"){
+            yesButton {
+                saveUserSignedIn(false)
+                saveUserName("")
+                saveUserEmail("")
+                saveUserId(0)
+
+                // Refresh activity to update side menu
+                if(activity is MainActivityMall){
+                    val parentActivity = activity as MainActivityMall
+                    parentActivity.refreshActivityFromFragment()
+                }else{
+                    val parentActivity = activity as MainStoreActivity
+                    parentActivity.refreshActivityFromFragment()
+                }
+
+            }
+            noButton {
+                it.dismiss()
             }
         }.show()
     }

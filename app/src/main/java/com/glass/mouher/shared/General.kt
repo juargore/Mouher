@@ -53,6 +53,30 @@ object General {
     }
 
 
+    private const val USER_EMAIL = "userEmail"
+
+    /**
+     * Save and Get on SharedPreferences the user name from Server.
+     * @param userName is the one retrieved from Server.
+     * Used on different screens as Profile to avoid a new call.
+     */
+    fun saveUserEmail(userName: String?){
+        context?.let{ c->
+            with(c.getSharedPreferences(USER_EMAIL, Context.MODE_PRIVATE)){
+                edit().putString(USER_EMAIL, userName).apply()
+            }
+        }
+    }
+
+    fun getUserEmail() : String? {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(USER_EMAIL, Context.MODE_PRIVATE)
+            return prefs.getString(USER_EMAIL, "")
+        }
+        return ""
+    }
+
+
     private const val USER_ID = "userId"
 
     /**
@@ -74,6 +98,54 @@ object General {
             return prefs.getInt(USER_ID, 0)
         }
         return 0
+    }
+
+
+    private const val MUST_REFRESH_MENU_MALL = "mustRefreshMenuMall"
+
+    /**
+     * Save and Get on SharedPreferences if user is signed in on App.
+     * @param mustRefresh informs that user is signed in or not.
+     * Used to check locally if User has been signed in previously.
+     */
+    fun saveMustRefreshMenuMall(mustRefresh: Boolean){
+        context?.let{ c->
+            with(c.getSharedPreferences(MUST_REFRESH_MENU_MALL, Context.MODE_PRIVATE)){
+                edit().putBoolean(MUST_REFRESH_MENU_MALL, mustRefresh).apply()
+            }
+        }
+    }
+
+    fun getMustRefreshMenuMall() : Boolean {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(MUST_REFRESH_MENU_MALL, Context.MODE_PRIVATE)
+            return prefs.getBoolean(MUST_REFRESH_MENU_MALL, false)
+        }
+        return false
+    }
+
+
+    private const val MUST_REFRESH_MENU_STORE = "mustRefreshMenuStore"
+
+    /**
+     * Save and Get on SharedPreferences if user is signed in on App.
+     * @param mustRefresh informs that user is signed in or not.
+     * Used to check locally if User has been signed in previously.
+     */
+    fun saveMustRefreshMenuStore(mustRefresh: Boolean){
+        context?.let{ c->
+            with(c.getSharedPreferences(MUST_REFRESH_MENU_STORE, Context.MODE_PRIVATE)){
+                edit().putBoolean(MUST_REFRESH_MENU_STORE, mustRefresh).apply()
+            }
+        }
+    }
+
+    fun getMustRefreshMenuStore() : Boolean {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(MUST_REFRESH_MENU_STORE, Context.MODE_PRIVATE)
+            return prefs.getBoolean(MUST_REFRESH_MENU_STORE, false)
+        }
+        return false
     }
 
 }

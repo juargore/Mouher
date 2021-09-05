@@ -61,9 +61,7 @@ val DIViewModel = module{
         storeUseCase = get(UseCases.STORE.name))
     }
 
-    viewModel { UserProfileViewModel(
-        context = androidContext())
-    }
+    viewModel { UserProfileViewModel() }
 
     viewModel { HistoryViewModel(
         context = androidContext())

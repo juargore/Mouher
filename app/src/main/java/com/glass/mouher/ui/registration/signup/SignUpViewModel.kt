@@ -1,7 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package com.glass.mouher.ui.registration.signup
 
-import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -9,6 +9,8 @@ import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.usecases.user.IUserUseCase
 import com.glass.mouher.ui.base.BaseViewModel
+import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
+import com.glass.mouher.utils.isEmailValid
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
@@ -164,14 +166,14 @@ class SignUpViewModel(
             progressVisible = true
 
             addDisposable(userUseCase.signUp(
-                name = fullName ?: "",
-                fLastName = fatherLastName ?: "",
-                mLastName = motherLastName ?: "",
+                name = fullName?.trim() ?: "",
+                fLastName = fatherLastName?.trim() ?: "",
+                mLastName = motherLastName?.trim() ?: "",
                 gender = gender,
-                birthday = birthDate ?: "0000-00-00",
+                birthday = birthDate?.trim() ?: "0000-00-00",
                 phone = phone.toInt(),
-                email = email,
-                password = passwordOne ?: ""
+                email = email.trim(),
+                password = passwordOne?.trim() ?: ""
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -243,7 +245,7 @@ class SignUpViewModel(
             error = "Por favor ingrese un número de teléfono de al menos 10 dígitos"
             return false
         }
-        if(!isEmailValid()){
+        if(!email.isEmailValid()){
             error = "Por favor ingrese un email válido"
             return false
         }
@@ -266,8 +268,9 @@ class SignUpViewModel(
         return true
     }
 
-    private fun isEmailValid(): Boolean{
-        return email.isNotBlank() && "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})".toRegex().matches(email)
+    fun onTermsClicked(v: View?){
+        val url = "https://mouhermarket.com/admin/uploads/tienda0/TD-ID0-CPLA-ID1-PoliticaCondiciones.PDF"
+        openUrlInExternalWebBrowser(url)
     }
 
     private fun onError(t: Throwable){
@@ -276,6 +279,5 @@ class SignUpViewModel(
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
-        onCleared()
     }
 }

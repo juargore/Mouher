@@ -14,9 +14,13 @@ import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
+import com.glass.mouher.shared.General.getMustRefreshMenuMall
+import com.glass.mouher.shared.General.saveMustRefreshMenuMall
 import com.glass.mouher.ui.menu.MenuFragment
 
 class MainActivityMall : AppCompatActivity() {
+
+    private lateinit var drawerFragment: MenuFragment
 
     companion object{
         @SuppressLint("StaticFieldLeak")
@@ -49,7 +53,7 @@ class MainActivityMall : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // set navigation drawer on left side
-        val drawerFragment = supportFragmentManager
+        drawerFragment = supportFragmentManager
             .findFragmentById(R.id.fragment_navigation_drawer_mall) as MenuFragment
 
         // open first screen on framelayout
@@ -61,6 +65,22 @@ class MainActivityMall : AppCompatActivity() {
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if(getMustRefreshMenuMall()){
+            // open first screen on framelayout
+            drawerFragment.setUpDrawer(
+                R.id.fragment_navigation_drawer_mall,
+                findViewById(R.id.drawer_layout_mall),
+                toolbar,
+                "MALL"
+            )
+
+            saveMustRefreshMenuMall(false)
+        }
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -68,6 +88,11 @@ class MainActivityMall : AppCompatActivity() {
         toolbar?.findViewById<ImageView>(R.id.imageLogo)?.setOnClickListener {
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
+    }
+
+    fun refreshActivityFromFragment(){
+        finish()
+        startActivity(intent)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
