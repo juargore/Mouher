@@ -294,7 +294,8 @@ class ProductDetailViewModel(
                 price = currentPrice,
                 imageUrl = miniSelected,
                 quantity = valueClassificationSelectedQuantity?.toInt() ?: 1,
-                valueClassification = value
+                valueClassification = value,
+                storeId = storeId
             ))
     }
 

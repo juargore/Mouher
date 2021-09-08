@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.checkout.address.AddressViewModel" />
+            type="com.glass.mouher.ui.profile.address.AddressViewModel" />
         <variable
             name="view"
-            type="com.glass.mouher.ui.checkout.address.AddressFragment" />
+            type="com.glass.mouher.ui.profile.address.AddressFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
@@ -40,15 +40,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_18dp">
+                android:paddingStart="@dimen/margin_18dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="@dimen/margin_18dp"
+                android:paddingBottom="@dimen/margin_18dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <LinearLayout android:id="@+id/textView44"
+                    <LinearLayout
+                        android:id="@+id/textView44"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -58,8 +64,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageButton android:id="@+id/back"
-                            android:layout_width="36dp"
+                        <ImageButton
+                            android:id="@+id/back"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:paddingTop="20dp"
@@ -70,7 +77,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView android:id="@+id/textView4"
+                        <TextView
+                            android:id="@+id/textView4"
                             style="@style/TextView.TitlesH4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -79,21 +87,26 @@
                             android:text="Dirección de entrega" />
                     </LinearLayout>
 
-                    <LinearLayout android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView44">
 
-                        <TextView android:id="@+id/textView65"
+                        <TextView
+                            android:id="@+id/textView65"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
-                        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginBottom="@dimen/margin_12dp">
 
-                            <ImageView android:id="@+id/imageView22"
+                            <ImageView
+                                android:id="@+id/imageView22"
                                 android:layout_width="40dp"
                                 android:layout_height="0dp"
                                 android:layout_marginTop="1dp"
@@ -105,7 +118,9 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/ic_arrow_drop_down" />
-                            <Spinner android:id="@+id/spinner"
+
+                            <Spinner
+                                android:id="@+id/spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:background="@drawable/background_stroke_gray_no_filled"
@@ -115,11 +130,13 @@
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginBottom="@dimen/margin_12dp">
 
-                            <ImageView android:id="@+id/imageView32"
+                            <ImageView
+                                android:id="@+id/imageView32"
                                 android:layout_width="40dp"
                                 android:layout_height="0dp"
                                 android:layout_marginTop="1dp"
@@ -131,7 +148,9 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/ic_arrow_drop_down" />
-                            <Spinner android:id="@+id/spinner1"
+
+                            <Spinner
+                                android:id="@+id/spinner1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:background="@drawable/background_stroke_gray_no_filled"
@@ -141,7 +160,8 @@
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressAddressInput1"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressAddressInput1"
                             style="@style/TextInputLayoutAppearanceBlack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -149,12 +169,14 @@
                             android:hint="Municipio"
                             android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/EditTextBlack"
                                 android:layout_width="match_parent"
                                 android:inputType="text" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressAddressInput"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressAddressInput"
                             style="@style/TextInputLayoutAppearanceBlack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -162,17 +184,20 @@
                             android:hint="Nombre de la calle o avenida"
                             android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/EditTextBlack"
                                 android:layout_width="match_parent"
                                 android:inputType="text" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <LinearLayout android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
-                            <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressInternalNumberInput"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/addressInternalNumberInput"
                                 style="@style/TextInputLayoutAppearanceBlack"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -182,12 +207,14 @@
                                 android:hint="N° interior"
                                 android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                                <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/EditTextBlack"
                                     android:layout_width="match_parent"
                                     android:inputType="number" />
                             </com.google.android.material.textfield.TextInputLayout>
 
-                            <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressExternalNumberInput"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/addressExternalNumberInput"
                                 style="@style/TextInputLayoutAppearanceBlack"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -197,14 +224,16 @@
                                 android:hint="N° exterior"
                                 android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                                <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/EditTextBlack"
                                     android:layout_width="match_parent"
                                     android:inputType="number" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPostalCodeInput"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressPostalCodeInput"
                             style="@style/TextInputLayoutAppearanceBlack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -212,12 +241,14 @@
                             android:hint="Código Postal"
                             android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/EditTextBlack"
                                 android:layout_width="match_parent"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPhoneInput"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressPhoneInput"
                             style="@style/TextInputLayoutAppearanceBlack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -225,13 +256,15 @@
                             android:hint="Número de teléfono"
                             android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/EditTextBlack"
                                 android:layout_width="match_parent"
                                 android:layout_marginBottom="@dimen/margin_18dp"
                                 android:inputType="phone" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView android:id="@+id/textView43"
+                        <TextView
+                            android:id="@+id/textView43"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/lorem_ipsum" />

@@ -17,10 +17,12 @@ import com.glass.domain.entities.ZoneUI
 import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.R
+import com.glass.mouher.shared.General.getUserCreationDate
 import com.glass.mouher.shared.General.getUserEmail
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.shared.General.getUserSignedIn
+import com.glass.mouher.shared.General.saveCurrentStoreName
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -38,7 +40,10 @@ class MenuViewModel(
     @SuppressLint("StaticFieldLeak")
     lateinit var context: Context
 
-    private var source: String? = null
+    companion object{
+        var source: String? = null
+    }
+
 
     @Bindable
     var userName: String? = null
@@ -52,6 +57,13 @@ class MenuViewModel(
         set(value){
             field = value
             notifyPropertyChanged(BR.userEmail)
+        }
+
+    @Bindable
+    var userCreationDate: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.userCreationDate)
         }
 
     @Bindable
@@ -198,6 +210,7 @@ class MenuViewModel(
         if(isUserLoggedIn){
             userName = getUserName()
             userEmail = getUserEmail()
+            userCreationDate = "Miembro desde ${getUserCreationDate()}"
         }
     }
 
@@ -292,6 +305,9 @@ class MenuViewModel(
                 storeIdSelectedOnMenu = it.substringBefore("-").toInt()
                 storeNameSelectedOnMenu = it.substringAfter("-")
                 stringMouherOrStore = "Sobre $storeNameSelectedOnMenu"
+
+                // save store name on shared preferences to use it on popups
+                saveCurrentStoreName(storeNameSelectedOnMenu)
             }, this::onError))
     }
 

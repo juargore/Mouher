@@ -18,11 +18,12 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.ProductUI
+import com.glass.domain.entities.SponsorUI
 import com.glass.mouher.R
-import com.glass.mouher.utils.Constants.ScrollPositions
-import com.glass.mouher.utils.Constants.SPONSOR_DURATION
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
+import com.glass.mouher.extensions.openOrRefreshFragment
 import com.glass.mouher.extensions.startFadeInAnimation
+import com.glass.mouher.shared.General.getCurrentStoreName
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
@@ -32,10 +33,14 @@ import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.store.MainStoreActivity
 import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
+import com.glass.mouher.utils.Constants.SPONSOR_DURATION
+import com.glass.mouher.utils.Constants.ScrollPositions
 import com.glass.mouher.utils.CustomVideoView
 import com.glass.mouher.utils.WebBrowserUtils
-import com.glass.mouher.utils.openOrRefreshFragment
 import com.synnapps.carouselview.ImageListener
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeStoreFragment : Fragment() {
@@ -163,16 +168,26 @@ class HomeStoreFragment : Fragment() {
             adapter = mAdapter
 
             mAdapter.onItemClicked={ sponsor->
-                val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                    putExtra("storeId", sponsor.id)
-                }
+                if(viewModel.totalProductsOnDb > 0){
 
-                activity?.let{
-                    it.overridePendingTransition(0,0)
-                    startActivity(intent)
-                    it.overridePendingTransition(0,0)
-                    it.finish()
+                    // there is at least one product on cart -> ask for confirmation
+                    alert(title = "", message = resources.getString(R.string.cart_confirm_change_store, getCurrentStoreName())){
+                        yesButton {
+                            viewModel.clearProductsFromCart()
+                            it.dismiss()
+
+                            Handler().postDelayed({
+                                loadNewStoreOnActivity(sponsor)
+                            }, 500)
+                        }
+                        noButton {
+                            it.dismiss()
+                        }
+                    }.show()
+                }else{
+
+                    // there is no products on cart -> change the store normally
+                    loadNewStoreOnActivity(sponsor)
                 }
             }
 
@@ -191,6 +206,20 @@ class HomeStoreFragment : Fragment() {
                     mainHandler.postDelayed(this, SPONSOR_DURATION)
                 }
             })
+        }
+    }
+
+    private fun loadNewStoreOnActivity(sponsor: SponsorUI){
+        val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            putExtra("storeId", sponsor.id)
+        }
+
+        activity?.let{
+            it.overridePendingTransition(0,0)
+            startActivity(intent)
+            it.overridePendingTransition(0,0)
+            it.finish()
         }
     }
 

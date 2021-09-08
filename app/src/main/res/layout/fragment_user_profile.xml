@@ -17,76 +17,32 @@
         android:layout_height="match_parent"
         android:background="@color/bgWhite">
 
-        <TextView android:id="@+id/textView9"
-            style="@style/TextView.TitlesH5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Carlos Esparza Cuevas"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraintLayout4"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@drawable/background_profile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintHeight_percent="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout android:id="@+id/linearLayout4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/TextView.TitlesH5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_12dp"
+                android:includeFontPadding="true"
+                android:text="@{ viewModel.userName }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.35"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <LinearLayout android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.65"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <ImageView android:id="@+id/imageView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/background_profile" />
-            </LinearLayout>
+                tools:ignore="HardcodedText"
+                tools:text="Arturo Gomez Resendiz" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
-                app:layout_constraintDimensionRatio="W,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.7"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout3">
-
-                <ImageView android:id="@+id/imageView9"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:circleFromResource="@{ viewModel.userPhoto }"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@drawable/face" />
-                <ImageView android:id="@+id/imageView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/imageView9"
-                    app:layout_constraintTop_toTopOf="@+id/imageView9"
-                    app:srcCompat="@drawable/ic_edit_image" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView android:id="@+id/textView53"
+            <TextView
+                android:id="@+id/textView53"
                 style="@style/TextView.TitlesH6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,38 +50,66 @@
                 android:drawableEnd="@drawable/ic_exit"
                 android:drawablePadding="8dp"
                 android:includeFontPadding="true"
-                android:text="Salir"
                 android:onClick="@{ viewModel::onSignOutClicked }"
+                android:text="Salir"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/textView55"
+                style="@style/TextView.TitlesH6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:drawableStart="@drawable/ic_edit_image"
+                android:drawablePadding="6dp"
+                android:includeFontPadding="true"
+                android:onClick="@{ viewModel::onSignOutClicked }"
+                android:text="Editar"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_18dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9">
-            <LinearLayout android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp">
-                <TextView android:id="@+id/textView36"
-                    style="@style/TextView.TitlesH6"
+
+                <TextView
+                    android:id="@+id/textView120"
+                    style="@style/TextView.TitlesH5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_24dp"
                     android:layout_marginBottom="2dp"
-                    android:text="Método de pago preestablecido" />
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    android:gravity="center_horizontal"
+                    android:text="Información General"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
-                    <androidx.cardview.widget.CardView android:layout_width="0dp"
-                        android:layout_height="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="1dp"
-                        android:visibility="visible"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -133,187 +117,336 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <LinearLayout android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingStart="@dimen/margin_12dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="8dp">
+
+                            <TextView
+                                android:id="@+id/textView521"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{ viewModel.userEmail }"
+                                tools:text="arturo.g.resendiz@gmail.com" />
+
+                            <TextView
+                                android:id="@+id/textView511"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.userPhone }"
+                                tools:text="Tel: 3334564567" />
+
+                            <TextView
+                                android:id="@+id/textView501"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.userBirthDate }"
+                                tools:text="Fecha nacimiento: 2012-09-09" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/button51"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="42dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/button_ripple"
+                                    android:letterSpacing="0.2"
+                                    android:onClick="@{ viewModel::onEditPersonalClicked }"
+                                    android:text="Editar"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp"
+                                    tools:ignore="ButtonStyle,HardcodedText" />
+
+                                <Button
+                                    android:id="@+id/button41"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="48dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/mainRed"
+                                    android:text="Eliminar"
+                                    android:textAllCaps="false"
+                                    android:visibility="gone"
+                                    tools:ignore="ButtonStyle,HardcodedText" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView36"
+                    style="@style/TextView.TitlesH5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_24dp"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_horizontal"
+                    android:text="Método de pago preestablecido"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+                        <!-- android:visibility="@{ viewModel.cardVisible ? View.VISIBLE : View.GONE }" -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:orientation="vertical"
                             android:paddingStart="@dimen/margin_12dp"
                             android:paddingTop="@dimen/margin_12dp"
                             android:paddingEnd="@dimen/margin_12dp">
-                            <TextView android:id="@+id/textView47"
-                                style="@style/TextView.TitlesH7"
+
+                            <TextView
+                                android:id="@+id/textView47"
+                                style="@style/TextView.TitlesH6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Visa ***6031" />
-                            <TextView android:id="@+id/textView46"
-                                style="@style/TextView.TitlesH7"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.cardNumber }"
+                                tools:text="Visa ***6031" />
+
+                            <TextView
+                                android:id="@+id/textView46"
+                                style="@style/TextView.TitlesH6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="JUAN CARLOS ESPARZA CUEVAS" />
-                            <TextView android:id="@+id/textView45"
-                                style="@style/TextView.TitlesH7"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.cardOwner }"
+                                tools:text="JUAN CARLOS ESPARZA CUEVAS" />
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="11/2020" />
-                            <LinearLayout android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="6dp"
                                 android:orientation="horizontal">
 
-                                <Button android:id="@+id/button3"
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/button3"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="45dp"
+                                    android:layout_height="42dp"
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/mainGrey"
-                                    android:onClick="@{ viewModel::onEditPaymentClicked }"
+                                    android:background="@drawable/button_ripple"
+                                    android:letterSpacing="0.2"
                                     android:text="Editar"
-                                    android:textAllCaps="false" />
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp"
+                                    tools:ignore="ButtonStyle,HardcodedText" />
 
-                                <Button android:id="@+id/button2"
+                                <Button
+                                    android:id="@+id/button2"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="45dp"
+                                    android:layout_height="48dp"
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/mainRed"
-                                    android:onClick="@{ viewModel::onDiscardPaymentClicked }"
                                     android:text="Eliminar"
-                                    android:textAllCaps="false" />
+                                    android:textAllCaps="false"
+                                    android:visibility="gone"
+                                    tools:ignore="ButtonStyle,HardcodedText" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-                    <LinearLayout android:id="@+id/layNoDataPayment"
+
+                    <LinearLayout
+                        android:id="@+id/layNoDataPayment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal|center_vertical"
                         android:orientation="vertical"
-                        android:visibility="gone"
+                        android:paddingTop="@dimen/margin_18dp"
+                        android:paddingBottom="@dimen/margin_18dp"
+                        tools:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-                        <TextView android:id="@+id/textView40"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UseCompoundDrawables">
+                        <!-- android:visibility="@{ viewModel.cardVisible ? View.GONE : View.VISIBLE }"-->
+
+                        <TextView
+                            android:id="@+id/textView40"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_18dp"
                             android:layout_marginEnd="@dimen/margin_18dp"
                             android:gravity="center_horizontal"
                             android:text="Aún no has agregado un método de pago preestablecido. Agrégalo ahora."
-                            android:textColor="@color/mainBlue" />
-                        <ImageView android:id="@+id/imageView"
+                            android:textColor="@color/mainBlue"
+                            tools:ignore="HardcodedText" />
+
+                        <ImageView
+                            android:id="@+id/imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:tint="@color/mainRed"
-                            app:srcCompat="@drawable/ic_note_add" />
+                            app:srcCompat="@drawable/ic_note_add"
+                            tools:ignore="ContentDescription" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <TextView android:id="@+id/textView12"
-                    style="@style/TextView.TitlesH6"
+
+                <TextView
+                    android:id="@+id/textView12"
+                    style="@style/TextView.TitlesH5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_18dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginBottom="2dp"
-                    android:text="Dirección de entrega preestablecida" />
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                    android:layout_height="180dp">
+                    android:gravity="center_horizontal"
+                    android:text="Dirección de entrega preestablecida"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
-                    <androidx.cardview.widget.CardView android:layout_width="0dp"
-                        android:layout_height="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_18dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="1dp"
-                        android:visibility="visible"
+                        android:visibility="@{ viewModel.addressVisible ? View.VISIBLE : View.GONE }"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="gone">
 
-                        <LinearLayout android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:orientation="vertical"
                             android:paddingStart="@dimen/margin_12dp"
                             android:paddingTop="@dimen/margin_12dp"
-                            android:paddingEnd="@dimen/margin_12dp">
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="8dp">
 
-                            <TextView android:id="@+id/textView52"
-                                style="@style/TextView.TitlesH7"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Juan Carlos Esparza Cuevas" />
-                            <TextView android:id="@+id/textView51"
-                                style="@style/TextView.TitlesH7"
+                            <TextView
+                                android:id="@+id/textView51"
+                                style="@style/TextView.TitlesH6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/regular"
-                                android:text="Av. Acueducto 1100" />
-                            <TextView android:id="@+id/textView50"
-                                style="@style/TextView.TitlesH7"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/regular"
-                                android:text="Zapopan, Jalisco 45138" />
-                            <TextView android:id="@+id/textView49"
-                                style="@style/TextView.TitlesH7"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/regular"
-                                android:text="México"
-                                tools:ignore="HardcodedText" />
-                            <TextView android:id="@+id/textView48"
-                                style="@style/TextView.TitlesH7"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/regular"
-                                android:text="Teléfono: 3335815761"
-                                tools:ignore="HardcodedText" />
+                                android:text="@{ viewModel.addressState + ' ' +viewModel.addressNumber}"
+                                tools:text="Av. Acueducto 1100" />
 
-                            <LinearLayout android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                            <TextView
+                                android:id="@+id/textView50"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.addressMunicipality + ',' + viewModel.addressState + ' ' + viewModel.addressCP }"
+                                tools:text="Zapopan, Jalisco 45138" />
+
+                            <TextView
+                                android:id="@+id/textView49"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.addressState }"
+                                tools:text="México" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:orientation="horizontal">
 
-                                <Button android:id="@+id/button5"
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/button5"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="45dp"
+                                    android:layout_height="42dp"
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/mainGrey"
+                                    android:background="@drawable/button_ripple"
+                                    android:letterSpacing="0.2"
+                                    android:textColor="@color/white"
                                     android:onClick="@{ viewModel::onEditAddressClicked }"
                                     android:text="Editar"
-                                    android:textAllCaps="false"
-                                    tools:ignore="HardcodedText" />
+                                    android:textAllCaps="true"
+                                    tools:ignore="ButtonStyle,HardcodedText" />
 
-                                <Button android:id="@+id/button4"
+                                <Button
+                                    android:id="@+id/button4"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="45dp"
+                                    android:layout_height="48dp"
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_weight="1"
                                     android:backgroundTint="@color/mainRed"
-                                    android:onClick="@{ viewModel::onDiscardAddressClicked }"
                                     android:text="Eliminar"
                                     android:textAllCaps="false"
-                                    tools:ignore="HardcodedText" />
+                                    android:visibility="gone"
+                                    tools:ignore="ButtonStyle,HardcodedText" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-                    <LinearLayout android:id="@+id/layNoDataAddress"
+
+                    <LinearLayout
+                        android:id="@+id/layNoDataAddress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal|center_vertical"
                         android:orientation="vertical"
-                        android:visibility="gone"
+                        android:paddingTop="@dimen/margin_18dp"
+                        android:paddingBottom="@dimen/margin_18dp"
+                        android:onClick="@{ viewModel::onEditAddressClicked }"
+                        android:visibility="@{ viewModel.addressVisible ? View.GONE : View.VISIBLE }"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UseCompoundDrawables">
 
-                        <TextView android:id="@+id/textView41"
+                        <TextView
+                            android:id="@+id/textView41"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_18dp"
@@ -323,16 +456,30 @@
                             android:textColor="@color/mainBlue"
                             tools:ignore="HardcodedText" />
 
-                        <ImageView android:id="@+id/imageView2"
+                        <ImageView
+                            android:id="@+id/imageView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:tint="@color/mainRed"
-                            app:srcCompat="@drawable/ic_note_add" />
+                            app:srcCompat="@drawable/ic_note_add"
+                            tools:ignore="ContentDescription" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ viewModel.progressVisible ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,6 +4,7 @@ import com.glass.data.serverapi.UserApi
 import com.glass.domain.entities.LoginData
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.ResponseData
+import com.glass.domain.entities.UserProfileData
 import com.glass.domain.repositories.IUserRepository
 import io.reactivex.Single
 
@@ -19,19 +20,24 @@ class UserRepository(
         )
     }
 
-    override fun signUp(
+    override fun addOrUpdateUser(
+        isUpdatingUser: Boolean,
+        userId: Int?,
         name: String,
         fLastName: String,
         mLastName: String,
         gender: Int,
         birthday: String,
-        phone: Int,
+        phone: String,
         email: String,
         password: String
     ): Single<RegistrationData> {
 
-        return api.registerNewUser(
+        return api.addOrUpdateUser(
             WebService = "GuardaCliente",
+            Id = if(isUpdatingUser) userId else 0,
+            Status = 1,
+            Codigo = "",
             Nombre = name,
             ApellidoP = fLastName,
             ApellidoM = mLastName,
@@ -40,6 +46,13 @@ class UserRepository(
             TelMovil = phone,
             Correo = email,
             Contrasena = password
+        )
+    }
+
+    override fun getUserData(userId: Int): Single<UserProfileData> {
+        return api.getFullUserData(
+            WebService = "ConsultaIntegralCliente",
+            IdCliente = userId
         )
     }
 

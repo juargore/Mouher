@@ -1,4 +1,4 @@
-package com.glass.mouher.ui.checkout.payment
+package com.glass.mouher.ui.profile.payment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.glass.mouher.R
-import com.glass.mouher.databinding.FragmentAddressBinding
 import com.glass.mouher.databinding.FragmentPaymentBinding
-import com.glass.mouher.ui.checkout.address.AddressViewModel
 import com.glass.mouher.ui.common.propertyChangedCallback
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -28,7 +26,7 @@ class PaymentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_payment, container, false)
 

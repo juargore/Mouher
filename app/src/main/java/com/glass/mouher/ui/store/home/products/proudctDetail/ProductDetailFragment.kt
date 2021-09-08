@@ -24,8 +24,8 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.store.home.HomeStoreNewProductsAdapter
 import com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsFragment
-import com.glass.mouher.utils.isEmailValid
-import com.glass.mouher.utils.openOrRefreshFragment
+import com.glass.mouher.extensions.isEmailValid
+import com.glass.mouher.extensions.openOrRefreshFragment
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel

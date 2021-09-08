@@ -9,7 +9,7 @@ import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.ResponseUI
 import com.glass.domain.usecases.user.IUserUseCase
 import com.glass.mouher.ui.base.BaseViewModel
-import com.glass.mouher.utils.isEmailValid
+import com.glass.mouher.extensions.isEmailValid
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

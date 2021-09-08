@@ -27,7 +27,7 @@ import com.glass.mouher.ui.store.MainStoreActivity
 import com.glass.mouher.utils.Constants.ScrollPositions
 import com.glass.mouher.utils.Constants.SPONSOR_DURATION
 import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
-import com.glass.mouher.utils.openOrRefreshFragment
+import com.glass.mouher.extensions.openOrRefreshFragment
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 

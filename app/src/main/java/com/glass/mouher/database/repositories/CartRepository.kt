@@ -22,7 +22,7 @@ class CartRepository(
 
     override fun getTotalProductsOnDb(): Observable<List<Item>> = itemObservable
 
-    override fun getSizeProductsOnDb(): Observable<String> = itemObservable.map { it.size.toString() }
+    override fun getSizeProductsOnDb(): Observable<Int> = itemObservable.map { it.size }
 
     override fun setProductOnCart(product: Item) {
         realm.executeTransaction { db ->
@@ -34,10 +34,10 @@ class CartRepository(
     }
 
     private fun getItemsOnDbAsList() : List<Item> {
-        val pod = realm.where(ItemDb::class.java).findAll()
+        val allItems = realm.where(ItemDb::class.java).findAll()
         val mList = mutableListOf<Item>()
 
-        pod.toList().forEach {
+        allItems.toList().forEach {
             mList.add(it.toItem())
         }
 
@@ -61,6 +61,7 @@ class CartRepository(
             item.imageUrl = product.imageUrl
             item.quantity = product.quantity
             item.valueClassification = product.valueClassification
+            item.storeId = product.storeId
 
             item = realm.copyToRealm(item)
 
@@ -72,8 +73,8 @@ class CartRepository(
 
     override fun deleteProductOnCart(idProduct: Int) {
         realm.beginTransaction()
-        val pod = realm.where(ItemDb::class.java).equalTo("id", idProduct).findFirst()
-        pod?.deleteFromRealm()
+        val itemDb = realm.where(ItemDb::class.java).equalTo("id", idProduct).findFirst()
+        itemDb?.deleteFromRealm()
         realm.commitTransaction()
 
         updateBehaviorSubject()
@@ -81,8 +82,8 @@ class CartRepository(
 
     override fun deleteAllProductsOnDb() {
         realm.beginTransaction()
-        val pod = realm.where(ItemDb::class.java).findFirst()
-        pod?.deleteFromRealm()
+        val allItems = realm.where(ItemDb::class.java).findAll()
+        allItems?.deleteAllFromRealm()
         realm.commitTransaction()
 
         updateBehaviorSubject()

@@ -102,9 +102,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_18dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="@dimen/margin_18dp"
                     android:layout_marginBottom="@dimen/margin_12dp"
-                    android:layout_weight="1.5"
+                    android:layout_weight="1.8"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -135,7 +135,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="true"
-                        android:text="Miembro desde 25-08-2021"
+                        tools:text="Miembro desde 25-08-2021"
+                        android:text="@{ viewModel.userCreationDate }"
                         android:textColor="@color/bgGrey"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -149,8 +150,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:visibility="@{viewModel.layoutUserNotLoggedInVisible ? View.VISIBLE : View.GONE}"
-                android:weightSum="2"
-                tools:visibility="gone">
+                android:weightSum="2">
 
                 <ImageView
                     android:id="@+id/prImage"

@@ -35,7 +35,7 @@ import com.glass.mouher.ui.registration.signin.SignInActivity
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
-import com.glass.mouher.utils.openOrRefreshFragment
+import com.glass.mouher.extensions.openOrRefreshFragment
 import kotlinx.android.synthetic.main.pop_contact.*
 import org.koin.android.viewmodel.ext.android.viewModel
 

@@ -1,6 +1,5 @@
 package com.glass.domain.entities
 
-
 data class ProductData(
     val IdProducto: Int? = null,
     val Nombre: String? = null,

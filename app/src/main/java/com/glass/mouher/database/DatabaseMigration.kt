@@ -15,7 +15,7 @@ class DatabaseMigration: RealmMigration {
      *  - Version 1: Added `codeReason` field in the `PODDatasDb` model
      */
     companion object {
-        const val latestVersion = 4L
+        const val latestVersion = 5L
     }
 
     /**

@@ -12,7 +12,7 @@ class CartUseCase(
         return cartRepository.getTotalProductsOnDb()
     }
 
-    override fun getSizeProductsOnDb(): Observable<String> {
+    override fun getSizeProductsOnDb(): Observable<Int> {
         return cartRepository.getSizeProductsOnDb()
     }
 
@@ -24,4 +24,7 @@ class CartUseCase(
         return cartRepository.deleteProductOnCart(idProduct)
     }
 
+    override fun deleteAllProductsOnCart() {
+        cartRepository.deleteAllProductsOnDb()
+    }
 }

@@ -13,7 +13,7 @@ import com.glass.mouher.databinding.ActivityForgotPasswordBinding
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
-import com.glass.mouher.utils.makeStatusBarTransparent
+import com.glass.mouher.extensions.makeStatusBarTransparent
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ForgotPasswordActivity : AppCompatActivity() {

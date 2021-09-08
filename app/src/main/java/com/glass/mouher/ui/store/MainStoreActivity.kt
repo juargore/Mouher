@@ -3,20 +3,26 @@ package com.glass.mouher.ui.store
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import com.glass.mouher.R
-import com.glass.mouher.databinding.ActivityMainStoreBinding
-import com.glass.mouher.ui.common.propertyChangedCallback
-import com.glass.mouher.ui.menu.MenuFragment
-import org.koin.android.viewmodel.ext.android.viewModel
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.FragmentManager
+import com.glass.mouher.R
+import com.glass.mouher.databinding.ActivityMainStoreBinding
 import com.glass.mouher.shared.General
+import com.glass.mouher.shared.General.getCurrentStoreName
 import com.glass.mouher.ui.cart.CartActivity
+import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.menu.MenuFragment
+import com.glass.mouher.ui.store.home.HomeStoreFragment
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainStoreActivity : AppCompatActivity() {
 
@@ -52,7 +58,7 @@ class MainStoreActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // set custom toolbar with menu | logo | cart
-        toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         // set navigation drawer on left side
@@ -109,6 +115,35 @@ class MainStoreActivity : AppCompatActivity() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
     }
+
+    override fun onBackPressed() {
+        val lastFragment = supportFragmentManager.fragments.lastOrNull()
+
+        if(lastFragment is HomeStoreFragment){
+            if(viewModel.totalProducts.toInt() > 0){
+
+                // Show popup asking to continue here
+                alert(title = "", message = resources.getString(R.string.cart_confirm_exit_store, getCurrentStoreName())){
+                    yesButton {
+                        viewModel.clearProductsFromCart()
+                        it.dismiss()
+
+                        Handler().postDelayed({
+                            super.onBackPressed()
+                        }, 500)
+                    }
+                    noButton {
+                        it.dismiss()
+                    }
+                }.show()
+            }else{
+                super.onBackPressed()
+            }
+        }else{
+            super.onBackPressed()
+        }
+    }
+
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {

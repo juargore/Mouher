@@ -18,7 +18,7 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.utils.DatePickerHelper
 import com.glass.mouher.utils.Validations
-import com.glass.mouher.utils.makeStatusBarTransparent
+import com.glass.mouher.extensions.makeStatusBarTransparent
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*

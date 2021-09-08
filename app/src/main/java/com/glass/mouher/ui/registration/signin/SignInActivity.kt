@@ -18,7 +18,7 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.registration.forgot.ForgotPasswordActivity
 import com.glass.mouher.ui.registration.signup.SignUpActivity
-import com.glass.mouher.utils.makeStatusBarTransparent
+import com.glass.mouher.extensions.makeStatusBarTransparent
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SignInActivity : AppCompatActivity() {

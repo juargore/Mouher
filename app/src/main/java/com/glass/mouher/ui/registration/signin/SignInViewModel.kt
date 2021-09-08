@@ -13,7 +13,8 @@ import com.glass.mouher.shared.General.saveUserId
 import com.glass.mouher.shared.General.saveUserName
 import com.glass.mouher.shared.General.saveUserSignedIn
 import com.glass.mouher.ui.base.BaseViewModel
-import com.glass.mouher.utils.isEmailValid
+import com.glass.mouher.extensions.isEmailValid
+import com.glass.mouher.shared.General.saveUserCreationDate
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -98,6 +99,7 @@ class SignInViewModel(
                 saveUserName(user)
                 saveUserId(id)
                 saveUserEmail(userEmail)
+                saveUserCreationDate(response.FechaAlta)
             }
         }
     }

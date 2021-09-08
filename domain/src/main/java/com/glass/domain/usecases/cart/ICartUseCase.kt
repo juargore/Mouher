@@ -7,10 +7,11 @@ interface ICartUseCase {
 
     fun getTotalProductsOnDb(): Observable<List<Item>>
 
-    fun getSizeProductsOnDb(): Observable<String>
+    fun getSizeProductsOnDb(): Observable<Int>
 
     fun setProductOnCart(product: Item)
 
     fun deleteProductOnCart(idProduct: Int)
 
+    fun deleteAllProductsOnCart()
 }

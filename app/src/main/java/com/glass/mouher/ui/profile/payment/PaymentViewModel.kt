@@ -1,10 +1,10 @@
-package com.glass.mouher.ui.checkout.address
+package com.glass.mouher.ui.profile.payment
 
 import android.content.Context
 import androidx.databinding.Observable
 import com.glass.mouher.ui.base.BaseViewModel
 
-class AddressViewModel(
+class PaymentViewModel(
     private val context: Context
 ): BaseViewModel() {
 
@@ -14,6 +14,5 @@ class AddressViewModel(
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
-        onCleared()
     }
 }

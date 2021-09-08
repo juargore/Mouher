@@ -3,6 +3,7 @@ package com.glass.domain.repositories
 import com.glass.domain.entities.LoginData
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.ResponseData
+import com.glass.domain.entities.UserProfileData
 import io.reactivex.Single
 
 interface IUserRepository {
@@ -13,16 +14,21 @@ interface IUserRepository {
     ): Single<LoginData>
 
 
-    fun signUp(
+    fun addOrUpdateUser(
+        isUpdatingUser: Boolean,
+        userId: Int?,
         name: String,
         fLastName: String,
         mLastName: String,
         gender: Int,
         birthday: String,
-        phone: Int,
+        phone: String,
         email: String,
         password: String
     ): Single<RegistrationData>
+
+
+    fun getUserData(userId: Int): Single<UserProfileData>
 
 
     fun recoverPassword(

@@ -14,7 +14,7 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
-import com.glass.mouher.utils.openOrRefreshFragment
+import com.glass.mouher.extensions.openOrRefreshFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductsFragment : Fragment() {

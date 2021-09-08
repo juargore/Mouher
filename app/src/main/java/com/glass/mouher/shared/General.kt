@@ -53,6 +53,30 @@ object General {
     }
 
 
+    private const val USER_CREATION_DATE = "userCreationDate"
+
+    /**
+     * Save and Get on SharedPreferences the user name from Server.
+     * @param date is the one retrieved from Server.
+     * Used on different screens as Profile to avoid a new call.
+     */
+    fun saveUserCreationDate(date: String?){
+        context?.let{ c->
+            with(c.getSharedPreferences(USER_CREATION_DATE, Context.MODE_PRIVATE)){
+                edit().putString(USER_CREATION_DATE, date).apply()
+            }
+        }
+    }
+
+    fun getUserCreationDate() : String? {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(USER_CREATION_DATE, Context.MODE_PRIVATE)
+            return prefs.getString(USER_CREATION_DATE, "")
+        }
+        return ""
+    }
+
+
     private const val USER_EMAIL = "userEmail"
 
     /**
@@ -146,6 +170,30 @@ object General {
             return prefs.getBoolean(MUST_REFRESH_MENU_STORE, false)
         }
         return false
+    }
+
+
+    private const val CURRENT_STORE = "currentStore"
+
+    /**
+     * Save and Get on SharedPreferences the user name from Server.
+     * @param storeName is the one retrieved from Server.
+     * Used on different screens as Profile to avoid a new call.
+     */
+    fun saveCurrentStoreName(storeName: String?){
+        context?.let{ c->
+            with(c.getSharedPreferences(CURRENT_STORE, Context.MODE_PRIVATE)){
+                edit().putString(CURRENT_STORE, storeName).apply()
+            }
+        }
+    }
+
+    fun getCurrentStoreName() : String? {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(CURRENT_STORE, Context.MODE_PRIVATE)
+            return prefs.getString(CURRENT_STORE, "")
+        }
+        return ""
     }
 
 }

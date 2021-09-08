@@ -1,10 +1,10 @@
-package com.glass.mouher.ui.checkout.payment
+package com.glass.mouher.ui.profile.address
 
 import android.content.Context
 import androidx.databinding.Observable
 import com.glass.mouher.ui.base.BaseViewModel
 
-class PaymentViewModel(
+class AddressViewModel(
     private val context: Context
 ): BaseViewModel() {
 

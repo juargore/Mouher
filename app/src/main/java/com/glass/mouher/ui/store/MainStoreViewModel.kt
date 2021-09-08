@@ -18,6 +18,8 @@ class MainStoreViewModel(
     private val storeUseCase: IStoreUseCase
 ): BaseViewModel() {
 
+    private var storeId: Int = 0
+
     @Bindable
     var urlImageLogo = ""
 
@@ -38,7 +40,7 @@ class MainStoreViewModel(
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
 
-        val storeId = MainStoreActivity.storeId
+        storeId = MainStoreActivity.storeId
 
         addDisposable(storeUseCase.triggerToGetStoreData(storeId)
             .observeOn(AndroidSchedulers.mainThread())
@@ -51,12 +53,33 @@ class MainStoreViewModel(
 
         addDisposable(cartUseCase.getSizeProductsOnDb()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { totalProducts = it })
+                .subscribe { totalProducts = it.toString() })
+
+        checkIfStoreIdIsDifferent()
     }
 
     private fun onUrlImageLogoResponse(url: String){
         urlImageLogo = completeUrlForImage(url)
         notifyPropertyChanged(BR.urlImageLogo)
+    }
+
+    fun clearProductsFromCart(){
+        cartUseCase.deleteAllProductsOnCart()
+    }
+
+    private fun checkIfStoreIdIsDifferent(){
+        addDisposable(cartUseCase.getTotalProductsOnDb()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ list->
+                list.firstOrNull()?.let{
+                    if(it.storeId != storeId){
+                        clearProductsFromCart()
+                    }
+                }
+
+            }, this::onError)
+        )
     }
 
     private fun onError(t: Throwable?){

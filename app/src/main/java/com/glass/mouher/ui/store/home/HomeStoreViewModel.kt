@@ -8,22 +8,25 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.*
+import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
-import com.glass.mouher.utils.isEmailValid
+import com.glass.mouher.extensions.isEmailValid
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class HomeStoreViewModel(
     private val storeUseCase: IStoreUseCase,
-    private val productUseCase: IProductUseCase
+    private val productUseCase: IProductUseCase,
+    private val cartUseCase: ICartUseCase
 ): BaseViewModel(), ClickHandler<AStoreCategoryViewModel> {
 
     var storeId = 1 // 1 is default
     var categoryId = 1 // 1 is default
     var categoryName = ""
+    var totalProductsOnDb: Int = 0
 
     @SuppressLint("StaticFieldLeak")
     lateinit var context: Context
@@ -126,6 +129,10 @@ class HomeStoreViewModel(
 
             .subscribe(this::onResponseSponsors, this::onError)
         )
+
+        addDisposable(cartUseCase.getSizeProductsOnDb()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { totalProductsOnDb = it })
     }
 
     private fun onCategoriesResponse(list: List<CategoryUI>){
@@ -212,6 +219,10 @@ class HomeStoreViewModel(
                 return
             }
         }
+    }
+
+    fun clearProductsFromCart(){
+        cartUseCase.deleteAllProductsOnCart()
     }
 
     override fun onClick(viewModel: AStoreCategoryViewModel) {

@@ -15,6 +15,7 @@
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_red_rounded.xml" value="0.22777777777777777" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_stroke_gray_filled.xml" value="0.22777777777777777" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_stroke_gray_no_filled.xml" value="0.22777777777777777" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/ic_edit_image.xml" value="0.25833333333333336" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/ic_home.xml" value="0.23055555555555557" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_cart.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_forgot_password.xml" value="0.2421875" />
@@ -28,6 +29,7 @@
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_home_store.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_menu.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_payment.xml" value="0.2421875" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_personal.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_product_detail.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_product_reviews.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_products_list.xml" value="0.2421875" />
@@ -37,6 +39,7 @@
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/pop_add_rating.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/pop_contact.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_about_person.xml" value="0.2421875" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_cart.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_home_lobby.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_home_sponsors.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_home_zones.xml" value="0.2421875" />

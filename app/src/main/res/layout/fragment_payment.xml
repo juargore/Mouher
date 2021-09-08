@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.checkout.payment.PaymentViewModel" />
+            type="com.glass.mouher.ui.profile.payment.PaymentViewModel" />
         <variable
             name="view"
-            type="com.glass.mouher.ui.checkout.payment.PaymentFragment" />
+            type="com.glass.mouher.ui.profile.payment.PaymentFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
@@ -23,16 +23,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_18dp">
+                android:paddingStart="@dimen/margin_18dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="@dimen/margin_18dp"
+                android:paddingBottom="@dimen/margin_18dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <LinearLayout android:id="@+id/textView44"
+                    <LinearLayout
+                        android:id="@+id/textView44"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -42,8 +47,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageButton android:id="@+id/back"
-                            android:layout_width="36dp"
+                        <ImageButton
+                            android:id="@+id/back"
+                            android:layout_width="46dp"
                             android:layout_height="match_parent"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:paddingTop="20dp"
@@ -54,7 +60,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView android:id="@+id/textView4"
+                        <TextView
+                            android:id="@+id/textView4"
                             style="@style/TextView.TitlesH4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -63,7 +70,8 @@
                             android:text="Datos de tarjeta" />
                     </LinearLayout>
 
-                    <LinearLayout android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginTop="@dimen/margin_12dp"
                         android:orientation="vertical"
@@ -72,7 +80,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView44">
 
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressAddressInput"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressAddressInput"
                             style="@style/TextInputLayoutAppearanceBlack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -80,12 +89,14 @@
                             android:hint="Nombre en la tarjeta"
                             android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/EditTextBlack"
                                 android:layout_width="match_parent"
                                 android:inputType="text" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPostalCodeInput"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressPostalCodeInput"
                             style="@style/TextInputLayoutAppearanceBlack"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -93,12 +104,14 @@
                             android:hint="Número de tarjeta"
                             android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/EditTextBlack"
                                 android:layout_width="match_parent"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressPhoneInput"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressPhoneInput"
                             style="@style/TextInputLayoutAppearanceBlack"
                             android:layout_width="150dp"
                             android:layout_height="wrap_content"
@@ -106,24 +119,28 @@
                             android:hint="CVC"
                             android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                            <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/EditTextBlack"
                                 android:layout_width="match_parent"
                                 android:layout_marginBottom="@dimen/margin_18dp"
                                 android:inputType="phone" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView style="@style/TextView.TitlesH6"
+                        <TextView
+                            style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Fecha de vencimiento" />
 
-                        <LinearLayout android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/margin_18dp"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
-                            <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressInternalNumberInput"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/addressInternalNumberInput"
                                 style="@style/TextInputLayoutAppearanceBlack"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -133,12 +150,14 @@
                                 android:hint="Mes"
                                 android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                                <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/EditTextBlack"
                                     android:layout_width="match_parent"
                                     android:inputType="number" />
                             </com.google.android.material.textfield.TextInputLayout>
 
-                            <com.google.android.material.textfield.TextInputLayout android:id="@+id/addressExternalNumberInput"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/addressExternalNumberInput"
                                 style="@style/TextInputLayoutAppearanceBlack"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -148,20 +167,23 @@
                                 android:hint="Año"
                                 android:theme="@style/TextInputLayoutAppearanceBlack">
 
-                                <com.google.android.material.textfield.TextInputEditText style="@style/EditTextBlack"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/EditTextBlack"
                                     android:layout_width="match_parent"
                                     android:inputType="number" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
 
-                        <TextView android:id="@+id/textView42"
+                        <TextView
+                            android:id="@+id/textView42"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/lorem_ipsum" />
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatButton android:id="@+id/button6"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_ripple"

@@ -13,6 +13,7 @@ open class ItemDb: RealmModel {
     var price: Double? = null
     var quantity: Int? = null
     var valueClassification: String? = null
+    var storeId: Int? = null
 
     fun toItem() = Item(
         id = id,
@@ -20,7 +21,8 @@ open class ItemDb: RealmModel {
         description = description,
         imageUrl = imageUrl,
         price = price,
-        quantity= quantity,
-        valueClassification = valueClassification
+        quantity = quantity,
+        valueClassification = valueClassification,
+        storeId = storeId
     )
 }

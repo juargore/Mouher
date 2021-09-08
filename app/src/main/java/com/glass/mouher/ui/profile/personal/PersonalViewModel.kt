@@ -1,28 +1,23 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("DEPRECATION", "UNUSED_PARAMETER")
 
-package com.glass.mouher.ui.registration.signup
+package com.glass.mouher.ui.profile.personal
 
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
-import com.glass.domain.entities.RegistrationData
+import com.glass.domain.entities.UserProfileData
 import com.glass.domain.usecases.user.IUserUseCase
-import com.glass.mouher.ui.base.BaseViewModel
-import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
 import com.glass.mouher.extensions.isEmailValid
+import com.glass.mouher.shared.General.getUserId
+import com.glass.mouher.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class SignUpViewModel(
+class PersonalViewModel(
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
-
-    @Bindable
-    var backClicked: Unit? = null
-
-    var hasErrors = true
 
     @Bindable
     var error: String? = null
@@ -31,6 +26,8 @@ class SignUpViewModel(
             notifyPropertyChanged(BR.error)
         }
 
+    var hasErrors = true
+    var storedPassword: String = ""
 
     @Bindable
     var fullName: String? = null
@@ -117,33 +114,23 @@ class SignUpViewModel(
         }
 
     @Bindable
-    var passwordTwo: String? = null
-        set(value){
-            field = value
-            notifyPropertyChanged(BR.passwordTwo)
-        }
-
-
-    @Bindable
-    var conditionsChecked = false
-        set(value){
-            field = value
-            notifyPropertyChanged(BR.conditionsChecked)
-        }
-
-
-    @Bindable
     var progressVisible = false
         set(value) {
             field = value
             notifyPropertyChanged(BR.progressVisible)
         }
 
-
-
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
         getGenderList()
+
+        progressVisible = true
+
+        addDisposable(userUseCase.getUserData(getUserId())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::onUserDataResponse, this::onError)
+        )
     }
 
     private fun getGenderList(){
@@ -156,42 +143,18 @@ class SignUpViewModel(
         }
     }
 
-    fun onBackClicked(v: View){
-        notifyPropertyChanged(BR.backClicked)
-    }
-
-    fun onSendClicked(v: View){
-        if(allFieldsAreValid()){
-            progressVisible = true
-
-            addDisposable(userUseCase.signUp(
-                name = fullName?.trim() ?: "",
-                fLastName = fatherLastName?.trim() ?: "",
-                mLastName = motherLastName?.trim() ?: "",
-                gender = gender,
-                birthday = birthDate?.trim() ?: "0000-00-00",
-                phone = phone.trim(),
-                email = email.trim(),
-                password = passwordOne?.trim() ?: ""
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onRegistrationResponse, this::onError)
-            )
+    private fun onUserDataResponse(response: UserProfileData){
+        with(response){
+            fullName = Nombre
+            fatherLastName = ApellidoP
+            motherLastName = ApellidoM
+            birthDateStr = FechaNac ?: ""
+            phone = TelMovil ?: ""
+            email = Correo ?: ""
+            storedPassword = Contrasena ?: ""
         }
-    }
 
-    private fun onRegistrationResponse(response: RegistrationData){
         progressVisible = false
-
-        if(response.Error!! > 0){
-            hasErrors = true
-            error = response.Mensaje
-        }else{
-            // No errors -> Show success message
-            hasErrors = false
-            error = response.Mensaje
-        }
     }
 
 
@@ -205,6 +168,14 @@ class SignUpViewModel(
         notifyPropertyChanged(BR.birthDateClicked)
     }
 
+    fun onSendClicked(v: View?){
+        if(allFieldsAreValid()){
+            if(storedPassword != passwordOne){
+                error = "La contraseña ingresada no coincide con la original"
+                return
+            }
+        }
+    }
 
     private fun allFieldsAreValid(): Boolean{
         if(fullName.isNullOrBlank()){
@@ -231,35 +202,18 @@ class SignUpViewModel(
             error = "Por favor ingrese un número de teléfono de al menos 10 dígitos"
             return false
         }
-        if(!email.isEmailValid()){
-            error = "Por favor ingrese un email válido"
-            return false
-        }
         if(passwordOne.isNullOrBlank()){
             error = "Por favor ingrese una contraseña"
-            return false
-        }
-        if(passwordTwo.isNullOrBlank()){
-            error = "Por favor confirme la contraseña"
-            return false
-        }
-        if(passwordOne != passwordTwo){
-            error = "Las contraseñas ingresadas no coinciden"
-            return false
-        }
-        if(!conditionsChecked){
-            error = "Debe aceptar los Términos y Condiciones para continuar"
             return false
         }
         return true
     }
 
-    fun onTermsClicked(v: View?){
-        val url = "https://mouhermarket.com/admin/uploads/tienda0/TD-ID0-CPLA-ID1-PoliticaCondiciones.PDF"
-        openUrlInExternalWebBrowser(url)
+    fun onBackClicked(v: View){
+        notifyPropertyChanged(BR.backClicked)
     }
 
-    private fun onError(t: Throwable){
+    private fun onError(t: Throwable?){
         progressVisible = false
     }
 
