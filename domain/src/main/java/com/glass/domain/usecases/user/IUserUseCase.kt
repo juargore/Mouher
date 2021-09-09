@@ -1,9 +1,6 @@
 package com.glass.domain.usecases.user
 
-import com.glass.domain.entities.LoginData
-import com.glass.domain.entities.RegistrationData
-import com.glass.domain.entities.ResponseUI
-import com.glass.domain.entities.UserProfileData
+import com.glass.domain.entities.*
 import io.reactivex.Single
 
 interface IUserUseCase {
@@ -23,6 +20,7 @@ interface IUserUseCase {
 
     fun updateUser(
         id: Int,
+        code: String,
         name: String,
         fLastName: String,
         mLastName: String,
@@ -36,4 +34,24 @@ interface IUserUseCase {
     fun getUserData(userId: Int): Single<UserProfileData>
 
     fun recoverPassword(email: String): Single<ResponseUI>
+
+    fun getCountriesAsList(): Single<List<Country>>
+
+    fun getStatesAsList(countryId: Int): Single<List<State>>
+
+    fun addOrUpdateAddress(
+        isUpdatingAddress: Boolean,
+        id: Int?,
+        userId: Int,
+        addressType: Int,
+        street: String,
+        intNumber: String,
+        extNumber: String,
+        crosses: String,
+        suburb: String,
+        postalCode: String,
+        countryId: Int,
+        stateId: Int,
+        municipality: String
+    ): Single<RegistrationData>
 }

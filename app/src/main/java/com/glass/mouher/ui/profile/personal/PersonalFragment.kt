@@ -15,8 +15,10 @@ import com.glass.mouher.databinding.FragmentPersonalBinding
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import com.glass.mouher.utils.DatePickerHelper
+import com.glass.mouher.utils.Validations
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 class PersonalFragment : Fragment() {
 
@@ -28,6 +30,7 @@ class PersonalFragment : Fragment() {
                 BR.genderList -> setGenderSpinner()
                 BR.error -> showErrorMsg()
                 BR.backClicked -> activity?.onBackPressed()
+                BR.birthDateClicked -> showDatePickerDialog()
             }
         }
 
@@ -47,14 +50,39 @@ class PersonalFragment : Fragment() {
     }
 
     private fun setGenderSpinner(){
-        val mAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_simple, viewModel.genderList)
-        spinnerGender.adapter = mAdapter
-        spinnerGender.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                viewModel.gender = pos
+        with(binding.spinnerGender){
+            val mAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_simple, viewModel.genderList)
+            adapter = mAdapter
+
+            if(viewModel.gender > 0){
+                setSelection(viewModel.gender)
+            }
+
+            onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+                    viewModel.gender = pos
+                }
             }
         }
+    }
+
+    private fun showDatePickerDialog() {
+        DatePickerHelper(requireContext(), spinnerMode = true, shouldRemoveEighteen = true)
+            .showDialog(viewModel.day, viewModel.month, viewModel.year,
+                object : DatePickerHelper.Callback {
+                    override fun onDateSelected(day: Int, month: Int, year: Int) {
+                        val monInt = month + 1
+                        val dayStr = if(day < 10) "0$day" else "$day"
+                        val monthStr = if(monInt < 10) "0$monInt" else "$monInt"
+
+                        val date = "${day}-${monInt}-${year}"
+                        val dateStr = "${year}-${monthStr}-${dayStr}"
+
+                        viewModel.birthDate = dateStr
+                        viewModel.birthDateStr = Validations.toPrettyDate(requireContext(), date, Locale("es"))
+                    }
+                })
     }
 
     private fun showErrorMsg(){
@@ -66,7 +94,7 @@ class PersonalFragment : Fragment() {
             // Registration success -> Go back to login screen
             Handler().postDelayed({
                 activity?.onBackPressed()
-            }, 1000)
+            }, 1500)
         }
     }
 

@@ -435,6 +435,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal|center_vertical"
                         android:orientation="vertical"
+                        android:background="?selectableItemBackground"
                         android:paddingTop="@dimen/margin_18dp"
                         android:paddingBottom="@dimen/margin_18dp"
                         android:onClick="@{ viewModel::onEditAddressClicked }"

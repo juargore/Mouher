@@ -141,13 +141,33 @@
                                 android:text="@={ viewModel.motherLastName }" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <Spinner
-                            android:id="@+id/spinnerGender"
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="48dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/background_stroke_gray_no_filled" />
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/margin_12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/spinnerGender"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_arrow_drop_down"
+                                tools:ignore="ContentDescription" />
+
+                            <Spinner
+                                android:id="@+id/spinnerGender"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:background="@drawable/background_stroke_gray_no_filled"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/TextInputLayoutAppearanceBlack"

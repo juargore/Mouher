@@ -1,9 +1,6 @@
 package com.glass.data.serverapi
 
-import com.glass.domain.entities.LoginData
-import com.glass.domain.entities.RegistrationData
-import com.glass.domain.entities.ResponseData
-import com.glass.domain.entities.UserProfileData
+import com.glass.domain.entities.*
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -49,4 +46,28 @@ interface UserApi {
                         @Field("Correo") Correo: String
     ): Single<ResponseData>
 
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
+    fun getCountriesOrStatesList(@Field("WebService") WebService: String,
+                                 @Field("IdPais") IdPais: Int?): Single<CountryStateData>
+
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesOperaciones.php")
+    fun addOrUpdateAddress(@Field("WebService") WebService: String,
+                           @Field("Id") Id: Int?,
+                           @Field("Status") Status: Int,
+                           @Field("IdCliente") IdCliente: Int,
+                           @Field("TipoDomicilio") TipoDomicilio: Int,
+                           @Field("Calle") Calle: String,
+                           @Field("NumInt") NumInt: String,
+                           @Field("NumExt") NumExt: String,
+                           @Field("Cruzamientos") Cruzamientos: String,
+                           @Field("Colonia") Colonia: String,
+                           @Field("CP") CP: String,
+                           @Field("Pais") Pais: Int,
+                           @Field("Estado") Estado: Int,
+                           @Field("Municipio") Municipio: String
+    ): Single<RegistrationData>
 }

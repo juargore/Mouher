@@ -1,10 +1,8 @@
 package com.glass.data.repositories
 
+import android.telecom.Call
 import com.glass.data.serverapi.UserApi
-import com.glass.domain.entities.LoginData
-import com.glass.domain.entities.RegistrationData
-import com.glass.domain.entities.ResponseData
-import com.glass.domain.entities.UserProfileData
+import com.glass.domain.entities.*
 import com.glass.domain.repositories.IUserRepository
 import io.reactivex.Single
 
@@ -23,6 +21,7 @@ class UserRepository(
     override fun addOrUpdateUser(
         isUpdatingUser: Boolean,
         userId: Int?,
+        code: String,
         name: String,
         fLastName: String,
         mLastName: String,
@@ -37,7 +36,7 @@ class UserRepository(
             WebService = "GuardaCliente",
             Id = if(isUpdatingUser) userId else 0,
             Status = 1,
-            Codigo = "",
+            Codigo = code,
             Nombre = name,
             ApellidoP = fLastName,
             ApellidoM = mLastName,
@@ -61,6 +60,48 @@ class UserRepository(
         return api.recoverPassword(
             WebService = "RecuperaContrasenaCliente",
             Correo = email
+        )
+    }
+
+    override fun getCountriesOrStates(getCountries: Boolean, countryId: Int?): Single<CountryStateData> {
+
+        return api.getCountriesOrStatesList(
+            WebService = if(getCountries) "ConsultaIntegralPaises" else "ConsultaIntegralEstados",
+            IdPais = if(getCountries) null else countryId
+        )
+    }
+
+    override fun addOrUpdateAddress(
+        isUpdatingAddress: Boolean,
+        id: Int?,
+        userId: Int,
+        addressType: Int,
+        street: String,
+        intNumber: String,
+        extNumber: String,
+        crosses: String,
+        suburb: String,
+        postalCode: String,
+        countryId: Int,
+        stateId: Int,
+        municipality: String
+    ): Single<RegistrationData> {
+
+        return api.addOrUpdateAddress(
+            WebService = "GuardaDomicilio",
+            Id = if(isUpdatingAddress) id else 0,
+            Status = if(isUpdatingAddress) 2 else 1,
+            IdCliente = userId,
+            TipoDomicilio = addressType,
+            Calle = street,
+            NumInt = intNumber,
+            NumExt = extNumber,
+            Cruzamientos = crosses,
+            Colonia = suburb,
+            CP = postalCode,
+            Pais = countryId,
+            Estado = stateId,
+            Municipio = municipality
         )
     }
 }

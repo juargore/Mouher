@@ -23,6 +23,8 @@ import com.glass.domain.entities.CategoryUI
 import com.glass.domain.entities.SocialMediaUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentMenuBinding
+import com.glass.mouher.extensions.openOrRefreshFragment
+import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.ui.about.AboutFragment
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
@@ -35,7 +37,6 @@ import com.glass.mouher.ui.registration.signin.SignInActivity
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
-import com.glass.mouher.extensions.openOrRefreshFragment
 import kotlinx.android.synthetic.main.pop_contact.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -66,6 +67,7 @@ class MenuFragment: Fragment() {
         binding = FragmentMenuBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
+
         binding.rvMenu.layoutManager = LinearLayoutManager(context)
 
         return binding.root
@@ -248,6 +250,7 @@ class MenuFragment: Fragment() {
         {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
+                viewModel.userName = getUserName()
                 activity?.invalidateOptionsMenu()
             }
 

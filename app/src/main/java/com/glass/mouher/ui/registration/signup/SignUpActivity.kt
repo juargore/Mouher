@@ -89,7 +89,7 @@ class SignUpActivity : AppCompatActivity() {
                         val dateStr = "${year}-${monthStr}-${dayStr}"
 
                         viewModel.birthDate = dateStr
-                        viewModel.birthDateStr = Validations.toPrettyDate(this@SignUpActivity, date, Locale.getDefault())
+                        viewModel.birthDateStr = Validations.toPrettyDate(this@SignUpActivity, date, Locale("es"))
                     }
                 })
     }

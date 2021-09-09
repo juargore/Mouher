@@ -82,7 +82,7 @@ class UserProfileViewModel(
     var addressCountry: String? = null
 
     @Bindable
-    var addressVisible: Boolean = false
+    var addressVisible: Boolean = true
 
 
     /**

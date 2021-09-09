@@ -160,7 +160,8 @@
                     android:layout_marginEnd="@dimen/margin_18dp"
                     android:padding="@dimen/margin_18dp"
                     tools:fromUrl="@{ viewModel.logoMouher }"
-                    tools:srcCompat="@drawable/logo_mouher1" />
+                    tools:srcCompat="@drawable/logo_mouher1"
+                    tools:ignore="ContentDescription" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button7"
@@ -255,7 +256,8 @@
                     android:paddingStart="@dimen/margin_12dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="@dimen/margin_12dp"
-                    android:paddingBottom="5dp"/>
+                    android:paddingBottom="5dp"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <androidx.core.widget.NestedScrollView
@@ -278,7 +280,6 @@
                         android:orientation="vertical"
                         android:visibility="@{ viewModel.profileSectionVisible ? View.VISIBLE : View.GONE }"
                         tools:visibility="visible">
-                        >
 
                         <TextView
                             android:id="@+id/textView72"
@@ -287,11 +288,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="6dp"
                             android:fontFamily="@font/regular"
+                            android:background="?selectableItemBackground"
                             android:onClick="@{ viewModel::onProfileClick }"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:text="Mi Perfil"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/textView70"
@@ -299,11 +302,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular"
+                            android:background="?selectableItemBackground"
                             android:onClick="@{ viewModel::onHistoryClick }"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:text="Mis Compras"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -342,10 +347,11 @@
                         android:id="@+id/rvMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:items="@{viewModel.items}"
                         android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"
-                        app:clickHandler="@{ viewModel }"
-                        app:itemViewBinder="@{view.itemViewBinder}" />
+                        app:items="@{viewModel.items}"
+                        app:itemViewBinder="@{view.itemViewBinder}"
+                        app:clickHandler="@{ viewModel }" />
+                    <!--android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"-->
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -396,7 +402,9 @@
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:text="Sobre nosotros"
-                            android:textSize="15sp" />
+                            android:background="?selectableItemBackground"
+                            android:textSize="15sp"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/textView67"
@@ -408,8 +416,10 @@
                             android:onClick="@{ viewModel::onContactUsClick }"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
+                            android:background="?selectableItemBackground"
                             android:text="Contáctanos"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/textView68"
@@ -422,7 +432,9 @@
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:text="Servicios Adicionales"
-                            android:textSize="15sp" />
+                            android:background="?selectableItemBackground"
+                            android:textSize="15sp"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/textView69"
@@ -434,8 +446,10 @@
                             android:onClick="@{ viewModel::onMoreInfoClick }"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
+                            android:background="?selectableItemBackground"
                             android:text="Más Información..."
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -443,7 +457,8 @@
             <TextView android:id="@+id/textView71"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

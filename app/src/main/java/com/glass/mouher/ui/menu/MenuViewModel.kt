@@ -380,7 +380,6 @@ class MenuViewModel(
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
-        onCleared()
     }
 
     override fun onClick(viewModel: AMenuViewModel) {

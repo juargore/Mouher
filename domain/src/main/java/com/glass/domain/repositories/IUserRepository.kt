@@ -1,9 +1,6 @@
 package com.glass.domain.repositories
 
-import com.glass.domain.entities.LoginData
-import com.glass.domain.entities.RegistrationData
-import com.glass.domain.entities.ResponseData
-import com.glass.domain.entities.UserProfileData
+import com.glass.domain.entities.*
 import io.reactivex.Single
 
 interface IUserRepository {
@@ -17,6 +14,7 @@ interface IUserRepository {
     fun addOrUpdateUser(
         isUpdatingUser: Boolean,
         userId: Int?,
+        code: String,
         name: String,
         fLastName: String,
         mLastName: String,
@@ -34,4 +32,22 @@ interface IUserRepository {
     fun recoverPassword(
         email: String
     ): Single<ResponseData>
+
+    fun getCountriesOrStates(getCountries: Boolean, countryId: Int?): Single<CountryStateData>
+
+    fun addOrUpdateAddress(
+        isUpdatingAddress: Boolean,
+        id: Int?,
+        userId: Int,
+        addressType: Int,
+        street: String,
+        intNumber: String,
+        extNumber: String,
+        crosses: String,
+        suburb: String,
+        postalCode: String,
+        countryId: Int,
+        stateId: Int,
+        municipality: String
+    ): Single<RegistrationData>
 }

@@ -2,20 +2,24 @@
 
 package com.glass.mouher.ui.profile.personal
 
+import android.content.Context
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.UserProfileData
 import com.glass.domain.usecases.user.IUserUseCase
-import com.glass.mouher.extensions.isEmailValid
 import com.glass.mouher.shared.General.getUserId
+import com.glass.mouher.shared.General.saveUserName
 import com.glass.mouher.ui.base.BaseViewModel
+import com.glass.mouher.utils.Validations
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class PersonalViewModel(
+    private val context: Context,
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
 
@@ -27,7 +31,9 @@ class PersonalViewModel(
         }
 
     var hasErrors = true
-    var storedPassword: String = ""
+    private var userId = 0
+    private var userCode = ""
+    private var storedPassword: String = ""
 
     @Bindable
     var fullName: String? = null
@@ -122,7 +128,6 @@ class PersonalViewModel(
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
-        getGenderList()
 
         progressVisible = true
 
@@ -133,6 +138,31 @@ class PersonalViewModel(
         )
     }
 
+    private fun onUserDataResponse(response: UserProfileData){
+        // Ej: 2020-11-21
+        val year = response.FechaNac?.substringBefore("-")
+        val month = response.FechaNac?.substringAfter("-")?.substringBeforeLast("-")
+        val day = response.FechaNac?.substringAfterLast("-")
+        val birthDateFormatted = "$day-$month-$year"
+
+        with(response){
+            userId = Id ?: 0
+            userCode = Codigo ?: ""
+            fullName = Nombre
+            fatherLastName = ApellidoP
+            motherLastName = ApellidoM
+            birthDateStr = Validations.toPrettyDate(context, birthDateFormatted, Locale("es"))
+            birthDate = FechaNac
+            phone = TelMovil ?: ""
+            gender = Genero ?: 0
+            email = Correo ?: ""
+            storedPassword = Contrasena ?: ""
+        }
+
+        getGenderList()
+        progressVisible = false
+    }
+
     private fun getGenderList(){
         genderList = mutableListOf<String>().apply {
             add("Género *")
@@ -141,20 +171,6 @@ class PersonalViewModel(
             add("Otro")
             add("Sin especificar")
         }
-    }
-
-    private fun onUserDataResponse(response: UserProfileData){
-        with(response){
-            fullName = Nombre
-            fatherLastName = ApellidoP
-            motherLastName = ApellidoM
-            birthDateStr = FechaNac ?: ""
-            phone = TelMovil ?: ""
-            email = Correo ?: ""
-            storedPassword = Contrasena ?: ""
-        }
-
-        progressVisible = false
     }
 
 
@@ -168,12 +184,40 @@ class PersonalViewModel(
         notifyPropertyChanged(BR.birthDateClicked)
     }
 
-    fun onSendClicked(v: View?){
+    fun onUpdateButtonClicked(v: View?){
         if(allFieldsAreValid()){
-            if(storedPassword != passwordOne){
-                error = "La contraseña ingresada no coincide con la original"
-                return
-            }
+            addDisposable(userUseCase.updateUser(
+                id = userId,
+                code = userCode,
+                name = fullName ?: "",
+                fLastName = fatherLastName ?: "",
+                mLastName = motherLastName ?: "",
+                gender = gender,
+                birthday = birthDate ?: "0000-00-00",
+                phone = phone,
+                email = email,
+                password = passwordOne ?: ""
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onUpdatedDataResponse, this::onError)
+            )
+        }
+    }
+
+    private fun onUpdatedDataResponse(response: RegistrationData){
+        if(response.Error!! > 0){
+            // something went wrong
+            hasErrors = true
+            error = response.Mensaje
+        }else{
+            // Update on menu
+            val user = "$fullName $fatherLastName $motherLastName"
+            saveUserName(user)
+
+            // everything goes well
+            hasErrors = false
+            error = response.Mensaje
         }
     }
 
@@ -204,6 +248,10 @@ class PersonalViewModel(
         }
         if(passwordOne.isNullOrBlank()){
             error = "Por favor ingrese una contraseña"
+            return false
+        }
+        if(storedPassword != passwordOne){
+            error = "La contraseña ingresada no coincide con la original"
             return false
         }
         return true

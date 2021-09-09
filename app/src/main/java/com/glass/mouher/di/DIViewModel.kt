@@ -95,7 +95,7 @@ val DIViewModel = module{
     }
 
     viewModel { AddressViewModel(
-        context = androidContext())
+        userUseCase = get(UseCases.USER.name))
     }
 
     viewModel { PaymentViewModel(
@@ -103,6 +103,7 @@ val DIViewModel = module{
     }
 
     viewModel { PersonalViewModel(
+        context = androidContext(),
         userUseCase = get(UseCases.USER.name))
     }
 
