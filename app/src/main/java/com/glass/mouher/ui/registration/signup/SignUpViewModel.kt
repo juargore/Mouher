@@ -143,17 +143,7 @@ class SignUpViewModel(
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
-        getGenderList()
-    }
-
-    private fun getGenderList(){
-        genderList = mutableListOf<String>().apply {
-            add("Género *")
-            add("Masculino")
-            add("Femenino")
-            add("Otro")
-            add("Sin especificar")
-        }
+        genderList = userUseCase.getGenderList()
     }
 
     fun onBackClicked(v: View){

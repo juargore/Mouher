@@ -69,6 +69,18 @@ class ProductUseCase(
             .map { it.toResponseUI() }
     }
 
+    override fun getHistoryByUser(userId: Int, startDate: String): Single<List<HistoryUI>> {
+        return productRepository.getHistoryForUser(userId, startDate)
+            .map { response->
+                val mList = mutableListOf<HistoryUI>()
+                response.Ventas?.forEach {
+                    mList.add(it.getHistoryUI())
+                }
+
+                return@map mList
+            }
+    }
+
     override fun getRelatedProductsByProduct(): Observable<List<ProductUI>> {
         val mList = mutableListOf<ProductUI>()
 

@@ -2,7 +2,6 @@
 
 package com.glass.mouher.ui.profile.personal
 
-import android.content.Context
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -10,6 +9,7 @@ import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.UserProfileData
 import com.glass.domain.usecases.user.IUserUseCase
+import com.glass.mouher.App.Companion.context
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.saveUserName
 import com.glass.mouher.ui.base.BaseViewModel
@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class PersonalViewModel(
-    private val context: Context,
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
 
@@ -60,7 +59,7 @@ class PersonalViewModel(
 
 
     @Bindable
-    var gender = 0 // 1 -> male && 2 -> female
+    var gender = 0
         set(value){
             field = value
             notifyPropertyChanged(BR.gender)
@@ -139,7 +138,7 @@ class PersonalViewModel(
     }
 
     private fun onUserDataResponse(response: UserProfileData){
-        // Ej: 2020-11-21
+        // From  2020-11-21  to  21-11-2020
         val year = response.FechaNac?.substringBefore("-")
         val month = response.FechaNac?.substringAfter("-")?.substringBeforeLast("-")
         val day = response.FechaNac?.substringAfterLast("-")
@@ -159,18 +158,8 @@ class PersonalViewModel(
             storedPassword = Contrasena ?: ""
         }
 
-        getGenderList()
+        genderList = userUseCase.getGenderList()
         progressVisible = false
-    }
-
-    private fun getGenderList(){
-        genderList = mutableListOf<String>().apply {
-            add("Género *")
-            add("Masculino")
-            add("Femenino")
-            add("Otro")
-            add("Sin especificar")
-        }
     }
 
 
@@ -186,6 +175,8 @@ class PersonalViewModel(
 
     fun onUpdateButtonClicked(v: View?){
         if(allFieldsAreValid()){
+            progressVisible = true
+
             addDisposable(userUseCase.updateUser(
                 id = userId,
                 code = userCode,
@@ -206,6 +197,8 @@ class PersonalViewModel(
     }
 
     private fun onUpdatedDataResponse(response: RegistrationData){
+        progressVisible = false
+
         if(response.Error!! > 0){
             // something went wrong
             hasErrors = true
@@ -263,6 +256,8 @@ class PersonalViewModel(
 
     private fun onError(t: Throwable?){
         progressVisible = false
+        hasErrors = true
+        error = t?.message
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

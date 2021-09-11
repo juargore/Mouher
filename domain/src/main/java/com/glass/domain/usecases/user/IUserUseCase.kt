@@ -33,6 +33,8 @@ interface IUserUseCase {
 
     fun getUserData(userId: Int): Single<UserProfileData>
 
+    fun getGenderList(): List<String>
+
     fun recoverPassword(email: String): Single<ResponseUI>
 
     fun getCountriesAsList(): Single<List<Country>>

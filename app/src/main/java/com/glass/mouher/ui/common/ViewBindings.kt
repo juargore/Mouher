@@ -1,12 +1,14 @@
 @file:Suppress("UNCHECKED_CAST")
 package com.glass.mouher.ui.common
 
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.databinding.BindingAdapter
 import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -149,6 +151,26 @@ fun setImageFromUrl(imageView: ImageView, url: String?) {
             .into(imageView)
     }
 }
+
+
+
+@BindingAdapter("backgroundLayout")
+fun setLayoutBackground(linearLayout: LinearLayout, color: String?) {
+    if (!color.isNullOrBlank()) {
+        linearLayout.setBackgroundColor(Color.parseColor(color))
+    }
+}
+
+
+@BindingAdapter("textColorAndShadow")
+fun setTextViewColorAndShadow(textView: TextView, color: String?) {
+    if (!color.isNullOrBlank()) {
+        textView.setTextColor(Color.parseColor(color))
+        textView.setShadowLayer(1f,0f,0f, Color.GRAY)
+        textView.includeFontPadding = false
+    }
+}
+
 
 @BindingAdapter("circleFromUrl")
 fun setImageCircleFromUrl(imageView: ImageView, url: String?) {

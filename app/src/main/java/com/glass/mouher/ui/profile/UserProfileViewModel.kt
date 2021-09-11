@@ -7,7 +7,6 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import com.glass.domain.entities.Item
 import com.glass.domain.entities.UserProfileData
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.user.IUserUseCase
@@ -15,7 +14,6 @@ import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.profile.address.AddressFragment
-import com.glass.mouher.ui.profile.payment.PaymentFragment
 import com.glass.mouher.ui.profile.personal.PersonalFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -118,6 +116,7 @@ class UserProfileViewModel(
         )
     }
 
+
     private fun onUserDataResponse(response: UserProfileData){
         userName = getUserName()
         notifyPropertyChanged(BR.userName)
@@ -131,49 +130,77 @@ class UserProfileViewModel(
             notifyPropertyChanged(BR.userPhone)
             notifyPropertyChanged(BR.userBirthDate)
 
-
-            response.DomicilioEnvio?.get(0)?.let{
-                addressStreet = it.Calle
-                addressNumber = it.NumExt
-                addressMunicipality = it.Municipio
-                addressState = it.Estado
-                addressCP = it.CP
-                addressCountry = it.Pais
+            response.DomicilioEnvio?.get(0)?.let{ data->
+                addressStreet = "Calle: ${data.Calle}"
+                addressNumber = "N° ${data.NumExt}"
+                addressMunicipality = data.Municipio
+                addressCP = data.CP
 
                 notifyPropertyChanged(BR.addressStreet)
                 notifyPropertyChanged(BR.addressNumber)
                 notifyPropertyChanged(BR.addressMunicipality)
-                notifyPropertyChanged(BR.addressState)
                 notifyPropertyChanged(BR.addressCP)
-                notifyPropertyChanged(BR.addressCountry)
 
                 if(addressStreet.isNullOrBlank()){
                     addressVisible = false
                     notifyPropertyChanged(BR.addressVisible)
                 }
+
+                getCountries(data.Pais, data.Estado)
             }
         }
-
-        progressVisible = false
     }
+
+
+    private fun getCountries(countryId: Int?, stateId: Int?){
+        addDisposable(userUseCase.getCountriesAsList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { list->
+                    addressCountry = "País: ${ list.find { it.IdPais == countryId }?.Nombre }"
+                    notifyPropertyChanged(BR.addressCountry)
+
+                    getStateByCountryId(countryId, stateId)
+                }, this@UserProfileViewModel::onError))
+    }
+
+
+    private fun getStateByCountryId(countryId: Int?, stateId: Int?){
+        addDisposable(userUseCase.getStatesAsList(countryId ?: 117)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { list->
+                    addressState = list.find { it.IdEstado == stateId }?.Nombre
+                    notifyPropertyChanged(BR.addressState)
+                    progressVisible = false
+                }, this::onError)
+        )
+    }
+
 
     fun onEditAddressClicked(v: View){
         openProfileScreen = AddressFragment()
         notifyPropertyChanged(BR.openProfileScreen)
     }
 
+
     fun onEditPersonalClicked(v: View){
         openProfileScreen = PersonalFragment()
         notifyPropertyChanged(BR.openProfileScreen)
     }
 
+
     fun clearProductsFromCart(){
         cartUseCase.deleteAllProductsOnCart()
     }
 
+
     private fun onError(t: Throwable?){
         progressVisible = false
     }
+
 
     fun onSignOutClicked(v: View?){
         addDisposable(cartUseCase.getSizeProductsOnDb()
@@ -185,6 +212,7 @@ class UserProfileViewModel(
             }, this::onError)
         )
     }
+
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)

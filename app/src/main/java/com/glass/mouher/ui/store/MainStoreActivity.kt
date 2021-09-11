@@ -15,6 +15,7 @@ import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityMainStoreBinding
 import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getCurrentStoreName
+import com.glass.mouher.shared.General.saveMustRefreshMenuMall
 import com.glass.mouher.ui.cart.CartActivity
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.menu.MenuFragment
@@ -118,6 +119,7 @@ class MainStoreActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val lastFragment = supportFragmentManager.fragments.lastOrNull()
+        saveMustRefreshMenuMall(true)
 
         if(lastFragment is HomeStoreFragment){
             if(viewModel.totalProducts.toInt() > 0){

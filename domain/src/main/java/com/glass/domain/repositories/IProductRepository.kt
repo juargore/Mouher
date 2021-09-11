@@ -16,4 +16,6 @@ interface IProductRepository {
                                 userEmail: String,
                                 userComment: String,
                                 userRating: Float): Observable<ResponseData>
+
+    fun getHistoryForUser(userId: Int, startDate: String): Single<HistoryResponse>
 }

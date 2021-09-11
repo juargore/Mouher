@@ -45,6 +45,8 @@ class AddressViewModel(
             notifyPropertyChanged(BR.selectedCountry)
         }
 
+    private var selectedCountryId: Int = 0
+
     @Bindable
     var statesList: List<State> = listOf()
         set(value){
@@ -58,6 +60,9 @@ class AddressViewModel(
             field = value
             notifyPropertyChanged(BR.selectedState)
         }
+
+
+    private var selectedStateId: Int = 0
 
     @Bindable
     var municipality: String? = null
@@ -136,13 +141,13 @@ class AddressViewModel(
                 idAddress = address.IdDomicilio ?: 0
 
                 with(address){
-                    if(IdPais != null && Pais != null){
-                        selectedCountry = Country(IdPais = IdPais, Nombre = Pais)
-                    }
+                    if(Pais != null){
+                        selectedCountryId = Pais ?: 0
 
-                    /*if(IdEstado != null && Estado != null){
-                        selectedState = State(IdEstado = IdEstado, Nombre = Estado)
-                    }*/
+                        if(Estado != null){
+                            selectedStateId = Estado ?: 0
+                        }
+                    }
 
                     municipality = Municipio
                     street = Calle
@@ -165,9 +170,10 @@ class AddressViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
+                { list ->
+                    selectedCountry = list.find { it.IdPais == selectedCountryId }
+                    countriesList = list
                     progressVisible = false
-                    countriesList = it
                 }, this::onError))
     }
 
@@ -176,8 +182,9 @@ class AddressViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                    statesList = it
+                { list->
+                    selectedState = list.find { it.IdEstado == selectedStateId }
+                    statesList = list
                     progressVisible = false
                 }, this::onError)
         )
@@ -206,19 +213,6 @@ class AddressViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSendResponse, this::onError)
             )
-
-            /*
-            Log.e("--", "" +
-                    "País: ${selectedCountry?.Nombre}\n" +
-                    "Estado: ${selectedState?.Nombre}\n" +
-                    "Municipio: $municipality\n" +
-                    "Calle: $street\n" +
-                    "Num. Ext: $extNumber\n" +
-                    "Num. Int: $intNumber\n" +
-                    "Cruzamientos: $betweenStreets\n" +
-                    "C.P. -> $postalCode\n" +
-                    "Colonia: $suburb")
-            */
         }
     }
 

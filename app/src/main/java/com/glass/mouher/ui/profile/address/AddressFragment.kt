@@ -55,7 +55,7 @@ class AddressFragment : Fragment() {
             adapter = mAdapter
 
             if(viewModel.selectedCountry != null){
-                setSelection(viewModel.selectedCountry!!.IdPais!!)
+                setSelection(1)
             }
 
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener{

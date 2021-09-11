@@ -5,6 +5,7 @@
     <color name="colorAccent">@color/mainGrey</color>
 
     <color name="mainPink">#FFA7B3</color>
+    <color name="lightPink">#ffeeee</color>
     <color name="mainGrey">#808080</color>
     <color name="mainDarkGreen">#52829B</color>
     <color name="mainRed">#cb4949</color>

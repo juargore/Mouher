@@ -68,7 +68,7 @@ val DIViewModel = module{
     }
 
     viewModel { HistoryViewModel(
-        context = androidContext())
+        productUseCase = get(UseCases.PRODUCT.name))
     }
 
     viewModel { HomeStoreViewModel(
@@ -98,12 +98,9 @@ val DIViewModel = module{
         userUseCase = get(UseCases.USER.name))
     }
 
-    viewModel { PaymentViewModel(
-        context = androidContext())
-    }
+    viewModel { PaymentViewModel() }
 
     viewModel { PersonalViewModel(
-        context = androidContext(),
         userUseCase = get(UseCases.USER.name))
     }
 

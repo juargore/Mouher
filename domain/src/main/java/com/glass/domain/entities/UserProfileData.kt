@@ -12,7 +12,7 @@ data class UserProfileData(
     val Correo: String? = null,
     val TelMovil: String? = null,
     val FechaNac: String? = null,
-    val Genero: Int? = 1, // TODO: Update with server info
+    val Genero: Int? = null,
     val Contrasena: String? = null,
     val DomicilioEnvio: List<UserAddressData>? = null,
     val DomicilioFiscal: List<UserAddressData>? = null
@@ -26,9 +26,7 @@ data class UserAddressData(
     val Cruzamientos: String? = null,
     val Colonia: String? = null,
     val CP: String? = null,
-    val Pais: String? = null,
-    val IdPais: Int? = 117, // TODO: Update with server info
-    val Estado: String? = null,
-    val IdEstado: Int? = 14, // TODO: Update with server info
+    val Pais: Int? = null,
+    val Estado: Int? = null,
     val Municipio: String? = null
 )

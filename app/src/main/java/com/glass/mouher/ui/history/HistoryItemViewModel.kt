@@ -2,29 +2,40 @@ package com.glass.mouher.ui.history
 
 import android.content.Context
 import android.view.View
-import androidx.databinding.Bindable
-import com.glass.domain.entities.Item
 import androidx.databinding.library.baseAdapters.BR
-import com.chauthai.swipereveallayout.SwipeRevealLayout
+import com.glass.domain.entities.HistoryUI
 
 class HistoryItemViewModel(
-    private val context: Context,
-    private val menu: Item
+    val context: Context,
+    val history: HistoryUI
 ): AHistoryListViewModel() {
 
-    @Bindable
-    var deleteClicked: Unit? = null
+    val id = history.id
 
-    val name = menu.name
+    val storeName = history.storeName
 
-    val imageUrl = menu.imageUrl
+    val date = "Fecha: ${history.date}"
 
-    val description = menu.description
+    val folio = "Folio: ${history.folio}"
 
-    fun onDeleteClicked(v: View){
-        (v.parent as? SwipeRevealLayout)?.close(true)
+    val subTotalAmount = "$ ${history.subTotalAmount}"
 
-        notifyPropertyChanged(BR.deleteClicked)
+    val shippingFee = "$ ${history.shippingFee}"
+
+    val totalAmount = "$ ${history.totalAmount}"
+
+    val paymentStatus = history.paymentStatus
+
+    val colorPaymentStatus = history.colorPaymentStatus
+
+    val shipmentStatus = history.shipmentStatus
+
+    val colorShipmentStatus = history.colorShipmentStatus
+
+    val urlForDetails = history.urlForDetails
+
+    fun onDetailsClicked(@Suppress("UNUSED_PARAMETER") v: View){
+        notifyPropertyChanged(BR.onDetailsClicked)
     }
 
 }

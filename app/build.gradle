@@ -129,6 +129,9 @@ dependencies {
     // Moshi
     implementation retrofitMoshiConverter
 
+    // Month Picker dialog
+    implementation monthPicker
+
     implementation project(':data')
     implementation project(':domain')
 

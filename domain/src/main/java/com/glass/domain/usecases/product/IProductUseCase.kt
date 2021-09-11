@@ -1,9 +1,6 @@
 package com.glass.domain.usecases.product
 
-import com.glass.domain.entities.ProductUI
-import com.glass.domain.entities.ResponseUI
-import com.glass.domain.entities.ReviewUI
-import com.glass.domain.entities.ScreenTopInformationUI
+import com.glass.domain.entities.*
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -27,4 +24,6 @@ interface IProductUseCase {
                                 userEmail: String,
                                 userComment: String,
                                 userRating: Float): Observable<ResponseUI>
+
+    fun getHistoryByUser(userId: Int, startDate: String): Single<List<HistoryUI>>
 }

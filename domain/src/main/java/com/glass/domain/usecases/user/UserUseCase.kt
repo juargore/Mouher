@@ -72,6 +72,14 @@ class UserUseCase(
         return userRepository.getUserData(userId)
     }
 
+    override fun getGenderList(): List<String> {
+        return listOf(
+            "Género *",
+            "Masculino",
+            "Femenino",
+            "Otro",
+            "Sin especificar")
+    }
 
     override fun recoverPassword(email: String): Single<ResponseUI> {
         return userRepository.recoverPassword(email).map { it.toResponseUI() }

@@ -31,4 +31,12 @@ interface ProductApi {
                                 @Field("Correo") Correo: String,
                                 @Field("Reseña") Reseña: String,
                                 @Field("Valoracion") Valoracion: String): Single<ResponseData>
+
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
+    fun getHistoryProducts(@Field("WebService") WebService: String,
+                           @Field("IdCliente") IdCliente: Int,
+                           @Field("FechaInicial") FechaInicial: String,
+                           @Field("FechaFinal") FechaFinal: String): Single<HistoryResponse>
 }
