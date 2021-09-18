@@ -27,6 +27,8 @@ class ProductDetailViewModel(
 
     var storeId = 1
 
+    var productType = 1
+
     @Bindable
     var urlImageTop: String = ""
 
@@ -204,6 +206,7 @@ class ProductDetailViewModel(
         productDescription = product.fullDescription ?: ""
         productRating = product.rating ?: 0
         currentPrice = product.currentPrice?.toDouble() ?: 0.0
+        productType = product.productType ?: 1
 
         product.oldPrice?.let{
             oldPrice = "$ $it"
@@ -295,7 +298,8 @@ class ProductDetailViewModel(
                 imageUrl = miniSelected,
                 quantity = valueClassificationSelectedQuantity?.toInt() ?: 1,
                 valueClassification = value,
-                storeId = storeId
+                storeId = storeId,
+                productType = productType
             ))
     }
 

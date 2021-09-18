@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp">
@@ -20,11 +21,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView android:id="@+id/imgCloseReview"
+                <ImageView
+                    android:id="@+id/imgCloseRemarks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_close" />
+                    app:srcCompat="@drawable/ic_close"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
+
             <TextView android:id="@+id/textView35"
                 style="@style/TextView.TitlesH6"
                 android:layout_width="wrap_content"
@@ -32,8 +36,10 @@
                 android:text="Observaciones"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/background_stroke_gray_no_filled"
@@ -41,20 +47,22 @@
             android:padding="7dp">
 
             <EditText
-                android:id="@+id/etCommentReview"
+                android:id="@+id/etRemarks"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@null"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="Notas *"
                 android:inputType="textMultiLine"
+                android:maxLength="200"
                 android:paddingBottom="2dp"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/txtSaveReview"
+            android:id="@+id/btnSaveRemark"
             android:layout_width="280dp"
             android:layout_height="44dp"
             android:layout_gravity="center_horizontal|center_vertical"
@@ -68,7 +76,8 @@
             android:text="ACEPTAR"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            tools:ignore="HardcodedText" />
 
         <!--<TextView android:id="@+id/txtSaveReview"
             style="@style/TextView.TitlesH6"

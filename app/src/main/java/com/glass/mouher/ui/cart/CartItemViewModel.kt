@@ -20,9 +20,11 @@ class CartItemViewModel(
 
     val quantity = item.quantity.toString()
 
+    val timesBy = "${item.quantity} x $${item.price}"
+
     val description = item.valueClassification
 
-    val price = item.price
+    val price = item.price!! * item.quantity!!
 
     val imageUrl = item.imageUrl
 

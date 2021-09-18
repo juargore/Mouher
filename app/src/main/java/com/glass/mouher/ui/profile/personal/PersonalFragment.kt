@@ -69,7 +69,7 @@ class PersonalFragment : Fragment() {
 
     private fun showDatePickerDialog() {
         DatePickerHelper(requireContext(), spinnerMode = true, shouldRemoveEighteen = true)
-            .showDialog(viewModel.day, viewModel.month, viewModel.year,
+            .showDialog(viewModel.day, viewModel.month-1, viewModel.year,
                 object : DatePickerHelper.Callback {
                     override fun onDateSelected(day: Int, month: Int, year: Int) {
                         val monInt = month + 1

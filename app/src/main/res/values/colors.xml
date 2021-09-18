@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/mainPink</color>
-    <color name="colorPrimaryDark">@color/mainDarkGreen</color>
+    <color name="colorPrimaryDark">@color/mainDarkBlue</color>
     <color name="colorAccent">@color/mainGrey</color>
 
     <color name="mainPink">#FFA7B3</color>
     <color name="lightPink">#ffeeee</color>
     <color name="mainGrey">#808080</color>
-    <color name="mainDarkGreen">#52829B</color>
+    <color name="mainDarkBlue">#52829B</color>
+    <color name="mainGreen">#b5e61d</color>
     <color name="mainRed">#cb4949</color>
     <color name="mainBlue">#3198dd</color>
 

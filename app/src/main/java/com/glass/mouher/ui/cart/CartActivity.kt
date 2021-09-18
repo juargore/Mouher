@@ -5,18 +5,21 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
 import android.view.MotionEvent
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityCartBinding
-import com.glass.mouher.shared.General
+import com.glass.mouher.shared.General.getCartNotes
+import com.glass.mouher.shared.General.saveCartNotes
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
@@ -73,6 +76,23 @@ class CartActivity : AppCompatActivity() {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setContentView(R.layout.pop_add_notes)
+
+            val etRemarks = findViewById<EditText>(R.id.etRemarks)
+            val savedNotes = getCartNotes()
+
+            if(!savedNotes.isNullOrBlank()){
+                etRemarks.setText(savedNotes)
+            }
+
+            findViewById<ImageView>(R.id.imgCloseRemarks).setOnClickListener {
+                this.dismiss()
+            }
+
+            findViewById<AppCompatButton>(R.id.btnSaveRemark).setOnClickListener {
+                saveCartNotes(etRemarks.text.toString())
+                this.dismiss()
+            }
+
             show()
         }
     }

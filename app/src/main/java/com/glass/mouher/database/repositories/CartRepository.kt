@@ -62,6 +62,7 @@ class CartRepository(
             item.quantity = product.quantity
             item.valueClassification = product.valueClassification
             item.storeId = product.storeId
+            item.productType = product.productType
 
             item = realm.copyToRealm(item)
 

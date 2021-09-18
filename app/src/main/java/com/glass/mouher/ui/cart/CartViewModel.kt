@@ -9,7 +9,7 @@ import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.mouher.App.Companion.context
-import com.glass.mouher.shared.General
+import com.glass.mouher.shared.General.getStoreShoppingInfo
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.shared.General.getUserSignedIn
@@ -33,6 +33,27 @@ class CartViewModel(
 
     @Bindable
     var deleteItem: Int? = null
+
+    @Bindable
+    var subTotalAmount: Double = 0.0
+        set(value){
+            field = BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+            notifyPropertyChanged(BR.subTotalAmount)
+        }
+
+    @Bindable
+    var shippingAmount: Double = 0.0
+        set(value){
+            field = BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+            notifyPropertyChanged(BR.shippingAmount)
+        }
+
+    @Bindable
+    var shippingDescription: String = ""
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.shippingDescription)
+        }
 
     @Bindable
     var totalAmount: Double = 0.0
@@ -98,9 +119,21 @@ class CartViewModel(
                 val viewModel = CartItemViewModel(context = c, item = it)
                 viewModels.add(viewModel)
 
-                totalAmount += (it.quantity!! * (it.price ?: 0.0))
+                subTotalAmount += (it.quantity!! * (it.price ?: 0.0))
             }
         }
+
+        // List has at least one product (does not matter if there is services)
+        val hasProduct: Item? = list.find { it.productType == 1 }
+        val shoppingInformation = getStoreShoppingInfo() // get data in format: 1-1500-Fijo
+
+        val shipping = shoppingInformation?.substringAfter("-")?.substringBefore("-")
+        shippingAmount = if(hasProduct != null) shipping?.toDouble() ?: 0.0 else 0.0
+
+        val description = shoppingInformation?.substringAfter("-")?.substringAfter("-")
+
+        shippingDescription = if(description.isNullOrBlank() || description.equals("null", true)) ":" else "($description) :" // Fijo
+        totalAmount = subTotalAmount + shippingAmount
 
         items = viewModels
     }
@@ -111,7 +144,7 @@ class CartViewModel(
 
         Handler().postDelayed({
             notifyPropertyChanged(BR.onRefreshScreen)
-        }, 500)
+        }, 200)
     }
 
 

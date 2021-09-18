@@ -27,12 +27,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{ viewModel::onBackClicked }"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/onyxBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
             <TextView
                 android:id="@+id/textView9"
                 style="@style/TextView.TitlesH5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12dp"
+                android:gravity="center_horizontal|center_vertical"
                 android:includeFontPadding="true"
                 android:text="@{ viewModel.userName }"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +65,7 @@
                 android:drawablePadding="8dp"
                 android:includeFontPadding="true"
                 android:onClick="@{ viewModel::onSignOutClicked }"
-                android:text="Salir"
+                android:text="Cerrar Sesión"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
@@ -98,7 +112,7 @@
                     android:layout_marginTop="@dimen/margin_24dp"
                     android:layout_marginBottom="2dp"
                     android:gravity="center_horizontal"
-                    android:text="Información General"
+                    android:text="Datos Generales"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -128,21 +142,75 @@
                             android:paddingBottom="8dp">
 
                             <TextView
-                                android:id="@+id/textView521"
-                                style="@style/TextView.TitlesH6"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@{ viewModel.userEmail }"
-                                tools:text="arturo.g.resendiz@gmail.com" />
-
-                            <TextView
-                                android:id="@+id/textView511"
+                                android:id="@+id/textView522"
                                 style="@style/TextView.TitlesH6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/regular"
-                                android:text="@{ viewModel.userPhone }"
-                                tools:text="Tel: 3334564567" />
+                                android:text="@{ viewModel.memberSince }"
+                                tools:text="Miembro desde 2021-12-12" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView524"
+                                    style="@style/TextView.TitlesH6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/regular"
+                                    android:text="Código de Cliente: "
+                                    tools:ignore="HardcodedText" />
+
+                                <TextView
+                                    android:id="@+id/textView523"
+                                    style="@style/TextView.TitlesH6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/regular"
+                                    android:text="@{ viewModel.clientCode }"
+                                    android:textStyle="bold"
+                                    tools:text="1234" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/textView521"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/regular"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:text="@{ viewModel.userEmail }"
+                                tools:text="arturo.g.resendiz@gmail.com" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView512"
+                                    style="@style/TextView.TitlesH6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/regular"
+                                    android:text="Teléfono Móvil: "
+                                    tools:ignore="HardcodedText" />
+
+                                <TextView
+                                    android:id="@+id/textView511"
+                                    style="@style/TextView.TitlesH6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/regular"
+                                    android:text="@{ viewModel.userPhone }"
+                                    android:textStyle="bold"
+                                    tools:text="3334564567" />
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/textView501"
@@ -151,7 +219,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/regular"
                                 android:text="@{ viewModel.userBirthDate }"
-                                tools:text="Fecha nacimiento: 2012-09-09" />
+                                tools:text="Fecha de nacimiento: 2012-09-09" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -169,7 +237,7 @@
                                     android:background="@drawable/button_ripple"
                                     android:letterSpacing="0.2"
                                     android:onClick="@{ viewModel::onEditPersonalClicked }"
-                                    android:text="Editar"
+                                    android:text="Modificar"
                                     android:textAllCaps="true"
                                     android:textColor="@color/white"
                                     android:textSize="13sp"
@@ -333,7 +401,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="2dp"
                     android:gravity="center_horizontal"
-                    android:text="Dirección de entrega preestablecida"
+                    android:text="Domicilio de Envío"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -374,13 +442,31 @@
                                 tools:text="Av. Acueducto 1100" />
 
                             <TextView
+                                android:id="@+id/textView56"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.addressSuburb }"
+                                tools:text="Girasoles Elite" />
+
+                            <TextView
                                 android:id="@+id/textView50"
                                 style="@style/TextView.TitlesH6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/regular"
-                                android:text="@{ viewModel.addressMunicipality + ',' + viewModel.addressState + ' ' + viewModel.addressCP }"
-                                tools:text="Zapopan, Jalisco 45138" />
+                                android:text="@{ viewModel.addressMunicipality + ' ' + viewModel.addressState }"
+                                tools:text="Zapopan, Jalisco" />
+
+                            <TextView
+                                android:id="@+id/textView57"
+                                style="@style/TextView.TitlesH6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/regular"
+                                android:text="@{ viewModel.addressCP }"
+                                tools:text="45158" />
 
                             <TextView
                                 android:id="@+id/textView49"
@@ -407,9 +493,10 @@
                                     android:background="@drawable/button_ripple"
                                     android:letterSpacing="0.2"
                                     android:onClick="@{ viewModel::onEditAddressClicked }"
-                                    android:text="Editar"
+                                    android:text="Modificar"
                                     android:textAllCaps="true"
                                     android:textColor="@color/white"
+                                    android:textSize="13sp"
                                     tools:ignore="ButtonStyle,HardcodedText" />
 
                                 <Button

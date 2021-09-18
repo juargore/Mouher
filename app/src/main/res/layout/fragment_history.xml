@@ -24,6 +24,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{ viewModel::onBackClicked }"
+                android:paddingStart="10dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="20dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/onyxBlack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
             <ImageView
                 android:id="@+id/imageView25"
                 android:layout_width="55dp"
@@ -39,14 +55,17 @@
             <TextView
                 android:id="@+id/textView10"
                 style="@style/TextView.TitlesH5"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_12dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:layout_marginEnd="@dimen/margin_12dp"
+                android:layout_marginBottom="@dimen/margin_12dp"
                 android:paddingTop="3dp"
                 android:text="Reporte de Compras"
                 android:textSize="19sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView25"
+                app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,7 +111,7 @@
             android:includeFontPadding="false"
             android:paddingStart="@dimen/margin_12dp"
             android:paddingEnd="@dimen/margin_12dp"
-            android:text="No hay ventas registradas en el periodo de tiempo seleccionado. Prueba un nuevo mes o año para desplegar la información. "
+            android:text="No tienes compras realizadas en el mes actual o en el mes seleccionado. Selecciona un nuevo mes o realiza tu primera compra en Mouher Market."
             android:textColor="@color/mainGrey"
             android:textSize="16sp"
             android:visibility="@{ viewModel.historyItems.size() > 0 ? View.GONE : View.VISIBLE }"

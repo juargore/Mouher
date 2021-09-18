@@ -6,7 +6,7 @@ data class StoreData(
     val Mensaje: String? = null,
 
 
-    // Store gral information sectino
+    // Store gral information section
     val TiendaNombre: String? = null,
     val TiendaLogoColor: String? = null,
     val TiendaLogoGris: String? = null,
@@ -24,6 +24,12 @@ data class StoreData(
     val BannerFoto3: String? = null,
     val BannerTituloFoto3: String? = null,
     val BannerSubtituloFoto3: String? = null,
+
+
+    // Shipping information for store
+    val TipoCostoEnvio: Int? = null,
+    val CostoEnvioF1: String? = null,
+    val CostoEnvioF1Msj: String? = null,
 
 
     // Categories list
@@ -70,11 +76,13 @@ data class StoreData(
             }
     }
 
+    fun getShippingInfoStore(): String = "$TipoCostoEnvio-$CostoEnvioF1-$CostoEnvioF1Msj" // 1-1500-Fijo
+
     fun getStoreLogoImage(): String? = TiendaLogoColor
 
     fun getImageVideo(): String? = VideoImagenFondo
 
-    fun getLinkForVideo(): String?{
+    fun getLinkForVideo(): String{
         Video?.let{ url->
             return if(url.contains(".mp4")
                 || url.contains(".3gp")

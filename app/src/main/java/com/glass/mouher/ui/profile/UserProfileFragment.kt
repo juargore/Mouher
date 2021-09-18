@@ -37,6 +37,7 @@ class UserProfileFragment : Fragment() {
             BR.openProfileScreen -> openSubProfileScreen()
             BR.onDiscard -> showPopConfirmation()
             BR.signOut -> showPopSignOut()
+            BR.backClicked -> activity?.onBackPressed()
         }
     }
 

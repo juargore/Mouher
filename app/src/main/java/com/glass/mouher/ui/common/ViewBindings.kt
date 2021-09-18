@@ -212,6 +212,14 @@ fun strikeThrough(textView: TextView, strikeThrough: Boolean) {
 @BindingAdapter("doubleAsString")
 fun setDoubleAsString(textView: TextView, double: Double?) {
     double?.let{
-        textView.text = double.toString()
+        val rounded = String.format("%.2f", double)
+        textView.text = rounded
+    }
+}
+
+@BindingAdapter("intAsString")
+fun setIntAsString(textView: TextView, intNumber: Int?) {
+    intNumber?.let{
+        textView.text = it.toString()
     }
 }

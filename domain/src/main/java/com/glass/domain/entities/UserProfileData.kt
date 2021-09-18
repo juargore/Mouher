@@ -14,7 +14,7 @@ data class UserProfileData(
     val FechaNac: String? = null,
     val Genero: Int? = null,
     val Contrasena: String? = null,
-    val DomicilioEnvio: List<UserAddressData>? = null,
+    var DomicilioEnvio: List<UserAddressData>? = null,
     val DomicilioFiscal: List<UserAddressData>? = null
 )
 

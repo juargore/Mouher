@@ -25,6 +25,10 @@ class StoreUseCase(
         return Observable.just(storeData?.getTopBannerList())
     }
 
+    override fun getShippingInfoStore(): Observable<String> {
+        return Observable.just(storeData?.getShippingInfoStore())
+    }
+
     override fun getStoreLogo(): Observable<String> {
         return Observable.just(storeData?.getStoreLogoImage())
     }

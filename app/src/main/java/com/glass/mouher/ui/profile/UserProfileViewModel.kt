@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.glass.domain.entities.UserProfileData
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.user.IUserUseCase
+import com.glass.mouher.shared.General
+import com.glass.mouher.shared.General.getUserCreationDate
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.ui.base.BaseViewModel
@@ -34,6 +36,12 @@ class UserProfileViewModel(
      */
     @Bindable
     var userName: String? = null
+
+    @Bindable
+    var memberSince: String? = null
+
+    @Bindable
+    var clientCode: String? = null
 
     @Bindable
     var userEmail: String? = null
@@ -63,6 +71,9 @@ class UserProfileViewModel(
      */
     @Bindable
     var addressStreet: String? = null
+
+    @Bindable
+    var addressSuburb: String? = null
 
     @Bindable
     var addressNumber: String? = null
@@ -122,21 +133,27 @@ class UserProfileViewModel(
         notifyPropertyChanged(BR.userName)
 
         with(response){
-            userEmail = Correo
-            userPhone = "Teléfono: $TelMovil"
-            userBirthDate = "Fecha nacimiento: $FechaNac"
+            memberSince = "Miembro desde ${getUserCreationDate()}"
+            clientCode = Codigo
+            userEmail = "Correo principal: $Correo"
+            userPhone = TelMovil
+            userBirthDate = "Fecha de nacimiento: $FechaNac"
 
             notifyPropertyChanged(BR.userEmail)
+            notifyPropertyChanged(BR.memberSince)
+            notifyPropertyChanged(BR.clientCode)
             notifyPropertyChanged(BR.userPhone)
             notifyPropertyChanged(BR.userBirthDate)
 
             response.DomicilioEnvio?.get(0)?.let{ data->
-                addressStreet = "Calle: ${data.Calle}"
-                addressNumber = "N° ${data.NumExt}"
-                addressMunicipality = data.Municipio
-                addressCP = data.CP
+                addressStreet = if(data.Calle.isNullOrEmpty()) "Aún no se ha registrado un domicilio de envío" else "Calle: ${data.Calle}"
+                addressSuburb = if(data.Colonia.isNullOrEmpty()) "" else "Colonia: ${data.Colonia}"
+                addressNumber = if(data.NumExt.isNullOrEmpty()) "" else "N° ${data.NumExt ?: ""}, Interior ${data.NumInt}"
+                addressMunicipality = if(data.Municipio.isNullOrEmpty()) "" else "${data.Municipio},"
+                addressCP = if(data.CP.isNullOrEmpty()) "" else "Código Postal: ${data.CP}"
 
                 notifyPropertyChanged(BR.addressStreet)
+                notifyPropertyChanged(BR.addressSuburb)
                 notifyPropertyChanged(BR.addressNumber)
                 notifyPropertyChanged(BR.addressMunicipality)
                 notifyPropertyChanged(BR.addressCP)
@@ -158,7 +175,8 @@ class UserProfileViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list->
-                    addressCountry = "País: ${ list.find { it.IdPais == countryId }?.Nombre }"
+                    val country = list.find { it.IdPais == countryId }?.Nombre
+                    addressCountry = if(country.isNullOrEmpty()) "" else "País: $country"
                     notifyPropertyChanged(BR.addressCountry)
 
                     getStateByCountryId(countryId, stateId)
@@ -172,7 +190,8 @@ class UserProfileViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list->
-                    addressState = list.find { it.IdEstado == stateId }?.Nombre
+                    val state = list.find { it.IdEstado == stateId }?.Nombre
+                    addressState = if(state.isNullOrEmpty()) "" else state
                     notifyPropertyChanged(BR.addressState)
                     progressVisible = false
                 }, this::onError)
@@ -193,6 +212,7 @@ class UserProfileViewModel(
 
 
     fun clearProductsFromCart(){
+        General.saveCartNotes("")
         cartUseCase.deleteAllProductsOnCart()
     }
 
@@ -201,6 +221,10 @@ class UserProfileViewModel(
         progressVisible = false
     }
 
+
+    fun onBackClicked(v: View){
+        notifyPropertyChanged(BR.backClicked)
+    }
 
     fun onSignOutClicked(v: View?){
         addDisposable(cartUseCase.getSizeProductsOnDb()

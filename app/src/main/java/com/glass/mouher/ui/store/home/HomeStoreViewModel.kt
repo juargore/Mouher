@@ -14,6 +14,8 @@ import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.extensions.isEmailValid
+import com.glass.mouher.shared.General
+import com.glass.mouher.shared.General.saveStoreShoppingInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -104,6 +106,11 @@ class HomeStoreViewModel(
 
             .flatMap {
                 onTopBannerListResponse(it)
+                return@flatMap storeUseCase.getShippingInfoStore()
+            }
+
+            .flatMap {
+                onShippingInfoStoreResponse(it)
                 return@flatMap storeUseCase.getImageVideo()
             }
 
@@ -161,6 +168,11 @@ class HomeStoreViewModel(
     private fun onTopBannerListResponse(list: List<TopBannerUI>){
         bannerList = list
         notifyPropertyChanged(BR.bannerList)
+    }
+
+    private fun onShippingInfoStoreResponse(response: String){
+        // Store values here in the format: 1-1500-Fijo
+        saveStoreShoppingInfo(response)
     }
 
     private fun onUrlVideoResponse(url: String){
@@ -222,6 +234,7 @@ class HomeStoreViewModel(
     }
 
     fun clearProductsFromCart(){
+        General.saveCartNotes("")
         cartUseCase.deleteAllProductsOnCart()
     }
 

@@ -9,6 +9,8 @@ interface IStoreUseCase {
 
     fun getTopBannerList(): Observable<List<TopBannerUI>>
 
+    fun getShippingInfoStore(): Observable<String>
+
     fun getStoreLogo(): Observable<String>
 
     fun getImageVideo(): Observable<String>

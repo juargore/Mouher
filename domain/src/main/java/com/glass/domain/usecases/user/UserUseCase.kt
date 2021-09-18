@@ -70,6 +70,25 @@ class UserUseCase(
 
     override fun getUserData(userId: Int): Single<UserProfileData> {
         return userRepository.getUserData(userId)
+            /*.map {
+            val r = it
+            r.DomicilioEnvio = listOf(
+                UserAddressData(
+                    IdDomicilio = null,
+                Calle= null,
+            NumInt= null,
+             NumExt = null,
+             Cruzamientos = null,
+             Colonia = null,
+             CP = null,
+             Pais = null,
+             Estado = null,
+             Municipio = null
+                )
+            )
+
+            return@map r
+        }*/
     }
 
     override fun getGenderList(): List<String> {

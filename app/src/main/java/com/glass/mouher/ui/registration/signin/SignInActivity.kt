@@ -64,7 +64,7 @@ class SignInActivity : AppCompatActivity() {
                 }
 
                 this@SignInActivity.finish()
-            }, 1000)
+            }, 2000)
         }
     }
 

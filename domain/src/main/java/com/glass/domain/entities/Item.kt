@@ -9,5 +9,6 @@ data class Item(
     var price: Double? = null,
     var quantity: Int? = null,
     var valueClassification: String? = null, // values such as Piel, Negro, 25, etc
-    var storeId: Int? = null
+    var storeId: Int? = null,
+    var productType: Int? = null // values 1 for product or 2 for service
 )

@@ -59,7 +59,8 @@ val DIViewModel = module{
 
     viewModel { MenuViewModel(
         mallUseCase = get(UseCases.MALL.name),
-        storeUseCase = get(UseCases.STORE.name))
+        storeUseCase = get(UseCases.STORE.name),
+        cartUseCase = get(UseCases.CART.name))
     }
 
     viewModel { UserProfileViewModel(

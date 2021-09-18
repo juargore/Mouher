@@ -16,8 +16,8 @@ fun showSnackbar(view: View, message: String?, type: SnackType){
         with(view.context){
             when(type){
                 SnackType.ERROR -> sview.backgroundColor = resources.getColor(R.color.mainPink)
-                SnackType.SUCCESS ->  sview.backgroundColor = resources.getColor(R.color.mainDarkGreen)
-                SnackType.INFO -> sview.backgroundColor = resources.getColor(R.color.mainDarkGreen)
+                SnackType.SUCCESS ->  sview.backgroundColor = resources.getColor(R.color.mainGreen)
+                SnackType.INFO -> sview.backgroundColor = resources.getColor(R.color.mainDarkBlue)
             }
         }
 

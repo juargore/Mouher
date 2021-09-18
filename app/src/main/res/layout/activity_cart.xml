@@ -31,12 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="2dp"
-            android:layout_marginBottom="45dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            app:layout_constraintTop_toBottomOf="@+id/textView45">
 
             <TextView
                 android:id="@+id/textView56"
@@ -55,60 +54,184 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_18dp"
-                app:items="@{viewModel.items}"
+                android:visibility="@{ viewModel.items.size() == 0 ? View.GONE : View.VISIBLE }"
                 app:clickHandler="@{ viewModel }"
                 app:itemPropertyChangeCallback="@{ viewModel.itemPropertyChangedCallback }"
                 app:itemViewBinder="@{view.itemViewBinder}"
-                android:visibility="@{ viewModel.items.size() == 0 ? View.GONE : View.VISIBLE }"
+                app:items="@{viewModel.items}"
                 tools:visibility="gone" />
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/view11"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2">
 
-            <TextView
-                android:id="@+id/textView8"
-                style="@style/TextView.TitlesH5"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_12dp"
-                app:doubleAsString="@{ viewModel.totalAmount }"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/view11"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="300.00" />
+                app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/textView37"
-                style="@style/TextView.TitlesH5"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView8"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_12dp"
+                    app:doubleAsString="@{ viewModel.subTotalAmount }"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="300.00" />
+
+                <TextView
+                    android:id="@+id/textView37"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="$"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12dp"
+                    android:fontFamily="@font/regular"
+                    android:text="Subtotal (IVA incluído) :"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:text="$"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/view11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-            <TextView android:id="@+id/textView7"
-                style="@style/TextView.TitlesH5"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView83"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_12dp"
+                    app:doubleAsString="@{ viewModel.shippingAmount }"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="300.00" />
+
+                <TextView
+                    android:id="@+id/textView373"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="$"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView83"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView73"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_12dp"
+                        android:fontFamily="@font/regular"
+                        android:text="Envío"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/textView75"
+                        style="@style/TextView.TitlesH6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/regular"
+                        android:text="@{ viewModel.shippingDescription }"
+                        tools:ignore="HardcodedText"
+                        tools:text="(Fijo)" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12dp"
-                android:text="Total: "
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintBottom_toTopOf="@+id/view11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/textView84"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_12dp"
+                    app:doubleAsString="@{ viewModel.totalAmount }"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="300.00" />
+
+                <TextView
+                    android:id="@+id/textView374"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="$"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView84"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/textView74"
+                    style="@style/TextView.TitlesH6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12dp"
+                    android:fontFamily="@font/regular"
+                    android:text="Total :"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@color/bgGrey"
+            android:orientation="horizontal"
+            android:weightSum="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -116,34 +239,36 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/bgWhite"
                 android:onClick="@{ viewModel::onPopClicked }"
                 app:cardCornerRadius="3dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:cardElevation="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <RelativeLayout android:layout_width="20dp"
+                    <RelativeLayout
+                        android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/background_circle_pink"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView android:id="@+id/imageView2"
+                        <ImageView
+                            android:id="@+id/imageView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            app:srcCompat="@drawable/ic_note_add" />
+                            app:srcCompat="@drawable/ic_note_add"
+                            tools:ignore="ContentDescription" />
                     </RelativeLayout>
-                    <LinearLayout android:id="@+id/linearLayout9"
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout9"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
@@ -152,40 +277,37 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
-                        <TextView android:id="@+id/textView34"
+
+                        <TextView
+                            android:id="@+id/textView34"
                             style="@style/TextView.TitlesH6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Observaciones"
                             tools:ignore="HardcodedText" />
-                        <TextView android:id="@+id/textView33"
+
+                        <TextView
+                            android:id="@+id/textView33"
                             style="@style/TextView.TitlesH7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular"
-                            android:text="Sin observaciones para esta orden"
                             tools:ignore="HardcodedText" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-            <View android:id="@+id/view5"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:background="@color/bgGrey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatButton android:id="@+id/button"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
                 style="@style/TextView.TitlesH6"
-                android:layout_width="160dp"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@drawable/background_button_rounded"
                 android:backgroundTint="@{ viewModel.items.size() > 0 ? @color/onyxBlack : @color/lightGrey }"
-                tools:backgroundTint="@color/onyxBlack"
                 android:drawablePadding="3dp"
-                android:onClick="@{ viewModel::onPayClicked }"
                 android:includeFontPadding="false"
+                android:onClick="@{ viewModel::onPayClicked }"
                 android:paddingStart="@dimen/margin_12dp"
                 android:paddingEnd="@dimen/margin_12dp"
                 android:text="Pagar"
@@ -194,8 +316,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:backgroundTint="@color/onyxBlack"
                 tools:ignore="HardcodedText" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView5"
@@ -210,7 +333,33 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:ignore="HardcodedText" />
 
-        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
+        <TextView
+            android:id="@+id/textView48"
+            style="@style/TextView.TitlesH4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="20sp"
+            app:intAsString="@{ viewModel.items.size() }"
+            app:layout_constraintBottom_toTopOf="@+id/textView45"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            tools:text="4" />
+
+        <TextView
+            android:id="@+id/textView45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Desplaza a la izquierda para eliminar un producto."
+            android:textColor="@color/mainGrey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            tools:ignore="HardcodedText" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/onyxBlack"
@@ -227,7 +376,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/onyxBlack">
 
-                <ImageButton android:id="@+id/back"
+                <ImageButton
+                    android:id="@+id/back"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -237,9 +387,11 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
-                <ImageView android:id="@+id/icBackHome"
+                <ImageView
+                    android:id="@+id/icBackHome"
                     android:layout_width="44dp"
                     android:layout_height="0dp"
                     android:onClick="@{ viewModel::onBackClicked }"
@@ -252,7 +404,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_arrow_back" />
 
-                <ImageView android:id="@+id/imageView8"
+                <ImageView
+                    android:id="@+id/imageView8"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="2dp"

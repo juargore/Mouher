@@ -106,7 +106,7 @@ class MainStoreActivity : AppCompatActivity() {
     }
 
     fun refreshActivityFromFragment(){
-        General.saveMustRefreshMenuMall(true)
+        saveMustRefreshMenuMall(true)
 
         finish()
         startActivity(intent)

@@ -204,7 +204,7 @@ class AddressViewModel(
                 extNumber = extNumber ?: "",
                 crosses = betweenStreets ?: "",
                 suburb = suburb ?: "",
-                postalCode = postalCode ?: "0000",
+                postalCode = postalCode ?: "",
                 countryId = selectedCountry?.IdPais ?: 117,
                 stateId = selectedState?.IdEstado ?: 14,
                 municipality = municipality ?: ""
@@ -249,8 +249,8 @@ class AddressViewModel(
             error = "Ingrese el número exterior"
             return false
         }
-        if(postalCode.isNullOrBlank() || postalCode.toString().length < 5){
-            error = "Ingrese un Código Postal de al menos 5 dígitos"
+        if(postalCode.isNullOrBlank()){
+            error = "Ingrese un Código Postal"
             return false
         }
         if(suburb.isNullOrBlank()){

@@ -39,6 +39,7 @@ data class ProductUI(
     val fullDescription: String? = null,
     val rating: Int? = null,
     val discount: String? = null,
+    val productType: Int? = null,
 
     // Classification values
     val classificationTitle1: String? = null,
@@ -73,6 +74,7 @@ data class FullProductDataResponse(
     val PrecioAnterior: String? = null,
     val Rating: Int? = null,
     val Existencia: Int? = null,
+    val TipoProducto: Int? = null,
 
     val Clasificacion1: String? = null,
     val ValoresClasificacion1: String? = null,
@@ -106,7 +108,8 @@ data class FullProductDataResponse(
         classificationTitle3 = Clasificacion3,
         classificationValues3AsString = ValoresClasificacion3,
         classificationValues3 = getValuesAsList(ValoresClasificacion3),
-        classificationValuesQty = Existencia
+        classificationValuesQty = Existencia,
+        productType = TipoProducto
     )
 
     fun getTopInformation(): ScreenTopInformationUI =

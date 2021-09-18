@@ -159,7 +159,7 @@ class SignUpViewModel(
                 fLastName = fatherLastName?.trim() ?: "",
                 mLastName = motherLastName?.trim() ?: "",
                 gender = gender,
-                birthday = birthDate?.trim() ?: "0000-00-00",
+                birthday = birthDate?.trim() ?: "",
                 phone = phone.trim(),
                 email = email.trim(),
                 password = passwordOne?.trim() ?: ""
@@ -197,7 +197,7 @@ class SignUpViewModel(
 
 
     private fun allFieldsAreValid(): Boolean{
-        if(fullName.isNullOrBlank()){
+        /*if(fullName.isNullOrBlank()){
             error = "Por favor ingrese su nombre"
             return false
         }
@@ -208,12 +208,12 @@ class SignUpViewModel(
         if(motherLastName.isNullOrBlank()){
             error = "Por favor ingrese su apellido materno"
             return false
-        }
+        }*/
         if(gender == 0){
             error = "Por favor seleccione un género de la lista"
             return false
         }
-        if(birthDate.isNullOrBlank()){
+        /*if(birthDate.isNullOrBlank()){
             error = "Por favor ingrese su fecha de nacimiento"
             return false
         }
@@ -224,7 +224,7 @@ class SignUpViewModel(
         if(!email.isEmailValid()){
             error = "Por favor ingrese un email válido"
             return false
-        }
+        }*/
         if(passwordOne.isNullOrBlank()){
             error = "Por favor ingrese una contraseña"
             return false

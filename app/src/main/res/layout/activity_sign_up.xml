@@ -71,7 +71,7 @@
                         android:layout_marginStart="@dimen/margin_18dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="@dimen/margin_18dp"
-                        android:text="Por favor ingrese los siguientes datos de forma correcta. Ésto nos ayudará a poder crear una cuenta y pueda comenzar a hacer compras desde la App"
+                        android:text="Por favor ingresa tus datos de registro. Crearemos tu cuenta de cliente de Mouher Market con la que podrás realizar compras en todo momento y desde cualquier lugar."
                         android:textColor="@color/mainGrey"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +194,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:hint="Teléfono móvil *"
+                            android:hint="Teléfono Móvil *"
                             android:theme="@style/TextInputLayoutAppearanceBlack"
                             tools:ignore="HardcodedText">
 
@@ -303,8 +303,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{ viewModel::onTermsClicked }"
-                                android:text="Términos y Condiciones"
-                                android:textColor="@color/mainGrey"
+                                android:text="Términos y Condiciones."
+                                android:textColor="#0000EE"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 tools:ignore="HardcodedText" />
@@ -325,7 +325,7 @@
                 android:onClick="@{ viewModel::onSendClicked }"
                 android:paddingStart="@dimen/margin_18dp"
                 android:paddingEnd="@dimen/margin_18dp"
-                android:text="ENVIAR"
+                android:text="GUARDAR"
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"

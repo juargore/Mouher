@@ -24,20 +24,26 @@ import com.glass.domain.entities.SocialMediaUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentMenuBinding
 import com.glass.mouher.extensions.openOrRefreshFragment
+import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.ui.about.AboutFragment
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.history.HistoryFragment
+import com.glass.mouher.ui.mall.MainActivityMall
 import com.glass.mouher.ui.mall.home.HomeMallFragment
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.profile.UserProfileFragment
 import com.glass.mouher.ui.registration.signin.SignInActivity
+import com.glass.mouher.ui.store.MainStoreActivity
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import com.glass.mouher.ui.store.home.products.ProductsFragment
 import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
 import kotlinx.android.synthetic.main.pop_contact.*
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MenuFragment: Fragment() {
@@ -56,6 +62,7 @@ class MenuFragment: Fragment() {
                 BR.itemsSocial -> setUpMallSocialMediaItems(viewModel.itemsSocial)
                 BR.screen -> openFromMenuSubscreen(viewModel.screen)
                 BR.openZoneSelected -> openMallStoresByZoneId()
+                BR.signOut -> showPopSignOut()
                 BR.categories -> setUpStoreCategoriesItems(viewModel.categories)
             }
         }
@@ -76,6 +83,42 @@ class MenuFragment: Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    private fun showPopSignOut() {
+        val msg = if (viewModel.totalProductsOnDb > 0) {
+            resources.getString(R.string.cart_confirm_sign_out, General.getCurrentStoreName())
+        } else {
+            resources.getString(R.string.app_confirm_sign_out)
+        }
+
+        alert(title = "", message = msg) {
+            yesButton {
+                if (viewModel.totalProductsOnDb > 0) {
+                    viewModel.clearProductsFromCart()
+                }
+
+                updateValuesOnSignOut()
+            }
+            noButton { it.dismiss() }
+        }.show()
+    }
+
+    private fun updateValuesOnSignOut(){
+        General.saveUserSignedIn(false)
+        General.saveUserCreationDate("")
+        General.saveUserName("")
+        General.saveUserEmail("")
+        General.saveUserId(0)
+
+        // Refresh activity to update side menu
+        if(activity is MainActivityMall){
+            val parentActivity = activity as MainActivityMall
+            parentActivity.refreshActivityFromFragment()
+        }else{
+            val parentActivity = activity as MainStoreActivity
+            parentActivity.refreshActivityFromFragment()
+        }
     }
 
     private fun setUpMallSocialMediaItems(itemsSocial: List<SocialMediaUI>) {

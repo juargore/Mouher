@@ -33,6 +33,7 @@ class HistoryFragment : Fragment() {
             when (propertyId) {
                 BR.showDatePickerPopUp -> showMonthPickerPopUp()
                 BR.openWebViewFragment -> redirectToWebScreen()
+                BR.backClicked -> activity?.onBackPressed()
             }
         }
 

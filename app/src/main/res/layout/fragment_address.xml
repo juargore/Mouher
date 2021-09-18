@@ -16,20 +16,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatButton android:id="@+id/button6"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_12dp"
             android:layout_marginEnd="@dimen/margin_12dp"
             android:layout_marginBottom="@dimen/margin_12dp"
             android:background="@drawable/button_ripple"
+            android:onClick="@{ viewModel::onSendClicked }"
             android:paddingStart="@dimen/margin_18dp"
             android:paddingEnd="@dimen/margin_18dp"
-            android:text="Guardar"
+            android:text="GUARDAR"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="19sp"
-            android:onClick="@{ viewModel::onSendClicked }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
                             android:paddingTop="3dp"
-                            android:text="Dirección de entrega"
+                            android:text="Domicilio de Envío"
                             tools:ignore="HardcodedText" />
                     </LinearLayout>
 
@@ -239,8 +240,8 @@
                                 <com.google.android.material.textfield.TextInputEditText
                                     style="@style/EditTextBlack"
                                     android:layout_width="match_parent"
-                                    android:text="@={ viewModel.intNumber }"
-                                    android:inputType="number" />
+                                    android:inputType="textPostalAddress"
+                                    android:text="@={ viewModel.intNumber }" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
@@ -300,7 +301,7 @@
                             android:id="@+id/textView43"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Ingrese los datos del domicilio de envío para el registro en Mouher Market."
+                            android:text="Ingresa tus datos generales para el registro en Mouher Market."
                             android:textColor="@color/mainGrey"
                             tools:ignore="HardcodedText" />
                     </LinearLayout>

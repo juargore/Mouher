@@ -12,7 +12,8 @@
             type="com.glass.mouher.ui.menu.MenuViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
@@ -27,7 +28,8 @@
             app:layout_constraintBottom_toTopOf="@+id/textView60"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="v2.1.0" />
+            tools:text="v2.1.0"
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/textView60"
@@ -38,7 +40,8 @@
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
@@ -81,21 +84,9 @@
                 android:background="@color/onyxBlack"
                 android:elevation="4dp"
                 android:orientation="horizontal"
-                android:visibility="@{viewModel.layoutUserLoggedInVisible ? View.VISIBLE : View.GONE}"
-                android:weightSum="2">
-
-                <ImageView
-                    android:id="@+id/productImage"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="@dimen/margin_12dp"
-                    android:layout_marginTop="@dimen/margin_12dp"
-                    android:layout_marginEnd="@dimen/margin_12dp"
-                    android:layout_marginBottom="@dimen/margin_12dp"
-                    android:layout_weight="0.5"
-                    android:visibility="gone"
-                    app:circleFromResource="@{ viewModel.userPhoto }"
-                    tools:srcCompat="@drawable/face" />
+                android:visibility="@{ viewModel.layoutUserLoggedInVisible ? View.VISIBLE : View.GONE }"
+                android:weightSum="2"
+                tools:ignore="DisableBaselineAlignment">
 
                 <LinearLayout
                     android:id="@+id/layMenuProfile"
@@ -104,21 +95,47 @@
                     android:layout_marginStart="@dimen/margin_18dp"
                     android:layout_marginTop="@dimen/margin_18dp"
                     android:layout_marginBottom="@dimen/margin_12dp"
-                    android:layout_weight="1.8"
+                    android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
 
-                    <TextView
-                        android:id="@+id/textView3"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="6dp"
-                        android:includeFontPadding="false"
-                        android:text="@{ viewModel.userName }"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="21sp"
-                        tools:text="Carlos Esparza Cuevas" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_weight="1.4"
+                            android:includeFontPadding="false"
+                            android:text="@{ viewModel.userName }"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            tools:text="Carlos Esparza Cuevas" />
+
+                        <TextView
+                            android:id="@+id/textView53"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_12dp"
+                            android:layout_weight="0.6"
+                            android:drawablePadding="8dp"
+                            android:gravity="end"
+                            android:includeFontPadding="false"
+                            android:onClick="@{ viewModel::onSignOutClicked }"
+                            android:text="Cerrar Sesión"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            app:drawableTint="@color/white"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/textView2"
@@ -135,10 +152,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="true"
-                        tools:text="Miembro desde 25-08-2021"
                         android:text="@{ viewModel.userCreationDate }"
                         android:textColor="@color/bgGrey"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:text="Miembro desde 25-08-2021" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -150,7 +167,8 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:visibility="@{viewModel.layoutUserNotLoggedInVisible ? View.VISIBLE : View.GONE}"
-                android:weightSum="2">
+                android:weightSum="2"
+                tools:visibility="gone">
 
                 <ImageView
                     android:id="@+id/prImage"
@@ -160,8 +178,8 @@
                     android:layout_marginEnd="@dimen/margin_18dp"
                     android:padding="@dimen/margin_18dp"
                     tools:fromUrl="@{ viewModel.logoMouher }"
-                    tools:srcCompat="@drawable/logo_mouher1"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    tools:srcCompat="@drawable/logo_mouher1" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button7"
@@ -179,7 +197,8 @@
                     android:text="INICIAR SESIÓN"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:ignore="HardcodedText" />
 
                 <!--<Button
                     android:id="@+id/button7"
@@ -241,7 +260,6 @@
                 android:layout_marginBottom="@dimen/margin_12dp"
                 android:orientation="vertical"
                 android:visibility="gone">
-                <!--android:visibility="@{viewModel.searchProductVisibility ? View.VISIBLE : View.GONE}">-->
 
                 <EditText android:id="@+id/etSearchProduct"
                     android:layout_width="match_parent"
@@ -257,7 +275,7 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="@dimen/margin_12dp"
                     android:paddingBottom="5dp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="Autofill,HardcodedText" />
             </LinearLayout>
 
             <androidx.core.widget.NestedScrollView
@@ -292,7 +310,7 @@
                             android:onClick="@{ viewModel::onProfileClick }"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:text="Mi Perfil"
+                            android:text="Mi Cuenta"
                             android:textSize="15sp"
                             tools:ignore="HardcodedText" />
 
@@ -340,7 +358,8 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_right_arrow"
-                            tools:rotationFromResource="@{ viewModel.rotateAnimationForZonesSection}" />
+                            tools:rotationFromResource="@{ viewModel.rotateAnimationForZonesSection}"
+                            tools:ignore="ContentDescription" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -381,7 +400,8 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_right_arrow"
-                            tools:rotationFromResource="@{ viewModel.rotateAnimationForMouherSection }" />
+                            tools:rotationFromResource="@{ viewModel.rotateAnimationForMouherSection }"
+                            tools:ignore="ContentDescription" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <LinearLayout
@@ -454,12 +474,14 @@
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
+
             <TextView android:id="@+id/textView71"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

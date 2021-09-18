@@ -133,6 +133,10 @@ class HistoryViewModel(
         getHistoryItemsList(month, year)
     }
 
+    fun onBackClicked(v: View){
+        notifyPropertyChanged(BR.backClicked)
+    }
+
     private fun onError(t: Throwable?){
         progressVisible = false
         hasErrors = true

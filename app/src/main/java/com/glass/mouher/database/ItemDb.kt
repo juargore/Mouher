@@ -14,6 +14,7 @@ open class ItemDb: RealmModel {
     var quantity: Int? = null
     var valueClassification: String? = null
     var storeId: Int? = null
+    var productType: Int? = null
 
     fun toItem() = Item(
         id = id,
@@ -23,6 +24,7 @@ open class ItemDb: RealmModel {
         price = price,
         quantity = quantity,
         valueClassification = valueClassification,
-        storeId = storeId
+        storeId = storeId,
+        productType = productType
     )
 }

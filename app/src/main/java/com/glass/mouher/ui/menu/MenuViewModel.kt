@@ -14,9 +14,11 @@ import com.glass.domain.entities.CategoryUI
 import com.glass.domain.entities.ContactUI
 import com.glass.domain.entities.SocialMediaUI
 import com.glass.domain.entities.ZoneUI
+import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.R
+import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getUserCreationDate
 import com.glass.mouher.shared.General.getUserEmail
 import com.glass.mouher.shared.General.getUserId
@@ -30,8 +32,11 @@ import io.reactivex.schedulers.Schedulers
 
 class MenuViewModel(
     private val mallUseCase: IMallUseCase,
-    private val storeUseCase: IStoreUseCase
+    private val storeUseCase: IStoreUseCase,
+    private val cartUseCase: ICartUseCase
 ): BaseViewModel(), ClickHandler<AMenuViewModel> {
+
+    var totalProductsOnDb: Int = 0
 
     var storeIdSelectedOnMenu: Int = 0
 
@@ -210,7 +215,7 @@ class MenuViewModel(
         if(isUserLoggedIn){
             userName = getUserName()
             userEmail = getUserEmail()
-            userCreationDate = "Miembro desde ${getUserCreationDate()}"
+            userCreationDate = "Miembro desde ${getUserCreationDate()}."
         }
     }
 
@@ -376,6 +381,22 @@ class MenuViewModel(
     fun onShowMouherSectionClick(view: View){
         mouherSectionVisible = !mouherSectionVisible
         notifyPropertyChanged(BR.mouherSectionVisible)
+    }
+
+    fun onSignOutClicked(v: View?){
+        addDisposable(cartUseCase.getSizeProductsOnDb()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ size->
+                totalProductsOnDb = size
+                notifyPropertyChanged(BR.signOut)
+            }, this::onError)
+        )
+    }
+
+    fun clearProductsFromCart(){
+        General.saveCartNotes("")
+        cartUseCase.deleteAllProductsOnCart()
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

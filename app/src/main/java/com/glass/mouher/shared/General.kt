@@ -196,4 +196,53 @@ object General {
         return ""
     }
 
+
+
+    private const val CART_NOTES = "cartNotes"
+
+    /**
+     * Save and Get on SharedPreferences the user name from Server.
+     * @param storeName is the one retrieved from Server.
+     * Used on different screens as Profile to avoid a new call.
+     */
+    fun saveCartNotes(storeName: String?){
+        context?.let{ c->
+            with(c.getSharedPreferences(CART_NOTES, Context.MODE_PRIVATE)){
+                edit().putString(CART_NOTES, storeName).apply()
+            }
+        }
+    }
+
+    fun getCartNotes() : String? {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(CART_NOTES, Context.MODE_PRIVATE)
+            return prefs.getString(CART_NOTES, "")
+        }
+        return ""
+    }
+
+
+    private const val STORE_SHOPPING_INFO = "storeShoppingInfo"
+
+    /**
+     * Save and Get on SharedPreferences the user name from Server.
+     * @param storeInfo is the one retrieved from Server.
+     * Used on different screens as Profile to avoid a new call.
+     */
+    fun saveStoreShoppingInfo(storeInfo: String?){
+        context?.let{ c->
+            with(c.getSharedPreferences(STORE_SHOPPING_INFO, Context.MODE_PRIVATE)){
+                edit().putString(STORE_SHOPPING_INFO, storeInfo).apply()
+            }
+        }
+    }
+
+    fun getStoreShoppingInfo() : String? {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(STORE_SHOPPING_INFO, Context.MODE_PRIVATE)
+            return prefs.getString(STORE_SHOPPING_INFO, "0-0-0")
+        }
+        return ""
+    }
+
 }

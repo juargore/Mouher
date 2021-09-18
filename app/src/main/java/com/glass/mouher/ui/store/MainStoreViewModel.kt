@@ -8,6 +8,7 @@ import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
+import com.glass.mouher.shared.General
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.completeUrlForImage
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -64,6 +65,7 @@ class MainStoreViewModel(
     }
 
     fun clearProductsFromCart(){
+        General.saveCartNotes("")
         cartUseCase.deleteAllProductsOnCart()
     }
 

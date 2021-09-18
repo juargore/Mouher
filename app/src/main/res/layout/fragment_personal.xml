@@ -42,7 +42,7 @@
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:paddingTop="5dp"
-            android:text="Editar Registro"
+            android:text="Datos Generales"
             android:textColor="@color/onyxBlack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/back"
@@ -193,7 +193,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:hint="Teléfono móvil *"
+                        android:hint="Teléfono Móvil *"
                         android:theme="@style/TextInputLayoutAppearanceBlack"
                         tools:ignore="HardcodedText">
 
@@ -212,6 +212,7 @@
                         android:layout_marginBottom="8dp"
                         android:hint="Correo *"
                         android:theme="@style/TextInputLayoutAppearanceBlack"
+                        app:boxBackgroundColor="#F8F5F5"
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -244,6 +245,26 @@
                             android:inputType="textPassword"
                             android:text="@={ viewModel.passwordOne }" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutAppearanceBlack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_12dp"
+                        android:hint="Confirmación de Contraseña *"
+                        android:theme="@style/TextInputLayoutAppearanceBlack"
+                        app:passwordToggleDrawable="@drawable/toggle_password"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/onyxBlack"
+                        tools:ignore="HardcodedText">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/EditTextBlack"
+                            android:layout_width="match_parent"
+                            android:includeFontPadding="false"
+                            android:inputType="textPassword"
+                            android:text="@={ viewModel.passwordTwo }" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -260,7 +281,7 @@
             android:onClick="@{ viewModel::onUpdateButtonClicked }"
             android:paddingStart="@dimen/margin_18dp"
             android:paddingEnd="@dimen/margin_18dp"
-            android:text="ACTUALIZAR"
+            android:text="GUARDAR"
             android:textColor="@color/white"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"

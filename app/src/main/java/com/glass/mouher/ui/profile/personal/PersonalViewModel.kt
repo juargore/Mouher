@@ -22,17 +22,17 @@ class PersonalViewModel(
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
 
+    var hasErrors = true
+    private var userId = 0
+    private var userCode = ""
+    private var storedPassword: String = ""
+
     @Bindable
     var error: String? = null
         set(value){
             field = value
             notifyPropertyChanged(BR.error)
         }
-
-    var hasErrors = true
-    private var userId = 0
-    private var userCode = ""
-    private var storedPassword: String = ""
 
     @Bindable
     var fullName: String? = null
@@ -41,7 +41,6 @@ class PersonalViewModel(
             notifyPropertyChanged(BR.fullName)
         }
 
-
     @Bindable
     var fatherLastName: String? = null
         set(value){
@@ -49,14 +48,12 @@ class PersonalViewModel(
             notifyPropertyChanged(BR.fatherLastName)
         }
 
-
     @Bindable
     var motherLastName: String? = null
         set(value){
             field = value
             notifyPropertyChanged(BR.motherLastName)
         }
-
 
     @Bindable
     var gender = 0
@@ -79,7 +76,6 @@ class PersonalViewModel(
             notifyPropertyChanged(BR.birthDate)
         }
 
-
     @Bindable
     var birthDateStr = ""
         set(value) {
@@ -87,13 +83,10 @@ class PersonalViewModel(
             notifyPropertyChanged(BR.birthDateStr)
         }
 
-
     var day: Int = 0; var month: Int = 0; var year: Int = 0
-
 
     @Bindable
     var birthDateClicked: Unit? = null
-
 
     @Bindable
     var phone = ""
@@ -102,14 +95,12 @@ class PersonalViewModel(
             notifyPropertyChanged(BR.phone)
         }
 
-
     @Bindable
     var email = ""
         set(value){
             field = value
             notifyPropertyChanged(BR.email)
         }
-
 
     @Bindable
     var passwordOne: String? = null
@@ -119,11 +110,19 @@ class PersonalViewModel(
         }
 
     @Bindable
+    var passwordTwo: String? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.passwordTwo)
+        }
+
+    @Bindable
     var progressVisible = false
         set(value) {
             field = value
             notifyPropertyChanged(BR.progressVisible)
         }
+
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
@@ -139,10 +138,14 @@ class PersonalViewModel(
 
     private fun onUserDataResponse(response: UserProfileData){
         // From  2020-11-21  to  21-11-2020
-        val year = response.FechaNac?.substringBefore("-")
-        val month = response.FechaNac?.substringAfter("-")?.substringBeforeLast("-")
-        val day = response.FechaNac?.substringAfterLast("-")
-        val birthDateFormatted = "$day-$month-$year"
+        val _year = response.FechaNac?.substringBefore("-")
+        val _month = response.FechaNac?.substringAfter("-")?.substringBeforeLast("-")
+        val _day = response.FechaNac?.substringAfterLast("-")
+        val birthDateFormatted = "$_day-$_month-$_year"
+
+        day = _day?.toInt() ?: 1
+        month = _month?.toInt() ?: 1
+        year = _year?.toInt() ?: 2020
 
         with(response){
             userId = Id ?: 0
@@ -156,6 +159,8 @@ class PersonalViewModel(
             gender = Genero ?: 0
             email = Correo ?: ""
             storedPassword = Contrasena ?: ""
+            passwordOne = Contrasena ?: ""
+            passwordTwo = Contrasena ?: ""
         }
 
         genderList = userUseCase.getGenderList()
@@ -165,11 +170,6 @@ class PersonalViewModel(
 
     /** Function to notify view that must display the datepicker for birth date selection. */
     fun onBirthDayClicked(v: View?){
-        val cal = Calendar.getInstance()
-        day = cal.get(Calendar.DAY_OF_MONTH)
-        month = cal.get(Calendar.MONTH)
-        year = cal.get(Calendar.YEAR)
-
         notifyPropertyChanged(BR.birthDateClicked)
     }
 
@@ -235,16 +235,20 @@ class PersonalViewModel(
             error = "Por favor ingrese su fecha de nacimiento"
             return false
         }
-        if(phone.isBlank() || phone.length < 10){
-            error = "Por favor ingrese un número de teléfono de al menos 10 dígitos"
+        if(phone.isBlank()){
+            error = "Por favor ingrese un número de teléfono"
             return false
         }
         if(passwordOne.isNullOrBlank()){
             error = "Por favor ingrese una contraseña"
             return false
         }
-        if(storedPassword != passwordOne){
-            error = "La contraseña ingresada no coincide con la original"
+        if(passwordTwo.isNullOrBlank()){
+            error = "Por favor ingrese la confirmación de contraseña"
+            return false
+        }
+        if(passwordOne != passwordTwo){
+            error = "Las contraseñas no coinciden"
             return false
         }
         return true
