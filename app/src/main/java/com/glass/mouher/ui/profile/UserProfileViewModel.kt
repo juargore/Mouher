@@ -1,5 +1,4 @@
 @file:Suppress("UNUSED_PARAMETER")
-
 package com.glass.mouher.ui.profile
 
 import android.view.View
@@ -7,6 +6,7 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
+import com.glass.domain.common.or
 import com.glass.domain.entities.UserProfileData
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.user.IUserUseCase
@@ -70,25 +70,28 @@ class UserProfileViewModel(
      * Variables for card address at bottom.
      */
     @Bindable
-    var addressStreet: String? = null
+    var showEmptyAddress: Boolean = false
 
     @Bindable
-    var addressSuburb: String? = null
+    var addressStreet: String? = ""
 
     @Bindable
-    var addressNumber: String? = null
+    var addressSuburb: String? = ""
 
     @Bindable
-    var addressState: String? = null
+    var addressNumber: String? = ""
 
     @Bindable
-    var addressMunicipality: String? = null
+    var addressState: String? = ""
 
     @Bindable
-    var addressCP: String? = null
+    var addressMunicipality: String? = ""
 
     @Bindable
-    var addressCountry: String? = null
+    var addressCP: String? = ""
+
+    @Bindable
+    var addressCountry: String? = ""
 
     @Bindable
     var addressVisible: Boolean = true
@@ -101,7 +104,7 @@ class UserProfileViewModel(
     var openProfileScreen: Fragment? = null
 
     @Bindable
-    var onDiscard: String? = null
+    var addressButtonText = "MODIFICAR"
 
 
     /**
@@ -133,11 +136,11 @@ class UserProfileViewModel(
         notifyPropertyChanged(BR.userName)
 
         with(response){
-            memberSince = "Miembro desde ${getUserCreationDate()}"
+            memberSince = "Miembro desde ${getUserCreationDate()}."
             clientCode = Codigo
-            userEmail = "Correo principal: $Correo"
+            userEmail = "Correo Principal: $Correo"
             userPhone = TelMovil
-            userBirthDate = "Fecha de nacimiento: $FechaNac"
+            userBirthDate = "Fecha de Nacimiento: $FechaNac"
 
             notifyPropertyChanged(BR.userEmail)
             notifyPropertyChanged(BR.memberSince)
@@ -146,10 +149,10 @@ class UserProfileViewModel(
             notifyPropertyChanged(BR.userBirthDate)
 
             response.DomicilioEnvio?.get(0)?.let{ data->
-                addressStreet = if(data.Calle.isNullOrEmpty()) "Aún no se ha registrado un domicilio de envío" else "Calle: ${data.Calle}"
+                addressStreet = if(data.Calle.isNullOrEmpty()) "" else "Calle: ${data.Calle}."
                 addressSuburb = if(data.Colonia.isNullOrEmpty()) "" else "Colonia: ${data.Colonia}"
-                addressNumber = if(data.NumExt.isNullOrEmpty()) "" else "N° ${data.NumExt ?: ""}, Interior ${data.NumInt}"
-                addressMunicipality = if(data.Municipio.isNullOrEmpty()) "" else "${data.Municipio},"
+                addressNumber = if(data.NumExt.isNullOrEmpty()) "" else "N° ${data.NumExt ?: ""}, Interior ${data.NumInt}."
+                addressMunicipality = if(data.Municipio.isNullOrEmpty()) "" else "Ciudad: ${data.Municipio},"
                 addressCP = if(data.CP.isNullOrEmpty()) "" else "Código Postal: ${data.CP}"
 
                 notifyPropertyChanged(BR.addressStreet)
@@ -163,7 +166,20 @@ class UserProfileViewModel(
                     notifyPropertyChanged(BR.addressVisible)
                 }
 
+                showEmptyAddress = false
+                notifyPropertyChanged(BR.showEmptyAddress)
+
                 getCountries(data.Pais, data.Estado)
+            }.or {
+                showEmptyAddress = true
+                addressStreet = ""
+                addressButtonText = "Agregar"
+
+                notifyPropertyChanged(BR.showEmptyAddress)
+                notifyPropertyChanged(BR.addressStreet)
+                notifyPropertyChanged(BR.addressButtonText)
+
+                progressVisible = false
             }
         }
     }

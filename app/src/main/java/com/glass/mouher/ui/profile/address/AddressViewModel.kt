@@ -230,31 +230,11 @@ class AddressViewModel(
 
     private fun allFieldsValid(): Boolean{
         if(selectedCountry == null || selectedCountry!!.IdPais == 0){
-            error = "Seleccione un país de la lista"
+            error = "Seleccione un país de la lista."
             return false
         }
         if(selectedState == null || selectedState!!.IdEstado == 0){
-            error = "Seleccione un Estado de la lista"
-            return false
-        }
-        if(municipality.isNullOrBlank()){
-            error = "Ingrese el Municipio"
-            return false
-        }
-        if(street.isNullOrBlank()){
-            error = "Ingrese el nombre de la calle o avenida"
-            return false
-        }
-        if(extNumber.isNullOrBlank()){
-            error = "Ingrese el número exterior"
-            return false
-        }
-        if(postalCode.isNullOrBlank()){
-            error = "Ingrese un Código Postal"
-            return false
-        }
-        if(suburb.isNullOrBlank()){
-            error = "Ingrese la Colonia"
+            error = "Seleccione un Estado de la lista."
             return false
         }
         return true

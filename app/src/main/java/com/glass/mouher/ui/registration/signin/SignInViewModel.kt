@@ -88,7 +88,7 @@ class SignInViewModel(
             error = response.Mensaje
         }else{
             hasErrors = false
-            error = "Bienvenido a Mouher Market"
+            error = "Bienvenidos a Mouher Market."
 
             // save data on internal shared preferences
             with(response){
@@ -117,12 +117,12 @@ class SignInViewModel(
 
     private fun allFieldsValid(): Boolean{
         if(userEmail.isBlank() || !userEmail.trim().isEmailValid()){
-            error = "El correo es obligatorio"
+            error = "El correo es obligatorio."
             return false
         }
 
         if(userPassword.isBlank()){
-            error = "La contraseña es obligatoria"
+            error = "La contraseña es obligatoria."
             return false
         }
 

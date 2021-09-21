@@ -74,7 +74,6 @@ val DIViewModel = module{
 
     viewModel { HomeStoreViewModel(
         storeUseCase = get(UseCases.STORE.name),
-        productUseCase = get(UseCases.PRODUCT.name),
         cartUseCase = get(UseCases.CART.name))
     }
 

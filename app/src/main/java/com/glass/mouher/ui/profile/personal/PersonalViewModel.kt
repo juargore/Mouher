@@ -215,40 +215,20 @@ class PersonalViewModel(
     }
 
     private fun allFieldsAreValid(): Boolean{
-        if(fullName.isNullOrBlank()){
-            error = "Por favor ingrese su nombre"
-            return false
-        }
-        if(fatherLastName.isNullOrBlank()){
-            error = "Por favor ingrese su apellido paterno"
-            return false
-        }
-        if(motherLastName.isNullOrBlank()){
-            error = "Por favor ingrese su apellido materno"
-            return false
-        }
         if(gender == 0){
-            error = "Por favor seleccione un género de la lista"
-            return false
-        }
-        if(birthDate.isNullOrBlank()){
-            error = "Por favor ingrese su fecha de nacimiento"
-            return false
-        }
-        if(phone.isBlank()){
-            error = "Por favor ingrese un número de teléfono"
+            error = "El género es obligatorio."
             return false
         }
         if(passwordOne.isNullOrBlank()){
-            error = "Por favor ingrese una contraseña"
+            error = "La contraseña es obligatoria."
             return false
         }
         if(passwordTwo.isNullOrBlank()){
-            error = "Por favor ingrese la confirmación de contraseña"
+            error = "La confirmación de la contraseña es obligatoria."
             return false
         }
         if(passwordOne != passwordTwo){
-            error = "Las contraseñas no coinciden"
+            error = "Las contraseñas no coinciden."
             return false
         }
         return true

@@ -197,48 +197,24 @@ class SignUpViewModel(
 
 
     private fun allFieldsAreValid(): Boolean{
-        /*if(fullName.isNullOrBlank()){
-            error = "Por favor ingrese su nombre"
-            return false
-        }
-        if(fatherLastName.isNullOrBlank()){
-            error = "Por favor ingrese su apellido paterno"
-            return false
-        }
-        if(motherLastName.isNullOrBlank()){
-            error = "Por favor ingrese su apellido materno"
-            return false
-        }*/
         if(gender == 0){
-            error = "Por favor seleccione un género de la lista"
+            error = "El género es obligatorio."
             return false
         }
-        /*if(birthDate.isNullOrBlank()){
-            error = "Por favor ingrese su fecha de nacimiento"
-            return false
-        }
-        if(phone.isBlank() || phone.length < 10){
-            error = "Por favor ingrese un número de teléfono de al menos 10 dígitos"
-            return false
-        }
-        if(!email.isEmailValid()){
-            error = "Por favor ingrese un email válido"
-            return false
-        }*/
         if(passwordOne.isNullOrBlank()){
-            error = "Por favor ingrese una contraseña"
+            error = "La contraseña es obligatoria."
             return false
         }
         if(passwordTwo.isNullOrBlank()){
-            error = "Por favor confirme la contraseña"
+            error = "La confirmación de la contraseña es obligatoria."
             return false
         }
         if(passwordOne != passwordTwo){
-            error = "Las contraseñas ingresadas no coinciden"
+            error = "Las contraseñas no coinciden."
             return false
         }
         if(!conditionsChecked){
-            error = "Debe aceptar los Términos y Condiciones para continuar"
+            error = "Debe aceptar los Términos y Condiciones para continuar."
             return false
         }
         return true

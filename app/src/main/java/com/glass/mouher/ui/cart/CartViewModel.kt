@@ -73,6 +73,13 @@ class CartViewModel(
         }
 
     @Bindable
+    var totalItems: String = "0"
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.totalItems)
+        }
+
+    @Bindable
     var error: String? = null
         set(value){
             field = value
@@ -113,6 +120,7 @@ class CartViewModel(
 
     private fun onTotalProductsDbResponse(list: List<Item>){
         val viewModels = mutableListOf<ACartListViewModel>()
+        var counterItems = 0
 
         list.forEach {
             context?.let{ c->
@@ -120,6 +128,7 @@ class CartViewModel(
                 viewModels.add(viewModel)
 
                 subTotalAmount += (it.quantity!! * (it.price ?: 0.0))
+                counterItems += it.quantity!!
             }
         }
 
@@ -136,6 +145,7 @@ class CartViewModel(
         totalAmount = subTotalAmount + shippingAmount
 
         items = viewModels
+        totalItems = counterItems.toString()
     }
 
 

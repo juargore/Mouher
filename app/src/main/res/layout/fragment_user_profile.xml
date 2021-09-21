@@ -112,7 +112,7 @@
                     android:layout_marginTop="@dimen/margin_24dp"
                     android:layout_marginBottom="2dp"
                     android:gravity="center_horizontal"
-                    android:text="Datos Generales"
+                    android:text="Datos generales"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -401,7 +401,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="2dp"
                     android:gravity="center_horizontal"
-                    android:text="Domicilio de Envío"
+                    android:text="Domicilio de envío"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -421,6 +421,17 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/textView52"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_marginBottom="24dp"
+                            android:textColor="@color/mainGrey"
+                            android:visibility="@{ viewModel.showEmptyAddress ? View.VISIBLE : View.GONE }"
+                            android:text="Aún no se ha registrado un domicilio de envío."
+                            tools:ignore="HardcodedText" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -493,7 +504,8 @@
                                     android:background="@drawable/button_ripple"
                                     android:letterSpacing="0.2"
                                     android:onClick="@{ viewModel::onEditAddressClicked }"
-                                    android:text="Modificar"
+                                    android:text="@{ viewModel.addressButtonText }"
+                                    tools:text="Modificar"
                                     android:textAllCaps="true"
                                     android:textColor="@color/white"
                                     android:textSize="13sp"

@@ -21,7 +21,6 @@ import io.reactivex.schedulers.Schedulers
 
 class HomeStoreViewModel(
     private val storeUseCase: IStoreUseCase,
-    private val productUseCase: IProductUseCase,
     private val cartUseCase: ICartUseCase
 ): BaseViewModel(), ClickHandler<AStoreCategoryViewModel> {
 
@@ -198,14 +197,13 @@ class HomeStoreViewModel(
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
-        onCleared()
     }
 
     fun onSubscribeButtonClicked(@Suppress("UNUSED_PARAMETER") v: View?){
-        if(userNameToSubscribe.isNullOrBlank() || emailToSubscribe.isNullOrBlank()){
+        /*if(userNameToSubscribe.isNullOrBlank() || emailToSubscribe.isNullOrBlank()){
             error = ResponseUI(hasErrors = false, message = "Llene ambos campos para la suscripción")
             return
-        }
+        }*/
 
         emailToSubscribe?.let{
             if(it.isEmailValid()){

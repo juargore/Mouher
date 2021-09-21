@@ -17,7 +17,6 @@ import com.glass.domain.entities.ZoneUI
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.mall.IMallUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
-import com.glass.mouher.R
 import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getUserCreationDate
 import com.glass.mouher.shared.General.getUserEmail
@@ -132,8 +131,6 @@ class MenuViewModel(
             notifyPropertyChanged(BR.layoutUserNotLoggedInVisible)
         }
 
-    @Bindable
-    val userPhoto = R.drawable.face
 
     @Bindable
     var profileSectionVisible: Boolean? = null
@@ -175,13 +172,6 @@ class MenuViewModel(
         set(value){
             field = value
             notifyPropertyChanged(BR.rotateAnimationForMouherSection)
-        }
-
-    @Bindable
-    var searchProductVisibility: Boolean = false
-        set(value){
-            field = value
-            notifyPropertyChanged(BR.searchProductVisibility)
         }
 
     @Bindable

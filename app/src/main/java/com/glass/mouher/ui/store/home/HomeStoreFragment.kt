@@ -265,7 +265,7 @@ class HomeStoreFragment : Fragment() {
 
     private fun showErrorMsg(){
         with(viewModel.error){
-            val errorType = if(hasErrors) SnackType.ERROR else SnackType.INFO
+            val errorType = if(hasErrors) SnackType.ERROR else SnackType.SUCCESS
             showSnackbar(binding.root, viewModel.error.message, errorType)
         }
     }

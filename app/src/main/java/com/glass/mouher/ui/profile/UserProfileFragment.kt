@@ -35,7 +35,6 @@ class UserProfileFragment : Fragment() {
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
         when (propertyId) {
             BR.openProfileScreen -> openSubProfileScreen()
-            BR.onDiscard -> showPopConfirmation()
             BR.signOut -> showPopSignOut()
             BR.backClicked -> activity?.onBackPressed()
         }
@@ -69,14 +68,6 @@ class UserProfileFragment : Fragment() {
                 else -> "Personal"
             }
         )
-    }
-
-    private fun showPopConfirmation(){
-        alert(title = "", message = "¿Está seguro que desea eliminar este registro?"){
-            yesButton {
-
-            }
-        }.show()
     }
 
     private fun showPopSignOut(){

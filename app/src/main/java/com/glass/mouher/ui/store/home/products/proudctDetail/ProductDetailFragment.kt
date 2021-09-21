@@ -142,7 +142,7 @@ class ProductDetailFragment : Fragment() {
             val rate = etStars.rating
 
             if(name.isBlank() || email.isBlank() || comments.isBlank()){
-                toast("Por favor llene todos los campos para poder guardar su reseña")
+                toast("Todos los datos son obligatorios.")
                 return@setOnClickListener
             }
 

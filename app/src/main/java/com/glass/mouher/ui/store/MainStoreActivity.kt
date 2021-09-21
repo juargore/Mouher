@@ -19,6 +19,7 @@ import com.glass.mouher.shared.General.saveMustRefreshMenuMall
 import com.glass.mouher.ui.cart.CartActivity
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.menu.MenuFragment
+import com.glass.mouher.ui.menu.MenuViewModel
 import com.glass.mouher.ui.store.home.HomeStoreFragment
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -119,7 +120,7 @@ class MainStoreActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val lastFragment = supportFragmentManager.fragments.lastOrNull()
-        saveMustRefreshMenuMall(true)
+        MenuViewModel.source = "MALL"
 
         if(lastFragment is HomeStoreFragment){
             if(viewModel.totalProducts.toInt() > 0){

@@ -49,7 +49,7 @@ class ForgotPasswordViewModel(
     }
 
     fun onSendClicked(v: View?){
-        if(!userEmail.isEmailValid()){
+        if(userEmail.isBlank() || !userEmail.trim().isEmailValid()){
             error = "Introduzca su correo electrónico válido"
         } else{
             progressVisible = true
@@ -70,7 +70,7 @@ class ForgotPasswordViewModel(
             error = response.message
         }else{
             hasError = false
-            error = response.message
+            error = "Correo eviado."
         }
     }
 

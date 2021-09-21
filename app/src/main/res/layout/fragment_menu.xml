@@ -92,7 +92,7 @@
                     android:id="@+id/layMenuProfile"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_18dp"
+                    android:layout_marginStart="@dimen/margin_12dp"
                     android:layout_marginTop="@dimen/margin_18dp"
                     android:layout_marginBottom="@dimen/margin_12dp"
                     android:layout_weight="2"
@@ -109,31 +109,39 @@
                         <TextView
                             android:id="@+id/textView3"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="6dp"
-                            android:layout_weight="1.4"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.35"
+                            android:gravity="center_vertical"
                             android:includeFontPadding="false"
+                            android:paddingEnd="8dp"
                             android:text="@{ viewModel.userName }"
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp"
                             tools:text="Carlos Esparza Cuevas" />
 
-                        <TextView
-                            android:id="@+id/textView53"
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/margin_12dp"
-                            android:layout_weight="0.6"
-                            android:drawablePadding="8dp"
-                            android:gravity="end"
-                            android:includeFontPadding="false"
-                            android:onClick="@{ viewModel::onSignOutClicked }"
-                            android:text="Cerrar Sesión"
-                            android:textColor="@color/white"
-                            android:textSize="13sp"
-                            app:drawableTint="@color/white"
-                            tools:ignore="HardcodedText" />
+                            android:layout_weight="0.65"
+                            android:orientation="vertical"
+                            android:paddingEnd="8dp">
+
+                            <TextView
+                                android:id="@+id/textView53"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="end"
+                                android:drawableEnd="@drawable/ic_exit"
+                                android:drawablePadding="2dp"
+                                android:gravity="center_vertical|end"
+                                android:lineSpacingExtra="-1.5sp"
+                                android:onClick="@{ viewModel::onSignOutClicked }"
+                                android:text="Cerrar \nSesión"
+                                android:textColor="@color/white"
+                                android:textSize="13sp"
+                                app:drawableTint="@color/white"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -370,7 +378,6 @@
                         app:items="@{viewModel.items}"
                         app:itemViewBinder="@{view.itemViewBinder}"
                         app:clickHandler="@{ viewModel }" />
-                    <!--android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"-->
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
