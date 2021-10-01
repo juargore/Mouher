@@ -1,7 +1,6 @@
 package com.glass.mouher.ui.cart
 
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -27,6 +26,9 @@ class CartViewModel(
 
     @Bindable
     var onRefreshScreen: Unit? = null
+
+    @Bindable
+    var askForBilling: Unit? = null
 
     @Bindable
     var onPopClicked: Unit? = null
@@ -163,23 +165,25 @@ class CartViewModel(
     }
 
 
-    fun onBackClicked(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onBackClicked(@Suppress("UNUSED_PARAMETER") view: View?){
         notifyPropertyChanged(BR.onBackClicked)
     }
 
-    fun onPayClicked(v: View?){
+
+    fun onPayClicked(@Suppress("UNUSED_PARAMETER") v: View?){
         if(items.isNotEmpty()){
             val isUserLoggedIn = getUserSignedIn() && getUserId() > 0 && getUserName()!!.isNotBlank()
 
             if(isUserLoggedIn){
-                // TODO: proceed to payment process
-                Log.e("--", "Aquí se procede al pago")
+                // Before it proceeds to payment process, ask for billing data
+                notifyPropertyChanged(BR.askForBilling)
             }else{
                 // inform no user signed in
                 error = "Inicie sesión para continuar con el pago de sus productos"
             }
         }
     }
+
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)

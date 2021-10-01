@@ -3,6 +3,7 @@ package com.glass.mouher.di
 import com.glass.mouher.di.DIConstants.UseCases
 import com.glass.mouher.ui.about.AboutViewModel
 import com.glass.mouher.ui.cart.CartViewModel
+import com.glass.mouher.ui.cart.billing.BillingViewModel
 import com.glass.mouher.ui.profile.address.AddressViewModel
 import com.glass.mouher.ui.profile.payment.PaymentViewModel
 import com.glass.mouher.ui.mall.home.HomeMallViewModel
@@ -92,6 +93,10 @@ val DIViewModel = module{
 
     viewModel { CartViewModel(
         cartUseCase = get(UseCases.CART.name))
+    }
+
+
+    viewModel { BillingViewModel()
     }
 
     viewModel { AddressViewModel(

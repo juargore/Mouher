@@ -2,6 +2,7 @@ package com.glass.mouher.ui.cart
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -20,6 +21,7 @@ import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityCartBinding
 import com.glass.mouher.shared.General.getCartNotes
 import com.glass.mouher.shared.General.saveCartNotes
+import com.glass.mouher.ui.cart.billing.BillingActivity
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
@@ -39,6 +41,7 @@ class CartActivity : AppCompatActivity() {
             when (propertyId) {
                 BR.onBackClicked -> finish()
                 BR.onPopClicked -> showPopUpNotes()
+                BR.askForBilling -> showPopUpBilling()
                 BR.deleteItem -> showPopupDeleteConfirmation()
                 BR.onRefreshScreen -> {
                     finish()
@@ -90,6 +93,34 @@ class CartActivity : AppCompatActivity() {
 
             findViewById<AppCompatButton>(R.id.btnSaveRemark).setOnClickListener {
                 saveCartNotes(etRemarks.text.toString())
+                this.dismiss()
+            }
+
+            show()
+        }
+    }
+
+    private fun showPopUpBilling(){
+        Dialog(this, R.style.FullDialogTheme).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(R.layout.pop_need_billing)
+
+            findViewById<AppCompatButton>(R.id.btnAddBilling).setOnClickListener {
+                //TODO: Redirect to billing screen
+                val intent = Intent(this@CartActivity, BillingActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    //putExtra("storeId", viewModel.openStoreWithId)
+                }
+
+                overridePendingTransition(0,0)
+                startActivity(intent)
+
+                this.dismiss()
+            }
+
+            findViewById<AppCompatButton>(R.id.btnDiscardBilling).setOnClickListener {
+                //TODO: Redirect to URL
                 this.dismiss()
             }
 
