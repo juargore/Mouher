@@ -22,6 +22,7 @@
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_forgot_password.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_main_mall.xml" value="0.152" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_main_store.xml" value="0.2421875" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_payment.xml" value="0.228125" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_sign_in.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_sign_up.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/fragment_about.xml" value="0.2421875" />
@@ -43,6 +44,7 @@
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/pop_add_rating.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/pop_contact.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/pop_need_billing.xml" value="0.2421875" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/pop_processing_payment.xml" value="0.4" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_about_person.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_cart.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_history.xml" value="0.2421875" />

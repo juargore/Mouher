@@ -24,7 +24,8 @@ val DIUseCases = module {
     ) as IStoreUseCase }
 
     single(DIConstants.UseCases.PRODUCT.name) { ProductUseCase(
-        productRepository = get()
+        productRepository = get(),
+        paymentRepository = get()
     ) as IProductUseCase }
 
     single(DIConstants.UseCases.USER.name) { UserUseCase(

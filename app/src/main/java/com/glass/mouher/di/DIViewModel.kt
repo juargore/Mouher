@@ -95,8 +95,10 @@ val DIViewModel = module{
         cartUseCase = get(UseCases.CART.name))
     }
 
+    viewModel { BillingViewModel() }
 
-    viewModel { BillingViewModel()
+    viewModel { com.glass.mouher.ui.cart.payment.PaymentViewModel(
+        productUseCase = get(UseCases.PRODUCT.name))
     }
 
     viewModel { AddressViewModel(

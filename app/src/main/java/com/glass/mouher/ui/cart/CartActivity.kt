@@ -17,11 +17,14 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.glass.domain.entities.PaymentDataToSend
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityCartBinding
 import com.glass.mouher.shared.General.getCartNotes
+import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.saveCartNotes
 import com.glass.mouher.ui.cart.billing.BillingActivity
+import com.glass.mouher.ui.cart.payment.PaymentActivity
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
@@ -106,21 +109,50 @@ class CartActivity : AppCompatActivity() {
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setContentView(R.layout.pop_need_billing)
 
+            // retrieve data to send to payment or billing screen
+            val productList = viewModel.itemsComplete
+            val idStore = productList[0].storeId ?: 0
+            val notes = getCartNotes() ?: ""
+            val userId = getUserId()
+            val subTotal = viewModel.subTotalAmount
+            val shipping = viewModel.shippingAmount
+            val total = viewModel.totalAmount
+
+            val data = PaymentDataToSend(
+                storeId = idStore,
+                remarks = notes,
+                clientId = userId,
+                subTotalCost = subTotal,
+                shippingCost = shipping,
+                totalCost = total,
+                requiresBilling = 0,
+                rfc = null,
+                socialReason = null,
+                email = null,
+                products = productList
+            )
+
             findViewById<AppCompatButton>(R.id.btnAddBilling).setOnClickListener {
-                //TODO: Redirect to billing screen
+                // redirect to billing screen
                 val intent = Intent(this@CartActivity, BillingActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                    //putExtra("storeId", viewModel.openStoreWithId)
+                    putExtra("paymentData", data)
                 }
 
                 overridePendingTransition(0,0)
                 startActivity(intent)
-
                 this.dismiss()
             }
 
             findViewById<AppCompatButton>(R.id.btnDiscardBilling).setOnClickListener {
-                //TODO: Redirect to URL
+                // redirect to payment Screen
+                val intent = Intent(this@CartActivity, PaymentActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    putExtra("paymentData", data)
+                }
+
+                overridePendingTransition(0,0)
+                startActivity(intent)
                 this.dismiss()
             }
 

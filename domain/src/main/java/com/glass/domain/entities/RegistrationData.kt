@@ -1,7 +1,7 @@
 package com.glass.domain.entities
 
 data class RegistrationData(
-    val Error: Int? = null,
+    val Error: Int = 0,
     val Mensaje: String? = null,
     val Id: Int? = null
 
@@ -11,7 +11,7 @@ data class RegistrationData(
 )
 
 data class LoginData(
-    val Error: Int? = null,
+    val Error: Int = 0,
     val Mensaje: String? = null,
     val IdCliente: Int? = null,
     val Nombre: String? = null,

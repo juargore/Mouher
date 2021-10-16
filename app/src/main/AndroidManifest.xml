@@ -21,6 +21,17 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".ui.cart.payment.PaymentActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.cart.billing.BillingActivity"
             android:exported="true"
             android:screenOrientation="portrait"

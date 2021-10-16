@@ -1,12 +1,14 @@
 package com.glass.domain.usecases.product
 
 import com.glass.domain.entities.*
+import com.glass.domain.repositories.IPaymentRepository
 import com.glass.domain.repositories.IProductRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 
 class ProductUseCase(
-    private val productRepository: IProductRepository
+    private val productRepository: IProductRepository,
+    private val paymentRepository: IPaymentRepository
 ): IProductUseCase {
 
     private var productByCategoryData: ProductByCategoryData? = null
@@ -80,6 +82,90 @@ class ProductUseCase(
                 return@map mList
             }
     }
+
+    override fun makePaymentOfProducts(
+        storeId: Int,
+        remarks: String,
+        clientId: Int,
+        subTotalCost: Double,
+        shippingCost: Double,
+        totalCost: Double,
+        requiresBilling: Int,
+        rfc: String?,
+        socialReason: String?,
+        email: String?,
+        products: List<Item>
+    ): Single<RegistrationData> {
+
+        return paymentRepository.finalPaymentFirstStep(
+            storeId = storeId,
+            remarks = remarks,
+            clientId = clientId,
+            subTotalCost = subTotalCost,
+            shippingCost = shippingCost,
+            totalCost = totalCost,
+            requiresBilling = requiresBilling,
+            rfc = rfc,
+            socialReason = socialReason,
+            email = email
+        ).map { result ->
+
+            if (result.Error > 0) {
+                // something went wrong when processing first step of payment process
+                return@map RegistrationData(Error = 1, Mensaje = result.Mensaje)
+            } else {
+                // it looks that everythig went well on first step, verify the saleId > 0
+                val saleId = result.Id ?: 0
+
+                if (saleId > 0) {
+                    // now call every function to inform to our Server
+                    products.forEachIndexed { index, item ->
+                        val response = makePaymentForEachProduct(
+                            storeId = storeId,
+                            saleId = saleId,
+                            productId = item.id!!,
+                            counter = (index+1),
+                            quantity = item.quantity!!,
+                            unitCost = item.price!!,
+                            totalCost = (item.price!! * item.quantity!!),
+                            remarks = item.valueClassification!!
+                        )
+
+                        // if at least one error occurs, return the error to viewModel
+                        if(response.Error > 0){
+                            return@map RegistrationData(Error = 1, Mensaje = response.Mensaje)
+                        }
+                    }
+
+                    // everything went well -> return the saleId value needed on the viewModel
+                    return@map RegistrationData(Error = 0, Mensaje = "Proceso completo con éxito.", Id = saleId)
+
+                } else {
+                    // the process was success but for some reason the saleId is 0 -> inform to viewModel
+                    return@map RegistrationData(Error = 1,
+                        Mensaje = "El Id de la venta es igual a 0. Intente nuevamente o contacte al servicio técnico."
+                    )
+                }
+            }
+        }
+    }
+
+
+    private fun makePaymentForEachProduct(
+        storeId: Int,
+        saleId: Int,
+        productId: Int,
+        counter: Int,
+        quantity: Int,
+        unitCost: Double,
+        totalCost: Double,
+        remarks: String
+    ): RegistrationData{
+        return paymentRepository.finalPaymentSecondStep(
+            storeId, saleId, productId, counter, quantity, unitCost, totalCost, remarks
+        ).blockingGet()
+    }
+
 
     override fun getRelatedProductsByProduct(): Observable<List<ProductUI>> {
         val mList = mutableListOf<ProductUI>()

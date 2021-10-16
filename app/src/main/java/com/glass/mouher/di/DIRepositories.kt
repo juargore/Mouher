@@ -1,9 +1,6 @@
 package com.glass.mouher.di
 
-import com.glass.data.repositories.MallRepository
-import com.glass.data.repositories.ProductRepository
-import com.glass.data.repositories.StoreRepository
-import com.glass.data.repositories.UserRepository
+import com.glass.data.repositories.*
 import com.glass.domain.repositories.*
 import com.glass.mouher.database.repositories.CartRepository
 import org.koin.dsl.module.module
@@ -30,4 +27,8 @@ val DIRepositories = module {
     single { UserRepository(
         api = get(DIConstants.APIs.USER.name)
     ) as IUserRepository }
+
+    single{ PaymentRepository(
+        api = get(DIConstants.APIs.PAYMENT.name)
+    ) as IPaymentRepository }
 }

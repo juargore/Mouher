@@ -67,6 +67,8 @@ class CartViewModel(
     @Bindable
     var onBackClicked: Unit? = null
 
+    var itemsComplete: List<Item> = listOf()
+
     @Bindable
     var items: List<ACartListViewModel> = listOf()
         set(value){
@@ -123,9 +125,10 @@ class CartViewModel(
     private fun onTotalProductsDbResponse(list: List<Item>){
         val viewModels = mutableListOf<ACartListViewModel>()
         var counterItems = 0
+        itemsComplete = list
 
-        list.forEach {
-            context?.let{ c->
+        context?.let{ c ->
+            list.forEach {
                 val viewModel = CartItemViewModel(context = c, item = it)
                 viewModels.add(viewModel)
 

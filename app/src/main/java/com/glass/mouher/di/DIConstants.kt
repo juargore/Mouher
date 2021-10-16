@@ -41,6 +41,7 @@ object DIConstants {
      */
     enum class APIs: IDependencyInjection {
         MALL,
+        PAYMENT,
         PRODUCT,
         USER,
         STORE;

@@ -1,9 +1,6 @@
 package com.glass.mouher.di
 
-import com.glass.data.serverapi.StoreApi
-import com.glass.data.serverapi.MallApi
-import com.glass.data.serverapi.ProductApi
-import com.glass.data.serverapi.UserApi
+import com.glass.data.serverapi.*
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 
@@ -23,5 +20,9 @@ val DIAPIs = module {
 
     single(DIConstants.APIs.USER.name) {(
             get(DIConstants.Externals.RETROFIT.name) as Retrofit).create(UserApi::class.java)
+    }
+
+    single(DIConstants.APIs.PAYMENT.name) {(
+            get(DIConstants.Externals.RETROFIT.name) as Retrofit).create(PaymentApi::class.java)
     }
 }

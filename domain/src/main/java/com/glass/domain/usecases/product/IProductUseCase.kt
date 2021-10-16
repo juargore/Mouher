@@ -26,4 +26,19 @@ interface IProductUseCase {
                                 userRating: Float): Observable<ResponseUI>
 
     fun getHistoryByUser(userId: Int, startDate: String): Single<List<HistoryUI>>
+
+    fun makePaymentOfProducts(
+        storeId: Int,
+        remarks: String,
+        clientId: Int,
+        subTotalCost: Double,
+        shippingCost: Double,
+        totalCost: Double,
+        requiresBilling: Int,
+        rfc: String?,
+        socialReason: String?,
+        email: String?,
+        products: List<Item>
+    ): Single<RegistrationData>
+
 }
