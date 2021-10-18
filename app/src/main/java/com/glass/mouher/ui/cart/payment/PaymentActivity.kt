@@ -5,28 +5,27 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
 import android.view.Window
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.lifecycleScope
 import com.glass.domain.entities.PaymentDataToSend
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityPaymentBinding
+import com.glass.mouher.shared.General.savePaymentInfo
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PaymentActivity : AppCompatActivity() {
 
-    private val viewModel: PaymentViewModel by viewModel()
     private lateinit var binding: ActivityPaymentBinding
+    private val viewModel: PaymentViewModel by viewModel()
     private var dialog: Dialog? = null
     private var storeId = 0
 
@@ -61,6 +60,8 @@ class PaymentActivity : AppCompatActivity() {
             setContentView(R.layout.pop_processing_payment)
             setCancelable(false)
         }
+
+        viewModel.startCreatingPayment()
     }
 
     override fun onResume() {
@@ -78,26 +79,28 @@ class PaymentActivity : AppCompatActivity() {
             settings.loadWithOverviewMode = true
             settings.useWideViewPort = true
 
+            webViewClient = CustomWebViewClient()
             loadUrl(url)
 
-            this@PaymentActivity.finish()
+            // save the payment data in format comesFromPayment-storeId-saleId (true-01-01)
+            savePaymentInfo("true-$storeId-${viewModel.saleId}")
         }
     }
 
     private fun showErrorMsg(){
         val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.SUCCESS
         showSnackbar(binding.root, viewModel.error, type)
-
-        if(!viewModel.hasErrors){
-            // Registration success -> Go back to login screen
-            Handler().postDelayed({
-
-            }, 2000)
-        }
     }
 
     override fun onPause() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
+    }
+}
+
+class CustomWebViewClient: WebViewClient() {
+    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+        // do not open external browser to load url -> load it in this webview
+        return false
     }
 }

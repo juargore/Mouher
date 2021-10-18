@@ -92,7 +92,8 @@ val DIViewModel = module{
     }
 
     viewModel { CartViewModel(
-        cartUseCase = get(UseCases.CART.name))
+        cartUseCase = get(UseCases.CART.name),
+        productUseCase = get(UseCases.PRODUCT.name))
     }
 
     viewModel { BillingViewModel() }

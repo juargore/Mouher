@@ -245,4 +245,28 @@ object General {
         return ""
     }
 
+
+    private const val FINAL_PAYMENT_INFO = "finalPaymentInfo"
+
+    /**
+     * Save and Get on SharedPreferences the user name from Server.
+     * @param storeInfo is the one retrieved from Server.
+     * Used on different screens as Profile to avoid a new call.
+     */
+    fun savePaymentInfo(storeInfo: String?){
+        context?.let{ c->
+            with(c.getSharedPreferences(FINAL_PAYMENT_INFO, Context.MODE_PRIVATE)){
+                edit().putString(FINAL_PAYMENT_INFO, storeInfo).apply()
+            }
+        }
+    }
+
+    fun getPaymentInfo() : String {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(FINAL_PAYMENT_INFO, Context.MODE_PRIVATE)
+            return prefs.getString(FINAL_PAYMENT_INFO, "false-0-0").toString()
+        }
+        return ""
+    }
+
 }

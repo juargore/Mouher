@@ -1,3 +1,4 @@
+@file:Suppress("UNUSED_PARAMETER")
 package com.glass.mouher.ui.cart
 
 import android.os.Handler
@@ -6,12 +7,16 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
+import com.glass.domain.entities.ResponsePaymentStatus
 import com.glass.domain.usecases.cart.ICartUseCase
+import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.mouher.App.Companion.context
+import com.glass.mouher.shared.General.getPaymentInfo
 import com.glass.mouher.shared.General.getStoreShoppingInfo
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.shared.General.getUserSignedIn
+import com.glass.mouher.shared.General.savePaymentInfo
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.propertyChangedCallback
@@ -21,7 +26,8 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class CartViewModel(
-    private val cartUseCase: ICartUseCase
+    private val cartUseCase: ICartUseCase,
+    private val productUseCase: IProductUseCase
 ): BaseViewModel(), ClickHandler<ACartListViewModel> {
 
     @Bindable
@@ -90,6 +96,13 @@ class CartViewModel(
             notifyPropertyChanged(BR.error)
         }
 
+    @Bindable
+    var progressVisible = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.progressVisible)
+        }
+
     /**
      * @property itemPropertyChangedCallback listener to item actions
      */
@@ -110,6 +123,7 @@ class CartViewModel(
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
+        checkIfComesFromPayment()
 
         if(firstTime){
             firstTime = false
@@ -125,8 +139,8 @@ class CartViewModel(
     private fun onTotalProductsDbResponse(list: List<Item>){
         val viewModels = mutableListOf<ACartListViewModel>()
         var counterItems = 0
-        itemsComplete = list
 
+        itemsComplete = list
         context?.let{ c ->
             list.forEach {
                 val viewModel = CartItemViewModel(context = c, item = it)
@@ -153,6 +167,37 @@ class CartViewModel(
         totalItems = counterItems.toString()
     }
 
+    private fun checkIfComesFromPayment(){
+        val response = getPaymentInfo()
+
+        if(response.contains("true")){
+            // it comes from payment screen
+            progressVisible = true
+
+            val storeId = response.substringAfter("-").substringBefore("-")
+            val saleId = response.substringAfter("-").substringAfter("-")
+
+            addDisposable(productUseCase.getPaymentStatus(storeId, saleId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onStatusResponse, this::onError))
+        }
+    }
+
+    private fun onStatusResponse(response: ResponsePaymentStatus){
+        progressVisible = false
+        error = "Estatus del pago: ${response.StatusPago1}"
+
+        savePaymentInfo("false-0-0")
+
+        if(response.StatusPago1 == 1){
+            cartUseCase.deleteAllProductsOnCart()
+
+            Handler().postDelayed({
+                notifyPropertyChanged(BR.onRefreshScreen)
+            }, 200)
+        }
+    }
 
     fun onDeleteItemClicked(itemId: Int){
         cartUseCase.deleteProductOnCart(itemId)
@@ -187,6 +232,9 @@ class CartViewModel(
         }
     }
 
+    private fun onError(t: Throwable){
+        progressVisible = false
+    }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)

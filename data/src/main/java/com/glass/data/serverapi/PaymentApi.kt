@@ -1,6 +1,7 @@
 package com.glass.data.serverapi
 
 import com.glass.domain.entities.RegistrationData
+import com.glass.domain.entities.ResponsePaymentStatus
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -38,4 +39,13 @@ interface PaymentApi {
                                @Field("Total") Total: String,
                                @Field("Observaciones") Observaciones: String
     ): Single<RegistrationData> // returns same data as registration process
+
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
+    fun getPaymentStatus(@Field("WebService") WebService: String,
+                         @Field("IdTienda") IdTienda: String,
+                         @Field("IdVenta") IdVenta: String
+    ): Single<ResponsePaymentStatus>
+
 }

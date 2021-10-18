@@ -1,6 +1,5 @@
 package com.glass.mouher.ui.cart.payment
 
-import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
@@ -48,7 +47,9 @@ class PaymentViewModel(
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
+    }
 
+    fun startCreatingPayment(){
         showDialog = true
 
         with(paymentData) {
@@ -92,10 +93,12 @@ class PaymentViewModel(
 
     private fun onError(t: Throwable){
         showDialog = false
-        hasErrors = true
-        error = t.message
-    }
 
+        if(!t.message!!.contains("internet")){
+            hasErrors = true
+            error = t.message
+        }
+    }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)

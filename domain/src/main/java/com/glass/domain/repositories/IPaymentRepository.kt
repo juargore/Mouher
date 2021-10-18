@@ -1,6 +1,7 @@
 package com.glass.domain.repositories
 
 import com.glass.domain.entities.RegistrationData
+import com.glass.domain.entities.ResponsePaymentStatus
 import io.reactivex.Single
 
 interface IPaymentRepository {
@@ -32,4 +33,5 @@ interface IPaymentRepository {
         remarks: String
     ): Single<RegistrationData>
 
+    fun consultPaymentStatus(storeId: String, saleId: String): Single<ResponsePaymentStatus>
 }

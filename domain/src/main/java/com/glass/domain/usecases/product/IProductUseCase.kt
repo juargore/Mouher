@@ -41,4 +41,5 @@ interface IProductUseCase {
         products: List<Item>
     ): Single<RegistrationData>
 
+    fun getPaymentStatus(storeId: String, saleId: String): Single<ResponsePaymentStatus>
 }

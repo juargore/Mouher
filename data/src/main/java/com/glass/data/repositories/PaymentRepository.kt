@@ -2,6 +2,7 @@ package com.glass.data.repositories
 
 import com.glass.data.serverapi.PaymentApi
 import com.glass.domain.entities.RegistrationData
+import com.glass.domain.entities.ResponsePaymentStatus
 import com.glass.domain.repositories.IPaymentRepository
 import io.reactivex.Single
 
@@ -49,6 +50,7 @@ class PaymentRepository(
         totalCost: Double,
         remarks: String
     ): Single<RegistrationData> {
+
         return api.saveEachSaleSecondStep(
             WebService = "GuardaMovimientoVenta",
             IdTienda = storeId,
@@ -59,6 +61,18 @@ class PaymentRepository(
             PrecioUnitario = unitCost.toString(),
             Total = totalCost.toString(),
             Observaciones = remarks
+        )
+    }
+
+    override fun consultPaymentStatus(
+        storeId: String,
+        saleId: String
+    ): Single<ResponsePaymentStatus> {
+
+        return api.getPaymentStatus(
+            WebService = "ConsultaIntegralStatusPagoVenta",
+            IdTienda = storeId,
+            IdVenta = saleId
         )
     }
 

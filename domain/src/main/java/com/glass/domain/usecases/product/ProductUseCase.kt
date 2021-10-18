@@ -21,9 +21,11 @@ class ProductUseCase(
         }
     }
 
+
     override fun getProductUI(): Observable<ProductUI> {
         return Observable.just(fullProductDataResponse?.getProductUI())
     }
+
 
     override fun getProductListByCategory(storeId: Int, categoryId: Int): Observable<List<ProductUI>> {
         val mList = mutableListOf<ProductUI>()
@@ -39,6 +41,7 @@ class ProductUseCase(
             }
     }
 
+
     override fun getTopScreenInformation(fromDetail: Boolean): Observable<ScreenTopInformationUI> {
         return if(fromDetail){
             Observable.just(fullProductDataResponse?.getTopInformation())
@@ -46,6 +49,7 @@ class ProductUseCase(
             Observable.just(productByCategoryData?.getScreenTopInfo())
         }
     }
+
 
     override fun getReviewsForProduct(storeId: Int, productId: Int): Single<List<ReviewUI>> {
         return productRepository.triggerToGetFullProduct(storeId, productId)
@@ -59,6 +63,7 @@ class ProductUseCase(
         }.firstOrError()
     }
 
+
     override fun saveNewReviewForProduct(
         storeId: Int,
         productId: Int,
@@ -71,6 +76,7 @@ class ProductUseCase(
             .map { it.toResponseUI() }
     }
 
+
     override fun getHistoryByUser(userId: Int, startDate: String): Single<List<HistoryUI>> {
         return productRepository.getHistoryForUser(userId, startDate)
             .map { response->
@@ -82,6 +88,7 @@ class ProductUseCase(
                 return@map mList
             }
     }
+
 
     override fun makePaymentOfProducts(
         storeId: Int,
@@ -138,7 +145,7 @@ class ProductUseCase(
                     }
 
                     // everything went well -> return the saleId value needed on the viewModel
-                    return@map RegistrationData(Error = 0, Mensaje = "Proceso completo con éxito.", Id = saleId)
+                    return@map RegistrationData(Error = 0, Mensaje = "Proceso completado con éxito.", Id = saleId)
 
                 } else {
                     // the process was success but for some reason the saleId is 0 -> inform to viewModel
@@ -148,6 +155,11 @@ class ProductUseCase(
                 }
             }
         }
+    }
+
+
+    override fun getPaymentStatus(storeId: String, saleId: String): Single<ResponsePaymentStatus> {
+        return paymentRepository.consultPaymentStatus(storeId, saleId)
     }
 
 
