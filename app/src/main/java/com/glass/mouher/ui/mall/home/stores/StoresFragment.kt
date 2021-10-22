@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentStoresBinding
+import com.glass.mouher.shared.General.saveComesFromStores
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
@@ -27,7 +28,10 @@ class StoresFragment : Fragment() {
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.openStoreWithId -> openStore()
-                BR.onClose -> activity?.onBackPressed()
+                BR.onClose -> {
+                    saveComesFromStores(true)
+                    activity?.onBackPressed()
+                }
             }
         }
 

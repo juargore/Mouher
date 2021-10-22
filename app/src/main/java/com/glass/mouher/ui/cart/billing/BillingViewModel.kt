@@ -43,10 +43,10 @@ class BillingViewModel: BaseViewModel() {
 
     fun onContinueButtonClicked(v: View?){
         if (rfc.isBlank() || email.isBlank() || social.isBlank()) {
-            error = "Los tres campos son obligatorios si requiere factura."
+            error = "Los datos mostrados son obligatorios."
         } else {
             if (!email.trim().isEmailValid()) {
-                error = "Ingrese un email válido para continuar."
+                error = "El correo electrónico requiere un formato válido."
                 return
             }
             notifyPropertyChanged(BR.continueBilling)

@@ -28,6 +28,9 @@ import com.glass.mouher.utils.Constants.ScrollPositions
 import com.glass.mouher.utils.Constants.SPONSOR_DURATION
 import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
 import com.glass.mouher.extensions.openOrRefreshFragment
+import com.glass.mouher.shared.General.getComesFromStores
+import com.glass.mouher.shared.General.saveComesFromStores
+import com.glass.mouher.utils.SpeedyLinearLayoutManager
 import com.synnapps.carouselview.ImageListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -49,7 +52,8 @@ class HomeMallFragment : Fragment() {
         }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
@@ -69,7 +73,7 @@ class HomeMallFragment : Fragment() {
         with(binding.rvHomeSponsors){
             val mAdapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
 
-            layoutManager = LinearLayoutManager(
+            layoutManager = SpeedyLinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL,
                 false)
@@ -106,16 +110,19 @@ class HomeMallFragment : Fragment() {
 
     private fun sponsorsScrollToStart(){
         binding.rvHomeSponsors.smoothScrollToPosition(0)
+        binding.rvHomeSponsors.isNestedScrollingEnabled = false
         currentState = ScrollPositions.Start
     }
 
     private fun sponsorsScrollToMiddle(){
         binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size/2)
+        binding.rvHomeSponsors.isNestedScrollingEnabled = false
         currentState = ScrollPositions.Middle
     }
 
     private fun sponsorsScrollToEnd(){
         binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
+        binding.rvHomeSponsors.isNestedScrollingEnabled = false
         currentState = ScrollPositions.End
     }
 
@@ -139,6 +146,13 @@ class HomeMallFragment : Fragment() {
                     name = "Stores"
                 )
             }
+        }
+
+        if(getComesFromStores()){
+            saveComesFromStores(false)
+            binding.nestedScrollView.post(Runnable {
+                binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
+            })
         }
     }
 

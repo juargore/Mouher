@@ -36,6 +36,7 @@ import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragme
 import com.glass.mouher.utils.Constants.SPONSOR_DURATION
 import com.glass.mouher.utils.Constants.ScrollPositions
 import com.glass.mouher.utils.CustomVideoView
+import com.glass.mouher.utils.SpeedyLinearLayoutManager
 import com.glass.mouher.utils.WebBrowserUtils
 import com.synnapps.carouselview.ImageListener
 import org.jetbrains.anko.noButton
@@ -160,7 +161,7 @@ class HomeStoreFragment : Fragment() {
         with(binding.rvLinkedStores){
             val mAdapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
 
-            layoutManager = LinearLayoutManager(
+            layoutManager = SpeedyLinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL,
                 false)

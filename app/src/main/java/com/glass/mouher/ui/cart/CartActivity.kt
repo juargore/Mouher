@@ -23,9 +23,9 @@ import com.glass.mouher.databinding.ActivityCartBinding
 import com.glass.mouher.shared.General.getCartNotes
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.saveCartNotes
+import com.glass.mouher.shared.General.saveMustRefreshStore
 import com.glass.mouher.ui.cart.billing.BillingActivity
 import com.glass.mouher.ui.cart.payment.PaymentActivity
-import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
@@ -51,6 +51,10 @@ class CartActivity : AppCompatActivity() {
                     overridePendingTransition( 0, 0)
                     startActivity(intent)
                     overridePendingTransition( 0, 0)
+                }
+                BR.onFinishScreen -> {
+                    saveMustRefreshStore(true)
+                    finish()
                 }
                 BR.error -> showErrorMsg()
             }
@@ -174,7 +178,7 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun showErrorMsg(){
-        showSnackbar(binding.root, viewModel.error, SnackType.INFO)
+        showSnackbar(binding.root, viewModel.error, viewModel.snackType)
     }
 
     fun itemViewBinder(): ItemBinder<ACartListViewModel> {

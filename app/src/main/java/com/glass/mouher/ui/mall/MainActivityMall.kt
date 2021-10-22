@@ -3,6 +3,7 @@ package com.glass.mouher.ui.mall
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -14,9 +15,16 @@ import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
+import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getMustRefreshMenuMall
 import com.glass.mouher.shared.General.saveMustRefreshMenuMall
+import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.menu.MenuFragment
+import com.glass.mouher.ui.menu.MenuViewModel
+import com.glass.mouher.ui.store.home.HomeStoreFragment
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 class MainActivityMall : AppCompatActivity() {
 
@@ -102,5 +110,15 @@ class MainActivityMall : AppCompatActivity() {
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    override fun onBackPressed() {
+        val lastFragment = supportFragmentManager.fragments.lastOrNull()
+
+        if(lastFragment is StoresFragment){
+            General.saveComesFromStores(true)
+        }
+
+        super.onBackPressed()
     }
 }

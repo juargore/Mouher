@@ -88,7 +88,7 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     private fun showErrorMsg(){
-        val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.SUCCESS
+        val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.LONG_SUCCESS
         showSnackbar(binding.root, viewModel.error, type)
     }
 

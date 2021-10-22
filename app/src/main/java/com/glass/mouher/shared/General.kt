@@ -269,4 +269,52 @@ object General {
         return ""
     }
 
+
+    private const val COMES_FROM_STORES = "comesFromStores"
+
+    /**
+     * Save and Get on SharedPreferences if user is signed in on App.
+     * @param userSignedIn informs that user is signed in or not.
+     * Used to check locally if User has been signed in previously.
+     */
+    fun saveComesFromStores(userSignedIn: Boolean){
+        context?.let{ c->
+            with(c.getSharedPreferences(COMES_FROM_STORES, Context.MODE_PRIVATE)){
+                edit().putBoolean(COMES_FROM_STORES, userSignedIn).apply()
+            }
+        }
+    }
+
+    fun getComesFromStores() : Boolean {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(COMES_FROM_STORES, Context.MODE_PRIVATE)
+            return prefs.getBoolean(COMES_FROM_STORES, false)
+        }
+        return false
+    }
+
+
+    private const val MUST_REFRESH_ACTIVITY_STORE = "mustRefreshActivityStore"
+
+    /**
+     * Save and Get on SharedPreferences if user is signed in on App.
+     * @param userSignedIn informs that user is signed in or not.
+     * Used to check locally if User has been signed in previously.
+     */
+    fun saveMustRefreshStore(userSignedIn: Boolean){
+        context?.let{ c->
+            with(c.getSharedPreferences(MUST_REFRESH_ACTIVITY_STORE, Context.MODE_PRIVATE)){
+                edit().putBoolean(MUST_REFRESH_ACTIVITY_STORE, userSignedIn).apply()
+            }
+        }
+    }
+
+    fun getMusthRefreshStore() : Boolean {
+        context?.let{ c->
+            val prefs = c.getSharedPreferences(MUST_REFRESH_ACTIVITY_STORE, Context.MODE_PRIVATE)
+            return prefs.getBoolean(MUST_REFRESH_ACTIVITY_STORE, false)
+        }
+        return false
+    }
+
 }

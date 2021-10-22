@@ -78,6 +78,7 @@ class PaymentViewModel(
     }
 
     private fun onMakePaymentResponse(response: RegistrationData){
+        //TODO: Snackbartype
         if(response.Error > 0){
             hasErrors = true
             error = response.Mensaje

@@ -28,11 +28,13 @@
                 android:background="@color/bgGrey"
                 android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_margin="1dp">
+                    android:layout_margin="0dp">
 
-                    <com.synnapps.carouselview.CarouselView android:id="@+id/carouselView"
+                    <com.synnapps.carouselview.CarouselView
+                        android:id="@+id/carouselView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         app:fillColor="#FFFFFFFF"
@@ -46,7 +48,8 @@
                         app:strokeColor="#FF777777"
                         app:strokeWidth="1dp" />
 
-                    <View android:layout_width="match_parent"
+                    <View
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/background_banner_gradient"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,7 +74,8 @@
                         app:layout_constraintBottom_toTopOf="@+id/carouselSubtitle"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <TextView android:id="@+id/carouselSubtitle"
+                    <TextView
+                        android:id="@+id/carouselSubtitle"
                         style="@style/TextView.TitlesH4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

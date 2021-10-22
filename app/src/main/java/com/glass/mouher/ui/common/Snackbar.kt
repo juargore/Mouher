@@ -10,24 +10,38 @@ import org.jetbrains.anko.backgroundColor
 @Suppress("DEPRECATION")
 fun showSnackbar(view: View, message: String?, type: SnackType){
 
-    Snackbar.make(view, message ?: "", Snackbar.LENGTH_LONG).apply {
-        val sview = this.view
+    val duration = if(type == SnackType.LONG_SUCCESS) 6000 else Snackbar.LENGTH_LONG
 
-        with(view.context){
-            when(type){
-                SnackType.ERROR -> sview.backgroundColor = resources.getColor(R.color.mainPink)
-                SnackType.SUCCESS ->  sview.backgroundColor = resources.getColor(R.color.mainGreen)
-                SnackType.INFO -> sview.backgroundColor = resources.getColor(R.color.mainDarkBlue)
+    Snackbar
+        .make(view, message ?: "", Snackbar.LENGTH_INDEFINITE)
+        .setDuration(duration).apply {
+
+            val sview = this.view
+
+            with(view.context){
+                when(type){
+                    SnackType.ERROR -> sview.backgroundColor = resources.getColor(R.color.mainPink)
+                    SnackType.SUCCESS ->  sview.backgroundColor = resources.getColor(R.color.mainGreen)
+                    SnackType.INFO -> sview.backgroundColor = resources.getColor(R.color.mainDarkBlue)
+                    SnackType.WARNING -> { sview.backgroundColor = resources.getColor(R.color.mainYellow) }
+                    SnackType.LONG_SUCCESS -> {
+                        sview.backgroundColor = resources.getColor(R.color.mainGreen)
+                        sview.findViewById<TextView>(R.id.snackbar_text).apply {
+                            maxLines = 4
+                        }
+                    }
+                }
             }
-        }
 
-        sview.findViewById<TextView>(R.id.snackbar_text).setTextColor(Color.BLACK)
-        show()
-    }
+            sview.findViewById<TextView>(R.id.snackbar_text).setTextColor(Color.BLACK)
+            show()
+        }
 }
 
 enum class SnackType{
     ERROR,
     SUCCESS,
-    INFO
+    INFO,
+    WARNING,
+    LONG_SUCCESS
 }

@@ -145,7 +145,7 @@ class ProductUseCase(
                     }
 
                     // everything went well -> return the saleId value needed on the viewModel
-                    return@map RegistrationData(Error = 0, Mensaje = "Proceso completado con éxito.", Id = saleId)
+                    return@map RegistrationData(Error = 0, Mensaje = "Su compra ha sido registrada. Por favor proceda con el pago con tarjeta. La información de su tarjeta bancaría no será almacenada.", Id = saleId)
 
                 } else {
                     // the process was success but for some reason the saleId is 0 -> inform to viewModel

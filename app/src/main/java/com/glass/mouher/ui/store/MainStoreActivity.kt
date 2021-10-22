@@ -16,6 +16,7 @@ import com.glass.mouher.databinding.ActivityMainStoreBinding
 import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getCurrentStoreName
 import com.glass.mouher.shared.General.saveMustRefreshMenuMall
+import com.glass.mouher.shared.General.saveMustRefreshStore
 import com.glass.mouher.ui.cart.CartActivity
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.menu.MenuFragment
@@ -94,6 +95,12 @@ class MainStoreActivity : AppCompatActivity() {
             )
 
             General.saveMustRefreshMenuStore(false)
+        }
+
+        if(General.getMusthRefreshStore()){
+            saveMustRefreshStore(false)
+            finish()
+            startActivity(intent)
         }
     }
 

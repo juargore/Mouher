@@ -18,6 +18,7 @@ import com.glass.mouher.shared.General.getUserName
 import com.glass.mouher.shared.General.getUserSignedIn
 import com.glass.mouher.shared.General.savePaymentInfo
 import com.glass.mouher.ui.base.BaseViewModel
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.propertyChangedCallback
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,6 +30,11 @@ class CartViewModel(
     private val cartUseCase: ICartUseCase,
     private val productUseCase: IProductUseCase
 ): BaseViewModel(), ClickHandler<ACartListViewModel> {
+
+    var snackType: SnackType = SnackType.INFO
+
+    @Bindable
+    var onFinishScreen: Unit? = null
 
     @Bindable
     var onRefreshScreen: Unit? = null
@@ -186,7 +192,7 @@ class CartViewModel(
 
     private fun onStatusResponse(response: ResponsePaymentStatus){
         progressVisible = false
-        error = "Estatus del pago: ${response.StatusPago1}"
+        //error = "Estatus del pago: ${response.StatusPago1}"
 
         savePaymentInfo("false-0-0")
 
@@ -194,8 +200,11 @@ class CartViewModel(
             cartUseCase.deleteAllProductsOnCart()
 
             Handler().postDelayed({
-                notifyPropertyChanged(BR.onRefreshScreen)
+                notifyPropertyChanged(BR.onFinishScreen)
             }, 200)
+        } else {
+            snackType = SnackType.ERROR
+            error = "Su pago no fue procesado. Esta compra quedará registrada como pendiente de pago."
         }
     }
 
@@ -227,7 +236,8 @@ class CartViewModel(
                 notifyPropertyChanged(BR.askForBilling)
             }else{
                 // inform no user signed in
-                error = "Inicie sesión para continuar con el pago de sus productos"
+                snackType = SnackType.WARNING
+                error = "Inicie sesión para continuar con el pago"
             }
         }
     }
