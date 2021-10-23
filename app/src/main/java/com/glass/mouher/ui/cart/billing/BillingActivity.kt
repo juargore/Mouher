@@ -5,20 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.PaymentDataToSend
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityBillingBinding
+import com.glass.mouher.extensions.startActivityNoAnimation
+import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.cart.payment.PaymentActivity
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class BillingActivity : AppCompatActivity() {
+class BillingActivity : BaseActivity() {
 
     private val viewModel: BillingViewModel by viewModel()
     private lateinit var binding: ActivityBillingBinding
@@ -51,14 +52,10 @@ class BillingActivity : AppCompatActivity() {
     }
 
     private fun continueWithoutBilling(){
-        val intent = Intent(this, PaymentActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-            putExtra("paymentData", paymentData)
-        }
+        val intent = Intent(this, PaymentActivity::class.java)
+            .putExtra("paymentData", paymentData)
 
-        overridePendingTransition(0,0)
-        startActivity(intent)
-        finish()
+        startActivityNoAnimation(intent, true)
     }
 
     private fun continueWithBilling(){
@@ -70,14 +67,10 @@ class BillingActivity : AppCompatActivity() {
             email = viewModel.email.trim()
         }
 
-        val intent = Intent(this, PaymentActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-            putExtra("paymentData", paymentData)
-        }
+        val intent = Intent(this, PaymentActivity::class.java)
+            .putExtra("paymentData", paymentData)
 
-        overridePendingTransition(0,0)
-        startActivity(intent)
-        finish()
+        startActivityNoAnimation(intent, true)
     }
 
     private fun showErrorMsg(){

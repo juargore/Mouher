@@ -377,6 +377,7 @@
                         android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"
                         app:items="@{viewModel.items}"
                         app:itemViewBinder="@{view.itemViewBinder}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:clickHandler="@{ viewModel }" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout

@@ -37,6 +37,9 @@
                         android:id="@+id/carouselView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        app:items="@{viewModel.bannerList}"
+                        app:title="@{view.carouselTitle}"
+                        app:subtitle="@{view.carouselSubTitle}"
                         app:fillColor="#FFFFFFFF"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +88,8 @@
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="HardcodedText" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -98,12 +102,15 @@
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:text="Nuestros Productos"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvCategories"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
                     app:clickHandler="@{ viewModel }"
                     app:items="@{viewModel.items}"
                     app:itemViewBinder="@{view.itemViewBinder}"
@@ -125,6 +132,7 @@
                     android:id="@+id/rvNewProducts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     tools:visibility="gone" />

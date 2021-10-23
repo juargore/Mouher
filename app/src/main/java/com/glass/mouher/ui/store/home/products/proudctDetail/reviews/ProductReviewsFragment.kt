@@ -12,10 +12,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentProductReviewsBinding
 import com.glass.mouher.ui.common.SnackType
@@ -23,7 +21,6 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
-import com.glass.mouher.extensions.isEmailValid
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,25 +29,22 @@ class ProductReviewsFragment : Fragment() {
     private val viewModel: ProductReviewsViewModel by viewModel()
     private lateinit var binding: FragmentProductReviewsBinding
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.backClicked -> activity?.onBackPressed()
-                BR.showPopRating -> showPopUpRating()
-                BR.error -> showErrorMsg()
-            }
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.backClicked -> activity?.onBackPressed()
+            BR.showPopRating -> showPopUpRating()
+            BR.error -> showErrorMsg()
         }
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_reviews, container, false)
+        binding = FragmentProductReviewsBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
-
-        binding.rvReviews.layoutManager = LinearLayoutManager(context)
 
         arguments?.let{
             val productId = it.getInt("productId")

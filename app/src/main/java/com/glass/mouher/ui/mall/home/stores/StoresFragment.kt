@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentStoresBinding
+import com.glass.mouher.extensions.startActivityNoAnimation
 import com.glass.mouher.shared.General.saveComesFromStores
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
@@ -24,28 +24,21 @@ class StoresFragment : Fragment() {
     private val viewModel: StoresViewModel by viewModel()
     private lateinit var binding: FragmentStoresBinding
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.openStoreWithId -> openStore()
-                BR.onClose -> {
-                    saveComesFromStores(true)
-                    activity?.onBackPressed()
-                }
-            }
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.onClose -> onClose()
+            BR.openStoreWithId -> openStore()
         }
-
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentStoresBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
-
-        binding.rvStores.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.initialize(
             arguments?.getString("zoneName"),
@@ -61,13 +54,8 @@ class StoresFragment : Fragment() {
     }
 
     private fun openStore(){
-        val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-            putExtra("storeId", viewModel.openStoreWithId)
-        }
-
-        activity?.overridePendingTransition(0,0)
-        startActivity(intent)
+        startActivityNoAnimation(Intent(activity, MainStoreActivity::class.java)
+            .putExtra("storeId", viewModel.openStoreWithId))
     }
 
     override fun onPause() {
@@ -77,6 +65,11 @@ class StoresFragment : Fragment() {
 
     private fun showErrorMsg(){
         showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
+    }
+
+    private fun onClose(){
+        saveComesFromStores(true)
+        activity?.onBackPressed()
     }
 
     fun itemViewBinder(): ItemBinder<AStoresViewModel> {

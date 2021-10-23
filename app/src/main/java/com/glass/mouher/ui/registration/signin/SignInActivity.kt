@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.glass.mouher.BR
 import com.glass.mouher.R
@@ -19,9 +18,10 @@ import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.registration.forgot.ForgotPasswordActivity
 import com.glass.mouher.ui.registration.signup.SignUpActivity
 import com.glass.mouher.extensions.makeStatusBarTransparent
+import com.glass.mouher.ui.base.BaseActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SignInActivity : AppCompatActivity() {
+class SignInActivity : BaseActivity() {
 
     private val viewModel: SignInViewModel by viewModel()
     private lateinit var binding: ActivitySignInBinding
@@ -29,11 +29,11 @@ class SignInActivity : AppCompatActivity() {
 
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
         when (propertyId) {
-            BR.mainMallScreen -> finish()
-            BR.error -> showErrorMsg()
             BR.onBack -> finish()
-            BR.passwordScreen -> startActivity(ForgotPasswordActivity())
+            BR.error -> showErrorMsg()
+            BR.mainMallScreen -> finish()
             BR.signupScreen -> startActivity(SignUpActivity())
+            BR.passwordScreen -> startActivity(ForgotPasswordActivity())
         }
     }
 
@@ -53,8 +53,8 @@ class SignInActivity : AppCompatActivity() {
         val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.SUCCESS
         showSnackbar(binding.root, viewModel.error, type)
 
+        /** Registration success -> Go back to login screen */
         if(!viewModel.hasErrors){
-            // Registration success -> Go back to login screen
             Handler().postDelayed({
                 if(source == "MALL"){
                     saveMustRefreshMenuMall(true)

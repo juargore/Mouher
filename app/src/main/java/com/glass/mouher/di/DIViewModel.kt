@@ -4,13 +4,13 @@ import com.glass.mouher.di.DIConstants.UseCases
 import com.glass.mouher.ui.about.AboutViewModel
 import com.glass.mouher.ui.cart.CartViewModel
 import com.glass.mouher.ui.cart.billing.BillingViewModel
-import com.glass.mouher.ui.profile.address.AddressViewModel
-import com.glass.mouher.ui.profile.payment.PaymentViewModel
-import com.glass.mouher.ui.mall.home.HomeMallViewModel
 import com.glass.mouher.ui.history.HistoryViewModel
+import com.glass.mouher.ui.mall.home.HomeMallViewModel
 import com.glass.mouher.ui.mall.home.stores.StoresViewModel
 import com.glass.mouher.ui.menu.MenuViewModel
 import com.glass.mouher.ui.profile.UserProfileViewModel
+import com.glass.mouher.ui.profile.address.AddressViewModel
+import com.glass.mouher.ui.profile.payment.PaymentViewModel
 import com.glass.mouher.ui.profile.personal.PersonalViewModel
 import com.glass.mouher.ui.registration.forgot.ForgotPasswordViewModel
 import com.glass.mouher.ui.registration.signin.SignInViewModel
@@ -21,15 +21,12 @@ import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import com.glass.mouher.ui.store.home.products.ProductsViewModel
 import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel
 import com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsViewModel
-import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 val DIViewModel = module{
 
-    viewModel { SplashViewModel(
-        context = androidContext())
-    }
+    viewModel { SplashViewModel() }
 
     viewModel { SignInViewModel(
         userUseCase = get(UseCases.USER.name))
@@ -44,8 +41,7 @@ val DIViewModel = module{
     }
 
     viewModel { HomeMallViewModel(
-        mallUseCase = get(UseCases.MALL.name),
-        storeUseCase = get(UseCases.STORE.name))
+        mallUseCase = get(UseCases.MALL.name))
     }
 
     viewModel { MainStoreViewModel(
@@ -54,7 +50,6 @@ val DIViewModel = module{
     }
 
     viewModel { StoresViewModel(
-        context = androidContext(),
         mallUseCase = get(UseCases.MALL.name))
     }
 

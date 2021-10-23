@@ -4,18 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeMallBinding
-import com.glass.mouher.extensions.startFadeInAnimation
+import com.glass.mouher.extensions.openOrRefreshFragment
+import com.glass.mouher.extensions.startActivityNoAnimation
+import com.glass.mouher.shared.General.getComesFromStores
+import com.glass.mouher.shared.General.saveComesFromStores
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
@@ -24,14 +25,10 @@ import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.store.MainStoreActivity
-import com.glass.mouher.utils.Constants.ScrollPositions
 import com.glass.mouher.utils.Constants.SPONSOR_DURATION
-import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
-import com.glass.mouher.extensions.openOrRefreshFragment
-import com.glass.mouher.shared.General.getComesFromStores
-import com.glass.mouher.shared.General.saveComesFromStores
+import com.glass.mouher.utils.Constants.ScrollPositions
 import com.glass.mouher.utils.SpeedyLinearLayoutManager
-import com.synnapps.carouselview.ImageListener
+import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeMallFragment : Fragment() {
@@ -40,10 +37,12 @@ class HomeMallFragment : Fragment() {
     private lateinit var binding: FragmentHomeMallBinding
     private var currentState = ScrollPositions.Middle
 
+    lateinit var carouselTitle: TextView
+    lateinit var carouselSubTitle: TextView
+
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.topBannerList -> setImagesInTopBanner()
                 BR.sponsorStoresList -> setUpSponsorStoresRecycler()
                 BR.lobbyList -> setUpLobbyRecycler()
                 BR.zonesList -> setUpZonesRecycler()
@@ -56,10 +55,12 @@ class HomeMallFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentHomeMallBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
+
+        carouselTitle = binding.carouselTitle
+        carouselSubTitle = binding.carouselSubtitle
 
         return binding.root
     }
@@ -69,7 +70,7 @@ class HomeMallFragment : Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun setUpSponsorStoresRecycler(){
+    private fun setUpSponsorStoresRecycler() {
         with(binding.rvHomeSponsors){
             val mAdapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
 
@@ -81,13 +82,10 @@ class HomeMallFragment : Fragment() {
             adapter = mAdapter
 
             mAdapter.onItemClicked = { sponsor->
-                val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                    putExtra("storeId", sponsor.id)
-                }
-
-                activity?.overridePendingTransition(0,0)
-                startActivity(intent)
+                startActivityNoAnimation(
+                    Intent(requireActivity(), MainStoreActivity::class.java)
+                        .putExtra("storeId", sponsor.id)
+                )
             }
 
             // Start 'animation' to scroll current horizontal scrollview
@@ -108,22 +106,26 @@ class HomeMallFragment : Fragment() {
         }
     }
 
-    private fun sponsorsScrollToStart(){
+    private fun sponsorsScrollToStart() {
         binding.rvHomeSponsors.smoothScrollToPosition(0)
         binding.rvHomeSponsors.isNestedScrollingEnabled = false
         currentState = ScrollPositions.Start
     }
 
-    private fun sponsorsScrollToMiddle(){
+    private fun sponsorsScrollToMiddle() {
         binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size/2)
         binding.rvHomeSponsors.isNestedScrollingEnabled = false
         currentState = ScrollPositions.Middle
     }
 
-    private fun sponsorsScrollToEnd(){
-        binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
-        binding.rvHomeSponsors.isNestedScrollingEnabled = false
-        currentState = ScrollPositions.End
+    private fun sponsorsScrollToEnd() {
+        try {
+            binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
+            binding.rvHomeSponsors.isNestedScrollingEnabled = false
+            currentState = ScrollPositions.End
+        } catch (e: Exception){
+            Log.e("--", "Exception on scrollToEnd: ${e.message}")
+        }
     }
 
     private fun setUpZonesRecycler() {
@@ -148,11 +150,11 @@ class HomeMallFragment : Fragment() {
             }
         }
 
-        if(getComesFromStores()){
+        if (getComesFromStores()) {
             saveComesFromStores(false)
-            binding.nestedScrollView.post(Runnable {
+            binding.nestedScrollView.post {
                 binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
-            })
+            }
         }
     }
 
@@ -163,54 +165,15 @@ class HomeMallFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mAdapter
 
-            mAdapter.onItemClicked={
-                it.linkToOpen?.let{ url->
+            mAdapter.onItemClicked = {
+                it.linkToOpen?.let { url->
                     openUrlInExternalWebBrowser(url)
                 }
             }
         }
     }
 
-    private fun setImagesInTopBanner(){
-        with(binding.carouselView){
-            setImageListener(imageListener)
-            pageCount = viewModel.topBannerList.size
-
-            addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-
-                override fun onPageSelected(position: Int) {}
-                override fun onPageScrollStateChanged(state: Int) {}
-
-                override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
-                    binding.carouselTitle.apply {
-                        text = viewModel.topBannerList[pos].title
-                        startFadeInAnimation()
-                    }
-                    binding.carouselSubtitle.apply {
-                        text = viewModel.topBannerList[pos].subtitle
-                        startFadeInAnimation()
-                    }
-                }
-            })
-
-            setImageClickListener { position->
-                val item = viewModel.topBannerList[position]
-                if(!item.linkToOpen.isNullOrBlank()){
-                    openUrlInExternalWebBrowser(item.linkToOpen!!)
-                }
-            }
-        }
-    }
-
-    private var imageListener: ImageListener = ImageListener { position, imageView ->
-        Glide.with(requireContext())
-            .load(viewModel.topBannerList[position].imageUrl)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.ic_blur)
-            .into(imageView)
-    }
-
-    private fun showErrorMsg(){
+    private fun showErrorMsg() {
         showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
     }
 

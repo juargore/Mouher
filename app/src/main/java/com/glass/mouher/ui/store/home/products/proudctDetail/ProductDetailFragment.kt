@@ -9,14 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentProductDetailBinding
+import com.glass.mouher.extensions.isEmailValid
+import com.glass.mouher.extensions.openOrRefreshFragment
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
@@ -24,8 +24,6 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.store.home.HomeStoreNewProductsAdapter
 import com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsFragment
-import com.glass.mouher.extensions.isEmailValid
-import com.glass.mouher.extensions.openOrRefreshFragment
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -35,44 +33,29 @@ class ProductDetailFragment : Fragment() {
     private val viewModel: ProductDetailViewModel by viewModel()
     private lateinit var binding: FragmentProductDetailBinding
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.miniSelected -> loadMiniImage(viewModel.miniSelected)
-                BR.itemsRelatedProducts -> setRelatedProducts()
-                BR.showPopRating -> showPopUpRating()
-                BR.onBack -> activity?.onBackPressed()
-                BR.error -> showErrorMsg()
-                BR.listClassification1 -> setClassificationSpinner(binding.spinnerClassification1)
-                BR.listClassification2 -> setClassificationSpinner(binding.spinnerClassification2)
-                BR.listClassification3 -> setClassificationSpinner(binding.spinnerClassification3)
-                BR.listClassificationQty -> setClassificationSpinner(binding.spinnerClassificationQty)
-                BR.openScreenReviews -> {
-                    val args = Bundle().apply {
-                        putInt("storeId", viewModel.storeId)
-                        putInt("productId", viewModel.productId)
-                    }
-
-                    requireActivity().openOrRefreshFragment(
-                        forStore = true,
-                        destination = ProductReviewsFragment(),
-                        args = args,
-                        name = "Reviews"
-                    )
-                }
-            }
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.error -> showErrorMsg()
+            BR.showPopRating -> showPopUpRating()
+            BR.onBack -> activity?.onBackPressed()
+            BR.openScreenReviews -> openReviewScreen()
+            BR.itemsRelatedProducts -> setRelatedProducts()
+            BR.miniSelected -> loadMiniImage(viewModel.miniSelected)
+            BR.listClassification1 -> setClassificationSpinner(binding.spinnerClassification1)
+            BR.listClassification2 -> setClassificationSpinner(binding.spinnerClassification2)
+            BR.listClassification3 -> setClassificationSpinner(binding.spinnerClassification3)
+            BR.listClassificationQty -> setClassificationSpinner(binding.spinnerClassificationQty)
         }
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail, container, false)
+        binding = FragmentProductDetailBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
-
-        binding.rvMiniList.layoutManager = LinearLayoutManager(context)
 
         arguments?.let{
             val productId = it.getInt("productId")
@@ -87,7 +70,6 @@ class ProductDetailFragment : Fragment() {
     private fun setRelatedProducts() {
         with(binding.rvRelatedProducts){
             val mAdapter = HomeStoreNewProductsAdapter(requireContext(), viewModel.itemsRelatedProducts)
-            layoutManager = LinearLayoutManager(requireContext())
             adapter = mAdapter
 
             mAdapter.onItemClicked={ productId->
@@ -114,6 +96,20 @@ class ProductDetailFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_blur)
             .into(binding.photoView)
+    }
+
+    private fun openReviewScreen() {
+        val args = Bundle().apply {
+            putInt("storeId", viewModel.storeId)
+            putInt("productId", viewModel.productId)
+        }
+
+        requireActivity().openOrRefreshFragment(
+            forStore = true,
+            destination = ProductReviewsFragment(),
+            args = args,
+            name = "Reviews"
+        )
     }
 
     private fun showPopUpRating(){

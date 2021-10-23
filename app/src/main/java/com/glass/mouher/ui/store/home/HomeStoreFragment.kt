@@ -5,24 +5,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
-import androidx.databinding.DataBindingUtil
+import android.widget.TextView
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.ProductUI
 import com.glass.domain.entities.SponsorUI
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHomeStoreBinding
 import com.glass.mouher.extensions.openOrRefreshFragment
-import com.glass.mouher.extensions.startFadeInAnimation
+import com.glass.mouher.extensions.startActivityNoAnimation
 import com.glass.mouher.shared.General.getCurrentStoreName
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
@@ -37,8 +34,6 @@ import com.glass.mouher.utils.Constants.SPONSOR_DURATION
 import com.glass.mouher.utils.Constants.ScrollPositions
 import com.glass.mouher.utils.CustomVideoView
 import com.glass.mouher.utils.SpeedyLinearLayoutManager
-import com.glass.mouher.utils.WebBrowserUtils
-import com.synnapps.carouselview.ImageListener
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
@@ -50,27 +45,29 @@ class HomeStoreFragment : Fragment() {
     private lateinit var binding: FragmentHomeStoreBinding
     private var currentState = ScrollPositions.Middle
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.urlVideo -> setUpVideo(viewModel.urlVideo)
-                BR.bannerList -> setImagesInBanner()
-                BR.itemsNewProducts -> setNewProducts(viewModel.itemsNewProducts)
-                BR.sponsorStoresList -> setLinkedStores()
-                BR.error -> showErrorMsg()
-                BR.onClick -> openCategoryScreen()
-            }
+    lateinit var carouselTitle: TextView
+    lateinit var carouselSubTitle: TextView
+
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.urlVideo -> setUpVideo(viewModel.urlVideo)
+            BR.itemsNewProducts -> setNewProducts(viewModel.itemsNewProducts)
+            BR.sponsorStoresList -> setLinkedStores()
+            BR.error -> showErrorMsg()
+            BR.onClick -> openCategoryScreen()
         }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_store, container, false)
+        binding = FragmentHomeStoreBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
 
-        binding.rvCategories.layoutManager = GridLayoutManager(context, 2)
+        carouselTitle = binding.carouselTitle
+        carouselSubTitle = binding.carouselSubtitle
 
         viewModel.initialize(requireContext(), MainStoreActivity.storeId)
 
@@ -82,48 +79,9 @@ class HomeStoreFragment : Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun setImagesInBanner(){
-        with(binding.carouselView){
-            setImageListener(imageListener)
-            pageCount = viewModel.bannerList.size
-
-            binding.carouselView.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-                override fun onPageScrollStateChanged(state: Int) {}
-                override fun onPageSelected(position: Int) {}
-
-                override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
-                    binding.carouselTitle.apply {
-                        this.startFadeInAnimation()
-                        this.text = viewModel.bannerList[pos].title
-                    }
-                    binding.carouselSubtitle.apply {
-                        this.startFadeInAnimation()
-                        this.text = viewModel.bannerList[pos].subtitle
-                    }
-                }
-            })
-
-            setImageClickListener { position->
-                val item = viewModel.bannerList[position]
-                if(!item.linkToOpen.isNullOrBlank()){
-                    WebBrowserUtils.openUrlInExternalWebBrowser(item.linkToOpen!!)
-                }
-            }
-        }
-    }
-
-    private var imageListener: ImageListener = ImageListener { position, imageView ->
-        Glide.with(requireContext())
-            .load(viewModel.bannerList[position].imageUrl)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.ic_blur)
-            .into(imageView)
-    }
-
     private fun setNewProducts(itemsNewProducts: List<ProductUI>) {
         with(binding.rvNewProducts){
             val mAdapter = HomeStoreNewProductsAdapter(requireContext(), itemsNewProducts)
-            layoutManager = LinearLayoutManager(requireContext())
             adapter = mAdapter
 
             mAdapter.onItemClicked={ id->
@@ -168,8 +126,8 @@ class HomeStoreFragment : Fragment() {
 
             adapter = mAdapter
 
-            mAdapter.onItemClicked={ sponsor->
-                if(viewModel.totalProductsOnDb > 0){
+            mAdapter.onItemClicked = { sponsor->
+                if (viewModel.totalProductsOnDb > 0) {
 
                     // there is at least one product on cart -> ask for confirmation
                     alert(title = "", message = resources.getString(R.string.cart_confirm_change_store, getCurrentStoreName())){
@@ -185,8 +143,7 @@ class HomeStoreFragment : Fragment() {
                             it.dismiss()
                         }
                     }.show()
-                }else{
-
+                } else {
                     // there is no products on cart -> change the store normally
                     loadNewStoreOnActivity(sponsor)
                 }
@@ -211,17 +168,10 @@ class HomeStoreFragment : Fragment() {
     }
 
     private fun loadNewStoreOnActivity(sponsor: SponsorUI){
-        val intent = Intent(requireActivity(), MainStoreActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-            putExtra("storeId", sponsor.id)
-        }
+        val intent = Intent(requireActivity(), MainStoreActivity::class.java)
+            .putExtra("storeId", sponsor.id)
 
-        activity?.let{
-            it.overridePendingTransition(0,0)
-            startActivity(intent)
-            it.overridePendingTransition(0,0)
-            it.finish()
-        }
+        startActivityNoAnimation(intent, true)
     }
 
     private fun sponsorsScrollToStart(){
@@ -235,17 +185,19 @@ class HomeStoreFragment : Fragment() {
     }
 
     private fun sponsorsScrollToEnd(){
-        binding.rvLinkedStores.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
-        currentState = ScrollPositions.End
+        try{
+            binding.rvLinkedStores.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
+            currentState = ScrollPositions.End
+        } catch (e: Exception){
+            Log.e("--", "Exception on scrollToEnd: ${e.message}")
+        }
     }
 
-
     private fun setUpVideo(urlVideo: String?) {
-        if(urlVideo.isNullOrBlank()){
+        if (urlVideo.isNullOrBlank()) {
             binding.layVideo.visibility = View.GONE
-        }else{
-            // hide photo image if video is playing or show it if pause()
-            with(binding.videoStore){
+        } else {
+            with(binding.videoStore) {
                 setPlayPauseListener(object : CustomVideoView.PlayPauseListener{
                     override fun onPlay() {
                         binding.imgPhotoVideo.visibility = View.GONE
@@ -254,19 +206,20 @@ class HomeStoreFragment : Fragment() {
                     override fun onPause() {
                         binding.imgPhotoVideo.visibility = View.VISIBLE
                     }
-
                 })
 
                 setMediaController(MediaController(requireContext()))
-                setVideoURI(Uri.parse(viewModel.urlVideo))
+                setVideoURI(Uri.parse(urlVideo))
+
+                Handler().postDelayed({}, 0)
             }
             binding.imgPhotoVideo.bringToFront()
         }
     }
 
-    private fun showErrorMsg(){
-        with(viewModel.error){
-            val errorType = if(hasErrors) SnackType.ERROR else SnackType.SUCCESS
+    private fun showErrorMsg() {
+        with(viewModel.error) {
+            val errorType = if (hasErrors) SnackType.ERROR else SnackType.SUCCESS
             showSnackbar(binding.root, viewModel.error.message, errorType)
         }
     }

@@ -41,7 +41,8 @@
                     android:src="@drawable/ic_arrow_back"
                     android:tint="@color/onyxBlack"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView android:id="@+id/textView4"
                     style="@style/TextView.TitlesH4"
@@ -66,7 +67,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
 
                 <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvStores"
                     android:layout_width="match_parent"
@@ -77,6 +79,7 @@
                     app:itemViewBinder="@{view.itemViewBinder}"
                     tools:visibility="visible"
                     android:visibility="@{viewModel.rvVisible ? View.VISIBLE : View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

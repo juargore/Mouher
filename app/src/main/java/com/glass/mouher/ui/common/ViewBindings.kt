@@ -22,6 +22,13 @@ import com.glass.mouher.ui.common.binder.BindingRecyclerViewAdapter
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.binder.ItemBinder
 import android.widget.TextView
+import androidx.viewpager.widget.ViewPager
+import com.glass.domain.entities.TopBannerUI
+import com.glass.mouher.extensions.startFadeInAnimation
+import com.glass.mouher.utils.WebBrowserUtils
+import com.synnapps.carouselview.CarouselView
+import com.synnapps.carouselview.ImageListener
+import java.lang.Exception
 
 private const val KEY_ITEMS = -123
 private const val KEY_CLICK_HANDLER = -124
@@ -51,12 +58,17 @@ fun <T: Observable> setItems(recyclerView: RecyclerView, items: Collection<T>?) 
         return
     }
 
-    val adapter = recyclerView.adapter as BindingRecyclerViewAdapter<T>?
-    if (adapter != null) {
-        adapter.setItems(items)
-    } else {
-        recyclerView.setTag(KEY_ITEMS, items)
+    try{
+        val adapter = recyclerView.adapter as? BindingRecyclerViewAdapter<T>?
+        if (adapter != null) {
+            adapter.setItems(items)
+        } else {
+            recyclerView.setTag(KEY_ITEMS, items)
+        }
+    }catch (e: Exception){
+        Log.e("--", "Exception on MenuItemCategoriesAdapter: ${e.message}")
     }
+
 }
 
 @BindingAdapter("clickHandler")
@@ -221,5 +233,45 @@ fun setDoubleAsString(textView: TextView, double: Double?) {
 fun setIntAsString(textView: TextView, intNumber: Int?) {
     intNumber?.let{
         textView.text = it.toString()
+    }
+}
+
+@BindingAdapter(value = ["items", "title", "subtitle"])
+fun CarouselView.setImagesOnCarousel(items: List<TopBannerUI>, carouselTitle: TextView, carouselSubTitle: TextView){
+    val imageListener = ImageListener { position, imageView ->
+        Glide.with(carouselTitle.context)
+            .load(items[position].imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.ic_blur)
+            .into(imageView)
+    }
+
+    setImageListener(imageListener)
+    pageCount = items.size
+
+    addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+
+        override fun onPageSelected(position: Int) {}
+        override fun onPageScrollStateChanged(state: Int) {}
+
+        override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
+            if(items.isNotEmpty()){
+                carouselTitle.apply {
+                    text = items[pos].title
+                    startFadeInAnimation()
+                }
+                carouselSubTitle.apply {
+                    text = items[pos].subtitle
+                    startFadeInAnimation()
+                }
+            }
+        }
+    })
+
+    setImageClickListener { position->
+        val item = items[position]
+        if(!item.linkToOpen.isNullOrBlank()){
+            WebBrowserUtils.openUrlInExternalWebBrowser(item.linkToOpen!!)
+        }
     }
 }

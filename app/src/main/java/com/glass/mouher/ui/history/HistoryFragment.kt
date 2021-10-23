@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.FragmentHistoryBinding
 import com.glass.mouher.extensions.openOrRefreshFragment
@@ -28,24 +26,22 @@ class HistoryFragment : Fragment() {
     private var month = 0
     private var year = 0
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.showDatePickerPopUp -> showMonthPickerPopUp()
-                BR.openWebViewFragment -> redirectToWebScreen()
-                BR.backClicked -> activity?.onBackPressed()
-            }
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.showDatePickerPopUp -> showMonthPickerPopUp()
+            BR.openWebViewFragment -> redirectToWebScreen()
+            BR.backClicked -> activity?.onBackPressed()
         }
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false)
+        binding = FragmentHistoryBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
-        binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
 
         return binding.root
     }

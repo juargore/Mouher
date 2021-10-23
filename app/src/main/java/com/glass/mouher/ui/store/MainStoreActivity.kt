@@ -6,17 +6,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.FragmentManager
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityMainStoreBinding
+import com.glass.mouher.extensions.startActivityNoAnimation
 import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getCurrentStoreName
 import com.glass.mouher.shared.General.saveMustRefreshMenuMall
 import com.glass.mouher.shared.General.saveMustRefreshStore
+import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.cart.CartActivity
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.menu.MenuFragment
@@ -27,7 +28,7 @@ import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainStoreActivity : AppCompatActivity() {
+class MainStoreActivity : BaseActivity() {
 
     private val viewModel: MainStoreViewModel by viewModel()
     private lateinit var binding: ActivityMainStoreBinding
@@ -36,19 +37,17 @@ class MainStoreActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
 
     companion object{
-        var storeId: Int = 1 // 1 is defaul value
+        var storeId: Int = 1 // 1 is default value
     }
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.openCart -> {
-                    overridePendingTransition( 0, 0)
-                    startActivity(Intent(this, CartActivity::class.java))
-                    overridePendingTransition( 0, 0)
-                }
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.openCart -> {
+                val intent = Intent(this, CartActivity::class.java)
+                startActivityNoAnimation(intent)
             }
         }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.BlackTheme)

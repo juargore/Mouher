@@ -9,7 +9,6 @@ import android.view.Window
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
@@ -17,12 +16,13 @@ import com.glass.domain.entities.PaymentDataToSend
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityPaymentBinding
 import com.glass.mouher.shared.General.savePaymentInfo
+import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class PaymentActivity : AppCompatActivity() {
+class PaymentActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPaymentBinding
     private val viewModel: PaymentViewModel by viewModel()

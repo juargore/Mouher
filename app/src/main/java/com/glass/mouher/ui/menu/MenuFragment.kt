@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -139,8 +140,6 @@ class MenuFragment: Fragment() {
     private fun setUpStoreCategoriesItems(itemsCategories: List<CategoryUI>){
         with(binding.rvMenu){
             val categoryAdapter = MenuItemCategoriesAdapter(itemsCategories)
-
-            layoutManager = LinearLayoutManager(requireContext())
             adapter = categoryAdapter
 
             categoryAdapter.onItemClicked={

@@ -32,12 +32,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="200dp">
 
-                    <com.synnapps.carouselview.CarouselView android:id="@+id/carouselView"
+                    <com.synnapps.carouselview.CarouselView
+                        android:id="@+id/carouselView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        app:items="@{viewModel.topBannerList}"
+                        app:title="@{view.carouselTitle}"
+                        app:subtitle="@{view.carouselSubTitle}"
                         app:fillColor="#FFFFFFFF"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +91,8 @@
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlHardcoded" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
@@ -104,7 +110,8 @@
                         android:layout_weight="0.6"
                         android:scaleType="centerCrop"
                         app:fromUrl="@{ viewModel.urlImageTopLeft }"
-                        tools:srcCompat="@drawable/iguana" />
+                        tools:srcCompat="@drawable/iguana"
+                        tools:ignore="ContentDescription" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
@@ -123,7 +130,8 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:srcCompat="@drawable/girl" />
+                            tools:srcCompat="@drawable/girl"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/textView62"
@@ -135,7 +143,8 @@
                             android:text="Bienvenidos"
                             android:textColor="@color/white"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="HardcodedText" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 

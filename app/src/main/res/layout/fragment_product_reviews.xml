@@ -57,6 +57,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="6dp"
             android:padding="@dimen/margin_12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:visibility="@{ viewModel.items.size() > 0 ? View.VISIBLE : View.GONE}"
             app:items="@{viewModel.items}"
             app:itemViewBinder="@{view.itemViewBinder}"

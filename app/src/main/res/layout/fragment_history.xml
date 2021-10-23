@@ -86,6 +86,7 @@
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
                 android:visibility="@{ viewModel.historyItems.size() > 0 ? View.VISIBLE : View.GONE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:items="@{viewModel.historyItems}"
                 app:itemPropertyChangeCallback="@{ viewModel.itemPropertyChangedCallback }"
                 app:itemViewBinder="@{view.itemViewBinder}" />

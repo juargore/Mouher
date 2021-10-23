@@ -3,13 +3,11 @@ package com.glass.mouher.ui.mall
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
@@ -18,15 +16,11 @@ import com.glass.mouher.R
 import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getMustRefreshMenuMall
 import com.glass.mouher.shared.General.saveMustRefreshMenuMall
+import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.menu.MenuFragment
-import com.glass.mouher.ui.menu.MenuViewModel
-import com.glass.mouher.ui.store.home.HomeStoreFragment
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.yesButton
 
-class MainActivityMall : AppCompatActivity() {
+class MainActivityMall : BaseActivity() {
 
     private lateinit var drawerFragment: MenuFragment
 

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.glass.mouher.R
 import com.glass.mouher.BR
@@ -19,11 +18,12 @@ import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.utils.DatePickerHelper
 import com.glass.mouher.utils.Validations
 import com.glass.mouher.extensions.makeStatusBarTransparent
+import com.glass.mouher.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     private val viewModel: SignUpViewModel by viewModel()
     private lateinit var binding: ActivitySignUpBinding
@@ -60,11 +60,10 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun showErrorMsg(){
         val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.SUCCESS
-
         showSnackbar(binding.root, viewModel.error, type)
 
+        /** Registration success -> Go back to login screen */
         if(!viewModel.hasErrors){
-            // Registration success -> Go back to login screen
             Handler().postDelayed({
                 this@SignUpActivity.finish()
             }, 1500)
@@ -89,7 +88,8 @@ class SignUpActivity : AppCompatActivity() {
                         val dateStr = "${year}-${monthStr}-${dayStr}"
 
                         viewModel.birthDate = dateStr
-                        viewModel.birthDateStr = Validations.toPrettyDate(this@SignUpActivity, date, Locale("es"))
+                        viewModel.birthDateStr = Validations
+                            .toPrettyDate(this@SignUpActivity, date, Locale("es"))
                     }
                 })
     }

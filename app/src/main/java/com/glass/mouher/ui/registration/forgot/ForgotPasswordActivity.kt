@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.glass.mouher.R
 import com.glass.mouher.BR
@@ -14,9 +13,10 @@ import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.extensions.makeStatusBarTransparent
+import com.glass.mouher.ui.base.BaseActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity : BaseActivity() {
 
     private val viewModel: ForgotPasswordViewModel by viewModel()
     private lateinit var binding: ActivityForgotPasswordBinding
@@ -42,8 +42,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
         val type = if(viewModel.hasError) SnackType.ERROR else SnackType.SUCCESS
         showSnackbar(binding.root, viewModel.error, type)
 
+        /** Recover success -> Go back to login screen */
         if(!viewModel.hasError){
-            // Recover success -> Go back to login screen
             Handler().postDelayed({
                 this@ForgotPasswordActivity.finish()
             }, 1500)

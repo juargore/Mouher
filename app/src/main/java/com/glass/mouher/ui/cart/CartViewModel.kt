@@ -237,7 +237,7 @@ class CartViewModel(
             }else{
                 // inform no user signed in
                 snackType = SnackType.WARNING
-                error = "Inicie sesión para continuar con el pago"
+                error = "Inicie sesión para continuar con el pago."
             }
         }
     }

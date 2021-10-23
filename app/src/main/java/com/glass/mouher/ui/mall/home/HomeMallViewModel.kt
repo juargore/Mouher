@@ -4,7 +4,6 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import com.glass.domain.entities.*
 import com.glass.domain.usecases.mall.IMallUseCase
-import com.glass.domain.usecases.store.IStoreUseCase
 import com.glass.mouher.BR
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.ui.common.completeUrlForImage
@@ -13,8 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class HomeMallViewModel(
-    private val mallUseCase: IMallUseCase,
-    private val storeUseCase: IStoreUseCase
+    private val mallUseCase: IMallUseCase
 ): BaseViewModel() {
 
     @Bindable
