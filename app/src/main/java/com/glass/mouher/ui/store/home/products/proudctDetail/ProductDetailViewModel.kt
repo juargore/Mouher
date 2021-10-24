@@ -27,7 +27,7 @@ class ProductDetailViewModel(
 
     var storeId = 1
 
-    var productType = 1
+    private var productType = 1
 
     @Bindable
     var urlImageTop: String = ""
@@ -280,6 +280,10 @@ class ProductDetailViewModel(
 
 
     fun onAddProductToCartClicked(@Suppress("UNUSED_PARAMETER") view: View){
+        if(valueClassificationSelectedQuantity.isNullOrBlank()) {
+            return
+        }
+
         var value = valueClassificationSelected1
 
         if(!valueClassificationSelected2.isNullOrBlank()){

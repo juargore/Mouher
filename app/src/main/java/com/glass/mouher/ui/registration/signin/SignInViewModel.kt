@@ -61,16 +61,16 @@ class SignInViewModel(
         addOnPropertyChangedCallback(callback)
     }
 
-    fun onPasswordClicked(v: View){
+    fun onPasswordClicked(v: View?){
         notifyPropertyChanged(BR.passwordScreen)
     }
 
-    fun onSignupClicked(v: View){
+    fun onSignupClicked(v: View?){
         notifyPropertyChanged(BR.signupScreen)
     }
 
-    fun onSignInButtonClicked(v: View){
-        if(allFieldsValid()){
+    fun onSignInButtonClicked(v: View?) {
+        if (allFieldsValid()) {
             progressVisible = true
             addDisposable(userUseCase.signIn(userEmail.trim(), userPassword.trim())
                 .subscribeOn(Schedulers.io())
@@ -80,18 +80,18 @@ class SignInViewModel(
         }
     }
 
-    private fun onSignInResponse(response: LoginData){
+    private fun onSignInResponse(response: LoginData) {
         progressVisible = false
 
-        if(response.Error!! > 0){
+        if (response.Error > 0) {
             hasErrors = true
             error = response.Mensaje
-        }else{
+        } else {
             hasErrors = false
             error = "Bienvenidos a Mouher Market."
 
             // save data on internal shared preferences
-            with(response){
+            with(response) {
                 val user = "$Nombre $ApellidoP $ApellidoM"
                 val id = IdCliente ?: 0
 
@@ -104,24 +104,19 @@ class SignInViewModel(
         }
     }
 
-
-    private fun onError(t: Throwable?){
+    private fun onError(t: Throwable?) {
         progressVisible = false
         hasErrors = true
         error = t?.message
     }
 
-    fun onBackClicked(view: View){
-        notifyPropertyChanged(BR.onBack)
-    }
-
-    private fun allFieldsValid(): Boolean{
-        if(userEmail.isBlank() || !userEmail.trim().isEmailValid()){
+    private fun allFieldsValid(): Boolean {
+        if (userEmail.isBlank() || !userEmail.trim().isEmailValid()) {
             error = "El correo es obligatorio."
             return false
         }
 
-        if(userPassword.isBlank()){
+        if (userPassword.isBlank()) {
             error = "La contraseña es obligatoria."
             return false
         }
@@ -129,8 +124,11 @@ class SignInViewModel(
         return true
     }
 
+    fun onBackClicked(view: View?) {
+        notifyPropertyChanged(BR.onBack)
+    }
+
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)
-        onCleared()
     }
 }

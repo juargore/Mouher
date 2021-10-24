@@ -166,9 +166,8 @@ class ProductDetailFragment : Fragment() {
             else -> viewModel.listClassification3
         }
 
-        list?.let{
+        list?.let {
             val mAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_simple, it)
-            //mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = mAdapter
 
             spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{

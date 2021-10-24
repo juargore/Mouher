@@ -10,10 +10,7 @@ import com.glass.domain.entities.State
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.spinner_item_simple.view.*
 
-class CountryStateAdapter(
-    context: Context,
-    list: List<Any>
-): ArrayAdapter<Any>( context, 0, list){
+class CountryStateAdapter(context: Context, list: List<Any>): ArrayAdapter<Any>( context, 0, list){
 
     val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -26,8 +23,8 @@ class CountryStateAdapter(
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View = layoutInflater.inflate(R.layout.spinner_item_simple, parent, false)
-
         getItem(position)?.let { setItem(view, it) }
+
         return view
     }
 

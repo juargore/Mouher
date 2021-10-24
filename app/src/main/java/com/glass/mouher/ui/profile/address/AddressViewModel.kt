@@ -20,9 +20,9 @@ class AddressViewModel(
     private val userUseCase: IUserUseCase
 ): BaseViewModel() {
 
-    private var isUpdatingAddress = false
-    private var idAddress = 0
     var hasErrors = true
+    private var idAddress = 0
+    private var isUpdatingAddress = false
 
     @Bindable
     var error: String? = null
@@ -126,25 +126,24 @@ class AddressViewModel(
         addOnPropertyChangedCallback(callback)
 
         progressVisible = true
-
         addDisposable(userUseCase.getUserData(getUserId())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::onUserDataResponse, this::onError))
     }
 
-    private fun onUserDataResponse(response: UserProfileData){
+    private fun onUserDataResponse(response: UserProfileData) {
         isUpdatingAddress = !response.DomicilioEnvio.isNullOrEmpty()
 
-        if(isUpdatingAddress){
-            response.DomicilioEnvio?.get(0)?.let{ address->
+        if(isUpdatingAddress) {
+            response.DomicilioEnvio?.get(0)?.let{ address ->
                 idAddress = address.IdDomicilio ?: 0
 
-                with(address){
-                    if(Pais != null){
+                with(address) {
+                    if(Pais != null) {
                         selectedCountryId = Pais ?: 0
 
-                        if(Estado != null){
+                        if(Estado != null) {
                             selectedStateId = Estado ?: 0
                         }
                     }
@@ -163,7 +162,7 @@ class AddressViewModel(
         getCountriesList()
     }
 
-    private fun getCountriesList(){
+    private fun getCountriesList() {
         statesList = listOf(State(0, "Estado *"))
 
         addDisposable(userUseCase.getCountriesAsList()
@@ -177,7 +176,7 @@ class AddressViewModel(
                 }, this::onError))
     }
 
-    fun getStatesByCountryId(countryId: Int){
+    fun getStatesByCountryId(countryId: Int) {
         addDisposable(userUseCase.getStatesAsList(countryId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -190,8 +189,8 @@ class AddressViewModel(
         )
     }
 
-    fun onSendClicked(v: View?){
-        if(allFieldsValid()){
+    fun onSendClicked(v: View?) {
+        if(allFieldsValid()) {
             progressVisible = true
 
             addDisposable(userUseCase.addOrUpdateAddress(
@@ -219,7 +218,7 @@ class AddressViewModel(
     private fun onSendResponse(response: RegistrationData){
         progressVisible = false
 
-        if(response.Error!! > 0){
+        if(response.Error > 0){
             hasErrors = true
             error = response.Mensaje
         }else{

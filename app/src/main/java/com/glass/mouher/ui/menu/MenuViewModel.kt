@@ -48,7 +48,6 @@ class MenuViewModel(
         var source: String? = null
     }
 
-
     @Bindable
     var userName: String? = null
         set(value){

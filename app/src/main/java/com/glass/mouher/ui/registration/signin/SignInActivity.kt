@@ -54,14 +54,12 @@ class SignInActivity : BaseActivity() {
         showSnackbar(binding.root, viewModel.error, type)
 
         /** Registration success -> Go back to login screen */
-        if(!viewModel.hasErrors){
-            Handler().postDelayed({
-                if(source == "MALL"){
-                    saveMustRefreshMenuMall(true)
-                }else{
+        if (!viewModel.hasErrors) {
+            Handler().postDelayed( {
+                saveMustRefreshMenuMall(true)
+
+                if (source != "MALL")
                     saveMustRefreshMenuStore(true)
-                    saveMustRefreshMenuMall(true)
-                }
 
                 this@SignInActivity.finish()
             }, 2000)
@@ -86,8 +84,7 @@ class SignInActivity : BaseActivity() {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
-            val imm: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
         return super.dispatchTouchEvent(ev)

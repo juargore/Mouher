@@ -19,7 +19,6 @@ import com.glass.mouher.utils.DatePickerHelper
 import com.glass.mouher.utils.Validations
 import com.glass.mouher.extensions.makeStatusBarTransparent
 import com.glass.mouher.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -31,7 +30,7 @@ class SignUpActivity : BaseActivity() {
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
             when (propertyId) {
                 BR.backClicked -> finish()
-                BR.error -> showErrorMsg()
+                BR.error -> showErrorMessage()
                 BR.genderList -> setGenderSpinner()
                 BR.birthDateClicked -> showDatePickerDialog()
             }
@@ -47,24 +46,25 @@ class SignUpActivity : BaseActivity() {
         makeStatusBarTransparent()
     }
 
-    private fun setGenderSpinner(){
-        val mAdapter = ArrayAdapter(this, R.layout.spinner_item_simple, viewModel.genderList)
-        spinnerGender.adapter = mAdapter
-        spinnerGender.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                viewModel.gender = pos
+    private fun setGenderSpinner() {
+        with(binding.spinnerGender) {
+            adapter = ArrayAdapter(this@SignUpActivity, R.layout.spinner_item_simple, viewModel.genderList)
+            onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+                    viewModel.gender = pos
+                }
             }
         }
     }
 
-    private fun showErrorMsg(){
+    private fun showErrorMessage() {
         val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.SUCCESS
         showSnackbar(binding.root, viewModel.error, type)
 
         /** Registration success -> Go back to login screen */
-        if(!viewModel.hasErrors){
-            Handler().postDelayed({
+        if (!viewModel.hasErrors) {
+            Handler().postDelayed( {
                 this@SignUpActivity.finish()
             }, 1500)
         }

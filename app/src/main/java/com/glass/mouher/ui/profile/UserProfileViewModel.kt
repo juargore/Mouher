@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package com.glass.mouher.ui.profile
 
 import android.view.View
@@ -106,10 +107,6 @@ class UserProfileViewModel(
     @Bindable
     var addressButtonText = "MODIFICAR"
 
-
-    /**
-     * Show/hide progress on screen when api called.
-     */
     @Bindable
     var progressVisible = false
         set(value) {
@@ -130,12 +127,11 @@ class UserProfileViewModel(
         )
     }
 
-
-    private fun onUserDataResponse(response: UserProfileData){
+    private fun onUserDataResponse(response: UserProfileData) {
         userName = getUserName()
         notifyPropertyChanged(BR.userName)
 
-        with(response){
+        with(response) {
             memberSince = "Miembro desde ${getUserCreationDate()}."
             clientCode = Codigo
             userEmail = "Correo Principal: $Correo"
@@ -161,7 +157,7 @@ class UserProfileViewModel(
                 notifyPropertyChanged(BR.addressMunicipality)
                 notifyPropertyChanged(BR.addressCP)
 
-                if(addressStreet.isNullOrBlank()){
+                if (addressStreet.isNullOrBlank()) {
                     addressVisible = false
                     notifyPropertyChanged(BR.addressVisible)
                 }
@@ -184,13 +180,12 @@ class UserProfileViewModel(
         }
     }
 
-
-    private fun getCountries(countryId: Int?, stateId: Int?){
+    private fun getCountries(countryId: Int?, stateId: Int?) {
         addDisposable(userUseCase.getCountriesAsList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { list->
+                { list ->
                     val country = list.find { it.IdPais == countryId }?.Nombre
                     addressCountry = if(country.isNullOrEmpty()) "" else "País: $country"
                     notifyPropertyChanged(BR.addressCountry)
@@ -198,7 +193,6 @@ class UserProfileViewModel(
                     getStateByCountryId(countryId, stateId)
                 }, this@UserProfileViewModel::onError))
     }
-
 
     private fun getStateByCountryId(countryId: Int?, stateId: Int?){
         addDisposable(userUseCase.getStatesAsList(countryId ?: 117)
@@ -214,29 +208,24 @@ class UserProfileViewModel(
         )
     }
 
-
     fun onEditAddressClicked(v: View){
         openProfileScreen = AddressFragment()
         notifyPropertyChanged(BR.openProfileScreen)
     }
-
 
     fun onEditPersonalClicked(v: View){
         openProfileScreen = PersonalFragment()
         notifyPropertyChanged(BR.openProfileScreen)
     }
 
-
     fun clearProductsFromCart(){
         General.saveCartNotes("")
         cartUseCase.deleteAllProductsOnCart()
     }
 
-
     private fun onError(t: Throwable?){
         progressVisible = false
     }
-
 
     fun onBackClicked(v: View){
         notifyPropertyChanged(BR.backClicked)
@@ -252,7 +241,6 @@ class UserProfileViewModel(
             }, this::onError)
         )
     }
-
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
         removeOnPropertyChangedCallback(callback)

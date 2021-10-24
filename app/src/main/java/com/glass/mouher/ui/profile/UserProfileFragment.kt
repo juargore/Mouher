@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import com.glass.mouher.R
@@ -34,9 +33,9 @@ class UserProfileFragment : Fragment() {
 
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
         when (propertyId) {
-            BR.openProfileScreen -> openSubProfileScreen()
             BR.signOut -> showPopSignOut()
             BR.backClicked -> activity?.onBackPressed()
+            BR.openProfileScreen -> openSubProfileScreen()
         }
     }
 
@@ -44,10 +43,8 @@ class UserProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false)
+        binding = FragmentUserProfileBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
-        binding.view = this
 
         return binding.root
     }

@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,26 +56,24 @@ class MenuFragment: Fragment() {
     private var containerView: View? = null
     private var source = ""
 
-    private val onPropertyChangedCallback =
-        propertyChangedCallback { _, propertyId ->
-            when (propertyId) {
-                BR.itemsSocial -> setUpMallSocialMediaItems(viewModel.itemsSocial)
-                BR.screen -> openFromMenuSubscreen(viewModel.screen)
-                BR.openZoneSelected -> openMallStoresByZoneId()
-                BR.signOut -> showPopSignOut()
-                BR.categories -> setUpStoreCategoriesItems(viewModel.categories)
-            }
+    private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
+        when (propertyId) {
+            BR.signOut -> showPopSignOut()
+            BR.openZoneSelected -> openMallStoresByZoneId()
+            BR.screen -> openFromMenuSubscreen(viewModel.screen)
+            BR.categories -> setUpStoreCategoriesItems(viewModel.categories)
+            BR.itemsSocial -> setUpMallSocialMediaItems(viewModel.itemsSocial)
         }
+    }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentMenuBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.view = this
-
-        binding.rvMenu.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }
@@ -87,17 +84,16 @@ class MenuFragment: Fragment() {
     }
 
     private fun showPopSignOut() {
-        val msg = if (viewModel.totalProductsOnDb > 0) {
+        val message = if (viewModel.totalProductsOnDb > 0) {
             resources.getString(R.string.cart_confirm_sign_out, General.getCurrentStoreName())
         } else {
             resources.getString(R.string.app_confirm_sign_out)
         }
 
-        alert(title = "", message = msg) {
+        alert(title = "", message = message) {
             yesButton {
-                if (viewModel.totalProductsOnDb > 0) {
+                if (viewModel.totalProductsOnDb > 0)
                     viewModel.clearProductsFromCart()
-                }
 
                 updateValuesOnSignOut()
             }
@@ -112,7 +108,7 @@ class MenuFragment: Fragment() {
         General.saveUserEmail("")
         General.saveUserId(0)
 
-        // Refresh activity to update side menu
+        /** Refresh activity to update side menu */
         if(activity is MainActivityMall){
             val parentActivity = activity as MainActivityMall
             parentActivity.refreshActivityFromFragment()

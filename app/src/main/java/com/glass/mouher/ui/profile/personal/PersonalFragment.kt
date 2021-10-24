@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.glass.mouher.BR
 import com.glass.mouher.R
@@ -27,8 +26,8 @@ class PersonalFragment : Fragment() {
 
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
             when (propertyId) {
-                BR.genderList -> setGenderSpinner()
                 BR.error -> showErrorMsg()
+                BR.genderList -> setGenderSpinner()
                 BR.backClicked -> activity?.onBackPressed()
                 BR.birthDateClicked -> showDatePickerDialog()
             }
@@ -38,7 +37,7 @@ class PersonalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal, container, false)
+        binding = FragmentPersonalBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
         return binding.root
@@ -51,12 +50,10 @@ class PersonalFragment : Fragment() {
 
     private fun setGenderSpinner(){
         with(binding.spinnerGender){
-            val mAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_simple, viewModel.genderList)
-            adapter = mAdapter
+            adapter = ArrayAdapter(requireContext(), R.layout.spinner_item_simple, viewModel.genderList)
 
-            if(viewModel.gender > 0){
+            if(viewModel.gender > 0)
                 setSelection(viewModel.gender)
-            }
 
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -87,14 +84,11 @@ class PersonalFragment : Fragment() {
 
     private fun showErrorMsg(){
         val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.SUCCESS
-
         showSnackbar(binding.root, viewModel.error, type)
 
+        /** Registration success -> Go back to login screen */
         if(!viewModel.hasErrors){
-            // Registration success -> Go back to login screen
-            Handler().postDelayed({
-                activity?.onBackPressed()
-            }, 1500)
+            Handler().postDelayed({ activity?.onBackPressed() }, 1500)
         }
     }
 
