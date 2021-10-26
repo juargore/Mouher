@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center_horizontal"
-            android:text="¿Requieres factura para esta compra?"
+            android:text="¿Requiere factura para esta compra?"
             android:textColor="@color/onyxBlack"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
