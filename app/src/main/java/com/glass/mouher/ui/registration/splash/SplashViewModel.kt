@@ -27,7 +27,7 @@ class SplashViewModel: BaseViewModel() {
 
     private fun getCurrentVersionCode(){
         context?.packageManager?.getPackageInfo(
-            context?.packageName,
+            context!!.packageName,
             PackageManager.GET_ACTIVITIES)?.apply {
             versionStr = "versión $versionName"
         }

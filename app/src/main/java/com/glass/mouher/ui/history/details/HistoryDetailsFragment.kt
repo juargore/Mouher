@@ -29,7 +29,8 @@ class HistoryDetailsFragment : Fragment() {
             settings.loadWithOverviewMode = true
             settings.useWideViewPort = true
 
-            loadUrl(arguments?.getString("url"))
+            val url = arguments?.getString("url") ?: ""
+            loadUrl(url)
 
             lifecycleScope.launch {
                 delay(3000L)

@@ -33,7 +33,7 @@ android {
             buildConfigField "String", "URL_PARENT", '"https://mouhermarket.com/admin/models/"'
             minifyEnabled false
             shrinkResources false
-            debuggable true
+            debuggable false
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
