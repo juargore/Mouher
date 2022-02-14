@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable-v24/background_gradient_zones_two.xml" value="0.1245" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_banner_gradient.xml" value="0.22777777777777777" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_button_rounded.xml" value="0.22777777777777777" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_category_gradient.xml" value="0.22777777777777777" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_circle_pink.xml" value="0.22777777777777777" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_gradient_zones.xml" value="0.1245" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_green_rounded.xml" value="0.22777777777777777" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_grey_search.xml" value="0.22777777777777777" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/background_grey_subscribe.xml" value="0.22777777777777777" />
@@ -18,12 +20,15 @@
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/ic_edit_image.xml" value="0.25833333333333336" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/ic_envelope.xml" value="0.25833333333333336" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/ic_home.xml" value="0.23055555555555557" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/ic_search.xml" value="0.1235" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/drawable/ic_shopping_cart.xml" value="0.1235" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_billing.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_cart.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_forgot_password.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_main_mall.xml" value="0.152" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_main_store.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_payment.xml" value="0.228125" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_search.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_sign_in.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_sign_up.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/activity_splash.xml" value="0.2421875" />
@@ -54,6 +59,7 @@
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_home_sponsors.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_home_zones.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_menu.xml" value="0.2421875" />
+        <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_mini_detail.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_products.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_social_media.xml" value="0.2421875" />
         <entry key="..\:/GitFiles/Mouher/app/src/main/res/layout/recycler_item_store_categories.xml" value="0.2421875" />

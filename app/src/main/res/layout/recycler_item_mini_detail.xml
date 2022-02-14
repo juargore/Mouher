@@ -15,7 +15,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        android:background="@color/bgGrey"
+        android:background="@color/white"
         android:padding="1dp">
 
         <ImageView

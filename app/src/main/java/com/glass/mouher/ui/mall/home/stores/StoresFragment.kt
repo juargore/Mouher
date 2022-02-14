@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import com.glass.mouher.R
@@ -16,6 +17,8 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
+import com.glass.mouher.ui.mall.MainActivityMall.Companion.showHideCartIcon
+import com.glass.mouher.ui.mall.MainActivityMall.Companion.toolbar
 import com.glass.mouher.ui.store.MainStoreActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -51,6 +54,7 @@ class StoresFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+        showHideCartIcon(false)
     }
 
     private fun openStore(){

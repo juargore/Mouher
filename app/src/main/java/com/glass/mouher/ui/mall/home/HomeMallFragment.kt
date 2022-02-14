@@ -20,6 +20,8 @@ import com.glass.mouher.shared.General.saveComesFromStores
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
+import com.glass.mouher.ui.mall.MainActivityMall
+import com.glass.mouher.ui.mall.MainActivityMall.Companion.showHideCartIcon
 import com.glass.mouher.ui.mall.home.adapters.HomeLobbyAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeZonesAdapter
@@ -68,6 +70,7 @@ class HomeMallFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+        showHideCartIcon(true)
     }
 
     private fun setUpSponsorStoresRecycler() {
