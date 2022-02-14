@@ -206,17 +206,20 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_12dp"
+                        android:layout_marginTop="@dimen/margin_18dp"
                         android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:id="@+id/imageView6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="6dp"
-                            android:tint="@color/lightGrey"
-                            app:srcCompat="@drawable/ic_shopping_cart" />
+                            android:tint="@color/mainGrey"
+                            app:srcCompat="@drawable/ic_shopping_cart"
+                            android:contentDescription="Cart"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/textView31"
@@ -239,7 +242,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="6dp"
-                        android:background="@color/bgGrey" />
+                        android:background="@color/lightGrey" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHomeZones"
                         android:layout_width="match_parent"

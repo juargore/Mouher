@@ -20,6 +20,7 @@ import com.glass.mouher.shared.General.saveMustRefreshStore
 import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.cart.CartActivity
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.mall.MainActivityMall
 import com.glass.mouher.ui.menu.MenuFragment
 import com.glass.mouher.ui.menu.MenuViewModel
 import com.glass.mouher.ui.store.home.HomeStoreFragment
@@ -27,6 +28,7 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class MainStoreActivity : BaseActivity() {
 
@@ -106,9 +108,18 @@ class MainStoreActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
 
-        // Clean the backstack of fragments when clicking on middle logo of store
-        binding.layoutLogos.setOnClickListener {
+        // Clean the backstack of fragments when clicking on store logo
+        binding.imgLogoStore.setOnClickListener {
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
+
+        // Restart whole App when clicking on mall logo
+        binding.imgLogoMall.setOnClickListener {
+            if(viewModel.totalProducts.toInt() > 0) {
+                askForExitWhenCartNotEmpty(restartApp = true)
+            } else {
+                restartWholeApp()
+            }
         }
     }
 
@@ -129,23 +140,9 @@ class MainStoreActivity : BaseActivity() {
         MenuViewModel.source = "MALL"
 
         if(lastFragment is HomeStoreFragment){
-            if(viewModel.totalProducts.toInt() > 0){
-
-                // Show popup asking to continue here
-                alert(title = "", message = resources.getString(R.string.cart_confirm_exit_store, getCurrentStoreName())){
-                    yesButton {
-                        viewModel.clearProductsFromCart()
-                        it.dismiss()
-
-                        Handler().postDelayed({
-                            super.onBackPressed()
-                        }, 500)
-                    }
-                    noButton {
-                        it.dismiss()
-                    }
-                }.show()
-            }else{
+            if(viewModel.totalProducts.toInt() > 0) {
+                askForExitWhenCartNotEmpty(restartApp = false)
+            } else {
                 super.onBackPressed()
             }
         }else{
@@ -153,6 +150,32 @@ class MainStoreActivity : BaseActivity() {
         }
     }
 
+    @Suppress("DEPRECATION")
+    private fun askForExitWhenCartNotEmpty(restartApp: Boolean) {
+        alert(title = "", message = resources.getString(R.string.cart_confirm_exit_store, getCurrentStoreName())){
+            yesButton {
+                viewModel.clearProductsFromCart()
+                it.dismiss()
+
+                Handler().postDelayed({
+                    if(restartApp) {
+                        restartWholeApp()
+                    } else {
+                        super.onBackPressed()
+                    }
+                }, 500)
+            }
+            noButton {
+                it.dismiss()
+            }
+        }.show()
+    }
+
+    private fun restartWholeApp() {
+        val intent = Intent(this, MainActivityMall::class.java)
+        startActivity(intent)
+        finishAffinity()
+    }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
