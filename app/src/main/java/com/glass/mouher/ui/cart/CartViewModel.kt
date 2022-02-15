@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("UNUSED_PARAMETER", "DEPRECATION", "UNUSED_PARAMETER")
 package com.glass.mouher.ui.cart
 
 import android.os.Handler
@@ -192,8 +192,6 @@ class CartViewModel(
 
     private fun onStatusResponse(response: ResponsePaymentStatus){
         progressVisible = false
-        //error = "Estatus del pago: ${response.StatusPago1}"
-
         savePaymentInfo("false-0-0")
 
         if(response.StatusPago1 == 1){
@@ -217,17 +215,17 @@ class CartViewModel(
     }
 
 
-    fun onPopClicked(@Suppress("UNUSED_PARAMETER") view: View){
+    fun onPopClicked(view: View?){
         notifyPropertyChanged(BR.onPopClicked)
     }
 
 
-    fun onBackClicked(@Suppress("UNUSED_PARAMETER") view: View?){
+    fun onBackClicked(view: View?){
         notifyPropertyChanged(BR.onBackClicked)
     }
 
 
-    fun onPayClicked(@Suppress("UNUSED_PARAMETER") v: View?){
+    fun onPayClicked(v: View?){
         if(items.isNotEmpty()){
             val isUserLoggedIn = getUserSignedIn() && getUserId() > 0 && getUserName()!!.isNotBlank()
 
@@ -252,8 +250,6 @@ class CartViewModel(
 
 
     override fun onClick(viewModel: ACartListViewModel) {
-        /*if(viewModel is CartItemViewModel){
-
-        }*/
+        /*if(viewModel is CartItemViewModel){}*/
     }
 }

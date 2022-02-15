@@ -162,6 +162,10 @@ class ProductUseCase(
         return paymentRepository.consultPaymentStatus(storeId, saleId)
     }
 
+    override fun getSearchResults(word: String): Single<List<ProductSearchUI>> {
+        return productRepository.getSearchResults(word)
+    }
+
 
     private fun makePaymentForEachProduct(
         storeId: Int,

@@ -1,24 +1,21 @@
 package com.glass.mouher.ui.registration.signin
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import com.glass.mouher.BR
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivitySignInBinding
+import com.glass.mouher.extensions.makeStatusBarTransparent
 import com.glass.mouher.shared.General.saveMustRefreshMenuMall
 import com.glass.mouher.shared.General.saveMustRefreshMenuStore
+import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
 import com.glass.mouher.ui.registration.forgot.ForgotPasswordActivity
 import com.glass.mouher.ui.registration.signup.SignUpActivity
-import com.glass.mouher.extensions.makeStatusBarTransparent
-import com.glass.mouher.ui.base.BaseActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SignInActivity : BaseActivity() {
@@ -80,13 +77,5 @@ class SignInActivity : BaseActivity() {
         activity?.let{
             startActivity(Intent(this, it::class.java))
         }
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if (currentFocus != null) {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-        }
-        return super.dispatchTouchEvent(ev)
     }
 }

@@ -1,6 +1,7 @@
 package com.glass.data.repositories
 
 import com.glass.data.serverapi.PaymentApi
+import com.glass.domain.entities.ProductSearchUI
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.ResponsePaymentStatus
 import com.glass.domain.repositories.IPaymentRepository
@@ -75,5 +76,4 @@ class PaymentRepository(
             IdVenta = saleId
         )
     }
-
 }

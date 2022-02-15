@@ -18,4 +18,6 @@ interface IProductRepository {
                                 userRating: Float): Observable<ResponseData>
 
     fun getHistoryForUser(userId: Int, startDate: String): Single<HistoryResponse>
+
+    fun getSearchResults(word: String): Single<List<ProductSearchUI>>
 }

@@ -1,5 +1,6 @@
 package com.glass.domain.repositories
 
+import com.glass.domain.entities.ProductSearchUI
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.ResponsePaymentStatus
 import io.reactivex.Single

@@ -1,8 +1,11 @@
 package com.glass.mouher.ui.base
 
+import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 
 open class BaseActivity: AppCompatActivity() {
@@ -13,5 +16,13 @@ open class BaseActivity: AppCompatActivity() {
         Thread.setDefaultUncaughtExceptionHandler { _, paramThrowable ->
             Log.e("Error" + Thread.currentThread().stackTrace[2], paramThrowable.localizedMessage)
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

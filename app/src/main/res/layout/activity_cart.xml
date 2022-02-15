@@ -66,10 +66,10 @@
                 android:layout_marginTop="@dimen/margin_18dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:visibility="@{ viewModel.items.size() == 0 ? View.GONE : View.VISIBLE }"
+                app:items="@{viewModel.items}"
                 app:clickHandler="@{ viewModel }"
                 app:itemPropertyChangeCallback="@{ viewModel.itemPropertyChangedCallback }"
-                app:itemViewBinder="@{view.itemViewBinder}"
-                app:items="@{viewModel.items}"
+                app:itemViewBinder="@{ view.itemViewBinder }"
                 tools:visibility="gone" />
 
         </LinearLayout>

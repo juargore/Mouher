@@ -33,7 +33,7 @@ class HomeZonesAdapter (
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = zonesList[pos]
 
-        with(holder.itemView){
+        with(holder.itemView) {
             title.text = item.name
 
             if(item.description.isNullOrBlank()){

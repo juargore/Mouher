@@ -16,6 +16,7 @@ import com.glass.mouher.ui.registration.forgot.ForgotPasswordViewModel
 import com.glass.mouher.ui.registration.signin.SignInViewModel
 import com.glass.mouher.ui.registration.signup.SignUpViewModel
 import com.glass.mouher.ui.registration.splash.SplashViewModel
+import com.glass.mouher.ui.search.SearchViewModel
 import com.glass.mouher.ui.store.MainStoreViewModel
 import com.glass.mouher.ui.store.home.HomeStoreViewModel
 import com.glass.mouher.ui.store.home.products.ProductsViewModel
@@ -88,6 +89,10 @@ val DIViewModel = module{
 
     viewModel { CartViewModel(
         cartUseCase = get(UseCases.CART.name),
+        productUseCase = get(UseCases.PRODUCT.name))
+    }
+
+    viewModel { SearchViewModel(
         productUseCase = get(UseCases.PRODUCT.name))
     }
 
