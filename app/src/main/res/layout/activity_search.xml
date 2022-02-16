@@ -31,6 +31,7 @@
             android:layout_marginTop="16dp"
             android:includeFontPadding="false"
             android:text="Buscar en productos..."
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -42,14 +43,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_12dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="@dimen/margin_12dp"
             android:elevation="5dp"
-            android:hint="Buscar"
+            android:hint="Buscar en productos..."
             android:theme="@style/TextInputLayoutAppearanceBlack"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:endIconMode="clear_text"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -111,10 +113,40 @@
             android:layout_marginEnd="14dp"
             android:layout_marginBottom="6dp"
             android:gravity="end"
-            android:text="TextView"
-            android:textColor="@color/mainGrey"
+            android:text="@{ viewModel.found }"
+            android:textColor="@color/onyxBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="3 producto(s) encontrado(s)" />
+
+        <TextView
+            android:id="@+id/textView92"
+            style="@style/TextView.TitlesH7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingStart="@dimen/margin_40dp"
+            android:paddingEnd="@dimen/margin_40dp"
+            android:text="No se han encontrado resultados para tu búsqueda. Asegúrate de que las palabras estén escritas correctamente o prueba diferentes palabras clave. "
+            android:textColor="@color/mainGrey"
+            android:visibility="@{ viewModel.showEmptyMsg ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="@+id/rvResults"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView90"
+            tools:ignore="HardcodedText" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ viewModel.progressVisible ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -64,11 +64,11 @@ class ProductRepository(
 
         return Single.create {
             val mList = listOf(
-                ProductSearchUI(1, 1, "Taza 1", "Descripción 1", "https://proveedoradiez.com.mx/849-large_default/taza-para-cafe-embrocable-blanco-polar.jpg"),
-                ProductSearchUI(1, 2, "Taza 2", "Descripción 2", "https://minisomx.vtexassets.com/arquivos/ids/169764/Taza-De-Cer-mica-We-Bare-Bears-Polar-1-4460.jpg?v=637395397175530000"),
-                ProductSearchUI(1, 3, "Cama 3", "Descripción 3", "https://ss104.potterybarn.com.mx/xl/1074491827.jpg"),
-                ProductSearchUI(1, 4, "Auto 4", "Descripción 4", "https://cdn.aarp.net/content/dam/aarp/auto/2017/07/1140-hyundai-ioniq-great-cars-road-trips-esp.imgcache.revfd63981c76a67e8a4ed28622bb76883e.web.900.518.jpg"),
-                ProductSearchUI(1, 5, "Auto 5", "Descripción 5", "https://siempreauto.com/wp-content/uploads/sites/9/2021/03/honda-accord-2021-01.jpg?quality=60&strip=all&w=1200")
+                ProductSearchUI(1, 1, "Taza ejemplo 1", "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", "https://proveedoradiez.com.mx/849-large_default/taza-para-cafe-embrocable-blanco-polar.jpg", "123.00", "205.50"),
+                ProductSearchUI(1, 2, "Taza nueva 2", "Lorem ipsum dolor sit amet", "https://minisomx.vtexassets.com/arquivos/ids/169764/Taza-De-Cer-mica-We-Bare-Bears-Polar-1-4460.jpg?v=637395397175530000", "100.80", "190.00"),
+                ProductSearchUI(1, 3, "Cama blanca 3", "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", "https://ss104.potterybarn.com.mx/xl/1074491827.jpg", "320.00", "350.50"),
+                ProductSearchUI(1, 4, "Auto conocido 4", "Lorem ipsum dolor sit amet", "https://cdn.aarp.net/content/dam/aarp/auto/2017/07/1140-hyundai-ioniq-great-cars-road-trips-esp.imgcache.revfd63981c76a67e8a4ed28622bb76883e.web.900.518.jpg", "123.30", "205.60"),
+                ProductSearchUI(1, 5, "Auto desconocido 5", "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", "https://siempreauto.com/wp-content/uploads/sites/9/2021/03/honda-accord-2021-01.jpg?quality=60&strip=all&w=1200", "800.00", "815.00")
             )
 
             mList.forEach { p -> if(p.name.contains(word, true)) resultList.add(p) }
@@ -76,5 +76,4 @@ class ProductRepository(
             it.onSuccess(resultList + resultList)
         }
     }
-
 }

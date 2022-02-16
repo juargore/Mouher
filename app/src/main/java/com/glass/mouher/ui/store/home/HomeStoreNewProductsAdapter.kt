@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.glass.domain.entities.ProductUI
@@ -15,9 +16,10 @@ import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_products.view.*
 
 
-class HomeStoreNewProductsAdapter (private val context: Context,
-                                   private var productsList : List<ProductUI>)
-    : androidx.recyclerview.widget.RecyclerView.Adapter<HomeStoreNewProductsAdapter.ItemViewHolder>(){
+class HomeStoreNewProductsAdapter (
+    private val context: Context,
+    private var productsList : List<ProductUI>
+): RecyclerView.Adapter<HomeStoreNewProductsAdapter.ItemViewHolder>() {
 
     var onItemClicked: ((Int) -> Unit)? = null
 
@@ -26,20 +28,18 @@ class HomeStoreNewProductsAdapter (private val context: Context,
         return ItemViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return productsList.size
-    }
+    override fun getItemCount(): Int = productsList.size
 
     override fun onBindViewHolder(p0: ItemViewHolder, pos: Int) {
         p0.setData(productsList[pos])
     }
 
     @Suppress("DEPRECATION")
-    inner class ItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
-        fun setData(item: ProductUI){
+        fun setData(item: ProductUI) {
 
-            with(itemView){
+            with(itemView) {
                 productName.text = item.name
                 txtPrice.text = "$${item.currentPrice}"
                 txtDescriptionTop.text = item.description
@@ -49,9 +49,9 @@ class HomeStoreNewProductsAdapter (private val context: Context,
                 ratingBar.rating = rating
 
                 // if oldPrice does not exists -> hide view
-                if(item.oldPrice.isNullOrBlank()){
+                if(item.oldPrice.isNullOrBlank()) {
                     txtOldPrice.visibility = View.GONE
-                }else{
+                } else {
                     txtOldPrice.text = "$${item.oldPrice}"
                     txtOldPrice.let{
                         // middle line on the old price
@@ -60,9 +60,9 @@ class HomeStoreNewProductsAdapter (private val context: Context,
                 }
 
                 // if discount on product does not exists -> hide view
-                if(item.discount.isNullOrBlank()){
+                if(item.discount.isNullOrBlank()) {
                     txtDiscount.visibility = View.GONE
-                }else{
+                } else {
                     txtDiscount.text = item.discount
                 }
 
@@ -73,7 +73,7 @@ class HomeStoreNewProductsAdapter (private val context: Context,
                     .into(itemView.productImage)
 
                 setOnClickListener {
-                    item.id?.let{
+                    item.id?.let {
                         onItemClicked?.invoke(it)
                     }
                 }

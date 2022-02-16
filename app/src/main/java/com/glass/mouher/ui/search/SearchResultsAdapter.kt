@@ -1,5 +1,7 @@
 package com.glass.mouher.ui.search
 
+import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,12 +26,25 @@ class SearchResultsAdapter(
 
     var onItemClicked: ((ProductSearchUI) -> Unit)? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = results[position]
 
         with(holder.itemView) {
             resultName.text = item.name
             resultDescription.text = item.description
+            resultPrice.text = "$${ item.currentPrice }"
+
+            // if oldPrice does not exists -> hide view
+            if(item.oldPrice.isNullOrBlank()) {
+                resultOldPrice.visibility = View.GONE
+            } else {
+                resultOldPrice.let{
+                    // middle line on the old price
+                    it.paintFlags = it.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    it.text = "$${ item.oldPrice }"
+                }
+            }
 
             item.urlImage?.let{
                 Glide.with(resultImg.context)

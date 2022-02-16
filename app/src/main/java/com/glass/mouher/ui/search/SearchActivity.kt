@@ -41,9 +41,9 @@ class SearchActivity : BaseActivity() {
         viewModel.onResume(onPropertyChangedCallback)
 
         with(binding.searchInput) {
-            this.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+            //this.requestFocus()
+            //val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
         }
         addListeners()
     }

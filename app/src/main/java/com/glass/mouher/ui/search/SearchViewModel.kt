@@ -25,10 +25,31 @@ class SearchViewModel(
     var results: List<ProductSearchUI> = listOf()
 
     @Bindable
+    var showEmptyMsg = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.showEmptyMsg)
+        }
+
+    @Bindable
     var searching = ""
         set(value) {
             field = "Búsqueda de: $value"
             notifyPropertyChanged(BR.searching)
+        }
+
+    @Bindable
+    var found = ""
+        set(value) {
+            field = "${results.size} producto(s) encontrado(s)"
+            notifyPropertyChanged(BR.found)
+        }
+
+    @Bindable
+    var progressVisible = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.progressVisible)
         }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
@@ -36,7 +57,7 @@ class SearchViewModel(
     }
 
     fun searchOnServer() {
-        searching = textToSearch
+        progressVisible = true
         addDisposable(productUseCase.getSearchResults(textToSearch)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -44,12 +65,18 @@ class SearchViewModel(
     }
 
     private fun onSearchResults(list: List<ProductSearchUI>) {
+        searching = textToSearch
         results = list
+        found = ""
         notifyPropertyChanged(BR.results)
+
+        showEmptyMsg = list.isEmpty()
+        progressVisible = false
     }
 
+    /* no-op */
     private fun onError(t: Throwable?) {
-
+        progressVisible = false
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
