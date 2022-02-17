@@ -7,14 +7,13 @@ data class SponsorData(
     val Link: String? = null, // URL link in case it exists
 ){
 
-    fun getSponsorStoreUI(): SponsorUI{
-        return SponsorUI(
-            id = IdTienda,
-            urlImage = Logotipo,
-            name = Nombre,
-            idOfStoreToOpen = IdTienda
-        )
-    }
+    fun getSponsorStoreUI() = SponsorUI(
+        id = IdTienda,
+        urlImage = Logotipo,
+        name = Nombre,
+        idOfStoreToOpen = IdTienda
+    )
+
 }
 
 data class SponsorUI(

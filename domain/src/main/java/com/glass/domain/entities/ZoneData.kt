@@ -3,14 +3,8 @@ package com.glass.domain.entities
 data class ZoneData(
     val IdZona: Int? = null,
     val Nombre: String? = null,
-){
-
-    fun toZoneUI(): ZoneUI{
-        return ZoneUI(
-            id = IdZona,
-            name = Nombre
-        )
-    }
+) {
+    fun toZoneUI() = ZoneUI(id = IdZona, name = Nombre)
 }
 
 data class ZoneUI(

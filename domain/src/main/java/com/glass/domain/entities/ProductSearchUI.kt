@@ -7,5 +7,5 @@ data class ProductSearchUI(
     val description: String? = null,
     val urlImage: String? = null,
     val currentPrice: String? = null,
-    val oldPrice: String? = null,
+    val oldPrice: String? = null
 )

@@ -14,18 +14,15 @@ class ProductUseCase(
     private var productByCategoryData: ProductByCategoryData? = null
     private var fullProductDataResponse: FullProductDataResponse? = null
 
-
     override fun triggerToGetFullProduct(storeId: Int, productId: Int): Observable<Unit> {
         return productRepository.triggerToGetFullProduct(storeId, productId).map {
             fullProductDataResponse = it
         }
     }
 
-
     override fun getProductUI(): Observable<ProductUI> {
         return Observable.just(fullProductDataResponse?.getProductUI())
     }
-
 
     override fun getProductListByCategory(storeId: Int, categoryId: Int): Observable<List<ProductUI>> {
         val mList = mutableListOf<ProductUI>()
@@ -41,15 +38,13 @@ class ProductUseCase(
             }
     }
 
-
     override fun getTopScreenInformation(fromDetail: Boolean): Observable<ScreenTopInformationUI> {
-        return if(fromDetail){
+        return if(fromDetail) {
             Observable.just(fullProductDataResponse?.getTopInformation())
-        }else{
+        } else {
             Observable.just(productByCategoryData?.getScreenTopInfo())
         }
     }
-
 
     override fun getReviewsForProduct(storeId: Int, productId: Int): Single<List<ReviewUI>> {
         return productRepository.triggerToGetFullProduct(storeId, productId)
@@ -63,7 +58,6 @@ class ProductUseCase(
         }.firstOrError()
     }
 
-
     override fun saveNewReviewForProduct(
         storeId: Int,
         productId: Int,
@@ -76,7 +70,6 @@ class ProductUseCase(
             .map { it.toResponseUI() }
     }
 
-
     override fun getHistoryByUser(userId: Int, startDate: String): Single<List<HistoryUI>> {
         return productRepository.getHistoryForUser(userId, startDate)
             .map { response->
@@ -88,7 +81,6 @@ class ProductUseCase(
                 return@map mList
             }
     }
-
 
     override fun makePaymentOfProducts(
         storeId: Int,
@@ -139,7 +131,7 @@ class ProductUseCase(
                         )
 
                         // if at least one error occurs, return the error to viewModel
-                        if(response.Error > 0){
+                        if(response.Error > 0) {
                             return@map RegistrationData(Error = 1, Mensaje = response.Mensaje)
                         }
                     }
@@ -157,7 +149,6 @@ class ProductUseCase(
         }
     }
 
-
     override fun getPaymentStatus(storeId: String, saleId: String): Single<ResponsePaymentStatus> {
         return paymentRepository.consultPaymentStatus(storeId, saleId)
     }
@@ -165,7 +156,6 @@ class ProductUseCase(
     override fun getSearchResults(word: String): Single<List<ProductSearchUI>> {
         return productRepository.getSearchResults(word)
     }
-
 
     private fun makePaymentForEachProduct(
         storeId: Int,
@@ -181,7 +171,6 @@ class ProductUseCase(
             storeId, saleId, productId, counter, quantity, unitCost, totalCost, remarks
         ).blockingGet()
     }
-
 
     override fun getRelatedProductsByProduct(): Observable<List<ProductUI>> {
         val mList = mutableListOf<ProductUI>()

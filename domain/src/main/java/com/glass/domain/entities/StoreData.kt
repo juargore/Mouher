@@ -5,14 +5,12 @@ data class StoreData(
     val Error: Int? = null,
     val Mensaje: String? = null,
 
-
     // Store gral information section
     val TiendaNombre: String? = null,
     val TiendaLogoColor: String? = null,
     val TiendaLogoGris: String? = null,
     val Video: String? = null,
     val VideoImagenFondo: String? = null,
-
 
     // Banners section
     val BannerFoto1: String? = null,
@@ -25,30 +23,25 @@ data class StoreData(
     val BannerTituloFoto3: String? = null,
     val BannerSubtituloFoto3: String? = null,
 
-
     // Shipping information for store
     val TipoCostoEnvio: Int? = null,
     val CostoEnvioF1: String? = null,
     val CostoEnvioF1Msj: String? = null,
 
-
     // Categories list
     val Categorias: List<CategoryData>? = null,
-
 
     // Deal of the day list
     val OfertaDia: List<ProductData>? = null,
 
-
     // New arrivals on products list
     val NuevasLlegadas: List<ProductData>? = null,
-
 
     // Sponsors list
     val Sponsors: List<SponsorData>? = null
 ) {
 
-    fun getTopBannerList(): List<TopBannerUI>{
+    fun getTopBannerList(): List<TopBannerUI> {
         val l1 = TopBannerUI(
             id = "1",
             imageUrl = BannerFoto1,
@@ -70,10 +63,7 @@ data class StoreData(
             subtitle = BannerSubtituloFoto3
         )
 
-        return mutableListOf<TopBannerUI>()
-            .apply {
-                add(l1); add(l2); add(l3)
-            }
+        return listOf(l1, l2, l3)
     }
 
     fun getShippingInfoStore(): String = "$TipoCostoEnvio-$CostoEnvioF1-$CostoEnvioF1Msj" // 1-1500-Fijo
@@ -82,14 +72,14 @@ data class StoreData(
 
     fun getImageVideo(): String? = VideoImagenFondo
 
-    fun getLinkForVideo(): String{
-        Video?.let{ url->
+    fun getLinkForVideo(): String {
+        Video?.let { url->
             return if(url.contains(".mp4")
                 || url.contains(".3gp")
                 || url.contains(".mkv")
-            ){
+            ) {
                 url
-            }else{
+            } else {
                 ""
             }
         }

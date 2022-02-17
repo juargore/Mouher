@@ -6,7 +6,6 @@ data class SocialMediaDataResponse(
     val Redes: List<SocialMediaData>? = null
 )
 
-
 data class SocialMediaData(
     val IdRed: Int? = null,
     val Nombre: String? = null,
@@ -21,7 +20,6 @@ data class SocialMediaData(
         urlImage = Logotipo1
     )
 }
-
 
 data class SocialMediaUI(
     val id: Int? = null,

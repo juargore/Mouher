@@ -8,20 +8,16 @@ class CartUseCase(
     private val cartRepository: ICartRepository
 ): ICartUseCase {
 
-    override fun getTotalProductsOnDb(): Observable<List<Item>> {
-        return cartRepository.getTotalProductsOnDb()
-    }
+    override fun getTotalProductsOnDb(): Observable<List<Item>> = cartRepository.getTotalProductsOnDb()
 
-    override fun getSizeProductsOnDb(): Observable<Int> {
-        return cartRepository.getSizeProductsOnDb()
-    }
+    override fun getSizeProductsOnDb(): Observable<Int> = cartRepository.getSizeProductsOnDb()
 
     override fun setProductOnCart(product: Item) {
-        return cartRepository.setProductOnCart(product)
+        cartRepository.setProductOnCart(product)
     }
 
     override fun deleteProductOnCart(idProduct: Int) {
-        return cartRepository.deleteProductOnCart(idProduct)
+        cartRepository.deleteProductOnCart(idProduct)
     }
 
     override fun deleteAllProductsOnCart() {

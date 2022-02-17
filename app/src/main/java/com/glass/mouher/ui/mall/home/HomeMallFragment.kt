@@ -126,7 +126,7 @@ class HomeMallFragment : Fragment() {
             binding.rvHomeSponsors.smoothScrollToPosition(viewModel.sponsorStoresList.size - 1)
             binding.rvHomeSponsors.isNestedScrollingEnabled = false
             currentState = ScrollPositions.End
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Log.e("--", "Exception on scrollToEnd: ${e.message}")
         }
     }
@@ -138,7 +138,7 @@ class HomeMallFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mAdapter
 
-            mAdapter.onItemClicked = { item->
+            mAdapter.onItemClicked = { item ->
                 val args = Bundle().apply {
                     putString("zoneName", item.name)
                     putString("zoneId", item.id.toString())
@@ -162,7 +162,7 @@ class HomeMallFragment : Fragment() {
     }
 
     private fun setUpLobbyRecycler() {
-        with(binding.rvHomeLobby){
+        with(binding.rvHomeLobby) {
             val mAdapter = HomeLobbyAdapter(viewModel.lobbyList)
 
             layoutManager = LinearLayoutManager(requireContext())
@@ -183,5 +183,6 @@ class HomeMallFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.onPause(onPropertyChangedCallback)
+        showHideCartIcon(false)
     }
 }

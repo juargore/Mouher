@@ -12,7 +12,6 @@ class StoreUseCase(
     private var storeName: String? = null
     private var storeData: StoreData? = null
 
-
     override fun triggerToGetStoreData(storeId: Int): Observable<Unit> {
         return storeRepository.getAllStoreData(storeId).map {
             storeID = storeId
@@ -82,5 +81,4 @@ class StoreUseCase(
             return@map it.toResponseUI()
         }
     }
-
 }

@@ -12,7 +12,6 @@ class UserUseCase(
         return userRepository.signIn(email, password)
     }
 
-
     override fun signUp(
         name: String,
         fLastName: String,
@@ -21,23 +20,12 @@ class UserUseCase(
         birthday: String,
         phone: String,
         email: String,
-        password: String ): Single<RegistrationData> {
-
-        return userRepository.addOrUpdateUser(
-            false,
-            null,
-            "",
-            name,
-            fLastName,
-            mLastName,
-            gender,
-            birthday,
-            phone,
-            email,
-            password
-        )
-    }
-
+        password: String ): Single<RegistrationData> = userRepository.addOrUpdateUser(
+        false, null, "",
+        name, fLastName, mLastName,
+        gender, birthday, phone,
+        email, password
+    )
 
     override fun updateUser(
         id: Int,
@@ -50,84 +38,48 @@ class UserUseCase(
         phone: String,
         email: String,
         password: String
-    ): Single<RegistrationData> {
+    ): Single<RegistrationData> = userRepository.addOrUpdateUser(
+        true, id, code,
+        name, fLastName, mLastName,
+        gender, birthday, phone,
+        email, password
+    )
 
-        return userRepository.addOrUpdateUser(
-            true,
-            id,
-            code,
-            name,
-            fLastName,
-            mLastName,
-            gender,
-            birthday,
-            phone,
-            email,
-            password
-        )
-    }
+    override fun getUserData(userId: Int): Single<UserProfileData> = userRepository.getUserData(userId)
 
-
-    override fun getUserData(userId: Int): Single<UserProfileData> {
-        return userRepository.getUserData(userId)
-            /*.map {
-            val r = it
-            r.DomicilioEnvio = listOf(
-                UserAddressData(
-                    IdDomicilio = null,
-                Calle= null,
-            NumInt= null,
-             NumExt = null,
-             Cruzamientos = null,
-             Colonia = null,
-             CP = null,
-             Pais = null,
-             Estado = null,
-             Municipio = null
-                )
-            )
-
-            return@map r
-        }*/
-    }
-
-    override fun getGenderList(): List<String> {
-        return listOf(
-            "Género *",
-            "Masculino",
-            "Femenino",
-            "Otro",
-            "Sin especificar")
-    }
+    override fun getGenderList() = listOf(
+        "Género *",
+        "Masculino",
+        "Femenino",
+        "Otro",
+        "Sin especificar"
+    )
 
     override fun recoverPassword(email: String): Single<ResponseUI> {
         return userRepository.recoverPassword(email).map { it.toResponseUI() }
     }
 
-
     override fun getCountriesAsList(): Single<List<Country>> {
         return userRepository.getCountriesOrStates(
             getCountries = true,
             countryId = null
-        ).map { data->
+        ).map { data ->
             val countries = data.Paises?.filter { it.IdPais == 117 }?.toMutableList()
             countries?.add(0, Country(0, "País *"))
             return@map countries
         }
     }
 
-
     override fun getStatesAsList(countryId: Int): Single<List<State>> {
         return userRepository.getCountriesOrStates(
             getCountries = false,
             countryId = countryId
-        ).map { data->
+        ).map { data ->
             val states = data.Estados?.toMutableList()
             states?.add(0, State(0, "Estado *"))
             return@map states
         }
     }
-
 
     override fun addOrUpdateAddress(
         isUpdatingAddress: Boolean,
@@ -143,9 +95,8 @@ class UserUseCase(
         countryId: Int,
         stateId: Int,
         municipality: String
-    ): Single<RegistrationData> {
-
-        return userRepository.addOrUpdateAddress(
+    ): Single<RegistrationData> = userRepository
+        .addOrUpdateAddress(
             isUpdatingAddress = isUpdatingAddress,
             id = id,
             userId = userId,
@@ -159,7 +110,5 @@ class UserUseCase(
             countryId = countryId,
             stateId = stateId,
             municipality = municipality
-        )
-    }
-
+    )
 }

@@ -5,12 +5,10 @@ data class MallData(
     val Error: Int? = null,
     val Mensaje: String? = null,
 
-
     // Plaza comercial gral section
     val PlazaNombre: String? = null,
     val PlazaLogoColor: String? = null,
     val PlazaLogoBlanco: String? = null,
-
 
     // Banners top of Plaza comercial section
     val BannerFotoTop1: String? = null,
@@ -33,7 +31,6 @@ data class MallData(
     val BannerFotoTopDer: String? = null,
     val BannerLinkFotoTopDer: String? = null,
 
-
     // Main Lobby of plaza comercial section
     val LobbyTitulo: String? = null,
     val LobbySubtitulo: String? = null,
@@ -51,29 +48,29 @@ data class MallData(
     val LobbyFoto3: String? = null,
     val LobbyLink3: String? = null,
 
-
     // Sponsors of plaza comercial section
     val Sponsors: List<SponsorData>? = null,
-
 
     // Sponsors of plaza comercial section
     val Zonas: List<ZoneData>? = null,
 
-
     // Extra information section
+    val ContactoDomicilio: String? = null,
+    val ContactoTelefono: String? = null,
+    val ContactoCorreo: String? = null,
+    val ContactoHorario: String? = null,
     val LinkContactanos: String? = null,
     val LinkServiciosAdicionales: String? = null,
     val LinkTerminosCondiciones: String? = null,
     val LinkAvisoPrivacidad: String? = null,
     val LinkPoliticasUsuariosCompradores: String? = null,
     val LinkPoliticasUsuariosVendedores: String? = null
-){
-
+) {
     fun getContactInformation() = ContactUI(
-        address = "Mezquite 449, Puerto Vallarta, Jalisco",
-        phone = "Teléfono: 3221564052",
-        email = "contacto@mouhermarket.com",
-        workHours = "09:00 a 18:00, de lunes a viernes",
+        address = ContactoDomicilio,
+        phone = ContactoTelefono,
+        email = ContactoCorreo,
+        workHours = ContactoHorario,
         urlContactUs = LinkContactanos,
         urlExtraServices = LinkServiciosAdicionales,
 
@@ -83,7 +80,7 @@ data class MallData(
         urlPoliciesUsersSellers = LinkPoliticasUsuariosVendedores
     )
 
-    fun getTopBannerList(): List<TopBannerUI>{
+    fun getTopBannerList(): List<TopBannerUI> {
         val l1 = TopBannerUI(
             id = "1",
             imageUrl = BannerFotoTop1,
@@ -108,10 +105,7 @@ data class MallData(
             linkToOpen = BannerLinkFotoTop3
         )
 
-        return mutableListOf<TopBannerUI>()
-            .apply {
-                add(l1); add(l2); add(l3)
-            }
+        return listOf(l1, l2, l3)
     }
 
     fun getLobbyData(): LobbyFullData{
@@ -139,22 +133,15 @@ data class MallData(
         return LobbyFullData(
             title = LobbyTitulo,
             description = "$LobbySubtitulo\n$LobbySubtituloInferior",
-            listItemsLobby = mutableListOf<ItemLobby>()
-                .apply {
-                    add(l2); add(l1); add(l3)
-            }
+            listItemsLobby = listOf(l2, l1, l3)
         )
     }
 
-    fun getTopTwoImages(): TopTwoImagesUI{
-        return TopTwoImagesUI(
-            urlImageTopLeft = BannerFotoTopIzq,
-            urlImageTopRight = BannerFotoTopDer
-        )
-    }
+    fun getTopTwoImages() = TopTwoImagesUI (
+        urlImageTopLeft = BannerFotoTopIzq,
+        urlImageTopRight = BannerFotoTopDer
+    )
 
-    fun getMallLogoImage(): String? {
-        return PlazaLogoBlanco
-    }
+    fun getMallLogoImage() = PlazaLogoBlanco
 }
 

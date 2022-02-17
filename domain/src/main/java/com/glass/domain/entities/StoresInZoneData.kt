@@ -4,7 +4,6 @@ data class StoresInZoneData(
     // Error section
     val Error: Int? = null,
     val Mensaje: String? = null,
-
     val Tiendas: List<StoreZoneData>? = null
 )
 
@@ -14,16 +13,13 @@ data class StoreZoneData(
     val Imagen: String? = null,
     val Productos: Int? = null
 ){
-    fun getStoreInZoneUI(): StoreInZoneUI{
-        return StoreInZoneUI(
-            id = IdTienda,
-            urlImage = Imagen,
-            name = Nombre,
-            totalProducts = Productos
-        )
-    }
+    fun getStoreInZoneUI() = StoreInZoneUI(
+        id = IdTienda,
+        urlImage = Imagen,
+        name = Nombre,
+        totalProducts = Productos
+    )
 }
-
 
 data class StoreInZoneUI(
     val id: Int? = null,

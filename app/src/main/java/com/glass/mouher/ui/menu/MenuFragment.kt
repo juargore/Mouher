@@ -94,14 +94,13 @@ class MenuFragment: Fragment() {
             yesButton {
                 if (viewModel.totalProductsOnDb > 0)
                     viewModel.clearProductsFromCart()
-
                 updateValuesOnSignOut()
             }
             noButton { it.dismiss() }
         }.show()
     }
 
-    private fun updateValuesOnSignOut(){
+    private fun updateValuesOnSignOut() {
         General.saveUserSignedIn(false)
         General.saveUserCreationDate("")
         General.saveUserName("")
@@ -109,24 +108,24 @@ class MenuFragment: Fragment() {
         General.saveUserId(0)
 
         /** Refresh activity to update side menu */
-        if(activity is MainActivityMall){
+        if (activity is MainActivityMall) {
             val parentActivity = activity as MainActivityMall
             parentActivity.refreshActivityFromFragment()
-        }else{
+        } else {
             val parentActivity = activity as MainStoreActivity
             parentActivity.refreshActivityFromFragment()
         }
     }
 
     private fun setUpMallSocialMediaItems(itemsSocial: List<SocialMediaUI>) {
-        with(binding.rvSocialMedia){
+        with(binding.rvSocialMedia) {
             val socialAdapter = MenuItemSocialMediaAdapter(itemsSocial)
 
             layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
             adapter = socialAdapter
 
-            socialAdapter.onItemClicked ={
-                if(!it.linkToOpen.isNullOrBlank()){
+            socialAdapter.onItemClicked = {
+                if (!it.linkToOpen.isNullOrBlank()) {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.linkToOpen)))
                 }
             }
@@ -134,11 +133,11 @@ class MenuFragment: Fragment() {
     }
 
     private fun setUpStoreCategoriesItems(itemsCategories: List<CategoryUI>){
-        with(binding.rvMenu){
+        with(binding.rvMenu) {
             val categoryAdapter = MenuItemCategoriesAdapter(itemsCategories)
             adapter = categoryAdapter
 
-            categoryAdapter.onItemClicked={
+            categoryAdapter.onItemClicked = {
                 val args = Bundle().apply {
                     putInt("categoryId", it.categoryId ?: 1)
                     putInt("storeId", viewModel.storeIdSelectedOnMenu)
@@ -157,7 +156,7 @@ class MenuFragment: Fragment() {
         }
     }
 
-    private fun openMallStoresByZoneId(){
+    private fun openMallStoresByZoneId() {
         val args = Bundle().apply {
             putString("zoneName", viewModel.openZoneSelected?.name)
             putString("zoneId", viewModel.openZoneSelected?.id.toString())
@@ -173,8 +172,8 @@ class MenuFragment: Fragment() {
         closeDrawer()
     }
 
-    private fun openFromMenuSubscreen(from: MENU?){
-        if(from == MENU.LOGIN){
+    private fun openFromMenuSubscreen(from: MENU?) {
+        if (from == MENU.LOGIN) {
             val intent = Intent(activity, SignInActivity::class.java)
             intent.putExtra("source", source)
             startActivity(Intent(intent))
@@ -183,32 +182,32 @@ class MenuFragment: Fragment() {
             return
         }
 
-        if(from == MENU.CONTACT){
+        if (from == MENU.CONTACT) {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlContactUs)))
             closeDrawer()
             return
         }
 
-        if(from == MENU.EXTRA_SERVICES){
+        if (from == MENU.EXTRA_SERVICES) {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.urlExtraServices)))
             closeDrawer()
             return
         }
 
-        if(from == MENU.MORE_INFO){
+        if (from == MENU.MORE_INFO) {
             showPopUpContact()
             closeDrawer()
             return
         }
 
-        val fragment: Fragment? = when(from){
+        val fragment: Fragment? = when(from) {
             MENU.PROFILE -> UserProfileFragment()
             MENU.HISTORY -> HistoryFragment()
             MENU.ABOUT -> AboutFragment()
             else -> null
         }
 
-        if(fragment is AboutFragment){
+        if (fragment is AboutFragment) {
             val args = Bundle().apply {
                 putInt("storeId", viewModel.storeIdSelectedOnMenu)
             }
@@ -216,8 +215,8 @@ class MenuFragment: Fragment() {
             fragment.arguments = args
         }
 
-        fragment?.let{
-            val container = if(source == "MALL") R.id.container_body_mall else R.id.container_body
+        fragment?.let {
+            val container = if (source == "MALL") R.id.container_body_mall else R.id.container_body
 
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 replace(container, it)
@@ -229,7 +228,7 @@ class MenuFragment: Fragment() {
         }
     }
 
-    private fun showPopUpContact(){
+    private fun showPopUpContact() {
         Dialog(requireContext(), R.style.FullDialogTheme).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -268,7 +267,7 @@ class MenuFragment: Fragment() {
         val ft = manager.beginTransaction()
         manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
-        when(source){
+        when(source) {
             "MALL" -> ft.replace(R.id.container_body_mall, replaceFragment)
             else -> ft.replace(R.id.container_body, replaceFragment)
         }
@@ -303,7 +302,7 @@ class MenuFragment: Fragment() {
             }
         }
 
-        mDrawerLayout?.let{
+        mDrawerLayout?.let {
             it.addDrawerListener(mDrawerToggle as ActionBarDrawerToggle)
             it.post { mDrawerToggle!!.syncState() }
         }
@@ -314,7 +313,7 @@ class MenuFragment: Fragment() {
         /* code to set custom icon on toolbar
         if we want the default hamburger icon, just remove it */
 
-        mDrawerToggle?.let{
+        mDrawerToggle?.let {
             it.isDrawerIndicatorEnabled = false
 
             it.setToolbarNavigationClickListener {
@@ -327,10 +326,8 @@ class MenuFragment: Fragment() {
         openMallorStoreScreen()
     }
 
-    private fun closeDrawer(){
-        view?.let{
-            mDrawerLayout?.closeDrawer(it)
-        }
+    private fun closeDrawer() {
+        view?.let { mDrawerLayout?.closeDrawer(it) }
     }
 
     override fun onPause() {
@@ -339,7 +336,7 @@ class MenuFragment: Fragment() {
     }
 
     /** Declares layout and tag to observe of the list item. */
-    fun itemViewBinder(): ItemBinder<AMenuViewModel> {
-        return CompositeItemBinder(MenuItemBinder(BR.viewModel, R.layout.recycler_item_menu))
-    }
+    fun itemViewBinder() : ItemBinder<AMenuViewModel> =
+        CompositeItemBinder(MenuItemBinder(BR.viewModel, R.layout.recycler_item_menu))
+
 }

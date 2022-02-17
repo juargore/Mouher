@@ -119,8 +119,8 @@ data class FullProductDataResponse(
             subTitleTop = BannerSubtituloFoto
         )
 
-    private fun getValuesAsList(value: String?): List<String>{
-        value?.let{
+    private fun getValuesAsList(value: String?): List<String> {
+        value?.let {
             return it
                 .replace(" ", "")
                 .split(",")

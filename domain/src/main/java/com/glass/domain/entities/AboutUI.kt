@@ -17,40 +17,34 @@ data class AboutResponse(
         val Colaborador3Cargo: String? = null,
         val Colaborador3Foto: String? = null,
 ){
-        fun getAboutUI(storeId: Int?): AboutUI{
-                return AboutUI(
-                        topImageUrl = BannerFoto,
-                        topText = Titulo,
-                        title = if(storeId == null) "¡BIENVENIDAS MOUHERES!" else "Algo sobre nosotros…",
-                        subtitle = Titulo,
-                        description = "$Parrafo1<br><br>$Parrafo2",
-                        peopleList = getPeopleList()
-                )
-        }
+        fun getAboutUI(storeId: Int?) = AboutUI (
+                topImageUrl = BannerFoto,
+                topText = Titulo,
+                title = if (storeId == null) "¡BIENVENIDAS MOUHERES!" else "Algo sobre nosotros…",
+                subtitle = Titulo,
+                description = "$Parrafo1<br><br>$Parrafo2",
+                peopleList = getPeopleList()
+        )
 
-        private fun getPeopleList(): List<AboutPersonUI>{
-                return mutableListOf<AboutPersonUI>().apply {
-                        add(AboutPersonUI(
+
+        private fun getPeopleList() =
+                listOf(
+                        AboutPersonUI(
                                 name = Colaborador1Nombre,
                                 imageUrl = Colaborador1Foto,
-                                jobDescription = Colaborador1Cargo?.replaceBRwithBreakLine()
-                        ))
-                        add(AboutPersonUI(
+                                jobDescription = Colaborador1Cargo?.replaceBRwithBreakLine()),
+                        AboutPersonUI(
                                 name = Colaborador2Nombre,
                                 imageUrl = Colaborador2Foto,
-                                jobDescription = Colaborador2Cargo?.replaceBRwithBreakLine()
-                        ))
-                        add(AboutPersonUI(
+                                jobDescription = Colaborador2Cargo?.replaceBRwithBreakLine()),
+                        AboutPersonUI(
                                 name = Colaborador3Nombre,
                                 imageUrl = Colaborador3Foto,
-                                jobDescription = Colaborador3Cargo?.replaceBRwithBreakLine()
-                        ))
-                }
-        }
+                                jobDescription = Colaborador3Cargo?.replaceBRwithBreakLine())
+                )
 
-        private fun String?.replaceBRwithBreakLine(): String?{
-                return this?.replace("<br>", "\n")
-        }
+        private fun String?.replaceBRwithBreakLine() =
+                this?.replace("<br>", "\n")
 }
 
 

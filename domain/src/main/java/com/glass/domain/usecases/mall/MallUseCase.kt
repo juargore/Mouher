@@ -13,10 +13,9 @@ class MallUseCase(
 
     override fun triggerToGetAllMallData(): Observable<Unit> {
         return mallRepository.getAllMallData().map {
-            mallData = it
+            mallData = it // just to assign value to globar var
         }
     }
-
 
     override fun getZonesForMenu(): Observable<List<ZoneUI>> {
         return mallRepository.getAllMallData().map {
@@ -30,21 +29,17 @@ class MallUseCase(
         }
     }
 
-
     override fun getTopBannerList(): Observable<List<TopBannerUI>> {
         return Observable.just(mallData?.getTopBannerList())
     }
-
 
     override fun getLogoImage(): Observable<String> {
         return Observable.just(mallData?.getMallLogoImage())
     }
 
-
     override fun getTwoTopImages(): Observable<TopTwoImagesUI> {
         return Observable.just(mallData?.getTopTwoImages())
     }
-
 
     override fun getSponsorsByMallId(mallId: String): Observable<List<SponsorUI>> {
         val mList = mutableListOf<SponsorUI>()
@@ -56,11 +51,9 @@ class MallUseCase(
         return Observable.just(mList)
     }
 
-
     override fun getLobbyData(): Observable<LobbyFullData> {
         return Observable.just(mallData?.getLobbyData())
     }
-
 
     override fun getZonesByMall(): Observable<List<ZoneUI>> {
         val mList = mutableListOf<ZoneUI>()
@@ -71,7 +64,6 @@ class MallUseCase(
 
         return Observable.just(mList)
     }
-
 
     override fun getStoresByZone(zoneId: String): Observable<List<StoreInZoneUI>> {
         return mallRepository
@@ -87,7 +79,6 @@ class MallUseCase(
             }
     }
 
-
     override fun getSocialMedia(mallId: Int): Observable<List<SocialMediaUI>> {
         return mallRepository
             .getSocialMediaForMall(mallId)
@@ -102,12 +93,10 @@ class MallUseCase(
             }
     }
 
-
     override fun getAboutInformation(storeId: Int?): Observable<AboutUI> {
         return mallRepository.getAboutInformation(storeId)
             .map { return@map it.getAboutUI(storeId) }
     }
-
 
     override fun getContactInformation(mallId: Int): Observable<ContactUI> {
         return Observable.just(mallData?.getContactInformation())

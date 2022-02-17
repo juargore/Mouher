@@ -91,7 +91,8 @@
             android:textColor="@color/mainPink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView89" />
+            app:layout_constraintTop_toBottomOf="@+id/textView89"
+            tools:ignore="HardcodedText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvResults"
@@ -128,7 +129,7 @@
             android:gravity="center_horizontal"
             android:paddingStart="@dimen/margin_40dp"
             android:paddingEnd="@dimen/margin_40dp"
-            android:text="No se han encontrado resultados para tu búsqueda. Asegúrate de que las palabras estén escritas correctamente o prueba diferentes palabras clave. "
+            android:text="No se han encontrado resultados en la búsqueda."
             android:textColor="@color/mainGrey"
             android:visibility="@{ viewModel.showEmptyMsg ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="@+id/rvResults"

@@ -29,7 +29,7 @@ class AboutFragment : Fragment() {
         binding = FragmentAboutBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
-        arguments?.let{
+        arguments?.let {
             val storeId = it.getInt("storeId")
             viewModel.initialize(storeId)
         }
@@ -43,7 +43,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun setUpRecyclerPeople(){
-        with(binding.rvPeople){
+        with(binding.rvPeople) {
             layoutManager = LinearLayoutManager(requireContext())
             val adapter1 = AboutPeopleAdapter(viewModel.peopleList)
             adapter = adapter1
