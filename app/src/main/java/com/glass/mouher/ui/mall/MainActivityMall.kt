@@ -1,14 +1,14 @@
 package com.glass.mouher.ui.mall
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
+import android.os.Handler
+import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -18,6 +18,7 @@ import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getMustRefreshMenuMall
 import com.glass.mouher.shared.General.saveMustRefreshMenuMall
 import com.glass.mouher.ui.base.BaseActivity
+import com.glass.mouher.ui.mall.home.HomeMallFragment
 import com.glass.mouher.ui.mall.home.stores.StoresFragment
 import com.glass.mouher.ui.menu.MenuFragment
 import com.glass.mouher.ui.search.SearchActivity
@@ -91,6 +92,12 @@ class MainActivityMall : BaseActivity() {
 
             saveMustRefreshMenuMall(false)
         }
+
+        // Go to 'zonas comerciales' at bottom screen on fragment
+        toolbar?.findViewById<ImageView>(R.id.imgCartToolbar)!!.setOnClickListener {
+            val homeMallFragment = supportFragmentManager.findFragmentByTag("MALL_FRAGMENT") as HomeMallFragment?
+            homeMallFragment?.scrollToBottomScreen()
+        }
     }
 
     override fun onStart() {
@@ -99,13 +106,6 @@ class MainActivityMall : BaseActivity() {
         // Clean the backstack of fragments when clicking on middle logo -Mouher Market-
         toolbar?.findViewById<ImageView>(R.id.imageLogo)?.setOnClickListener {
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        }
-
-        // Go to 'zonas comerciales' at bottom screen on fragment
-        toolbar?.findViewById<ImageView>(R.id.imgCartToolbar)?.setOnClickListener {
-            with(nestedScrollView) {
-                post { fullScroll(View.FOCUS_DOWN) }
-            }
         }
 
         // Go to 'search screen'

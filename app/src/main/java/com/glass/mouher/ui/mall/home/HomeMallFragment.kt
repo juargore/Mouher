@@ -20,7 +20,6 @@ import com.glass.mouher.shared.General.saveComesFromStores
 import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
-import com.glass.mouher.ui.mall.MainActivityMall
 import com.glass.mouher.ui.mall.MainActivityMall.Companion.showHideCartIcon
 import com.glass.mouher.ui.mall.home.adapters.HomeLobbyAdapter
 import com.glass.mouher.ui.mall.home.adapters.HomeSponsorsAdapter
@@ -155,9 +154,14 @@ class HomeMallFragment : Fragment() {
 
         if (getComesFromStores()) {
             saveComesFromStores(false)
-            binding.nestedScrollView.post {
-                binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
-            }
+            scrollToBottomScreen()
+        }
+    }
+
+    // function used also on toolbar cart icon
+    fun scrollToBottomScreen() {
+        binding.nestedScrollView.post {
+            binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
         }
     }
 

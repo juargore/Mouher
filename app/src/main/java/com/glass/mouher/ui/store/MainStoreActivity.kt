@@ -1,8 +1,10 @@
 package com.glass.mouher.ui.store
 
+import android.app.Fragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
@@ -20,9 +22,6 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.MainActivityMall
 import com.glass.mouher.ui.menu.MenuFragment
 import com.glass.mouher.ui.menu.MenuViewModel
-import com.glass.mouher.ui.search.SearchActivity
-import com.glass.mouher.ui.store.home.HomeStoreFragment
-import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
@@ -147,20 +146,23 @@ class MainStoreActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        val lastFragment = supportFragmentManager.fragments.lastOrNull()
+        val totalFragments = supportFragmentManager.backStackEntryCount
         MenuViewModel.source = "MALL"
 
-        if (lastFragment is HomeStoreFragment) {
+        if (totalFragments == 0) {
             if (viewModel.totalProducts.toInt() > 0) {
                 askForExitWhenCartNotEmpty(restartApp = false)
+                return
             } else {
                 super.onBackPressed()
+                return
             }
         }
 
         if (comesFromSearch) {
             comesFromSearch = false
             finish()
+            return
         }
         super.onBackPressed()
     }

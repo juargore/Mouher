@@ -268,8 +268,8 @@ class MenuFragment: Fragment() {
         manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         when(source) {
-            "MALL" -> ft.replace(R.id.container_body_mall, replaceFragment)
-            else -> ft.replace(R.id.container_body, replaceFragment)
+            "MALL" -> ft.replace(R.id.container_body_mall, replaceFragment, "MALL_FRAGMENT")
+            else -> ft.replace(R.id.container_body, replaceFragment, "STORE_FRAGMENT")
         }
 
         ft.commitAllowingStateLoss()
