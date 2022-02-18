@@ -1,18 +1,19 @@
 package com.glass.mouher.ui.search
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivitySearchBinding
+import com.glass.mouher.extensions.startActivityNoAnimation
 import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.common.propertyChangedCallback
+import com.glass.mouher.ui.store.MainStoreActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchActivity : BaseActivity() {
@@ -40,11 +41,11 @@ class SearchActivity : BaseActivity() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
 
-        with(binding.searchInput) {
+        //with(binding.searchInput) {
             //this.requestFocus()
             //val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-        }
+        //}
         addListeners()
     }
 
@@ -60,12 +61,18 @@ class SearchActivity : BaseActivity() {
         })
     }
 
+    // TODO: open detailed product screen here
     private fun setupRecyclerList() {
         with(binding.rvResults) {
-            val mAdapter = SearchResultsAdapter(viewModel.results)
-            adapter = mAdapter
-            mAdapter.onItemClicked = {
-                // TODO
+            SearchResultsAdapter(viewModel.results).let { ad ->
+                adapter = ad
+                ad.onItemClicked = { product ->
+                    startActivityNoAnimation(
+                        Intent(this@SearchActivity, MainStoreActivity::class.java).also {
+                            it.putExtra("storeId", product.idStore)
+                            it.putExtra("productIdFromSearch", product.idProduct)
+                        })
+                }
             }
         }
     }

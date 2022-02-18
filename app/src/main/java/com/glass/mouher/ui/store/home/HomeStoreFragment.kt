@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package com.glass.mouher.ui.store.home
 
 import android.content.Intent
@@ -77,6 +78,22 @@ class HomeStoreFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+
+        if (MainStoreActivity.productIdFromSearch != null) {
+            val args = Bundle().apply {
+                putInt("productId", MainStoreActivity.productIdFromSearch!!)
+                putInt("storeId", viewModel.storeId)
+                putBoolean("comesFromSearch", true)
+            }
+
+            requireActivity().openOrRefreshFragment(
+                forStore = true,
+                destination = ProductDetailFragment(),
+                args = args,
+                name = "ProductDetail"
+            )
+            MainStoreActivity.productIdFromSearch = null
+        }
     }
 
     private fun setNewProducts(itemsNewProducts: List<ProductUI>) {
@@ -84,7 +101,7 @@ class HomeStoreFragment : Fragment() {
             val mAdapter = HomeStoreNewProductsAdapter(requireContext(), itemsNewProducts)
             adapter = mAdapter
 
-            mAdapter.onItemClicked={ id->
+            mAdapter.onItemClicked = { id ->
                 val args = Bundle().apply {
                     putInt("productId", id)
                     putInt("storeId", viewModel.storeId)

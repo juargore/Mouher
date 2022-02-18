@@ -19,5 +19,5 @@ interface IProductRepository {
 
     fun getHistoryForUser(userId: Int, startDate: String): Single<HistoryResponse>
 
-    fun getSearchResults(word: String): Single<List<ProductSearchUI>>
+    fun getSearchResults(word: String): Single<ProductSearchResponse>
 }

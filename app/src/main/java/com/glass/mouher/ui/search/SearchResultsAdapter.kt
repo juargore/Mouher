@@ -53,6 +53,10 @@ class SearchResultsAdapter(
                     .centerCrop()
                     .into(resultImg)
             }
+
+            setOnClickListener {
+                onItemClicked?.invoke(item)
+            }
         }
     }
 

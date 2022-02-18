@@ -45,34 +45,51 @@
                             android:layout_width="match_parent"
                             android:layout_height="55dp">
 
+                            <ImageView
+                                android:id="@+id/imageView11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:tint="@color/bgWhite"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/layoutCart"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:onClick="@{ viewModel::onSearchClick }"
+                                app:srcCompat="@drawable/ic_search"
+                                android:contentDescription="search"
+                                android:visibility="gone"
+                                tools:ignore="HardcodedText" />
+
                             <RelativeLayout
                                 android:id="@+id/layoutCart"
-                                android:layout_width="66dp"
+                                android:layout_width="40dp"
                                 android:layout_height="0dp"
+                                android:layout_marginEnd="2dp"
                                 android:onClick="@{ viewModel::onCartClick }"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
 
-                                <View android:id="@+id/view8"
+                                <View
+                                    android:id="@+id/view8"
                                     android:layout_width="wrap_content"
                                     android:layout_height="1dp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_centerHorizontal="true" />
+                                    android:layout_centerInParent="true" />
 
-                                <ImageView android:id="@+id/imageView13"
+                                <ImageView
+                                    android:id="@+id/imageView13"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:tint="@color/bgWhite"
                                     app:srcCompat="@drawable/ic_shopping_cart" />
 
-                                <TextView android:id="@+id/textView32"
+                                <TextView
+                                    android:id="@+id/textView32"
                                     android:layout_width="15dp"
                                     android:layout_height="15dp"
                                     android:layout_below="@id/view8"
                                     android:layout_alignParentEnd="true"
-                                    android:layout_marginEnd="14dp"
+                                    android:layout_marginEnd="4dp"
                                     android:background="@drawable/background_circle_pink"
                                     android:backgroundTint="@color/mainRed"
                                     android:gravity="center_horizontal|center_vertical"
@@ -91,13 +108,13 @@
                                 android:layout_height="45dp"
                                 android:orientation="horizontal"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/layoutCart"
+                                app:layout_constraintEnd_toStartOf="@+id/imageView11"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/layoutCart">
 
                                 <ImageView
                                     android:id="@+id/imgLogoMall"
-                                    android:layout_width="90dp"
+                                    android:layout_width="80dp"
                                     android:layout_height="match_parent"
                                     android:paddingTop="10dp"
                                     android:scaleType="fitEnd"
@@ -115,7 +132,7 @@
 
                                 <ImageView
                                     android:id="@+id/imgLogoStore"
-                                    android:layout_width="80dp"
+                                    android:layout_width="70dp"
                                     android:layout_height="match_parent"
                                     android:paddingTop="4dp"
                                     android:paddingBottom="4dp"

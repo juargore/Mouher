@@ -1,5 +1,6 @@
 package com.glass.mouher.extensions
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -67,9 +68,13 @@ fun Fragment.startActivityNoAnimation(intent: Intent?, finishActivity: Boolean =
     }
 }
 
-fun AppCompatActivity.startActivityNoAnimation(intent: Intent?, finishActivity: Boolean = false){
+@SuppressLint("NewApi")
+fun AppCompatActivity.startActivityNoAnimation(intent: Intent?, extras: Map<String, String>? = null, finishActivity: Boolean = false){
     overridePendingTransition(0,0)
     intent?.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+    extras?.forEach { (t, u) ->
+        intent?.putExtra(t, u)
+    }
     startActivity(intent)
 
     if (finishActivity) {

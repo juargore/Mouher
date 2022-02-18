@@ -52,7 +52,7 @@ class BillingActivity : BaseActivity() {
         val intent = Intent(this, PaymentActivity::class.java)
             .putExtra("paymentData", paymentData)
 
-        startActivityNoAnimation(intent, true)
+        startActivityNoAnimation(intent, null, true)
     }
 
     private fun continueWithBilling(){
@@ -67,7 +67,7 @@ class BillingActivity : BaseActivity() {
         val intent = Intent(this, PaymentActivity::class.java)
             .putExtra("paymentData", paymentData)
 
-        startActivityNoAnimation(intent, true)
+        startActivityNoAnimation(intent, null, true)
     }
 
     private fun showErrorMsg(){

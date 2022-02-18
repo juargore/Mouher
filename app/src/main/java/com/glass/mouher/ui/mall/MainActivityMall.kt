@@ -60,7 +60,6 @@ class MainActivityMall : BaseActivity() {
 
         // set custom toolbar with menu | logo | search | cart
         toolbar = findViewById(R.id.toolbar)
-        //toolbar?.findViewById<RelativeLayout>(R.id.layoutCart)?.visibility = View.INVISIBLE
 
         setSupportActionBar(toolbar)
 
@@ -111,7 +110,7 @@ class MainActivityMall : BaseActivity() {
 
         // Go to 'search screen'
         toolbar?.findViewById<ImageView>(R.id.imgSearchToolbar)?.setOnClickListener {
-            startActivityNoAnimation(Intent(this@MainActivityMall, SearchActivity::class.java))
+            startActivityNoAnimation(intent = Intent(this, SearchActivity::class.java))
         }
     }
 

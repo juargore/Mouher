@@ -20,7 +20,9 @@ import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.mall.MainActivityMall
 import com.glass.mouher.ui.menu.MenuFragment
 import com.glass.mouher.ui.menu.MenuViewModel
+import com.glass.mouher.ui.search.SearchActivity
 import com.glass.mouher.ui.store.home.HomeStoreFragment
+import com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
@@ -37,6 +39,8 @@ class MainStoreActivity : BaseActivity() {
 
     companion object{
         var storeId: Int = 1 // 1 is default value
+        var productIdFromSearch: Int? = null
+        var comesFromSearch = false
     }
 
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
@@ -44,6 +48,12 @@ class MainStoreActivity : BaseActivity() {
             BR.openCart -> {
                 val intent = Intent(this, CartActivity::class.java)
                 startActivityNoAnimation(intent)
+            }
+            BR.openSearch -> {
+                /*startActivityNoAnimation(
+                    intent = Intent(this, SearchActivity::class.java),
+                    extras = mapOf(Pair("storeId", "1"))
+                )*/
             }
         }
     }
@@ -76,6 +86,10 @@ class MainStoreActivity : BaseActivity() {
 
         intent?.extras?.let{
             storeId = it.getInt("storeId")
+            if(it.containsKey("productIdFromSearch")) {
+                productIdFromSearch = it.getInt("productIdFromSearch")
+                comesFromSearch = true
+            }
         }
     }
 
@@ -136,15 +150,19 @@ class MainStoreActivity : BaseActivity() {
         val lastFragment = supportFragmentManager.fragments.lastOrNull()
         MenuViewModel.source = "MALL"
 
-        if(lastFragment is HomeStoreFragment){
-            if(viewModel.totalProducts.toInt() > 0) {
+        if (lastFragment is HomeStoreFragment) {
+            if (viewModel.totalProducts.toInt() > 0) {
                 askForExitWhenCartNotEmpty(restartApp = false)
             } else {
                 super.onBackPressed()
             }
-        }else{
-            super.onBackPressed()
         }
+
+        if (comesFromSearch) {
+            comesFromSearch = false
+            finish()
+        }
+        super.onBackPressed()
     }
 
     @Suppress("DEPRECATION")

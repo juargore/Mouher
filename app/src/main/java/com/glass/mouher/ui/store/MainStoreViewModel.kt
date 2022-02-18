@@ -28,6 +28,9 @@ class MainStoreViewModel(
     var openCart: Unit? = null
 
     @Bindable
+    var openSearch: Unit? = null
+
+    @Bindable
     var totalProducts = "0"
         set(value){
             field = value
@@ -36,6 +39,10 @@ class MainStoreViewModel(
 
     fun onCartClick(v: View?){
         notifyPropertyChanged(BR.openCart)
+    }
+
+    fun onSearchClick(v: View?){
+        notifyPropertyChanged(BR.openSearch)
     }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {

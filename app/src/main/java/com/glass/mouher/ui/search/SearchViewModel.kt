@@ -74,7 +74,6 @@ class SearchViewModel(
         progressVisible = false
     }
 
-    /* no-op */
     private fun onError(t: Throwable?) {
         progressVisible = false
     }

@@ -32,12 +32,13 @@ class ProductDetailFragment : Fragment() {
 
     private val viewModel: ProductDetailViewModel by viewModel()
     private lateinit var binding: FragmentProductDetailBinding
+    private var comesFromSearch = false
 
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
         when (propertyId) {
             BR.error -> showErrorMsg()
             BR.showPopRating -> showPopUpRating()
-            BR.onBack -> activity?.onBackPressed()
+            BR.onBack -> setOnBackListener()
             BR.openScreenReviews -> openReviewScreen()
             BR.itemsRelatedProducts -> setRelatedProducts()
             BR.miniSelected -> loadMiniImage(viewModel.miniSelected)
@@ -61,6 +62,7 @@ class ProductDetailFragment : Fragment() {
             val productId = it.getInt("productId")
             val storeId = it.getInt("storeId")
 
+            comesFromSearch = it.containsKey("comesFromSearch")
             viewModel.initialize(productId, storeId)
         }
 
@@ -206,6 +208,15 @@ class ProductDetailFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+    }
+
+    // todo
+    private fun setOnBackListener() {
+        if(comesFromSearch) {
+            activity?.finish()
+        } else {
+            activity?.onBackPressed()
+        }
     }
 
     fun itemViewBinder(): ItemBinder<AProductDetailViewModel> {

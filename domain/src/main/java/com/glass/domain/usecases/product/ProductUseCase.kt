@@ -154,7 +154,11 @@ class ProductUseCase(
     }
 
     override fun getSearchResults(word: String): Single<List<ProductSearchUI>> {
-        return productRepository.getSearchResults(word)
+        return productRepository.getSearchResults(word).map { response ->
+            val mList = mutableListOf<ProductSearchUI>()
+            response.Productos?.forEach { mList.add(it.toProductSearchUI()) }
+            return@map mList
+        }
     }
 
     private fun makePaymentForEachProduct(

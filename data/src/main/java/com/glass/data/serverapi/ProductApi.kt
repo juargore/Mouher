@@ -39,4 +39,9 @@ interface ProductApi {
                            @Field("IdCliente") IdCliente: Int,
                            @Field("FechaInicial") FechaInicial: String,
                            @Field("FechaFinal") FechaFinal: String): Single<HistoryResponse>
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesConsultas.php")
+    fun searchProductByWord(@Field("WebService") WebService: String,
+                            @Field("Etiquetas") Etiquetas: String): Single<ProductSearchResponse>
 }
