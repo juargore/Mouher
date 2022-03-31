@@ -66,11 +66,11 @@ data class StoreData(
         return listOf(l1, l2, l3)
     }
 
-    fun getShippingInfoStore(): String = "$TipoCostoEnvio-$CostoEnvioF1-$CostoEnvioF1Msj" // 1-1500-Fijo
+    fun getShippingInfoStore(): String = "$TipoCostoEnvio-$CostoEnvioF1-${CostoEnvioF1Msj ?: "Fijo"}" // 1-1500-Fijo
 
-    fun getStoreLogoImage(): String? = TiendaLogoColor
+    fun getStoreLogoImage(): String = TiendaLogoColor ?: ""
 
-    fun getImageVideo(): String? = VideoImagenFondo
+    fun getImageVideo(): String = VideoImagenFondo ?: ""
 
     fun getLinkForVideo(): String {
         Video?.let { url->

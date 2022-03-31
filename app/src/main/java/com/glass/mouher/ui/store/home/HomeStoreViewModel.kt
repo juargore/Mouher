@@ -9,13 +9,12 @@ import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.*
 import com.glass.domain.usecases.cart.ICartUseCase
-import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.domain.usecases.store.IStoreUseCase
-import com.glass.mouher.ui.base.BaseViewModel
-import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.extensions.isEmailValid
 import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.saveStoreShoppingInfo
+import com.glass.mouher.ui.base.BaseViewModel
+import com.glass.mouher.ui.common.binder.ClickHandler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -64,7 +63,6 @@ class HomeStoreViewModel(
             notifyPropertyChanged(BR.showVideoPlayer)
         }
 
-
     @Bindable
     var userNameToSubscribe: String? = null
 
@@ -86,7 +84,7 @@ class HomeStoreViewModel(
             notifyPropertyChanged(BR.progressVisible)
         }
 
-    fun initialize(c: Context, id: Int){
+    fun initialize(c: Context, id: Int) {
         context = c
         storeId = id
     }
@@ -141,7 +139,7 @@ class HomeStoreViewModel(
             .subscribe { totalProductsOnDb = it })
     }
 
-    private fun onCategoriesResponse(list: List<CategoryUI>){
+    private fun onCategoriesResponse(list: List<CategoryUI>) {
         val viewModels = mutableListOf<AStoreCategoryViewModel>()
 
         list.forEach {
@@ -152,32 +150,32 @@ class HomeStoreViewModel(
         items = viewModels
     }
 
-    private fun onNewArrivalsResponse(list: List<ProductUI>){
+    private fun onNewArrivalsResponse(list: List<ProductUI>) {
         itemsNewProducts = list
         notifyPropertyChanged(BR.itemsNewProducts)
     }
 
-    private fun onResponseSponsors(sponsorsList: List<SponsorUI>){
+    private fun onResponseSponsors(sponsorsList: List<SponsorUI>) {
         sponsorStoresList = sponsorsList
         notifyPropertyChanged(com.glass.mouher.BR.sponsorStoresList)
 
         progressVisible = false
     }
 
-    private fun onTopBannerListResponse(list: List<TopBannerUI>){
+    private fun onTopBannerListResponse(list: List<TopBannerUI>) {
         bannerList = list
         notifyPropertyChanged(BR.bannerList)
     }
 
-    private fun onShippingInfoStoreResponse(response: String){
+    private fun onShippingInfoStoreResponse(response: String) {
         // Store values here in the format: 1-1500-Fijo
         saveStoreShoppingInfo(response)
     }
 
-    private fun onUrlVideoResponse(url: String){
-        if(url.isEmpty()){
+    private fun onUrlVideoResponse(url: String) {
+        if (url.isEmpty()) {
             showVideoPlayer = false
-        }else{
+        } else {
             showVideoPlayer = true
 
             urlVideo = url
@@ -185,14 +183,14 @@ class HomeStoreViewModel(
         }
     }
 
-    private fun onUrlImageVideoResponse(url: String){
+    private fun onUrlImageVideoResponse(url: String) {
         urlImageVideo = url
         notifyPropertyChanged(BR.urlImageVideo)
     }
 
-    private fun onError(t: Throwable?){
+    private fun onError(t: Throwable?) {
         progressVisible = false
-        Log.e("--", t?.localizedMessage.toString())
+        Log.e("HomeStoreViewModel", "Error: ${t?.localizedMessage.toString()}")
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {
@@ -200,13 +198,8 @@ class HomeStoreViewModel(
     }
 
     fun onSubscribeButtonClicked(@Suppress("UNUSED_PARAMETER") v: View?){
-        /*if(userNameToSubscribe.isNullOrBlank() || emailToSubscribe.isNullOrBlank()){
-            error = ResponseUI(hasErrors = false, message = "Llene ambos campos para la suscripción")
-            return
-        }*/
-
-        emailToSubscribe?.let{
-            if(it.isEmailValid()){
+        emailToSubscribe?.let {
+            if (it.isEmailValid()) {
                 progressVisible = true
                 addDisposable(storeUseCase.subscribeUserToNewsletter(
                     userName = userNameToSubscribe?.trim() ?: "",
@@ -224,20 +217,20 @@ class HomeStoreViewModel(
                             message = responseUI.message
                         )
                     }, this::onError))
-            }else{
+            } else {
                 error = ResponseUI(hasErrors = false, message = "Ingrese un email válido")
                 return
             }
         }
     }
 
-    fun clearProductsFromCart(){
+    fun clearProductsFromCart() {
         General.saveCartNotes("")
         cartUseCase.deleteAllProductsOnCart()
     }
 
     override fun onClick(viewModel: AStoreCategoryViewModel) {
-        if(viewModel is StoreCategoryItemViewModel){
+        if (viewModel is StoreCategoryItemViewModel) {
             categoryId = viewModel.id ?: 1
             categoryName = viewModel.name ?: ""
             notifyPropertyChanged(BR.onClick)

@@ -133,7 +133,7 @@ class HomeStoreFragment : Fragment() {
     }
 
     private fun setLinkedStores() {
-        with(binding.rvLinkedStores){
+        with(binding.rvLinkedStores) {
             val mAdapter = HomeSponsorsAdapter(viewModel.sponsorStoresList)
 
             layoutManager = SpeedyLinearLayoutManager(
