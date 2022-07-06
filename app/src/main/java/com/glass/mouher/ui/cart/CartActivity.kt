@@ -72,6 +72,7 @@ class CartActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
+        // todo: validate login and address here
     }
 
     private fun showPopUpNotes() {
@@ -117,7 +118,11 @@ class CartActivity : BaseActivity() {
             mAdapter.onItemSelected = {
                 // todo
             }
-        }.setCancelable(false)
+            btnSelectParcel.setOnClickListener {
+                this.dismiss()
+            }
+            setCancelable(false)
+        }.show()
     }
 
     private fun showPopUpBilling() {

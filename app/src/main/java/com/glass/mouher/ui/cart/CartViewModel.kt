@@ -136,6 +136,7 @@ class CartViewModel(
 
 
     private var firstTime = true
+    private var firstTimeParcel = true
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
@@ -145,19 +146,24 @@ class CartViewModel(
         if (firstTime) {
             firstTime = false
             addDisposable(cartUseCase.getTotalProductsOnDb()
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
                 .subscribe { onTotalProductsDbResponse(it) })
         }
     }
 
-    // todo: fix main thread issue
+    // todo: send data to avoid hardcoded response
     private fun getParcelPrices() {
-        progressVisible = true
-        addDisposable(productUseCase.getParcelsPrices()
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onParcelsPriceResponse, this::onError))
+        if (firstTimeParcel) {
+            firstTimeParcel = false
+            progressVisible = true
+            addDisposable(productUseCase.getParcelsPrices()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(this::onParcelsPriceResponse, this::onError))
+        }
     }
 
     private fun onParcelsPriceResponse(data: ParcelsResponse) {
