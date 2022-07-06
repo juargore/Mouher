@@ -44,4 +44,12 @@ interface ProductApi {
     @POST("servicios/CServiciosAplicacionesConsultas.php")
     fun searchProductByWord(@Field("WebService") WebService: String,
                             @Field("Etiquetas") Etiquetas: String): Single<ProductSearchResponse>
+
+    @FormUrlEncoded
+    @POST("servicios/CServiciosAplicacionesProcesos.php")
+    fun getParcelsPrices(@Field("WebService") WebService: String,
+                         @Field("IdTienda") IdTienda: Int,
+                         @Field("IdCliente") IdCliente: Int,
+                         @Field("IdsProductos") IdsProductos: List<Int>,
+                         @Field("Cantidades") Cantidades: List<Int>): Single<ParcelsResponse>
 }

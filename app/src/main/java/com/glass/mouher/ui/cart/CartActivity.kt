@@ -21,12 +21,14 @@ import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.saveCartNotes
 import com.glass.mouher.shared.General.saveMustRefreshStore
 import com.glass.mouher.ui.base.BaseActivity
+import com.glass.mouher.ui.cart.adapters.ParcelsPricesAdapter
 import com.glass.mouher.ui.cart.billing.BillingActivity
 import com.glass.mouher.ui.cart.payment.PaymentActivity
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
+import kotlinx.android.synthetic.main.pop_parcels_prices.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
@@ -44,14 +46,15 @@ class CartActivity : BaseActivity() {
             BR.onPopClicked -> showPopUpNotes()
             BR.askForBilling -> showPopUpConfirmContinue()
             BR.deleteItem -> showPopupDeleteConfirmation()
+            BR.parcelsResponse -> showPopupParcels()
+            BR.onFinishScreen -> {
+                saveMustRefreshStore(true)
+                finish()
+            }
             BR.onRefreshScreen -> {
                 finish()
                 overridePendingTransition( 0, 0)
                 startActivity(intent)
-            }
-            BR.onFinishScreen -> {
-                saveMustRefreshStore(true)
-                finish()
             }
         }
     }
@@ -59,14 +62,10 @@ class CartActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.BlackTheme)
         super.onCreate(savedInstanceState)
-
-        /** change satus bar color */
         window?.statusBarColor = ContextCompat.getColor(this, R.color.onyxBlack)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_cart)
         binding.viewModel = viewModel
         binding.view = this
-
         viewModel.onResume(onPropertyChangedCallback)
     }
 
@@ -75,7 +74,7 @@ class CartActivity : BaseActivity() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun showPopUpNotes(){
+    private fun showPopUpNotes() {
         Dialog(this, R.style.FullDialogTheme).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -84,7 +83,7 @@ class CartActivity : BaseActivity() {
             val etRemarks = findViewById<EditText>(R.id.etRemarks)
             val savedNotes = getCartNotes()
 
-            if(!savedNotes.isNullOrBlank()){
+            if (!savedNotes.isNullOrBlank()) {
                 etRemarks.setText(savedNotes)
             }
 
@@ -95,22 +94,33 @@ class CartActivity : BaseActivity() {
             findViewById<AppCompatButton>(R.id.btnSaveRemark).setOnClickListener {
                 saveCartNotes(etRemarks.text.toString())
                 this.dismiss()
-            }
-
-            show()
+            }; show()
         }
     }
 
-    private fun showPopUpConfirmContinue(){
+    private fun showPopUpConfirmContinue() {
         alert(title = "", message = resources.getString(R.string.cart_confirm_continue)) {
             yesButton { it.dismiss(); showPopUpBilling() }
             noButton { it.dismiss() }
-        }
-            .show()
-            .setCancelable(false)
+        }.show().setCancelable(false)
     }
 
-    private fun showPopUpBilling(){
+    private fun showPopupParcels() {
+        Dialog(this, R.style.FullDialogTheme).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(R.layout.pop_parcels_prices)
+            txtSubTitle.text = viewModel.parcelsResponse?.BaseCalculo
+
+            val mAdapter = ParcelsPricesAdapter(viewModel.parcelsResponse!!.Opciones!!)
+            rvParcels.adapter = mAdapter
+            mAdapter.onItemSelected = {
+                // todo
+            }
+        }.setCancelable(false)
+    }
+
+    private fun showPopUpBilling() {
         Dialog(this, R.style.FullDialogTheme).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -151,7 +161,6 @@ class CartActivity : BaseActivity() {
             findViewById<AppCompatButton>(R.id.btnDiscardBilling).setOnClickListener {
                 val intent = Intent(this@CartActivity, PaymentActivity::class.java)
                     .putExtra("paymentData", data)
-
                 startActivityNoAnimation(intent)
                 this.dismiss()
             }
@@ -172,7 +181,7 @@ class CartActivity : BaseActivity() {
         viewModel.onPause(onPropertyChangedCallback)
     }
 
-    private fun showErrorMsg(){
+    private fun showErrorMsg() {
         showSnackbar(binding.root, viewModel.error, viewModel.snackType)
     }
 

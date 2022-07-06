@@ -44,4 +44,6 @@ interface IProductUseCase {
     fun getPaymentStatus(storeId: String, saleId: String): Single<ResponsePaymentStatus>
 
     fun getSearchResults(word: String): Single<List<ProductSearchUI>>
+
+    fun getParcelsPrices() : Single<ParcelsResponse>
 }

@@ -161,6 +161,11 @@ class ProductUseCase(
         }
     }
 
+    // todo: replace with real data
+    override fun getParcelsPrices(): Single<ParcelsResponse> {
+        return productRepository.getParcelsPrices()
+    }
+
     private fun makePaymentForEachProduct(
         storeId: Int,
         saleId: Int,

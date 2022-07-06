@@ -62,4 +62,15 @@ class ProductRepository(
             Etiquetas = word
         )
     }
+
+    // todo: replace with real data
+    override fun getParcelsPrices(): Single<ParcelsResponse> {
+        return api.getParcelsPrices(
+            WebService = "SolicitaCotizacionesPaqueterias",
+            IdTienda = 1,
+            IdCliente = 7,
+            IdsProductos = listOf(1, 4),
+            Cantidades = listOf(2, 5)
+        )
+    }
 }

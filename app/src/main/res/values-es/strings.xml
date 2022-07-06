@@ -65,9 +65,12 @@
     <string name="tip_no_product_list_found">Regresa después para ver productos</string>
 
 
+    <!-- Cart Screen -->
     <string name="cart_confirm_exit_store">Tienes productos en el carrito de %s. \n\n¿Estás seguro que deseas salir de la tienda antes de comprarlos?</string>
     <string name="cart_confirm_change_store">Tienes productos en el carrito de %s. \n\n¿Estás seguro que deseas ir a otra tienda antes de comprarlos?</string>
     <string name="cart_confirm_sign_out">Tienes productos en el carrito de %s. \n\n¿Estás seguro que deseas cerrar sesión antes de comprarlos?</string>
     <string name="app_confirm_sign_out">¿Estás seguro que deseas cerrar sesión en Mouher Market?</string>
     <string name="cart_confirm_continue">Se registrará su compra y solicitarán los datos de su tarjeta. La información de la  tarjeta bancaria no será almacenada en ningún medio. \n\n¿Está seguro de continuar con el pago?</string>
+    <string name="cart_parcels_title">Seleccione la paquetería de envío</string>
+
 </resources>

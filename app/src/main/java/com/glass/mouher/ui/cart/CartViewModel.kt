@@ -2,11 +2,13 @@
 package com.glass.mouher.ui.cart
 
 import android.os.Handler
+import android.os.StrictMode
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
 import com.glass.domain.entities.Item
+import com.glass.domain.entities.ParcelsResponse
 import com.glass.domain.entities.ResponsePaymentStatus
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.product.IProductUseCase
@@ -25,6 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.math.RoundingMode
+
 
 class CartViewModel(
     private val cartUseCase: ICartUseCase,
@@ -103,6 +106,13 @@ class CartViewModel(
         }
 
     @Bindable
+    var parcelsResponse: ParcelsResponse? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.parcelsResponse)
+        }
+
+    @Bindable
     var progressVisible = false
         set(value) {
             field = value
@@ -130,10 +140,10 @@ class CartViewModel(
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
         checkIfComesFromPayment()
+        getParcelPrices()
 
-        if(firstTime){
+        if (firstTime) {
             firstTime = false
-
             addDisposable(cartUseCase.getTotalProductsOnDb()
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -141,6 +151,19 @@ class CartViewModel(
         }
     }
 
+    // todo: fix main thread issue
+    private fun getParcelPrices() {
+        progressVisible = true
+        addDisposable(productUseCase.getParcelsPrices()
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::onParcelsPriceResponse, this::onError))
+    }
+
+    private fun onParcelsPriceResponse(data: ParcelsResponse) {
+        progressVisible = false
+        parcelsResponse = data
+    }
 
     private fun onTotalProductsDbResponse(list: List<Item>){
         val viewModels = mutableListOf<ACartListViewModel>()
@@ -176,7 +199,7 @@ class CartViewModel(
     private fun checkIfComesFromPayment(){
         val response = getPaymentInfo()
 
-        if(response.contains("true")){
+        if (response.contains("true")) {
             // it comes from payment screen
             progressVisible = true
 
@@ -194,7 +217,7 @@ class CartViewModel(
         progressVisible = false
         savePaymentInfo("false-0-0")
 
-        if(response.StatusPago1 == 1){
+        if (response.StatusPago1 == 1) {
             cartUseCase.deleteAllProductsOnCart()
 
             Handler().postDelayed({
