@@ -1,13 +1,18 @@
+@file:Suppress("DEPRECATION")
+
 package com.glass.mouher.ui.cart
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -16,9 +21,12 @@ import com.glass.domain.entities.PaymentDataToSend
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityCartBinding
 import com.glass.mouher.extensions.startActivityNoAnimation
+import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getCartNotes
+import com.glass.mouher.shared.General.getComesFromLogin
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.saveCartNotes
+import com.glass.mouher.shared.General.saveComesFromLogin
 import com.glass.mouher.shared.General.saveMustRefreshStore
 import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.cart.adapters.ParcelsPricesAdapter
@@ -28,9 +36,11 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
+import com.glass.mouher.ui.registration.signin.SignInActivity
 import kotlinx.android.synthetic.main.pop_parcels_prices.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -38,6 +48,7 @@ class CartActivity : BaseActivity() {
 
     private val viewModel: CartViewModel by viewModel()
     private lateinit var binding: ActivityCartBinding
+    private var builder: AlertDialog? = null
 
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
         when (propertyId) {
@@ -47,6 +58,7 @@ class CartActivity : BaseActivity() {
             BR.askForBilling -> showPopUpConfirmContinue()
             BR.deleteItem -> showPopupDeleteConfirmation()
             BR.parcelsResponse -> showPopupParcels()
+            BR.hasActiveAddress -> validateActiveAddress()
             BR.onFinishScreen -> {
                 saveMustRefreshStore(true)
                 finish()
@@ -56,6 +68,8 @@ class CartActivity : BaseActivity() {
                 overridePendingTransition( 0, 0)
                 startActivity(intent)
             }
+            BR.progressParcelsVisible ->
+                if (viewModel.progressParcelsVisible) builder?.show() else builder?.dismiss()
         }
     }
 
@@ -72,7 +86,48 @@ class CartActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.onResume(onPropertyChangedCallback)
-        // todo: validate login and address here
+
+        val isUserLoggedIn = General.getUserSignedIn() && getUserId() > 0 && General.getUserName()!!.isNotBlank()
+        val comesFromLogin = getComesFromLogin()
+        if (comesFromLogin) {
+            // User was re-directed to login -> check if he did it
+            saveComesFromLogin(false)
+            if (isUserLoggedIn) {
+                println("OJO: Va a validar addres aqui")
+                viewModel.getUserAddressToValidate()
+            } else {
+                // User decided don't login -> exit cart screen
+                Handler().postDelayed({
+                    toast("Para pagar es necesario iniciar sesión y tener domicilio de envío.")
+                    this.finish()
+                }, 500L)
+            }
+        } else {
+            // User comes from Store screen
+            if (isUserLoggedIn) {
+                println("OJO: Va a validar addres aqui")
+                viewModel.getUserAddressToValidate()
+            } else {
+                Handler().postDelayed({
+                    startActivity(Intent(this, SignInActivity::class.java)
+                        .putExtra("comesFromCart", true)
+                    )
+                }, 500L)
+            }
+        }
+    }
+
+    private fun validateActiveAddress() {
+        if (viewModel.hasActiveAddress) {
+            builder = AlertDialog.Builder(this@CartActivity).create()
+                val view = layoutInflater.inflate(R.layout.popup_loading_parcels,null)
+                builder?.setView(view)
+                builder?.setCanceledOnTouchOutside(false)
+            viewModel.getDataAfterLoginAndAddressValidations()
+        } else {
+            // todo: redirect to Address screen here
+            println("OJO: Redirigir a Address aqui")
+        }
     }
 
     private fun showPopUpNotes() {
@@ -106,6 +161,7 @@ class CartActivity : BaseActivity() {
         }.show().setCancelable(false)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showPopupParcels() {
         Dialog(this, R.style.FullDialogTheme).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -115,11 +171,19 @@ class CartActivity : BaseActivity() {
 
             val mAdapter = ParcelsPricesAdapter(viewModel.parcelsResponse!!.Opciones!!)
             rvParcels.adapter = mAdapter
-            mAdapter.onItemSelected = {
-                // todo
+            mAdapter.onItemSelected = { parcel ->
+                viewModel.parcelsResponse!!.Opciones!!.forEach { it.Seleccionado = false }
+                parcel.Seleccionado = true
+                viewModel.parcelSelected = parcel
+                mAdapter.notifyDataSetChanged()
             }
+
             btnSelectParcel.setOnClickListener {
-                this.dismiss()
+                if (viewModel.parcelSelected == null) {
+                    toast("Seleccione al menos una paquetería")
+                } else {
+                    this.dismiss()
+                }
             }
             setCancelable(false)
         }.show()

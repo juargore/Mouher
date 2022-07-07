@@ -12,5 +12,6 @@ data class ParcelData(
     val Servicio: String? = null,
     val Descripcion: String? = null,
     val Estimacion: String? = null,
-    val Importe: Float? = 0.0f
+    val Importe: Double? = 0.0,
+    var Seleccionado: Boolean? = null
 )

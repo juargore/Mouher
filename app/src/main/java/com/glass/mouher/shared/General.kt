@@ -317,4 +317,22 @@ object General {
         return false
     }
 
+
+    private const val COMES_FROM_LOGIN = "comesFromLogin"
+
+    fun saveComesFromLogin(comes: Boolean){
+        context?.let{ c->
+            with(c.getSharedPreferences(COMES_FROM_LOGIN, Context.MODE_PRIVATE)){
+                edit().putBoolean(COMES_FROM_LOGIN, comes).apply()
+            }
+        }
+    }
+
+    fun getComesFromLogin() : Boolean {
+        context?.let { c->
+            val prefs = c.getSharedPreferences(COMES_FROM_LOGIN, Context.MODE_PRIVATE)
+            return prefs.getBoolean(COMES_FROM_LOGIN, false)
+        }
+        return false
+    }
 }

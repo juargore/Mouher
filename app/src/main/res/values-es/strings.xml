@@ -72,5 +72,7 @@
     <string name="app_confirm_sign_out">¿Estás seguro que deseas cerrar sesión en Mouher Market?</string>
     <string name="cart_confirm_continue">Se registrará su compra y solicitarán los datos de su tarjeta. La información de la  tarjeta bancaria no será almacenada en ningún medio. \n\n¿Está seguro de continuar con el pago?</string>
     <string name="cart_parcels_title">Seleccione la paquetería de envío</string>
+    <string name="cart_parcels_loading_title">Estamos calculando el costo de envío.</string>
+    <string name="cart_parcels_loading_body">Por favor, espere un momento…</string>
 
 </resources>

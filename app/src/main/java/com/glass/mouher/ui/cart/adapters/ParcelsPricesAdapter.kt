@@ -27,6 +27,7 @@ class ParcelsPricesAdapter(
         val item = parcelsList[pos]
 
         with(holder.itemView) {
+            radio.isChecked = item.Seleccionado == true
             txtdescription.text = item.Descripcion
             txtPrice.text = item.Importe.toString()
             txtEstimation.text = item.Estimacion

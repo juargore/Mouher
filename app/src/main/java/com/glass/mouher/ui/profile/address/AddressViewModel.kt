@@ -135,7 +135,7 @@ class AddressViewModel(
     private fun onUserDataResponse(response: UserProfileData) {
         isUpdatingAddress = !response.DomicilioEnvio.isNullOrEmpty()
 
-        if(isUpdatingAddress) {
+        if (isUpdatingAddress) {
             response.DomicilioEnvio?.get(0)?.let{ address ->
                 idAddress = address.IdDomicilio ?: 0
 

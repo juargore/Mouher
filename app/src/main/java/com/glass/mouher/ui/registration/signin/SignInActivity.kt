@@ -8,6 +8,7 @@ import com.glass.mouher.BR
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivitySignInBinding
 import com.glass.mouher.extensions.makeStatusBarTransparent
+import com.glass.mouher.shared.General.saveComesFromLogin
 import com.glass.mouher.shared.General.saveMustRefreshMenuMall
 import com.glass.mouher.shared.General.saveMustRefreshMenuStore
 import com.glass.mouher.ui.base.BaseActivity
@@ -23,12 +24,13 @@ class SignInActivity : BaseActivity() {
     private val viewModel: SignInViewModel by viewModel()
     private lateinit var binding: ActivitySignInBinding
     private lateinit var source: String
+    private var comesFromCart = false
 
     private val onPropertyChangedCallback = propertyChangedCallback { _, propertyId ->
         when (propertyId) {
-            BR.onBack -> finish()
+            BR.onBack -> closeScreen()
             BR.error -> showErrorMsg()
-            BR.mainMallScreen -> finish()
+            BR.mainMallScreen -> closeScreen()
             BR.signupScreen -> startActivity(SignUpActivity())
             BR.passwordScreen -> startActivity(ForgotPasswordActivity())
         }
@@ -43,6 +45,7 @@ class SignInActivity : BaseActivity() {
 
         makeStatusBarTransparent()
 
+        comesFromCart = intent?.extras?.getBoolean("comesFromCart") ?: false
         source = intent?.extras?.getString("source") ?: "MALL"
     }
 
@@ -58,7 +61,7 @@ class SignInActivity : BaseActivity() {
                 if (source != "MALL")
                     saveMustRefreshMenuStore(true)
 
-                this@SignInActivity.finish()
+                closeScreen()
             }, 2000)
         }
     }
@@ -77,5 +80,15 @@ class SignInActivity : BaseActivity() {
         activity?.let{
             startActivity(Intent(this, it::class.java))
         }
+    }
+
+    private fun closeScreen() {
+        if (comesFromCart) saveComesFromLogin(true)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        closeScreen()
     }
 }

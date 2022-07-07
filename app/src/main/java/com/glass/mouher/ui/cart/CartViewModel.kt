@@ -2,16 +2,14 @@
 package com.glass.mouher.ui.cart
 
 import android.os.Handler
-import android.os.StrictMode
 import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
-import com.glass.domain.entities.Item
-import com.glass.domain.entities.ParcelsResponse
-import com.glass.domain.entities.ResponsePaymentStatus
+import com.glass.domain.entities.*
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.product.IProductUseCase
+import com.glass.domain.usecases.user.IUserUseCase
 import com.glass.mouher.App.Companion.context
 import com.glass.mouher.shared.General.getPaymentInfo
 import com.glass.mouher.shared.General.getStoreShoppingInfo
@@ -31,7 +29,8 @@ import java.math.RoundingMode
 
 class CartViewModel(
     private val cartUseCase: ICartUseCase,
-    private val productUseCase: IProductUseCase
+    private val productUseCase: IProductUseCase,
+    private val userUseCase: IUserUseCase
 ): BaseViewModel(), ClickHandler<ACartListViewModel> {
 
     var snackType: SnackType = SnackType.INFO
@@ -59,10 +58,42 @@ class CartViewModel(
         }
 
     @Bindable
-    var shippingAmount: Double = 0.0
+    var parcelSelected : ParcelData? = null
         set(value){
+            field = value
+            notifyPropertyChanged(BR.parcelSelected)
+            updateShippingAmount()
+        }
+
+    @Bindable
+    var hasActiveAddress : Boolean = false
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.hasActiveAddress)
+        }
+
+    private fun updateShippingAmount() {
+        shippingAmount = parcelSelected?.Importe ?: 0.0
+    }
+
+    @Bindable
+    var shippingAmount = 0.0
+        set(value) {
             field = BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN).toDouble()
             notifyPropertyChanged(BR.shippingAmount)
+            updateTotalAmount()
+        }
+
+    private fun updateTotalAmount() {
+        totalAmount = subTotalAmount + shippingAmount
+    }
+
+    @Bindable
+    var totalAmount = 0.0
+        set(value) {
+            field = BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+            println("OJO totalAmount: $field")
+            notifyPropertyChanged(BR.totalAmount)
         }
 
     @Bindable
@@ -72,12 +103,6 @@ class CartViewModel(
             notifyPropertyChanged(BR.shippingDescription)
         }
 
-    @Bindable
-    var totalAmount: Double = 0.0
-        set(value){
-            field = BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-            notifyPropertyChanged(BR.totalAmount)
-        }
 
     @Bindable
     var onBackClicked: Unit? = null
@@ -119,9 +144,13 @@ class CartViewModel(
             notifyPropertyChanged(BR.progressVisible)
         }
 
-    /**
-     * @property itemPropertyChangedCallback listener to item actions
-     */
+    @Bindable
+    var progressParcelsVisible = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.progressParcelsVisible)
+        }
+
     val itemPropertyChangedCallback =
             propertyChangedCallback { sender: Observable?, propertyId: Int ->
                 if(sender is CartItemViewModel){
@@ -134,14 +163,15 @@ class CartViewModel(
                 }
             }
 
-
     private var firstTime = true
     private var firstTimeParcel = true
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
         addOnPropertyChangedCallback(callback)
+    }
+
+    fun getDataAfterLoginAndAddressValidations() {
         checkIfComesFromPayment()
-        getParcelPrices()
 
         if (firstTime) {
             firstTime = false
@@ -153,11 +183,11 @@ class CartViewModel(
         }
     }
 
-    // todo: send data to avoid hardcoded response
+    // todo: send real data to avoid hardcoded response
     private fun getParcelPrices() {
         if (firstTimeParcel) {
             firstTimeParcel = false
-            progressVisible = true
+            progressParcelsVisible = true
             addDisposable(productUseCase.getParcelsPrices()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -167,16 +197,28 @@ class CartViewModel(
     }
 
     private fun onParcelsPriceResponse(data: ParcelsResponse) {
-        progressVisible = false
+        progressParcelsVisible = false
         parcelsResponse = data
     }
 
-    private fun onTotalProductsDbResponse(list: List<Item>){
+    fun getUserAddressToValidate() {
+        addDisposable(userUseCase.getUserData(getUserId())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::onUserDataResponse, this::onError))
+    }
+
+    private fun onUserDataResponse(response: UserProfileData) {
+        println("Domicilio: ${response.DomicilioEnvio}")
+        hasActiveAddress = response.DomicilioEnvio != null
+    }
+
+    private fun onTotalProductsDbResponse(list: List<Item>) {
         val viewModels = mutableListOf<ACartListViewModel>()
         var counterItems = 0
 
         itemsComplete = list
-        context?.let{ c ->
+        context?.let { c ->
             list.forEach {
                 val viewModel = CartItemViewModel(context = c, item = it)
                 viewModels.add(viewModel)
@@ -186,32 +228,34 @@ class CartViewModel(
             }
         }
 
+        // todo: validate scenario here
         // List has at least one product (does not matter if there is services)
-        val hasProduct: Item? = list.find { it.productType == 1 }
+        //val hasProduct: Item? = list.find { it.productType == 1 }
         val shoppingInformation = getStoreShoppingInfo() // get data in format: 1-1500-Fijo
 
-        val shipping = shoppingInformation?.substringAfter("-")?.substringBefore("-")
-        shippingAmount = if(hasProduct != null) shipping?.toDouble() ?: 0.0 else 0.0
+        //val shipping = shoppingInformation?.substringAfter("-")?.substringBefore("-")
+        //shippingAmount = if (hasProduct != null) shipping?.toDouble() ?: 0.0 else 0.0
 
         val description = shoppingInformation?.substringAfter("-")?.substringAfter("-")
 
         shippingDescription = if(description.isNullOrBlank() || description.equals("null", true)) ":" else "($description) :" // Fijo
-        totalAmount = subTotalAmount + shippingAmount
+        //totalAmount = subTotalAmount + shippingAmount
 
         items = viewModels
         totalItems = counterItems.toString()
+
+        // only if user has at least one product, proceed to check shipping parcel
+        if (counterItems > 0) {
+            getParcelPrices()
+        }
     }
 
     private fun checkIfComesFromPayment(){
         val response = getPaymentInfo()
-
-        if (response.contains("true")) {
-            // it comes from payment screen
+        if (response.contains("true")) { // it comes from payment screen
             progressVisible = true
-
             val storeId = response.substringAfter("-").substringBefore("-")
             val saleId = response.substringAfter("-").substringAfter("-")
-
             addDisposable(productUseCase.getPaymentStatus(storeId, saleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -225,7 +269,6 @@ class CartViewModel(
 
         if (response.StatusPago1 == 1) {
             cartUseCase.deleteAllProductsOnCart()
-
             Handler().postDelayed({
                 notifyPropertyChanged(BR.onFinishScreen)
             }, 200)
@@ -237,28 +280,23 @@ class CartViewModel(
 
     fun onDeleteItemClicked(itemId: Int){
         cartUseCase.deleteProductOnCart(itemId)
-
         Handler().postDelayed({
             notifyPropertyChanged(BR.onRefreshScreen)
         }, 200)
     }
 
-
     fun onPopClicked(view: View?){
         notifyPropertyChanged(BR.onPopClicked)
     }
-
 
     fun onBackClicked(view: View?){
         notifyPropertyChanged(BR.onBackClicked)
     }
 
-
     fun onPayClicked(v: View?){
-        if(items.isNotEmpty()){
+        if (items.isNotEmpty()) {
             val isUserLoggedIn = getUserSignedIn() && getUserId() > 0 && getUserName()!!.isNotBlank()
-
-            if(isUserLoggedIn){
+            if (isUserLoggedIn) {
                 // Before it proceeds to payment process, ask for billing data
                 notifyPropertyChanged(BR.askForBilling)
             }else{
