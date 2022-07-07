@@ -72,7 +72,7 @@ class ProductUseCase(
 
     override fun getHistoryByUser(userId: Int, startDate: String): Single<List<HistoryUI>> {
         return productRepository.getHistoryForUser(userId, startDate)
-            .map { response->
+            .map { response ->
                 val mList = mutableListOf<HistoryUI>()
                 response.Ventas?.forEach {
                     mList.add(it.getHistoryUI())

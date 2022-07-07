@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package com.glass.mouher.ui.profile.address
 
 import android.os.Bundle
@@ -30,13 +31,9 @@ class AddressFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAddressBinding.inflate(inflater, container, false)
+    override fun onCreateView(infl: LayoutInflater, cont: ViewGroup?, state: Bundle?): View {
+        binding = FragmentAddressBinding.inflate(infl, cont, false)
         binding.viewModel = viewModel
-
         return binding.root
     }
 
@@ -48,16 +45,13 @@ class AddressFragment : Fragment() {
     private fun setCountriesSpinner() {
         with(binding.spinnerCountries) {
             adapter = CountryStateAdapter(requireContext(), viewModel.countriesList)
-
-            if(viewModel.selectedCountry != null) { setSelection(1) }
-
+            if (viewModel.selectedCountry != null) setSelection(1)
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
                 override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
                     val item = getItemAtPosition(pos) as Country
                     viewModel.selectedCountry = item
-
-                    if(viewModel.selectedCountry!!.IdPais!! > 0){
+                    if (viewModel.selectedCountry!!.IdPais!! > 0) {
                         viewModel.getStatesByCountryId(item.IdPais ?: 117) // Mexico's Id
                     }
                 }
@@ -66,12 +60,9 @@ class AddressFragment : Fragment() {
     }
 
     private fun setStatesSpinner() {
-        with(binding.spinnerStates) {
+        with (binding.spinnerStates) {
             adapter = CountryStateAdapter(requireContext(), viewModel.statesList)
-
-            if(viewModel.selectedState != null)
-                setSelection(viewModel.selectedState!!.IdEstado!!)
-
+            if (viewModel.selectedState != null) setSelection(viewModel.selectedState!!.IdEstado!!)
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
                 override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
@@ -84,9 +75,8 @@ class AddressFragment : Fragment() {
     private fun showErrorMsg(){
         val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.SUCCESS
         showSnackbar(binding.root, viewModel.error, type)
-
-        /** Address registration success -> Go back to previous screen */
-        if(!viewModel.hasErrors){
+        if (!viewModel.hasErrors) {
+            // address registration success -> Go back to previous screen
             Handler().postDelayed({ activity?.onBackPressed() }, 1500)
         }
     }

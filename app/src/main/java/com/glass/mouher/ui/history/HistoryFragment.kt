@@ -22,7 +22,6 @@ class HistoryFragment : Fragment() {
 
     private val viewModel: HistoryViewModel by viewModel()
     private lateinit var binding: FragmentHistoryBinding
-
     private var month = 0
     private var year = 0
 
@@ -34,15 +33,10 @@ class HistoryFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHistoryBinding.inflate(inflater, container, false)
+    override fun onCreateView(infl: LayoutInflater, cont: ViewGroup?, state: Bundle?): View {
+        binding = FragmentHistoryBinding.inflate(infl, cont, false)
         binding.viewModel = viewModel
         binding.view = this
-
         return binding.root
     }
 
@@ -51,12 +45,13 @@ class HistoryFragment : Fragment() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun showMonthPickerPopUp(){
+    private fun showMonthPickerPopUp() {
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         val builder = MonthPickerDialog.Builder(requireContext(), { selectedMonth, selectedYear ->
             month = selectedMonth + 1
             year = selectedYear
             viewModel.onSelectedMonthFromPopupClicked(selectedMonth + 1, selectedYear)
-        }, if (year > 0) year else 2021, if (month > 0) month - 1 else 2)
+        }, if (year > 0) year else currentYear, if (month > 0) month - 1 else 2)
 
         builder.setTitle("Seleccione un mes")
             .setMinYear(2020).setMaxYear(2050)
@@ -65,14 +60,12 @@ class HistoryFragment : Fragment() {
             .build().show()
     }
 
-    private fun redirectToWebScreen(){
+    private fun redirectToWebScreen() {
         requireActivity().openOrRefreshFragment(
             forStore = MenuViewModel.source != "MALL",
             destination = HistoryDetailsFragment(),
             name = "HISTORY_DETAILS",
-            args = Bundle().apply {
-                putString("url", viewModel.urlToDetails)
-            }
+            args = Bundle().apply { putString("url", viewModel.urlToDetails) }
         )
     }
 
