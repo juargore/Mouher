@@ -93,7 +93,8 @@ class ProductUseCase(
         rfc: String?,
         socialReason: String?,
         email: String?,
-        products: List<Item>
+        products: List<Item>,
+        parcel : ParcelData?
     ): Single<RegistrationData> {
 
         return paymentRepository.finalPaymentFirstStep(
@@ -106,7 +107,8 @@ class ProductUseCase(
             requiresBilling = requiresBilling,
             rfc = rfc,
             socialReason = socialReason,
-            email = email
+            email = email,
+            parcel = parcel
         ).map { result ->
 
             if (result.Error > 0) {
@@ -161,7 +163,6 @@ class ProductUseCase(
         }
     }
 
-    // todo: replace with real data
     override fun getParcelsPrices(storeId: Int, clientId: Int, productsIds: List<Int>, quantities: List<Int>): Single<ParcelsResponse> {
         return productRepository.getParcelsPrices(storeId, clientId, productsIds, quantities)
     }

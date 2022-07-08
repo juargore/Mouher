@@ -233,6 +233,7 @@ class CartActivity : BaseActivity() {
             findViewById<AppCompatButton>(R.id.btnAddBilling).setOnClickListener {
                 val intent = Intent(this@CartActivity, BillingActivity::class.java)
                     .putExtra("paymentData", data)
+                    .putExtra("parcel", viewModel.parcelSelected)
 
                 startActivityNoAnimation(intent)
                 this.dismiss()
@@ -242,6 +243,7 @@ class CartActivity : BaseActivity() {
             findViewById<AppCompatButton>(R.id.btnDiscardBilling).setOnClickListener {
                 val intent = Intent(this@CartActivity, PaymentActivity::class.java)
                     .putExtra("paymentData", data)
+                    .putExtra("parcel", viewModel.parcelSelected)
                 startActivityNoAnimation(intent)
                 this.dismiss()
             }

@@ -211,6 +211,13 @@ class CartViewModel(
 
     private fun onParcelsPriceResponse(data: ParcelsResponse) {
         progressParcelsVisible = false
+        data.Opciones?.forEach {
+            it.Alto = data.Alto
+            it.Ancho = data.Ancho
+            it.Largo = data.Largo
+            it.Peso = data.Peso
+            it.Fragilidad = data.Fragilidad
+        }
         parcelsResponse = data
     }
 
@@ -259,7 +266,7 @@ class CartViewModel(
         totalItems = counterItems.toString()
 
         // only if user has at least one product, proceed to check shipping parcel
-        if (hasProduct != null && shippingType == "3") { // is dynamic price // todo: validate id here
+        if (hasProduct != null && shippingType == "3") { // is dynamic price
             if (counterItems > 0) {
                 shippingDescription = ":"
                 shippingAmount = 0.0

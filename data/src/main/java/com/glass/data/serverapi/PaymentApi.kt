@@ -23,7 +23,16 @@ interface PaymentApi {
                           @Field("RFC") RFC: String,
                           @Field("RazonSocial") RazonSocial: String,
                           @Field("Correo") Correo: String,
-                          @Field("TipoApp") TipoApp: Int
+                          @Field("TipoApp") TipoApp: Int,
+                          @Field("EnvioProveedor") EnvioProveedor: String,
+                          @Field("EnvioServicio") EnvioServicio: String,
+                          @Field("EnvioDescripcion") EnvioDescripcion: String,
+                          @Field("EnvioEstimacionEntrega") EnvioEstimacionEntrega: String,
+                          @Field("EnvioDimAlto") EnvioDimAlto: String, // send as int.toString()
+                          @Field("EnvioDimAncho") EnvioDimAncho: String, // send as int.toString()
+                          @Field("EnvioDimLargo") EnvioDimLargo: String, // send as int.toString()
+                          @Field("EnvioPeso") EnvioPeso: String, // send as double.toString()
+                          @Field("EnvioFragilidad") EnvioFragilidad: String,
     ): Single<RegistrationData> // returns same data as registration process
 
 

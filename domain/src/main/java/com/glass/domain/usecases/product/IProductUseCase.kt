@@ -38,7 +38,8 @@ interface IProductUseCase {
         rfc: String?,
         socialReason: String?,
         email: String?,
-        products: List<Item>
+        products: List<Item>,
+        parcel : ParcelData?
     ): Single<RegistrationData>
 
     fun getPaymentStatus(storeId: String, saleId: String): Single<ResponsePaymentStatus>

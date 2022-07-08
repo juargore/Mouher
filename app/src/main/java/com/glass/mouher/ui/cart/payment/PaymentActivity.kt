@@ -12,6 +12,7 @@ import android.webkit.WebViewClient
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.ParcelData
 import com.glass.domain.entities.PaymentDataToSend
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityPaymentBinding
@@ -33,7 +34,7 @@ class PaymentActivity : BaseActivity() {
         when (propertyId) {
             BR.onBack -> finish()
             BR.error -> showErrorMsg()
-            BR.showDialog -> if(viewModel.showDialog) dialog?.show() else dialog?.dismiss()
+            BR.showDialog -> if (viewModel.showDialog) dialog?.show() else dialog?.dismiss()
             BR.startLoadingWebPage -> loadWebPage()
         }
     }
@@ -47,20 +48,20 @@ class PaymentActivity : BaseActivity() {
         binding.viewModel = viewModel
 
         val data = intent.extras?.getSerializable("paymentData") as PaymentDataToSend
+        val parcel = intent.extras?.getSerializable("parcel") as ParcelData?
+
         storeId = data.storeId
-        viewModel.initialize(data)
+        viewModel.initialize(data, parcel)
     }
 
     override fun onStart() {
         super.onStart()
-
         dialog = Dialog(this, R.style.FullDialogTheme).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setContentView(R.layout.pop_processing_payment)
             setCancelable(false)
         }
-
         viewModel.startCreatingPayment()
     }
 
@@ -71,14 +72,11 @@ class PaymentActivity : BaseActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun loadWebPage(){
-
         val url = "https://mouhermarket.com/venta-pago.php?IdTienda=$storeId&IdVenta=${viewModel.saleId}"
-
-        with(binding.webView){
+        with (binding.webView){
             settings.javaScriptEnabled = true
             settings.loadWithOverviewMode = true
             settings.useWideViewPort = true
-
             webViewClient = CustomWebViewClient()
             loadUrl(url)
 
@@ -88,7 +86,7 @@ class PaymentActivity : BaseActivity() {
     }
 
     private fun showErrorMsg(){
-        val type = if(viewModel.hasErrors) SnackType.ERROR else SnackType.LONG_SUCCESS
+        val type = if (viewModel.hasErrors) SnackType.ERROR else SnackType.LONG_SUCCESS
         showSnackbar(binding.root, viewModel.error, type)
     }
 
@@ -100,7 +98,6 @@ class PaymentActivity : BaseActivity() {
 
 class CustomWebViewClient: WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-        // do not open external browser to load url -> load it in this webview
-        return false
+        return false // do not open external browser to load url -> load it in this webview
     }
 }

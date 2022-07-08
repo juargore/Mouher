@@ -1,7 +1,7 @@
 package com.glass.data.repositories
 
 import com.glass.data.serverapi.PaymentApi
-import com.glass.domain.entities.ProductSearchUI
+import com.glass.domain.entities.ParcelData
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.ResponsePaymentStatus
 import com.glass.domain.repositories.IPaymentRepository
@@ -21,8 +21,15 @@ class PaymentRepository(
         requiresBilling: Int,
         rfc: String?,
         socialReason: String?,
-        email: String?
+        email: String?,
+        parcel: ParcelData?
     ): Single<RegistrationData> {
+
+        val alto = if (parcel?.Alto == null || parcel.Alto == 0) "" else parcel.Alto.toString()
+        val ancho = if (parcel?.Ancho == null || parcel.Ancho == 0) "" else parcel.Ancho.toString()
+        val largo = if (parcel?.Largo == null || parcel.Largo == 0) "" else parcel.Largo.toString()
+        val peso = if (parcel?.Peso == null || parcel.Peso == 0.0) "" else parcel.Peso.toString()
+        val fragilidad = if (parcel?.Fragilidad == null || parcel.Fragilidad == 0) "" else parcel.Fragilidad.toString()
 
         return api.saveSaleFirstStep(
             WebService = "GuardaVenta",
@@ -37,7 +44,16 @@ class PaymentRepository(
             RFC = rfc ?: "",
             RazonSocial = socialReason ?: "",
             Correo = email ?: "",
-            TipoApp = 2
+            TipoApp = 2,
+            EnvioProveedor = parcel?.Paquetería ?: "",
+            EnvioServicio = parcel?.Servicio ?: "",
+            EnvioDescripcion = parcel?.Descripcion ?: "",
+            EnvioEstimacionEntrega = parcel?.Estimacion ?: "",
+            EnvioDimAlto = alto,
+            EnvioDimAncho = ancho,
+            EnvioDimLargo = largo,
+            EnvioPeso = peso,
+            EnvioFragilidad = fragilidad
         )
     }
 

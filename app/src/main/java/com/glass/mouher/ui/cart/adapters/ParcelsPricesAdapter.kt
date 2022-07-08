@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.glass.domain.entities.ParcelData
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_parcel_price.view.*
@@ -27,10 +28,16 @@ class ParcelsPricesAdapter(
         val item = parcelsList[pos]
 
         with(holder.itemView) {
+            Glide.with(context)
+                .load(item.LinkImagen)
+                .placeholder(R.drawable.ic_blur)
+                .into(imgLogo)
+
             radio.isChecked = item.Seleccionado == true
             txtdescription.text = item.Descripcion
             txtPrice.text = item.Importe.toString()
             txtEstimation.text = item.Estimacion
+
             radio.setOnClickListener {
                 onItemSelected?.invoke(item)
             }

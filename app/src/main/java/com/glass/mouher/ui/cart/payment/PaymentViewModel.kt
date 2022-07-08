@@ -3,6 +3,7 @@ package com.glass.mouher.ui.cart.payment
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.ParcelData
 import com.glass.domain.entities.PaymentDataToSend
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.usecases.product.IProductUseCase
@@ -18,6 +19,7 @@ class PaymentViewModel(
     var hasErrors = true
 
     private lateinit var paymentData: PaymentDataToSend
+    private var parcelSelected: ParcelData? = null
 
     @Bindable
     var showDialog = false
@@ -40,9 +42,9 @@ class PaymentViewModel(
             notifyPropertyChanged(BR.error)
         }
 
-
-    fun initialize(data: PaymentDataToSend){
+    fun initialize(data: PaymentDataToSend, parcel: ParcelData?){
         paymentData = data
+        parcelSelected = parcel
     }
 
     override fun onResume(callback: Observable.OnPropertyChangedCallback?) {
@@ -52,7 +54,7 @@ class PaymentViewModel(
     fun startCreatingPayment(){
         showDialog = true
 
-        with(paymentData) {
+        with (paymentData) {
             val storeId = storeId
             val remarks = remarks
             val clientId = clientId
@@ -66,7 +68,18 @@ class PaymentViewModel(
             val products = products
 
             addDisposable(productUseCase.makePaymentOfProducts(
-                storeId, remarks, clientId, subTotalCost, shippingCost, totalCost, requiresBilling, rfc, socialReason, email, products
+                storeId = storeId,
+                remarks = remarks,
+                clientId = clientId,
+                subTotalCost = subTotalCost,
+                shippingCost = shippingCost,
+                totalCost = totalCost,
+                requiresBilling = requiresBilling,
+                rfc = rfc,
+                socialReason = socialReason,
+                email = email,
+                products = products,
+                parcel = parcelSelected
             ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -77,27 +90,25 @@ class PaymentViewModel(
         }
     }
 
-    private fun onMakePaymentResponse(response: RegistrationData){
-        if(response.Error > 0){
+    private fun onMakePaymentResponse(response: RegistrationData) {
+        if (response.Error > 0) {
             hasErrors = true
             error = response.Mensaje
-        }else{
+        } else {
             saleId = response.Id ?: 0
             hasErrors = false
             error = response.Mensaje
             notifyPropertyChanged(BR.startLoadingWebPage)
         }
-
         showDialog = false
     }
 
     private fun onError(t: Throwable){
-        showDialog = false
-
-        if(!t.message!!.contains("internet")){
+        if (!t.message!!.contains("internet")) {
             hasErrors = true
             error = t.message
         }
+        showDialog = false
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
+import com.glass.domain.entities.ParcelData
 import com.glass.domain.entities.PaymentDataToSend
 import com.glass.mouher.R
 import com.glass.mouher.databinding.ActivityBillingBinding
@@ -21,6 +22,7 @@ class BillingActivity : BaseActivity() {
     private val viewModel: BillingViewModel by viewModel()
     private lateinit var binding: ActivityBillingBinding
     private lateinit var paymentData: PaymentDataToSend
+    private var parcelSelected: ParcelData? = null
 
     private val onPropertyChangedCallback =
         propertyChangedCallback { _, propertyId ->
@@ -40,7 +42,7 @@ class BillingActivity : BaseActivity() {
         binding.viewModel = viewModel
 
         paymentData = intent.extras?.getSerializable("paymentData") as PaymentDataToSend
-
+        parcelSelected = intent.extras?.getSerializable("parcel") as ParcelData?
     }
 
     override fun onResume() {
@@ -48,16 +50,17 @@ class BillingActivity : BaseActivity() {
         viewModel.onResume(onPropertyChangedCallback)
     }
 
-    private fun continueWithoutBilling(){
+    private fun continueWithoutBilling() {
         val intent = Intent(this, PaymentActivity::class.java)
             .putExtra("paymentData", paymentData)
+            .putExtra("parcel", parcelSelected)
 
         startActivityNoAnimation(intent, null, true)
     }
 
-    private fun continueWithBilling(){
+    private fun continueWithBilling() {
         // redirect to payment Screen
-        with(paymentData){
+        with(paymentData) {
             requiresBilling = 1
             rfc = viewModel.rfc.trim()
             socialReason = viewModel.social.trim()
@@ -66,11 +69,12 @@ class BillingActivity : BaseActivity() {
 
         val intent = Intent(this, PaymentActivity::class.java)
             .putExtra("paymentData", paymentData)
+            .putExtra("parcel", parcelSelected)
 
         startActivityNoAnimation(intent, null, true)
     }
 
-    private fun showErrorMsg(){
+    private fun showErrorMsg() {
         showSnackbar(binding.root, viewModel.error, SnackType.INFO)
     }
 

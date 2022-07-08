@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("UNUSED_PARAMETER", "DEPRECATION")
 package com.glass.mouher.ui.menu
 
 import android.annotation.SuppressLint
@@ -106,7 +106,7 @@ class MenuViewModel(
 
     @Bindable
     var isUserLoggedIn = false
-        set(value){
+        set(value) {
             field = value
             layoutUserLoggedInVisible = value
             layoutUserNotLoggedInVisible = !value
@@ -143,6 +143,13 @@ class MenuViewModel(
         set(value){
             field = value
             notifyPropertyChanged(BR.socialMediaVisible)
+        }
+
+    @Bindable
+    var contactBottomVisible: Boolean? = null
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.contactBottomVisible)
         }
 
     @Bindable
@@ -261,16 +268,18 @@ class MenuViewModel(
             }
         }
 
-        if(source == "MALL"){
+        if (source == "MALL") {
             stringZoneOrCategory = "Zonas Comerciales"
             stringMouherOrStore = "Mouher Market"
             socialMediaVisible = true
+            contactBottomVisible = true
 
             addDisposable(mallUseCase.getZonesForMenu()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onResponseMenuItems, this::onError))
-        }else{
+        } else {
+            contactBottomVisible = false
             stringZoneOrCategory = "Categorías de Productos"
             stringMouherOrStore = "Sobre $storeNameSelectedOnMenu"
             socialMediaVisible = false

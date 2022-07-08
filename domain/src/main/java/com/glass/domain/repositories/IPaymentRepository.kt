@@ -1,6 +1,6 @@
 package com.glass.domain.repositories
 
-import com.glass.domain.entities.ProductSearchUI
+import com.glass.domain.entities.ParcelData
 import com.glass.domain.entities.RegistrationData
 import com.glass.domain.entities.ResponsePaymentStatus
 import io.reactivex.Single
@@ -17,7 +17,8 @@ interface IPaymentRepository {
         requiresBilling: Int,
         rfc: String?,
         socialReason: String?,
-        email: String?
+        email: String?,
+        parcel: ParcelData?
     ): Single<RegistrationData>
 
     /**
