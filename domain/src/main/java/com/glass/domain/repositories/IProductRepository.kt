@@ -21,5 +21,5 @@ interface IProductRepository {
 
     fun getSearchResults(word: String): Single<ProductSearchResponse>
 
-    fun getParcelsPrices() : Single<ParcelsResponse>
+    fun getParcelsPrices(storeId: Int, clientId: Int, productsIds: List<Int>, quantities: List<Int>) : Single<ParcelsResponse>
 }

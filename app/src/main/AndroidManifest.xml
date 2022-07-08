@@ -21,6 +21,9 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".ui.profile.address.AddressParentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.search.SearchActivity"
             android:exported="true"
             android:screenOrientation="portrait"

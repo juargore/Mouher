@@ -64,13 +64,13 @@ class ProductRepository(
     }
 
     // todo: replace with real data
-    override fun getParcelsPrices(): Single<ParcelsResponse> {
+    override fun getParcelsPrices(storeId: Int, clientId: Int, productsIds: List<Int>, quantities: List<Int>): Single<ParcelsResponse> {
         return api.getParcelsPrices(
             WebService = "SolicitaCotizacionesPaqueterias",
-            IdTienda = 1,
-            IdCliente = 7,
-            IdsProductos = listOf(1, 4),
-            Cantidades = listOf(2, 5)
+            IdTienda = storeId,
+            IdCliente = clientId,
+            IdsProductos = productsIds,
+            Cantidades = quantities
         )
     }
 }

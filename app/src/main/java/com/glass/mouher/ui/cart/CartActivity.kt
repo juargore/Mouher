@@ -23,9 +23,11 @@ import com.glass.mouher.databinding.ActivityCartBinding
 import com.glass.mouher.extensions.startActivityNoAnimation
 import com.glass.mouher.shared.General
 import com.glass.mouher.shared.General.getCartNotes
+import com.glass.mouher.shared.General.getComesFromAddress
 import com.glass.mouher.shared.General.getComesFromLogin
 import com.glass.mouher.shared.General.getUserId
 import com.glass.mouher.shared.General.saveCartNotes
+import com.glass.mouher.shared.General.saveComesFromAddress
 import com.glass.mouher.shared.General.saveComesFromLogin
 import com.glass.mouher.shared.General.saveMustRefreshStore
 import com.glass.mouher.ui.base.BaseActivity
@@ -36,6 +38,7 @@ import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
 import com.glass.mouher.ui.common.showSnackbar
+import com.glass.mouher.ui.profile.address.AddressParentActivity
 import com.glass.mouher.ui.registration.signin.SignInActivity
 import kotlinx.android.synthetic.main.pop_parcels_prices.*
 import org.jetbrains.anko.alert
@@ -93,19 +96,19 @@ class CartActivity : BaseActivity() {
             // User was re-directed to login -> check if he did it
             saveComesFromLogin(false)
             if (isUserLoggedIn) {
-                println("OJO: Va a validar addres aqui")
+                // validate address here
                 viewModel.getUserAddressToValidate()
             } else {
                 // User decided don't login -> exit cart screen
                 Handler().postDelayed({
-                    toast("Para pagar es necesario iniciar sesión y tener domicilio de envío.")
+                    toast("Es necesario iniciar sesión y tener domicilio de envío.")
                     this.finish()
                 }, 500L)
             }
         } else {
             // User comes from Store screen
             if (isUserLoggedIn) {
-                println("OJO: Va a validar addres aqui")
+                // validate address here
                 viewModel.getUserAddressToValidate()
             } else {
                 Handler().postDelayed({
@@ -125,8 +128,17 @@ class CartActivity : BaseActivity() {
                 builder?.setCanceledOnTouchOutside(false)
             viewModel.getDataAfterLoginAndAddressValidations()
         } else {
-            // todo: redirect to Address screen here
-            println("OJO: Redirigir a Address aqui")
+            if (getComesFromAddress()) {
+                // user comes from Address but didn't complete the information
+                saveComesFromAddress(false)
+                Handler().postDelayed({
+                    toast("Es necesario iniciar sesión y tener domicilio de envío.")
+                    this.finish()
+                }, 500L)
+            } else {
+                // redirect to address here
+                startActivity(Intent(this, AddressParentActivity::class.java))
+            }
         }
     }
 

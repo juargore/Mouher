@@ -45,5 +45,5 @@ interface IProductUseCase {
 
     fun getSearchResults(word: String): Single<List<ProductSearchUI>>
 
-    fun getParcelsPrices() : Single<ParcelsResponse>
+    fun getParcelsPrices(storeId: Int, clientId: Int, productsIds: List<Int>, quantities: List<Int>) : Single<ParcelsResponse>
 }

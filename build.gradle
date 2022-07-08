@@ -17,7 +17,7 @@ buildscript {
     dependencies {
         //noinspection AndroidGradlePluginVersion
         classpath 'com.android.tools.build:gradle:4.2.1'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0'
         classpath 'com.google.gms:google-services:4.3.8'  // Google Services plugin
         classpath "io.realm:realm-gradle-plugin:6.1.0" // Realm Database
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version" // AndroidX Navigation

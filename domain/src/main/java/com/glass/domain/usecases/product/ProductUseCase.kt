@@ -162,8 +162,8 @@ class ProductUseCase(
     }
 
     // todo: replace with real data
-    override fun getParcelsPrices(): Single<ParcelsResponse> {
-        return productRepository.getParcelsPrices()
+    override fun getParcelsPrices(storeId: Int, clientId: Int, productsIds: List<Int>, quantities: List<Int>): Single<ParcelsResponse> {
+        return productRepository.getParcelsPrices(storeId, clientId, productsIds, quantities)
     }
 
     private fun makePaymentForEachProduct(

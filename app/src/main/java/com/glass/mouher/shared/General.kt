@@ -335,4 +335,22 @@ object General {
         }
         return false
     }
+
+    private const val COMES_FROM_ADDRESS = "comesFromAddress"
+
+    fun saveComesFromAddress(comes: Boolean){
+        context?.let{ c->
+            with(c.getSharedPreferences(COMES_FROM_ADDRESS, Context.MODE_PRIVATE)){
+                edit().putBoolean(COMES_FROM_ADDRESS, comes).apply()
+            }
+        }
+    }
+
+    fun getComesFromAddress() : Boolean {
+        context?.let { c->
+            val prefs = c.getSharedPreferences(COMES_FROM_ADDRESS, Context.MODE_PRIVATE)
+            return prefs.getBoolean(COMES_FROM_ADDRESS, false)
+        }
+        return false
+    }
 }
