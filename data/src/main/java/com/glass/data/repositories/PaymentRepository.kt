@@ -45,7 +45,7 @@ class PaymentRepository(
             RazonSocial = socialReason ?: "",
             Correo = email ?: "",
             TipoApp = 2,
-            EnvioProveedor = parcel?.Paquetería ?: "",
+            EnvioProveedor = parcel?.Paqueteria ?: "",
             EnvioServicio = parcel?.Servicio ?: "",
             EnvioDescripcion = parcel?.Descripcion ?: "",
             EnvioEstimacionEntrega = parcel?.Estimacion ?: "",

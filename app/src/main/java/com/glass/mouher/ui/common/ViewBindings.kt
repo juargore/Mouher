@@ -9,26 +9,25 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.chauthai.swipereveallayout.ViewBinderHelper
+import com.glass.domain.entities.TopBannerUI
 import com.glass.mouher.R
+import com.glass.mouher.extensions.startFadeInAnimation
 import com.glass.mouher.ui.common.binder.BindingRecyclerViewAdapter
 import com.glass.mouher.ui.common.binder.ClickHandler
 import com.glass.mouher.ui.common.binder.ItemBinder
-import android.widget.TextView
-import androidx.viewpager.widget.ViewPager
-import com.glass.domain.entities.TopBannerUI
-import com.glass.mouher.extensions.startFadeInAnimation
 import com.glass.mouher.utils.WebBrowserUtils
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
-import java.lang.Exception
 
 private const val KEY_ITEMS = -123
 private const val KEY_CLICK_HANDLER = -124
@@ -255,7 +254,7 @@ fun CarouselView.setImagesOnCarousel(items: List<TopBannerUI>, carouselTitle: Te
         override fun onPageScrollStateChanged(state: Int) {}
 
         override fun onPageScrolled(pos: Int, posOffset: Float, posOffsetPixels: Int) {
-            if(items.isNotEmpty()){
+            if (items.isNotEmpty()){
                 carouselTitle.apply {
                     text = items[pos].title
                     startFadeInAnimation()
@@ -275,3 +274,4 @@ fun CarouselView.setImagesOnCarousel(items: List<TopBannerUI>, carouselTitle: Te
         }
     }
 }
+

@@ -16,7 +16,7 @@ data class ParcelsResponse(
 
 data class ParcelData(
     val LinkImagen: String? = null,
-    val Paquetería: String? = null,
+    val Paqueteria: String? = null,
     val Servicio: String? = null,
     val Descripcion: String? = null,
     val Estimacion: String? = null,

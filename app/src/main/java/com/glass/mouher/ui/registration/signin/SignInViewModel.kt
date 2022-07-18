@@ -88,7 +88,7 @@ class SignInViewModel(
             error = response.Mensaje
         } else {
             hasErrors = false
-            error = "Bienvenidos a Mouher Market."
+            error = "¡Bienvenid@ a Mouher Market!"
 
             // save data on internal shared preferences
             with(response) {

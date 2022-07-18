@@ -75,7 +75,7 @@ class BillingActivity : BaseActivity() {
     }
 
     private fun showErrorMsg() {
-        showSnackbar(binding.root, viewModel.error, SnackType.INFO)
+        showSnackbar(binding.root, viewModel.error, SnackType.ERROR)
     }
 
     override fun onPause() {

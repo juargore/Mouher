@@ -121,6 +121,7 @@
                     android:layout_marginStart="@dimen/margin_12dp"
                     android:fontFamily="@font/regular"
                     android:text="Subtotal (IVA incluído) :"
+                    android:textColor="@color/onyxBlack"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -162,6 +163,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:onClick="@{ viewModel::refreshScreen }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textView373"
                     app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_12dp"
                         android:fontFamily="@font/regular"
+                        android:textColor="@{ viewModel.shippingLabelColor }"
                         android:text="Envío"
                         tools:ignore="HardcodedText" />
 
@@ -189,6 +192,7 @@
                         android:lines="1"
                         android:minLines="1"
                         android:text="@{ viewModel.shippingDescription }"
+                        android:textColor="@{ viewModel.shippingLabelColor }"
                         tools:ignore="HardcodedText"
                         tools:text="(Fijo)" />
                 </LinearLayout>
@@ -234,6 +238,7 @@
                     android:layout_marginStart="@dimen/margin_12dp"
                     android:fontFamily="@font/regular"
                     android:text="Total :"
+                    android:textColor="@color/onyxBlack"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

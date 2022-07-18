@@ -9,9 +9,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
+import android.view.Gravity
+import android.view.View
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -101,7 +105,7 @@ class CartActivity : BaseActivity() {
             } else {
                 // User decided don't login -> exit cart screen
                 Handler().postDelayed({
-                    toast("Es necesario iniciar sesión y tener domicilio de envío.")
+                    displayCustomToast()
                     this.finish()
                 }, 500L)
             }
@@ -132,7 +136,7 @@ class CartActivity : BaseActivity() {
                 // user comes from Address but didn't complete the information
                 saveComesFromAddress(false)
                 Handler().postDelayed({
-                    toast("Es necesario iniciar sesión y tener domicilio de envío.")
+                    displayCustomToast()
                     this.finish()
                 }, 500L)
             } else {
@@ -140,6 +144,21 @@ class CartActivity : BaseActivity() {
                 startActivity(Intent(this, AddressParentActivity::class.java))
             }
         }
+    }
+
+    @SuppressLint("InflateParams", "SetTextI18n")
+    private fun displayCustomToast() {
+        val inflater = layoutInflater
+        val layout: View = inflater.inflate(R.layout.custom_toast, null)
+
+        val text = layout.findViewById<TextView>(R.id.message)
+        text.text = "Por favor, inicie sesión y asegúrese de registrar un domicilio de envío en los datos de su cuenta."
+
+        val toast = Toast(applicationContext)
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+        toast.duration = Toast.LENGTH_LONG
+        toast.view = layout
+        toast.show()
     }
 
     private fun showPopUpNotes() {

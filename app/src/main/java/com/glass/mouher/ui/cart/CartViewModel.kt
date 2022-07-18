@@ -1,6 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER", "DEPRECATION", "UNUSED_PARAMETER")
+@file:SuppressLint("StaticFieldLeak")
 package com.glass.mouher.ui.cart
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Handler
 import android.view.View
 import androidx.databinding.Bindable
@@ -10,7 +13,7 @@ import com.glass.domain.entities.*
 import com.glass.domain.usecases.cart.ICartUseCase
 import com.glass.domain.usecases.product.IProductUseCase
 import com.glass.domain.usecases.user.IUserUseCase
-import com.glass.mouher.App.Companion.context
+import com.glass.mouher.R
 import com.glass.mouher.shared.General.getPaymentInfo
 import com.glass.mouher.shared.General.getStoreShoppingInfo
 import com.glass.mouher.shared.General.getUserId
@@ -26,14 +29,21 @@ import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-
 class CartViewModel(
+    private val context: Context,
     private val cartUseCase: ICartUseCase,
     private val productUseCase: IProductUseCase,
     private val userUseCase: IUserUseCase
 ): BaseViewModel(), ClickHandler<ACartListViewModel> {
 
     var snackType: SnackType = SnackType.INFO
+
+    @Bindable
+    var shippingLabelColor = context.resources.getColor(R.color.onyxBlack)
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.shippingLabelColor)
+        }
 
     @Bindable
     var onFinishScreen: Unit? = null
@@ -196,8 +206,10 @@ class CartViewModel(
             val clientId = getUserId()
 
             itemsComplete.forEach { item ->
-                item.id?.let { productsIds.add(it) }
-                item.quantity?.let { quantities.add(it) }
+                if (item.productType == 1) {
+                    item.id?.let { productsIds.add(it) }
+                    item.quantity?.let { quantities.add(it) }
+                }
             }
 
             addDisposable(productUseCase.getParcelsPrices(storeId, clientId, productsIds, quantities)
@@ -210,7 +222,9 @@ class CartViewModel(
     }
 
     private fun onParcelsPriceResponse(data: ParcelsResponse) {
+        shippingLabelColor = context.resources.getColor(R.color.mainDarkBlue)
         progressParcelsVisible = false
+
         data.Opciones?.forEach {
             it.Alto = data.Alto
             it.Ancho = data.Ancho
@@ -238,7 +252,7 @@ class CartViewModel(
         var counterItems = 0
 
         itemsComplete = list
-        context?.let { c ->
+        context.let { c ->
             list.forEach {
                 val viewModel = CartItemViewModel(context = c, item = it)
                 viewModels.add(viewModel)
@@ -261,6 +275,7 @@ class CartViewModel(
 
         shippingDescription = if (description.isNullOrBlank() || description.equals("null", true)) ":" else "($description) :" // Fijo
         if (hasProduct == null) shippingDescription = "(No aplica) :"
+        if (list.isEmpty()) shippingDescription = "(Pendiente) :"
 
         items = viewModels
         totalItems = counterItems.toString()
@@ -309,6 +324,12 @@ class CartViewModel(
         Handler().postDelayed({
             notifyPropertyChanged(BR.onRefreshScreen)
         }, 200)
+    }
+
+    fun refreshScreen(v: View?) {
+        if (shippingLabelColor == context.resources.getColor(R.color.mainDarkBlue)) {
+            notifyPropertyChanged(BR.onRefreshScreen)
+        }
     }
 
     fun onPopClicked(view: View?) {
