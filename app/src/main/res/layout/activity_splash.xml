@@ -16,14 +16,22 @@
         tools:context="com.glass.mouher.ui.registration.splash.SplashActivity"
         android:fitsSystemWindows="true">
 
+        <View
+            android:id="@+id/view13"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imageView15"
             android:layout_width="wrap_content"
             android:layout_height="120dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/view13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_mouher"
             tools:ignore="ContentDescription" />
 
@@ -35,13 +43,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView15">
+            app:layout_constraintTop_toBottomOf="@+id/view13">
 
             <TextView
                 android:id="@+id/textView88"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Desarrollada por"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/textView89"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mouher Market"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -55,8 +70,8 @@
                 android:id="@+id/textView86"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="version 1.0.0a"
-                android:text="@{ viewModel.versionStr }" />
+                android:text="@{ viewModel.versionStr }"
+                tools:text="version 1.0.0a" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

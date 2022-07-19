@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.glass.mouher.ui.registration.signup
 
 import android.os.Bundle

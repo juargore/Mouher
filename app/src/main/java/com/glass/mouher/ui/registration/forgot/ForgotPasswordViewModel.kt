@@ -49,7 +49,7 @@ class ForgotPasswordViewModel(
     }
 
     fun onSendClicked(v: View?){
-        if(userEmail.isBlank() || !userEmail.trim().isEmailValid()){
+        if (userEmail.isBlank() || !userEmail.trim().isEmailValid()) {
             error = "El correo electrónico es obligatorio."
         } else{
             progressVisible = true
@@ -62,19 +62,17 @@ class ForgotPasswordViewModel(
         }
     }
 
-    private fun onRecoverResponse(response: ResponseUI){
-        progressVisible = false
-
-        if(response.hasErrors){
+    private fun onRecoverResponse(response: ResponseUI) {
+        if (response.hasErrors) {
             hasError = true
             error = response.message
-        }else{
+        } else {
             hasError = false
             error = "Correo enviado."
-        }
+        }; progressVisible = false
     }
 
-    private fun onError(t: Throwable?){
+    private fun onError(t: Throwable?) {
         progressVisible = false
         hasError = true
         error = t?.message

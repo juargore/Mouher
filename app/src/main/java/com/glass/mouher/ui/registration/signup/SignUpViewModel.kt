@@ -10,7 +10,6 @@ import com.glass.domain.entities.RegistrationData
 import com.glass.domain.usecases.user.IUserUseCase
 import com.glass.mouher.ui.base.BaseViewModel
 import com.glass.mouher.utils.WebBrowserUtils.openUrlInExternalWebBrowser
-import com.glass.mouher.extensions.isEmailValid
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
@@ -174,7 +173,7 @@ class SignUpViewModel(
     private fun onRegistrationResponse(response: RegistrationData){
         progressVisible = false
 
-        if(response.Error!! > 0){
+        if(response.Error > 0){
             hasErrors = true
             error = response.Mensaje
         }else{
