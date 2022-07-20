@@ -206,10 +206,8 @@ class CartViewModel(
             val clientId = getUserId()
 
             itemsComplete.forEach { item ->
-                if (item.productType == 1) {
-                    item.id?.let { productsIds.add(it) }
-                    item.quantity?.let { quantities.add(it) }
-                }
+                item.id?.let { productsIds.add(it) }
+                item.quantity?.let { quantities.add(it) }
             }
 
             addDisposable(productUseCase.getParcelsPrices(storeId, clientId, productsIds, quantities)
@@ -355,7 +353,9 @@ class CartViewModel(
     }
 
     private fun onError(t: Throwable) {
+        progressParcelsVisible = false
         progressVisible = false
+        println("ERROR: ${t.localizedMessage}")
     }
 
     override fun onPause(callback: Observable.OnPropertyChangedCallback?) {

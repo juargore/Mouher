@@ -31,7 +31,7 @@ android {
         }
         release {
             buildConfigField "String", "URL_PARENT", '"https://mouhermarket.com/admin/models/"'
-            minifyEnabled false
+            minifyEnabled true
             shrinkResources false
             debuggable false
 

@@ -64,12 +64,22 @@ class ProductRepository(
     }
 
     override fun getParcelsPrices(storeId: Int, clientId: Int, productsIds: List<Int>, quantities: List<Int>): Single<ParcelsResponse> {
+        var idsProducts = ""
+        productsIds.forEach { idsProducts += "$it," }
+        idsProducts = idsProducts.substringBeforeLast(",")
+
+        var idsQuantities = ""
+        quantities.forEach { idsQuantities += "$it," }
+        idsQuantities = idsQuantities.substringBeforeLast(",")
+
+        //println("ENVIA: $idsProducts | $idsQuantities | $storeId | $clientId")
+
         return api.getParcelsPrices(
             WebService = "SolicitaCotizacionesPaqueterias",
             IdTienda = storeId,
             IdCliente = clientId,
-            IdsProductos = productsIds,
-            Cantidades = quantities
+            IdsProductosCSV = idsProducts,
+            CantidadesCSV = idsQuantities
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.glass.mouher.ui.cart.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,9 @@ import com.bumptech.glide.Glide
 import com.glass.domain.entities.ParcelData
 import com.glass.mouher.R
 import kotlinx.android.synthetic.main.recycler_item_parcel_price.view.*
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 class ParcelsPricesAdapter(
     private var parcelsList : List<ParcelData>
@@ -24,6 +28,7 @@ class ParcelsPricesAdapter(
 
     var onItemSelected: ((ParcelData) -> Unit)? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemViewHolder, pos: Int) {
         val item = parcelsList[pos]
 
@@ -35,7 +40,7 @@ class ParcelsPricesAdapter(
 
             radio.isChecked = item.Seleccionado == true
             txtdescription.text = item.Descripcion
-            txtPrice.text = item.Importe.toString()
+            txtPrice.text = "$${getTwoDecimalsAndCommas(item.Importe.toString())}"
             txtEstimation.text = item.Estimacion
 
             radio.setOnClickListener {
@@ -43,4 +48,11 @@ class ParcelsPricesAdapter(
             }
         }
     }
+}
+
+fun getTwoDecimalsAndCommas(value: String): String {
+    val amount: Double = value.toDouble()
+    val symbols = DecimalFormatSymbols(Locale("es", "MX"))
+    val formatter = DecimalFormat("##,##0.00", symbols)
+    return formatter.format(amount)
 }

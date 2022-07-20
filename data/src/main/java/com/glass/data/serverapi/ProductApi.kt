@@ -50,6 +50,6 @@ interface ProductApi {
     fun getParcelsPrices(@Field("WebService") WebService: String,
                          @Field("IdTienda") IdTienda: Int,
                          @Field("IdCliente") IdCliente: Int,
-                         @Field("IdsProductos") IdsProductos: List<Int>,
-                         @Field("Cantidades") Cantidades: List<Int>): Single<ParcelsResponse>
+                         @Field("IdsProductosCSV") IdsProductosCSV: String,
+                         @Field("CantidadesCSV") CantidadesCSV: String): Single<ParcelsResponse>
 }
