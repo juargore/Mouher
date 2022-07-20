@@ -8,18 +8,24 @@ import com.google.android.material.snackbar.Snackbar
 import org.jetbrains.anko.backgroundColor
 
 @Suppress("DEPRECATION")
-fun showSnackbar(view: View, message: String?, type: SnackType){
+fun showSnackbar(view: View, message: String?, type: SnackType, dur: Int? = null, lines: Int? = null){
 
-    val duration = if(type == SnackType.LONG_SUCCESS) 6000 else Snackbar.LENGTH_LONG
+    var duration = if (type == SnackType.LONG_SUCCESS) 6000 else Snackbar.LENGTH_LONG
+    dur?.let { duration = it }
 
     Snackbar
         .make(view, message ?: "", Snackbar.LENGTH_INDEFINITE)
         .setDuration(duration).apply {
-
             val sview = this.view
 
-            with(view.context){
-                when(type){
+            lines?.let {
+                sview.findViewById<TextView>(R.id.snackbar_text).apply {
+                    maxLines = lines
+                }
+            }
+
+            with (view.context) {
+                when (type) {
                     SnackType.ERROR -> sview.backgroundColor = resources.getColor(R.color.mainPink)
                     SnackType.SUCCESS ->  sview.backgroundColor = resources.getColor(R.color.mainGreen)
                     SnackType.INFO -> sview.backgroundColor = resources.getColor(R.color.mainDarkBlue)

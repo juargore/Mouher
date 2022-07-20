@@ -38,6 +38,7 @@ import com.glass.mouher.ui.base.BaseActivity
 import com.glass.mouher.ui.cart.adapters.ParcelsPricesAdapter
 import com.glass.mouher.ui.cart.billing.BillingActivity
 import com.glass.mouher.ui.cart.payment.PaymentActivity
+import com.glass.mouher.ui.common.SnackType
 import com.glass.mouher.ui.common.binder.CompositeItemBinder
 import com.glass.mouher.ui.common.binder.ItemBinder
 import com.glass.mouher.ui.common.propertyChangedCallback
@@ -104,10 +105,10 @@ class CartActivity : BaseActivity() {
                 viewModel.getUserAddressToValidate()
             } else {
                 // User decided don't login -> exit cart screen
+                displayCustomToast()
                 Handler().postDelayed({
-                    displayCustomToast()
                     this.finish()
-                }, 500L)
+                }, 4000L)
             }
         } else {
             // User comes from Store screen
@@ -135,10 +136,10 @@ class CartActivity : BaseActivity() {
             if (getComesFromAddress()) {
                 // user comes from Address but didn't complete the information
                 saveComesFromAddress(false)
+                displayCustomToast()
                 Handler().postDelayed({
-                    displayCustomToast()
                     this.finish()
-                }, 500L)
+                }, 4000L)
             } else {
                 // redirect to address here
                 startActivity(Intent(this, AddressParentActivity::class.java))
@@ -146,19 +147,9 @@ class CartActivity : BaseActivity() {
         }
     }
 
-    @SuppressLint("InflateParams", "SetTextI18n")
+    @SuppressLint("SetTextI18n")
     private fun displayCustomToast() {
-        val inflater = layoutInflater
-        val layout: View = inflater.inflate(R.layout.custom_toast, null)
-
-        val text = layout.findViewById<TextView>(R.id.message)
-        text.text = "Por favor, inicie sesión y asegúrese de registrar un domicilio de envío en los datos de su cuenta."
-
-        val toast = Toast(applicationContext)
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-        toast.duration = Toast.LENGTH_LONG
-        toast.view = layout
-        toast.show()
+        showSnackbar(binding.root, "Por favor, inicie sesión y asegúrese de registrar un domicilio de envío en los datos de su cuenta.", SnackType.ERROR, 4000, 3)
     }
 
     private fun showPopUpNotes() {
