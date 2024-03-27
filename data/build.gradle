@@ -1,19 +1,18 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    namespace 'com.ocean.data'
+    compileSdkVersion =  34
+    buildToolsVersion = "29.0.0"
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -26,30 +25,29 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = rootProject.ext.java_version
-        targetCompatibility = rootProject.ext.java_version
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    //implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation rootProject.ext.retrofit
-    implementation rootProject.ext.rxKotlin
-    implementation rootProject.ext.retrofitMoshiConverter
-    implementation rootProject.ext.kotlinCoroutineCore
+    //noinspection GradleDependency
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    //noinspection GradleDependency
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
 
-    implementation rootProject.ext.kotlin
-    implementation rootProject.ext.kotlinCoroutineAndroid
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
+    implementation "com.squareup.retrofit2:converter-moshi:2.8.1"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
-    // Firebase
-    implementation rootProject.ext.firebaseAuthent
-    implementation rootProject.ext.firebaseFirestore
-    implementation rootProject.ext.firebaseStorage
-    implementation rootProject.ext.firebaseConfig
+    //noinspection GradleDependency
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-//    implementation rootProject.ext.moshi
-    implementation rootProject.ext.retrofitMoshiConverter
+    implementation "com.squareup.retrofit2:converter-moshi:2.8.1"
 
     implementation project(":domain")
 }

@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.history.HistoryFragment" />
+            type="com.ocean.mouher.ui.history.HistoryFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.history.HistoryViewModel" />
+            type="com.ocean.mouher.ui.history.HistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="20dp"
                 android:src="@drawable/ic_arrow_back"
-                android:tint="@color/onyxBlack"
+                app:tint="@color/onyxBlack"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />

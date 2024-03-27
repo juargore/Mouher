@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer_mall"
-        android:name="com.glass.mouher.ui.menu.MenuFragment"
+        android:name="com.ocean.mouher.ui.menu.MenuFragment"
         android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

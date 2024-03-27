@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Mouher Market</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</string>
@@ -48,8 +48,8 @@
     <string name="title_no_categories_found">Sin categorías</string>
     <string name="body_no_categories_found">Aún no se han registrado categorías en esta sección</string>
     <string name="tip_no_categories_found">Vuelve después para consultarlas</string>
-    <string name="category_product_count">Tenemos %d producto</string>
-    <string name="category_products_count">Tenemos %d productos</string>
+    <string name="category_product_count" tools:ignore="PluralsCandidate">Tenemos %d producto</string>
+    <string name="category_products_count" tools:ignore="PluralsCandidate">Tenemos %d productos</string>
 
 
     <!-- FAQ -->

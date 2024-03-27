@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.cart.payment.PaymentViewModel" />
+            type="com.ocean.mouher.ui.cart.payment.PaymentViewModel" />
         <variable
             name="view"
-            type="com.glass.mouher.ui.cart.payment.PaymentActivity" />
+            type="com.ocean.mouher.ui.cart.payment.PaymentActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

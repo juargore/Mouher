@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.profile.UserProfileViewModel" />
+            type="com.ocean.mouher.ui.profile.UserProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
                 android:src="@drawable/ic_arrow_back"
-                android:tint="@color/onyxBlack"
+                app:tint="@color/onyxBlack"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:drawableEnd="@drawable/ic_exit"
+                app:drawableEndCompat="@drawable/ic_exit"
                 android:drawablePadding="8dp"
                 android:includeFontPadding="true"
                 android:onClick="@{ viewModel::onSignOutClicked }"
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:drawableStart="@drawable/ic_edit_image"
+                app:drawableStartCompat="@drawable/ic_edit_image"
                 android:drawablePadding="6dp"
                 android:includeFontPadding="true"
                 android:onClick="@{ viewModel::onSignOutClicked }"
@@ -385,7 +385,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:tint="@color/mainRed"
+                            app:tint="@color/mainRed"
                             app:srcCompat="@drawable/ic_note_add"
                             tools:ignore="ContentDescription" />
                     </LinearLayout>
@@ -559,7 +559,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:tint="@color/mainRed"
+                            app:tint="@color/mainRed"
                             app:srcCompat="@drawable/ic_note_add"
                             tools:ignore="ContentDescription" />
                     </LinearLayout>

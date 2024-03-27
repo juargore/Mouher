@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.registration.signin.SignInViewModel" />
+            type="com.ocean.mouher.ui.registration.signin.SignInViewModel" />
         <variable
             name="view"
-            type="com.glass.mouher.ui.registration.signin.SignInActivity" />
+            type="com.ocean.mouher.ui.registration.signin.SignInActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -190,7 +190,7 @@
                     android:layout_height="48dp"
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/margin_18dp"
-                    android:drawableEnd="@drawable/ic_right_arrow"
+                    app:drawableEndCompat="@drawable/ic_right_arrow"
                     android:fontFamily="@font/medium"
                     android:gravity="end|center_vertical"
                     android:includeFontPadding="false"
@@ -204,7 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_gravity="end"
-                    android:drawableEnd="@drawable/ic_right_arrow"
+                    app:drawableEndCompat="@drawable/ic_right_arrow"
                     android:fontFamily="@font/medium"
                     android:gravity="end|center_vertical"
                     android:includeFontPadding="false"

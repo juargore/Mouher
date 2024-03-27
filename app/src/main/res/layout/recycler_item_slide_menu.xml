@@ -21,16 +21,17 @@
                 android:layout_width="35dp"
                 android:layout_height="30dp"
                 android:src="@mipmap/ic_launcher_round"
-                android:layout_marginLeft="5dp" android:layout_marginRight="10dp"/>
+                android:contentDescription="@null"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"/>
 
         <TextView
                 android:id="@+id/txtNameDrawer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="Text"
+                tools:text="Text"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif-condensed"/>
     </LinearLayout>

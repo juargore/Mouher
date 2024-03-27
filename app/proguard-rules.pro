@@ -19,9 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep class com.glass.domain.entities** { *; }
+-keep class com.ocean.domain.entities** { *; }
 
--keep class com.glass.mouher.entities** { *; }
+-keep class com.ocean.mouher.entities** { *; }
 
--keep class com.glass.mouher.di.DateMoshiAdapter { *; }
+-keep class com.ocean.mouher.di.DateMoshiAdapter { *; }
 

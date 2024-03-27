@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.mall.home.HomeMallFragment" />
+            type="com.ocean.mouher.ui.mall.home.HomeMallFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.mall.home.HomeMallViewModel" />
+            type="com.ocean.mouher.ui.mall.home.HomeMallViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -216,7 +216,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="6dp"
-                            android:tint="@color/mainGrey"
+                            app:tint="@color/mainGrey"
                             app:srcCompat="@drawable/ic_shopping_cart"
                             android:contentDescription="Cart"
                             tools:ignore="HardcodedText" />
@@ -243,6 +243,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="6dp"
                         android:background="@color/lightGrey" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHomeZones"
                         android:layout_width="match_parent"

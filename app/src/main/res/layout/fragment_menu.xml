@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.menu.MenuFragment" />
+            type="com.ocean.mouher.ui.menu.MenuFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.menu.MenuViewModel" />
+            type="com.ocean.mouher.ui.menu.MenuViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +50,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+
             <View android:id="@+id/view3"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -59,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/bgWhite" />
         </LinearLayout>
+
         <ProgressBar android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
@@ -117,21 +119,23 @@
                             android:text="@{ viewModel.userName }"
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp"
-                            tools:text="Carlos Esparza Cuevas" />
+                            tools:text="Carlos Esparza Cuevas"
+                            tools:ignore="RtlSymmetry" />
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.65"
                             android:orientation="vertical"
-                            android:paddingEnd="8dp">
+                            android:paddingEnd="8dp"
+                            tools:ignore="RtlSymmetry">
 
                             <TextView
                                 android:id="@+id/textView53"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="end"
-                                android:drawableEnd="@drawable/ic_exit"
+                                app:drawableEndCompat="@drawable/ic_exit"
                                 android:drawablePadding="2dp"
                                 android:gravity="center_vertical|end"
                                 android:lineSpacingExtra="-1.5sp"
@@ -374,10 +378,10 @@
                         android:id="@+id/rvMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:visibility="@{ viewModel.zonesSectionVisible ? View.VISIBLE : View.GONE }"
                         app:items="@{viewModel.items}"
                         app:itemViewBinder="@{view.itemViewBinder}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:clickHandler="@{ viewModel }" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
