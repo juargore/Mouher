@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.mall.home.stores.StoresFragment" />
+            type="com.ocean.mouher.ui.mall.home.stores.StoresFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.mall.home.stores.StoresViewModel" />
+            type="com.ocean.mouher.ui.mall.home.stores.StoresViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,7 +39,7 @@
                     android:onClick="@{ viewModel::onBackClicked }"
                     android:padding="20dp"
                     android:src="@drawable/ic_arrow_back"
-                    android:tint="@color/onyxBlack"
+                    app:tint="@color/onyxBlack"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription,RtlHardcoded" />

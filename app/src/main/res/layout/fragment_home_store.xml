@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.store.home.HomeStoreFragment" />
+            type="com.ocean.mouher.ui.store.home.HomeStoreFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.store.home.HomeStoreViewModel" />
+            type="com.ocean.mouher.ui.store.home.HomeStoreViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -168,9 +168,10 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/girl"
+                        android:contentDescription="@null"
                         tools:fromUrl="@{ viewModel.urlImageVideo }" />
 
-                    <com.glass.mouher.utils.CustomVideoView
+                    <com.ocean.mouher.utils.CustomVideoView
                         android:id="@+id/videoStore"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"

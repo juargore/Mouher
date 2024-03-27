@@ -1,26 +1,20 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: 'dependencies.gradle'
-
 buildscript {
-    ext{
-        java_version = 1.8
-        kotlin_version = "1.5.21"
-        nav_version = '2.2.1'
-        camerax_version = '1.0.0-beta03'
-    }
     repositories {
         google()
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://jitpack.io" }
+        //noinspection JcenterRepositoryObsolete
         jcenter()
     }
     dependencies {
         //noinspection AndroidGradlePluginVersion
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:8.2.1'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0'
-        classpath 'com.google.gms:google-services:4.3.8'  // Google Services plugin
-        classpath "io.realm:realm-gradle-plugin:6.1.0" // Realm Database
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version" // AndroidX Navigation
+        //noinspection GradleDependency
+        classpath "io.realm:realm-gradle-plugin:6.1.0"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7"
+        classpath "io.realm:realm-gradle-plugin:10.15.1"
     }
 }
 
@@ -28,17 +22,7 @@ allprojects {
     repositories {
         google()
         maven { url "https://jitpack.io/" }
+        //noinspection JcenterRepositoryObsolete
         jcenter()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name == 'compileDebugSources' || task.name == 'compileReleaseSources') {
-        task.dependsOn lint
-        task.mustRunAfter lint
     }
 }

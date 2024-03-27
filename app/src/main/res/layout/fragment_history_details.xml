@@ -5,7 +5,7 @@
     <data>
         <variable
             name="view"
-            type="com.glass.mouher.ui.history.details.HistoryDetailsFragment" />
+            type="com.ocean.mouher.ui.history.details.HistoryDetailsFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,25 +5,25 @@ apply plugin: 'kotlin-kapt'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.ext.kotlin
-
-    implementation rootProject.ext.rxKotlin
-
-    // dependency to let us use Gson on use cases
-    implementation rootProject.ext.gson
-
-    // This dependencies allows Entities to be parseable by moshy in data module.
-    implementation rootProject.ext.retrofitMoshiConverter
+    //noinspection GradleDependency
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0"
+    implementation "com.google.code.gson:gson:2.10.1"
+    implementation "com.squareup.retrofit2:converter-moshi:2.8.1"
+    //noinspection GradleDependency
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    //noinspection GradleDependency
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22"
     }
 }
 repositories {
@@ -31,11 +31,11 @@ repositories {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = rootProject.ext.jvm_target
+        jvmTarget = 17
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = rootProject.ext.jvm_target
+        jvmTarget = 17
     }
 }

@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsFragment" />
+            type="com.ocean.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsViewModel" />
+            type="com.ocean.mouher.ui.store.home.products.proudctDetail.reviews.ProductReviewsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,8 +35,9 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:onClick="@{ viewModel::onBackClicked }"
                 android:padding="20dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_arrow_back"
-                android:tint="@color/onyxBlack"
+                app:tint="@color/onyxBlack"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

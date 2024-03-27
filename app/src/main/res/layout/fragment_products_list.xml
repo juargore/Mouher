@@ -6,10 +6,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.store.home.products.ProductsFragment" />
+            type="com.ocean.mouher.ui.store.home.products.ProductsFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.store.home.products.ProductsViewModel" />
+            type="com.ocean.mouher.ui.store.home.products.ProductsViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
@@ -40,6 +40,7 @@
                         android:layout_height="0dp"
                         android:scaleType="centerCrop"
                         app:fromUrl="@{ viewModel.urlImageTop }"
+                        android:contentDescription="@null"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -96,9 +97,10 @@
                         android:layout_marginStart="4dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:onClick="@{ viewModel::onBackClicked }"
+                        android:contentDescription="@null"
                         android:padding="20dp"
                         android:src="@drawable/ic_arrow_back"
-                        android:tint="@color/onyxBlack"
+                        app:tint="@color/onyxBlack"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

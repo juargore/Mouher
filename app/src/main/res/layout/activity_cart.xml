@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.cart.CartViewModel" />
+            type="com.ocean.mouher.ui.cart.CartViewModel" />
         <variable
             name="view"
-            type="com.glass.mouher.ui.cart.CartActivity" />
+            type="com.ocean.mouher.ui.cart.CartActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

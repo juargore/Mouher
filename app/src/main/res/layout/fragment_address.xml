@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.profile.address.AddressViewModel" />
+            type="com.ocean.mouher.ui.profile.address.AddressViewModel" />
         <variable
             name="view"
-            type="com.glass.mouher.ui.profile.address.AddressFragment" />
+            type="com.ocean.mouher.ui.profile.address.AddressFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
@@ -79,10 +79,10 @@
                             android:paddingBottom="20dp"
                             android:onClick="@{ viewModel::onBackClicked }"
                             android:src="@drawable/ic_arrow_back"
-                            android:tint="@color/onyxBlack"
+                            app:tint="@color/onyxBlack"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="ContentDescription" />
+                            tools:ignore="ContentDescription,RtlSymmetry" />
 
                         <TextView
                             android:id="@+id/textView4"

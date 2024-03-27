@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.store.home.StoreCategoryItemViewModel" />
+            type="com.ocean.mouher.ui.store.home.StoreCategoryItemViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -30,6 +30,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@null"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <LinearLayout

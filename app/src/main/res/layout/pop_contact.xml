@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:backgroundTint="@color/onyxBlack"
     app:cardCornerRadius="4dp">
 
@@ -26,6 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    android:contentDescription="@null"
                     app:srcCompat="@drawable/ic_close" />
             </RelativeLayout>
 
@@ -39,7 +41,8 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout android:layout_width="match_parent"
@@ -50,76 +53,88 @@
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/imageView16"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
-                    android:tint="@color/bgWhite"
+                    app:tint="@color/bgWhite"
+                    android:contentDescription="@null"
                     app:srcCompat="@drawable/ic_home_stroke" />
+
                 <TextView android:id="@+id/txtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Colombia 1856, Puerto Vallarta"
-                    android:textColor="@color/bgWhite" />
+                    android:textColor="@color/bgWhite"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/imageView17"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
-                    android:tint="@color/bgWhite"
+                    app:tint="@color/bgWhite"
+                    android:contentDescription="@null"
                     app:srcCompat="@drawable/ic_telephone_stroke" />
+
                 <TextView android:id="@+id/txtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Teléfono: 322 121 6060"
+                    tools:text="Teléfono: 322 121 6060"
                     android:textColor="@color/bgWhite" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/imageView18"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
-                    android:tint="@color/bgWhite"
+                    app:tint="@color/bgWhite"
+                    android:contentDescription="@null"
                     app:srcCompat="@drawable/ic_envelope_stroke" />
+
                 <TextView android:id="@+id/txtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="contacto@mouhermarket.com"
+                    tools:text="contacto@mouhermarket.com"
                     android:textColor="@color/bgWhite" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/imageView19"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="@dimen/margin_12dp"
-                    android:tint="@color/bgWhite"
+                    app:tint="@color/bgWhite"
+                    android:contentDescription="@null"
                     app:srcCompat="@drawable/ic_wall_clock_stroke" />
                 <TextView android:id="@+id/txtWorkHours"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="09:00 a 16:00, de lunes a viernes"
+                    tools:text="09:00 a 16:00, de lunes a viernes"
                     android:textColor="@color/bgWhite" />
             </LinearLayout>
         </LinearLayout>
@@ -132,7 +147,8 @@
             android:layout_marginTop="5dp"
             android:text="Información"
             android:textColor="@color/mainPink"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,7 +165,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Términos y Condiciones"
-                    android:textColor="@color/bgWhite" />
+                    android:textColor="@color/bgWhite"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
@@ -162,7 +179,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Aviso de privacidad"
-                    android:textColor="@color/bgWhite" />
+                    android:textColor="@color/bgWhite"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
@@ -175,7 +193,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Políticas de Usuarios Compradores"
-                    android:textColor="@color/bgWhite" />
+                    android:textColor="@color/bgWhite"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"
@@ -188,7 +207,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Políticas de Usuarios Vendedores"
-                    android:textColor="@color/bgWhite" />
+                    android:textColor="@color/bgWhite"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>
 
@@ -206,13 +226,15 @@
                 android:layout_marginBottom="@dimen/margin_12dp"
                 android:text="Somos parte de la familia"
                 android:textColor="@color/lightGrey"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
 
             <ImageView
                 android:id="@+id/imageView28"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:scaleType="fitStart"
+                android:contentDescription="@null"
                 app:srcCompat="@drawable/logo_grupo_crecento" />
         </LinearLayout>
     </LinearLayout>

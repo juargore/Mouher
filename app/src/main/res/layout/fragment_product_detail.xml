@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment" />
+            type="com.ocean.mouher.ui.store.home.products.proudctDetail.ProductDetailFragment" />
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel" />
+            type="com.ocean.mouher.ui.store.home.products.proudctDetail.ProductDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
@@ -33,6 +33,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:scaleType="centerCrop"
+                        android:contentDescription="@null"
                         app:fromUrl="@{ viewModel.urlImageTop }"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -89,12 +90,12 @@
                         android:layout_width="36dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
-                        android:layout_marginLeft="4dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:onClick="@{ viewModel::onBackClicked }"
                         android:padding="20dp"
+                        android:contentDescription="@null"
                         android:src="@drawable/ic_arrow_back"
-                        android:tint="@color/onyxBlack"
+                        app:tint="@color/onyxBlack"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -203,7 +204,8 @@
                             android:gravity="center_vertical"
                             android:includeFontPadding="true"
                             android:text="$  "
-                            android:textColor="@color/mainPink" />
+                            android:textColor="@color/mainPink"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/textView16"
@@ -272,10 +274,11 @@
                             android:layout_width="40dp"
                             android:layout_height="0dp"
                             android:layout_marginTop="1dp"
-                            android:layout_marginRight="1dp"
+                            android:layout_marginEnd="1dp"
                             android:layout_marginBottom="1dp"
+                            android:contentDescription="@null"
                             android:background="@drawable/background_stroke_gray_rectangle_filled"
-                            android:tint="@color/onyxBlack"
+                            app:tint="@color/onyxBlack"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -323,10 +326,11 @@
                             android:layout_width="40dp"
                             android:layout_height="0dp"
                             android:layout_marginTop="1dp"
-                            android:layout_marginRight="1dp"
+                            android:layout_marginEnd="1dp"
                             android:layout_marginBottom="1dp"
+                            android:contentDescription="@null"
                             android:background="@drawable/background_stroke_gray_rectangle_filled"
-                            android:tint="@color/onyxBlack"
+                            app:tint="@color/onyxBlack"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -375,10 +379,11 @@
                             android:layout_width="40dp"
                             android:layout_height="0dp"
                             android:layout_marginTop="1dp"
-                            android:layout_marginRight="1dp"
+                            android:layout_marginEnd="1dp"
                             android:layout_marginBottom="1dp"
+                            android:contentDescription="@null"
                             android:background="@drawable/background_stroke_gray_rectangle_filled"
-                            android:tint="@color/onyxBlack"
+                            app:tint="@color/onyxBlack"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -418,7 +423,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
-                            android:text="Cantidad  " />
+                            android:text="Cantidad  "
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/titleClassificationQty"
@@ -442,10 +448,11 @@
                             android:layout_width="40dp"
                             android:layout_height="0dp"
                             android:layout_marginTop="1dp"
-                            android:layout_marginRight="1dp"
+                            android:layout_marginEnd="1dp"
                             android:layout_marginBottom="1dp"
+                            android:contentDescription="@null"
                             android:background="@drawable/background_stroke_gray_rectangle_filled"
-                            android:tint="@color/onyxBlack"
+                            app:tint="@color/onyxBlack"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -479,7 +486,8 @@
                     android:text="AGREGAR"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:ignore="HardcodedText" />
 
                 <!--<Button
                     android:id="@+id/button7"
@@ -502,7 +510,8 @@
                     android:gravity="center_horizontal"
                     android:includeFontPadding="false"
                     android:paddingStart="@dimen/margin_12dp"
-                    android:text="Información Adicional" />
+                    android:text="Información Adicional"
+                    tools:ignore="HardcodedText,RtlSymmetry" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -515,7 +524,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        tools:ignore="DisableBaselineAlignment">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -560,7 +570,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:visibility="@{viewModel.titleClassification2 == null || viewModel.titleClassification2.empty ? View.GONE : View.VISIBLE }"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        tools:ignore="DisableBaselineAlignment">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -605,7 +616,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:visibility="@{viewModel.titleClassification3 == null || viewModel.titleClassification3.empty ? View.GONE : View.VISIBLE }"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        tools:ignore="DisableBaselineAlignment">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -661,20 +673,22 @@
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center_horizontal"
-                        android:text="Comparte una Reseña" />
+                        android:text="Comparte una Reseña"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/textView61"
                         style="@style/TextView.TitlesH6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_star"
+                        app:drawableStartCompat="@drawable/ic_star"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
                         android:onClick="@{ viewModel::onAddRatingClicked }"
                         android:text="Tu calificación para este producto"
-                        android:textColor="@color/colorPrimaryDark" />
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/textView13"
@@ -682,13 +696,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_12dp"
-                        android:drawableStart="@drawable/ic_open"
+                        app:drawableStartCompat="@drawable/ic_open"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
                         android:onClick="@{ viewModel::onReviewsClicked }"
                         android:text="Ver opiniones de otros compradores"
-                        android:textColor="@color/colorPrimaryDark" />
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout android:layout_width="match_parent"
@@ -705,7 +720,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:gravity="center_horizontal"
-                        android:text="Te podrían interesar" />
+                        android:text="Te podrían interesar"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/textView59"

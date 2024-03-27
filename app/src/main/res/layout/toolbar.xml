@@ -2,6 +2,7 @@
 
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
 
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
@@ -9,7 +10,8 @@
     local:contentInsetLeft="0dp"
     local:contentInsetStart="0dp"
     local:contentInsetStartWithNavigation="0dp"
-    android:background="@color/onyxBlack">
+    android:background="@color/onyxBlack"
+    app:ignore="NamespaceTypo">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
@@ -28,11 +30,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_12dp"
-                android:tint="@color/bgWhite"
+                app:tint="@color/bgWhite"
                 local:layout_constraintBottom_toBottomOf="parent"
                 local:layout_constraintEnd_toStartOf="@+id/imgCartToolbar"
                 local:layout_constraintStart_toStartOf="parent"
                 local:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@null"
                 local:srcCompat="@drawable/ic_search" />
 
             <ImageView
@@ -43,7 +46,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/margin_12dp"
                 android:contentDescription="@string/app_name"
-                android:tint="@color/bgWhite"
+                app:tint="@color/bgWhite"
                 local:layout_constraintBottom_toBottomOf="parent"
                 local:layout_constraintEnd_toEndOf="parent"
                 local:layout_constraintTop_toTopOf="parent"

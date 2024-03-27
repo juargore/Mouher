@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.history.HistoryItemViewModel" />
+            type="com.ocean.mouher.ui.history.HistoryItemViewModel" />
     </data>
 
     <LinearLayout

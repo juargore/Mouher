@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.glass.mouher.ui.cart.CartItemViewModel" />
+            type="com.ocean.mouher.ui.cart.CartItemViewModel" />
     </data>
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout
@@ -44,7 +44,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="7dp"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
+                        android:contentDescription="@null"
                         app:srcCompat="@drawable/ic_delete" />
 
                     <TextView
@@ -185,6 +186,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:scaleType="centerCrop"
+                        android:contentDescription="@null"
                         app:fromUrl="@{ viewModel.imageUrl }"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
